@@ -6,6 +6,7 @@
 - Moved search, floor/zoom controls, route details and secondary tools into bottom sheets; kept three map actions and two scene controls visible.
 - Added the approved BeThereCentral wordmark on Android/iOS and a GPT-generated Android launcher mark derived from it.
 - Added doorway placement/floor tests and updated the PRD, demo, coordinate contract and architecture decision.
+- Installed this update and its launcher logo on the physical Samsung; replacement installation and cold launch succeeded without phone instrumentation.
 
 ## Unreleased — usable Gaussian-splat zoom-out
 

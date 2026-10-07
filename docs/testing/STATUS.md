@@ -144,7 +144,14 @@ Results: 10 viewer tests passed; 26 shared feature tests passed on each of deskt
 
 **iPhone 17 Pro / iOS 26.5 simulator:** visually checked the map/wordmark and actual scene pixels entered from reception, then returned to Map. Set simulated Level 1 lobby, searched Orbit, selected Third floor and opened route details. Default showed Stairs; Step-free changed to Lift. Played the guide through all three explicit floor transitions to arrival; last seen remained Level 1 lobby. More opened the secondary tools and Light panels retained the charcoal environment. These are simulator smoke checks, not an accessibility audit or physical-device performance result.
 
-**Physical Samsung:** unavailable on both existing ADB services during this slice. Installation of this update and its launcher icon is pending reconnection. No phone instrumentation service was installed or run. Earlier physical installs above are older builds.
+**Physical Samsung:** initially disconnected, then reconnected on 8 October. Installed the APK built from `db56135`, including the new launcher logo, on the Samsung SM-F971B through ordinary ADB on port 5038. Replacement installation returned `Success`; explicit cold launch returned `Status: ok` for the app (605 ms), and a subsequent process check found it running. No phone instrumentation service was installed or run. Visible appearance and interaction remain for the user to confirm; simulator screenshots are separate evidence.
+
+```sh
+adb -P 5038 -s <connected-Samsung> install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk
+adb -P 5038 -s <connected-Samsung> shell am force-stop com.betherecentral
+adb -P 5038 -s <connected-Samsung> shell am start -W -n com.betherecentral/com.betherecentral.android.MainActivity
+adb -P 5038 -s <connected-Samsung> shell pidof com.betherecentral
+```
 
 **Browser:** viewer tests and bundle build passed; standalone browser visuals were not rechecked in this slice. The HTML/CSS controls were visually exercised in Android's embedded browser. Reference-server behavior was unchanged and its tests were not rerun in this slice.
 
