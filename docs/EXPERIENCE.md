@@ -14,7 +14,7 @@ The current capture and map describe different places. Explore shows a licensed 
 | --- | --- | --- |
 | Open Explore | Recognise a space worth exploring | Actual scene pixels and usable controls appear within the viewport; a loading state covers preparation |
 | Understand the sample | Know what is being shown | A short scene title and sample label remain visible; provenance and fuller explanation are available in Info |
-| Explore | Predict the effect of a gesture or button | Drag changes the view; zoom has bounded, predictable behaviour; pan has a recoverable result |
+| Explore | Predict the effect of a gesture or button | Drag changes the view; repeated zoom-out moves back far enough to see the capture from outside; zoom-in reverses it within bounds; pan has a recoverable result |
 | Recover | Regain orientation immediately | Overview stops automatic movement and restores the approved camera, including target and zoom |
 | Choose Map demo | Understand the change of place | The initial map card identifies a separate fictional four-floor building; no transition pretends to align it with the capture |
 | Preview a route | Understand start, destination and floor changes | A simulated lobby checkpoint establishes last seen; Orbit on the third floor produces a cross-floor route; Step-free uses the lift |

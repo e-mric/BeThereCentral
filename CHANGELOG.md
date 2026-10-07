@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — usable Gaussian-splat zoom-out
+
+- Fixed zoom-out stopping after roughly one tap at the lens limit: zoom now continues by moving the camera backwards to an exterior view.
+- Kept zoom-in reversible within bounds and Overview as the exact opening reset; all zoom inputs share the same behavior.
+- Made zoom buttons stop automatic Look around, matching other direct camera interactions.
+- Disabled cache reuse for the Android offline viewer so app updates load the current bundled scene controls.
+
 ## Unreleased — project identity and publication
 
 - Added an original GPT-generated BeThereCentral logo with its prompt and provenance.

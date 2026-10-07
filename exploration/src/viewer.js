@@ -66,8 +66,8 @@ function updateCamera() {
 }
 function reset() { if (!ready) return; stopTour(); state = overview(); updateCamera(); }
 $('reset').onclick = reset;
-$('zoom-in').onclick = () => { state = zoom(state, 0.8); updateCamera(); };
-$('zoom-out').onclick = () => { state = zoom(state, 1.25); updateCamera(); };
+$('zoom-in').onclick = () => { stopTour(); state = zoom(state, 0.8); updateCamera(); };
+$('zoom-out').onclick = () => { stopTour(); state = zoom(state, 1.25); updateCamera(); };
 $('tour').onclick = () => { automatic = !automatic; $('tour').setAttribute('aria-pressed', String(automatic)); $('tour').textContent = automatic ? 'Pause' : 'Look around'; };
 function pan(dx, dy) {
     const scale = state.distance * 0.0015;

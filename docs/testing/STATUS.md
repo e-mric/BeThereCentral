@@ -114,6 +114,16 @@ Installed the final illustrated-map/panel-theme debug APK on the connected Samsu
 
 The prototype was pushed successfully to `main` at `https://github.com/e-mric/BeThereCentral` on 8 October 2026 after GitHub CLI authentication. The initial HTTPS attempt had failed because credentials were unavailable. Source publication is complete; this is not an app-store release. The first hosted CI run is tracked on the repository Actions page; local build and test evidence above does not imply a hosted CI pass.
 
+### Gaussian-splat zoom-out fix — 8 October
+
+The reported phone limitation came from lens-only zoom: the opening 75° field of view reached its 85° cap after one minus tap. Zoom now uses a reversible framing value: lens range 35°–85°, followed by backward camera movement up to 35 sample-scene units. Buttons, pinch, wheel and keyboard call the same function. The zoom buttons also stop automatic Look around.
+
+All 10 viewer tests and `npm run build` passed. Android `:androidApp:assembleDebug :composeApp:testAndroidHostTest` passed (24 host tests). The APK viewer asset checksum matches the rebuilt runtime bundle. Android's offline WebView now uses `LOAD_NO_CACHE` so app updates read the bundled viewer rather than an older cached script. Astra reviewed the bounds, inverse behavior, invalid inputs and canonical reset.
+
+A fresh 412×915 browser viewport showed the whole engine-room capture after ten minus taps, enlarged it again after three plus taps, restored the interior with Overview, and stopped Look around after a zoom button. The original local browser tab had reused an older script; a fresh local origin confirmed the rebuilt bundle. The dedicated Pixel 7 / API 36 emulator also visibly reached the exterior view after ten minus taps: [actual capture](../screenshots/android-splat-zoom-out.png). Pinch shares the tested zoom function but was not separately exercised as a physical gesture in this check.
+
+The rebuilt APK was installed successfully on the Samsung SM-F971B through its existing ADB service on port 5038. An initial launch encountered Android's package-update screen; a subsequent explicit cold launch returned `Status: ok` for the app, and its process was present. No phone instrumentation was installed or run; physical rendering still needs user confirmation. The iOS host was not rebuilt or visually rechecked for this change; its next build will consume the updated shared viewer bundle.
+
 ### Commands
 
 ```sh

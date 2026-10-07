@@ -26,7 +26,7 @@ This direction takes inspiration from the spatial focus of the supplied [Matterp
 
 <img src="docs/screenshots/android-splat-explore.png" alt="Android emulator showing the engine-room Gaussian-splat scene and its controls with the compact sample identity and Overview control" width="300" />
 
-*Actual Android emulator capture. Physical Fold appearance and performance require separate confirmation.*
+*Actual Android emulator capture. [Zoomed-out exterior view](docs/screenshots/android-splat-zoom-out.png). Physical Fold appearance and performance require separate confirmation.*
 
 <img src="docs/screenshots/ios-coworking-light.png" alt="iPhone simulator showing the furnished fictional coworking map, light panels and charcoal environment" width="300" />
 
@@ -38,7 +38,7 @@ This direction takes inspiration from the spatial focus of the supplied [Matterp
 
 ## What you can try
 
-- Open **Explore** on Android or iOS to move around the separately identified engine-room splat. Orbit, pan, zoom, return to Overview or use Look around; the sample loads from the app bundle without a network service.
+- Open **Explore** on Android or iOS to move around the separately identified engine-room splat. Orbit, pan, zoom out to see the capture from outside, return to Overview or use Look around; the sample loads from the app bundle without a network service.
 - Choose **Map demo** to open the separate fictional building without losing the current route, checkpoint observation, hunt progress or local sharing grant.
 - Explore four fictional floors using one illustrated coworking footprint, with company suites, meeting rooms, phone booths, café, lounge and reception; search or tap a room to select a destination. Orbit, Moss, Spark and North are fictional tenants, not a BeCentral directory.
 - Pan and zoom the map. Preview calculated routes, inspect floor transitions, and compare stairs/lift and step-free choices.
