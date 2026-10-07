@@ -106,6 +106,10 @@ Before publication, all 11 reference-server tests passed again, and `scripts/che
 
 Earlier screenshots and checks above describe earlier prototype slices. The README now uses current illustrated-map captures. Room Studio is deferred to the next milestone. The generated logo is a separate transparent raster concept, documented in `docs/brand/README.md`.
 
+### Publication status — 8 October
+
+The prototype is committed locally on `main`, with origin set to `https://github.com/e-mric/BeThereCentral.git`. The first HTTPS push failed because Git could not obtain a GitHub username/credential in this environment. No remote commit or hosted CI pass is claimed. Authentication remains the publication prerequisite.
+
 ### Commands
 
 ```sh
