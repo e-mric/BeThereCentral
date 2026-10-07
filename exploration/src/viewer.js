@@ -33,7 +33,7 @@ function fail(message, diagnostic = message) {
     $('status').hidden = false;
     $('status').querySelector('.spinner').hidden = true;
     $('status').querySelector('h1').textContent = 'This scene couldn’t open';
-    statusDetail.textContent = `${message} If you opened this from BeThereCentral, return to its Map tab to continue.`;
+    statusDetail.textContent = `${message} If you opened this from BeThereCentral, use ‹ Map to continue.`;
     $('status').dataset.state = 'error';
     document.body.dataset.state = 'error';
     $('retry').hidden = false;
@@ -50,8 +50,15 @@ function sanitize(message) {
 }
 const timeout = setTimeout(() => fail('The viewer took too long to load.'), 45000);
 $('retry').onclick = () => location.reload();
+$('view-controls').onclick = () => { stopTour(); $('view-options').showModal(); };
+$('close-view').onclick = () => $('view-options').close();
+$('view-options').addEventListener('click', event => { if (event.target === $('view-options')) {
+    const rect = $('view-options').getBoundingClientRect();
+    if (event.clientY < rect.top || event.clientX < rect.left || event.clientX > rect.right) $('view-options').close();
+} });
 $('about').onclick = () => {
     stopTour();
+    $('view-options').close();
     $('metrics').textContent = firstFrameMs == null ? 'Scene not rendered yet.' : `First scene frame: ${(firstFrameMs / 1000).toFixed(2)} s · Recent rendering: ${fps} fps · 10.58 MB scene. Browser/simulator results do not predict your phone’s performance.`;
     $('details').showModal();
 };
@@ -68,7 +75,7 @@ function reset() { if (!ready) return; stopTour(); state = overview(); updateCam
 $('reset').onclick = reset;
 $('zoom-in').onclick = () => { stopTour(); state = zoom(state, 0.8); updateCamera(); };
 $('zoom-out').onclick = () => { stopTour(); state = zoom(state, 1.25); updateCamera(); };
-$('tour').onclick = () => { automatic = !automatic; $('tour').setAttribute('aria-pressed', String(automatic)); $('tour').textContent = automatic ? 'Pause' : 'Look around'; };
+$('tour').onclick = () => { $('view-options').close(); automatic = !automatic; $('tour').setAttribute('aria-pressed', String(automatic)); $('tour').textContent = automatic ? 'Pause' : 'Look around'; };
 function pan(dx, dy) {
     const scale = state.distance * 0.0015;
     const right = camera.right, up = camera.up;

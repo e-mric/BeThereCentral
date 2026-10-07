@@ -5,9 +5,9 @@
 Original project identity generated on 8 October 2026 with the built-in GPT image tool. The refined B-shaped mark suggests two rooms and a doorway, with a small orange waypoint. It is an independent project identity, not the official BeCentral logo or an endorsement.
 
 - `betherecentral-logo.png`: blue/orange transparent PNG for light surfaces. SHA-256: `48494be014ea574c18ada8773b266219f4c946a851ea3af3dcc89fbccae80885`.
-- `betherecentral-logo-dark.png`: warm-white/orange logo presentation on opaque charcoal, used in the README.
+- `betherecentral-logo-dark.png`: warm-white/orange logo presentation on opaque charcoal, used in the README and shared in-app header.
 
-These are raster concepts. A production vector/icon set remains follow-up work; the app currently retains its accessible text title. Project-created artwork is offered under the repository MIT license to the extent applicable; no trademark clearance is asserted. The first, character-based draft and an unsuccessful transparent white conversion were superseded, not bundled.
+These are raster concepts. A production vector set remains follow-up work. The shared app header renders the approved wordmark with a BeThereCentral accessibility label; Android uses the generated B mark as an adaptive launcher icon. Project-created artwork is offered under the repository MIT license to the extent applicable; no trademark clearance is asserted. The first, character-based draft and an unsuccessful transparent white conversion were superseded, not bundled.
 
 ## Refined logo prompt
 
@@ -30,4 +30,12 @@ Create a clean presentation of the supplied BeThereCentral logo on a SOLID unifo
 Preserve the exact B-shaped architectural room symbol and full exact wordmark "BeThereCentral", layout, typography, and proportions from the reference.
 Render all originally blue shapes and letters in uniform warm white #FFF7F2, with the small waypoint square in vivid orange #F74B23.
 This must be immaculate solid flat graphic artwork: completely filled letters with smooth, crisp edges and clear open counters. No distressed texture, missing pixels, speckles, glow, shadow, strokes, gradient, surface mockup or transparency. One centered horizontal logo only with generous margin, clean vector-like geometry on opaque charcoal.
+```
+
+## Android launcher mark
+
+Generated with the built-in GPT image tool on 8 October 2026 using the approved dark logo as reference. The opaque square is bundled unchanged at `androidApp/src/main/res/drawable-nodpi/launcher_mark.png`; Android applies its launcher mask. SHA-256: `ffbcc4dc8f63917e48d0d3e9dca8a87b9a8758abbe35c07c34dd7885e2b74842`.
+
+```text
+Create an Android launcher icon from this approved BeThereCentral logo. Preserve the exact white B-shaped architectural room symbol and small orange square waypoint, remove all wordmark lettering. One centered large B symbol on a perfectly uniform solid charcoal #0C1114 square background. Crisp clean flat graphic, smooth edges, no texture, shadows, bevel, glow or extra elements. Keep the B and orange waypoint comfortably inside the central 60 percent of the square so Android adaptive icon masking cannot crop them. White #FFF7F2 and orange #F74B23, no rounded outer border because the operating system supplies the mask. Square 1:1 composition.
 ```

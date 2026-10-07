@@ -6,6 +6,15 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -109,6 +118,9 @@ fun FloorMap(
     topInset: Dp = 0.dp,
     bottomInset: Dp = 0.dp,
     rightInset: Dp = 0.dp,
+    visible: Boolean = true,
+    sceneDoorway: Point2D? = null,
+    onSceneDoorwayClick: () -> Unit = {},
 ) {
     var size by remember { mutableStateOf(IntSize.Zero) }
     var zoom by remember { mutableFloatStateOf(1f) }
@@ -186,7 +198,10 @@ fun FloorMap(
         previousZoomCommand = zoomCommand
     }
 
-    Box(Modifier.fillMaxSize().background(mapSurroundColor)) {
+    // Retain the viewport but remove drawing and gesture handlers while the scene covers it.
+    if (!visible) return
+
+    Box(Modifier.fillMaxSize().background(mapSurroundColor).clipToBounds()) {
         Canvas(
             Modifier.fillMaxSize().onSizeChanged { size = it }
                 .pointerInput(floor.id, rooms, zoom, pan, size) {
@@ -282,6 +297,21 @@ fun FloorMap(
                 founderAtlas, projection.screen(guide.point), guideWalkingFrame,
                 facingLeft = guide.heading == GuideHeading.LEFT,
             )
+        }
+        sceneDoorway?.let { point ->
+            val anchor = MapProjection(size, floor, zoom, pan, topInsetPx, bottomInsetPx, rightInsetPx).screen(point)
+            val halfWidth = with(density) { 34.dp.toPx() }
+            val halfHeight = with(density) { 24.dp.toPx() }
+            Surface(onClick = onSceneDoorwayClick,
+                modifier = Modifier.offset { IntOffset((anchor.x - halfWidth).roundToInt(), (anchor.y - halfHeight).roundToInt()) }
+                    .size(width = 68.dp, height = 48.dp)
+                    .semantics { contentDescription = "Reception doorway: enter unrelated 3D sample" },
+                shape = RoundedCornerShape(16.dp), color = Color(0xFF171978),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF74B23)), shadowElevation = 4.dp) {
+                Box(contentAlignment = Alignment.Center) {
+                    Text("3D sample ↗", color = Color(0xFFFFF8F4), fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+                }
+            }
         }
     }
 }

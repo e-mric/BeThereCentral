@@ -51,7 +51,7 @@ actual fun ExploreScene(modifier: Modifier) {
                 if (htmlUrl != null && sceneDirectory != null) {
                     loadFileURL(htmlUrl, allowingReadAccessToURL = sceneDirectory)
                 } else {
-                    loadHTMLString("<html><body style='background:#0c1114;color:#f5f2eb;font:16px system-ui;padding:24px'><h1>Sample scene unavailable</h1><p>Use Map demo to continue.</p></body></html>", baseURL = null)
+                    loadHTMLString("<html><body style='background:#0c1114;color:#f5f2eb;font:16px system-ui;padding:24px'><h1>Sample scene unavailable</h1><p>Use ‹ Map to continue.</p></body></html>", baseURL = null)
                 }
             }
         },

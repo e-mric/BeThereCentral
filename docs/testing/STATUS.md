@@ -124,6 +124,32 @@ A fresh 412×915 browser viewport showed the whole engine-room capture after ten
 
 The rebuilt APK was installed successfully on the Samsung SM-F971B through its existing ADB service on port 5038. An initial launch encountered Android's package-update screen; a subsequent explicit cold launch returned `Status: ok` for the app, and its process was present. No phone instrumentation was installed or run; physical rendering still needs user confirmation. The iOS host was not rebuilt or visually rechecked for this change; its next build will consume the updated shared viewer bundle.
 
+### Pixel-art home, reception doorway and sheets — 8 October
+
+User problem: persistent tabs, floor buttons, zoom controls and a large introductory card competed with the space. The experiment opens the pixel-art world, with Rooms / Set start / More actions, a floor chip and a compact journey card. Ground-floor reception launches an explicitly unrelated 3D sample. This is not a surveyed connection to the capture.
+
+Commands run with the local Android SDK supplied through `ANDROID_HOME`:
+
+```sh
+npm test --prefix exploration
+npm run build --prefix exploration
+./gradlew :androidApp:assembleDebug :composeApp:desktopTest :composeApp:testAndroidHostTest :composeApp:linkDebugFrameworkIosSimulatorArm64
+python3 scripts/check_android_compose.py
+xcodebuild -project iosApp/BeThereCentral.xcodeproj -scheme BeThereCentral -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,id=CBB251C4-BDA9-415D-9D6B-DF10DB661509' CODE_SIGNING_ALLOWED=NO build
+```
+
+Results: 10 viewer tests passed; 26 shared feature tests passed on each of desktop JVM and Android host (including two new doorway placement/floor tests). Android APK and iOS simulator framework/host builds succeeded. The Android Activity signature check passed. Packaged APK `assets/index.html`, `viewer.js` and `style.css` match the rebuilt runtime bundle. An initial build without the local SDK environment failed; supplying it resolved the build. An initial packaging check assumed a nested asset directory and was corrected to the actual `assets/` entries.
+
+**Dedicated Android emulator (Pixel 7 / API 36, emulator-5556):** visibly checked the map opening, logo, reception entry, real rendered engine-room scene, View controls sheet and About attribution. Used the sheet's zoom-out button, returned to Map, changed map zoom and entered/returned again: the reception marker retained the changed projected position. Switching to the first floor removed the doorway. Native return-to-map remained available while scene information was open. Visually checked the new B launcher icon in the app drawer. Screenshots: [map home](../screenshots/android-minimal-map.png), [scene](../screenshots/android-minimal-explore.png), [launcher](../screenshots/android-launcher-logo.png). The scene identity was given an explicit line height after visual inspection caught its second line being clipped.
+
+**iPhone 17 Pro / iOS 26.5 simulator:** visually checked the map/wordmark and actual scene pixels entered from reception, then returned to Map. Set simulated Level 1 lobby, searched Orbit, selected Third floor and opened route details. Default showed Stairs; Step-free changed to Lift. Played the guide through all three explicit floor transitions to arrival; last seen remained Level 1 lobby. More opened the secondary tools and Light panels retained the charcoal environment. These are simulator smoke checks, not an accessibility audit or physical-device performance result.
+
+**Physical Samsung:** unavailable on both existing ADB services during this slice. Installation of this update and its launcher icon is pending reconnection. No phone instrumentation service was installed or run. Earlier physical installs above are older builds.
+
+**Browser:** viewer tests and bundle build passed; standalone browser visuals were not rechecked in this slice. The HTML/CSS controls were visually exercised in Android's embedded browser. Reference-server behavior was unchanged and its tests were not rerun in this slice.
+
+Astra/Sol/Luna delegation was attempted but the delegated agents hit usage limits before editing. The parent completed implementation and review directly; this slice does not claim an independent Astra review. Remaining follow-up includes physical-phone confirmation, full screen-reader/large-text checks, gesture testing on hardware and Android system-back navigation from the secondary scene (the visible native Map button is the verified return path).
+
 ### Commands
 
 ```sh

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — pixel-art home and quieter controls
+
+- Replaced Explore/Map tabs with a ground-floor reception doorway into the clearly unrelated 3D sample; retained map viewport and feature state on return.
+- Moved search, floor/zoom controls, route details and secondary tools into bottom sheets; kept three map actions and two scene controls visible.
+- Added the approved BeThereCentral wordmark on Android/iOS and a GPT-generated Android launcher mark derived from it.
+- Added doorway placement/floor tests and updated the PRD, demo, coordinate contract and architecture decision.
+
 ## Unreleased — usable Gaussian-splat zoom-out
 
 - Fixed zoom-out stopping after roughly one tap at the lens limit: zoom now continues by moving the camera backwards to an exterior view.

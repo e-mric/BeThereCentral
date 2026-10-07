@@ -2,6 +2,8 @@
 
 Status: accepted; first sample exploration slice implemented · 7 October 2026
 
+Entry update: [ADR 0005](0005-reception-sample-doorway.md) replaces tabs and the opening scene with a pixel-art home and a labelled reception sample doorway. Gaussian exploration remains core.
+
 ## Implementation update
 
 The first slice now bundles PlayCanvas 2.23.1 and an attributed CC BY 4.0 sample of the Tugboat Bat engine room (650,000 splats after reduction). Android hosts the offline viewer through WebViewAssetLoader; iOS uses WKWebView restricted to local bundled files. The real scene has rendered in the browser, iOS simulator and a dedicated Android emulator. Physical Fold appearance still needs user confirmation. A focused demo follow-up introduces a curated Overview, bounded lens-and-distance zoom and a clearly separate Map demo; [experience standards](../EXPERIENCE.md) define its acceptance checks. This explicitly unrelated sample contains no room-map overlay or positioning integration. The desktop browser demo is separately runnable. See [verification](../testing/STATUS.md) and [viewer/asset provenance](../../exploration/README.md).

@@ -1,5 +1,10 @@
 package com.betherecentral
 
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import org.jetbrains.compose.resources.painterResource
+import com.betherecentral.resources.Res
+import com.betherecentral.resources.brand_logo
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,6 +41,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.betherecentral.features.exploration.data.SampleDoorway
 import com.betherecentral.features.building.data.DemoBuilding
 import com.betherecentral.features.building.domain.Checkpoint
 import com.betherecentral.features.building.domain.Floor
@@ -98,7 +104,7 @@ private val Amber: Color @Composable get() = LocalAppPalette.current.amber
 private val QrItem: Color @Composable get() = LocalAppPalette.current.qrItem
 private val Shape = RoundedCornerShape(24.dp)
 
-private enum class PanelKind { QR, HUNT, PEOPLE, ABOUT }
+private enum class PanelKind { QR, HUNT, PEOPLE, ABOUT, MORE, SEARCH, FLOOR, JOURNEY }
 private enum class MainScene { EXPLORE, MAP }
 private enum class MapEnvironment { DARK, LIGHT }
 
@@ -116,7 +122,6 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
     var preference by remember { mutableStateOf(RoutePreference.DEFAULT) }
     var query by remember { mutableStateOf("") }
     var searchOpen by remember { mutableStateOf(false) }
-    var menuOpen by remember { mutableStateOf(false) }
     var panel by remember { mutableStateOf<PanelKind?>(null) }
     var zoomCommand by remember { mutableIntStateOf(0) }
     var overviewCommand by remember { mutableIntStateOf(0) }
@@ -124,7 +129,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
     var shareGrant by remember { mutableStateOf<ShareGrantState?>(null) }
     var hunt by remember { mutableStateOf(CooperativeHunt()) }
     var huntPlayer by remember { mutableStateOf(hunt.players.first()) }
-    var mainScene by remember { mutableStateOf(if (supportsExploreScene) MainScene.EXPLORE else MainScene.MAP) }
+    var mainScene by remember { mutableStateOf(MainScene.MAP) }
     var mapEnvironment by remember { mutableStateOf(MapEnvironment.DARK) }
     val lightMapVisible = mainScene == MainScene.MAP && mapEnvironment == MapEnvironment.LIGHT
     val current = checkpoints.firstOrNull { it.id == checkpointId }
@@ -135,13 +140,10 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
     val guideTimeline = remember(route) { route?.let(GuideTimeline::fromRoute) }
     var guideProgress by remember(route, checkpointRevision) { mutableStateOf<GuideProgress?>(null) }
     val guideFrame = guideProgress?.let { guideTimeline?.frame(it) }
-    var journeyCardHeightPx by remember { mutableIntStateOf(0) }
-    val density = LocalDensity.current
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
     val windowFocused = LocalWindowInfo.current.isWindowFocused
-    val layoutDirection = LocalLayoutDirection.current
 
     // The map surrounds and the Explore scene stay charcoal in both interface modes.
     LaunchedEffect(Unit) { onAppearanceChanged(false) }
@@ -149,6 +151,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
     fun acceptPayload(payload: String): Boolean {
         val now = kotlin.time.Clock.System.now()
         val observation = tracker.acceptPayload(payload, now.toEpochMilliseconds()) ?: return false
+        mainScene = MainScene.MAP
         checkpointId = observation.checkpoint.id
         checkpointRevision++
         floorId = observation.checkpoint.floorId
@@ -161,15 +164,23 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
         query = room.name
         floorId = current?.floorId ?: room.floorId
         searchOpen = false
+        panel = null
         focusManager.clearFocus()
         keyboard?.hide()
         overviewCommand++
     }
+    fun openSampleScene() {
+        guideProgress = guideProgress?.withPaused(true)
+        panel = null
+        searchOpen = false
+        focusManager.clearFocus()
+        keyboard?.hide()
+        mainScene = MainScene.EXPLORE
+    }
     fun openSearch() {
         guideProgress = guideProgress?.withPaused(true)
         searchOpen = true
-        focusRequester.requestFocus()
-        keyboard?.show()
+        panel = PanelKind.SEARCH
     }
     fun showPanel(kind: PanelKind) {
         guideProgress = guideProgress?.withPaused(true)
@@ -183,9 +194,9 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
         if (!windowFocused) guideProgress = guideProgress?.withPaused(true)
     }
     // Frame time is capped, so a resumed preview never catches up while hidden.
-    LaunchedEffect(guideTimeline, mainScene, panel, searchOpen, menuOpen, windowFocused, guideProgress?.paused, guideFrame?.phase) {
+    LaunchedEffect(guideTimeline, mainScene, panel, searchOpen, windowFocused, guideProgress?.paused, guideFrame?.phase) {
         val timeline = guideTimeline ?: return@LaunchedEffect
-        if (!windowFocused || mainScene != MainScene.MAP || panel != null || searchOpen || menuOpen ||
+        if (!windowFocused || mainScene != MainScene.MAP || panel != null || searchOpen ||
             guideProgress == null || guideProgress?.paused == true || guideFrame?.phase != GuidePhase.MOVING) return@LaunchedEffect
         var previousFrame = withFrameNanos { it }
         var elapsed = 0.0
@@ -200,197 +211,213 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
         }
     }
 
+    fun playGuide(replay: Boolean = false) {
+        val timeline = guideTimeline ?: return
+        val next = if (replay) timeline.initial() else guideProgress?.withPaused(false) ?: timeline.initial()
+        guideProgress = next
+        floorId = timeline.frame(next).floorId
+        panel = null
+        searchOpen = false
+        overviewCommand++
+    }
+    fun continueGuide() {
+        val timeline = guideTimeline ?: return
+        val progress = guideProgress ?: return
+        val next = timeline.continueFloor(progress).withPaused(false)
+        guideProgress = next
+        floorId = timeline.frame(next).floorId
+        panel = null
+        overviewCommand++
+    }
+
     MaterialTheme(colorScheme = if (lightMapVisible) lightScheme else darkScheme) {
       CompositionLocalProvider(LocalAppPalette provides if (lightMapVisible) lightPalette else darkPalette) {
-        BoxWithConstraints(Modifier.fillMaxSize().background(DarkInk).semantics {
-            contentDescription = if (mainScene == MainScene.EXPLORE && supportsExploreScene) "Separate sample Explore scene" else "Central House sample 2D floor map"
-        }) {
+        BoxWithConstraints(Modifier.fillMaxSize().background(DarkInk)) {
             val safeInsets = WindowInsets.safeDrawing.asPaddingValues()
             val safeTop = safeInsets.calculateTopPadding()
             val safeBottom = safeInsets.calculateBottomPadding()
-            val startInset = safeInsets.calculateStartPadding(layoutDirection) + if (maxWidth < 600.dp) 14.dp else 24.dp
-            val endInset = safeInsets.calculateEndPadding(layoutDirection) + if (maxWidth < 600.dp) 14.dp else 24.dp
-            val compact = maxWidth < 600.dp
-            val searchWidth = if (compact) maxWidth - startInset - endInset - 58.dp else 370.dp
-            val cardWidth = if (compact) maxWidth - startInset - endInset else 430.dp
+            val side = 16.dp
+            val navHeight = 72.dp
             val floor = floors.first { it.id == floorId }
-            val cardHeight = with(density) { journeyCardHeightPx.toDp() }
-            val reservedBottom = if (compact) maxOf(160.dp, cardHeight + 24.dp) else 20.dp
+            val sheetWidth = minOf(maxWidth - 40.dp, 560.dp)
 
+            // Keep viewport state alive while the separate sample viewer is open.
+            FloorMap(
+                    floor = floor, rooms = rooms.filter { it.floorId == floorId },
+                    checkpoints = checkpoints.filter { it.floorId == floorId }, lastSeen = current,
+                    destination = destination, route = route, guide = guideFrame,
+                    guideWalkingFrame = if (guideFrame?.phase == GuidePhase.MOVING && guideProgress?.paused != true)
+                        (((guideProgress?.distanceOnLegMeters ?: 0.0) * 1.5).toInt() and 1) else -1,
+                    onRoomClick = ::selectRoom, onMapTap = { focusManager.clearFocus() },
+                    zoomCommand = zoomCommand, overviewCommand = overviewCommand, fitFloorCommand = fitFloorCommand,
+                    topInset = safeTop + 112.dp, bottomInset = safeBottom + navHeight + 98.dp,
+                    rightInset = 0.dp, mapSurroundColor = DarkInk,
+                    visible = mainScene == MainScene.MAP,
+                    sceneDoorway = if (supportsExploreScene) SampleDoorway.positionOn(floorId, rooms) else null,
+                    onSceneDoorwayClick = ::openSampleScene,
+                )
             if (mainScene == MainScene.EXPLORE && supportsExploreScene) {
                 ExploreScene(Modifier.fillMaxSize())
-                SceneTabs(selected = mainScene, onSelect = { selected ->
-                    if (selected != MainScene.MAP) guideProgress = guideProgress?.withPaused(true)
-                    mainScene = selected
-                }, modifier = Modifier.align(Alignment.TopStart).padding(start = startInset, top = safeTop + 8.dp))
-                Surface(modifier = Modifier.align(Alignment.TopStart).padding(start = startInset, top = safeTop + 66.dp),
-                    shape = RoundedCornerShape(20.dp), color = Panel, border = BorderStroke(1.dp, Edge)) {
-                    Text("BeThereCentral · SAMPLE SCENE", Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
-                        color = Peach, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.7.sp)
-                }
             } else {
-
-            FloorMap(
-                floor = floor,
-                rooms = rooms.filter { it.floorId == floorId },
-                checkpoints = checkpoints.filter { it.floorId == floorId },
-                lastSeen = current,
-                destination = destination,
-                route = route,
-                guide = guideFrame,
-                guideWalkingFrame = if (guideFrame?.phase == GuidePhase.MOVING && guideProgress?.paused != true)
-                    (((guideProgress?.distanceOnLegMeters ?: 0.0) * 1.5).toInt() and 1) else -1,
-                onRoomClick = ::selectRoom,
-                onMapTap = { searchOpen = false; focusManager.clearFocus(); keyboard?.hide() },
-                zoomCommand = zoomCommand,
-                overviewCommand = overviewCommand,
-                fitFloorCommand = fitFloorCommand,
-                topInset = safeTop + if (compact) 184.dp else 155.dp,
-                bottomInset = safeBottom + reservedBottom,
-                rightInset = endInset + if (compact) 54.dp else 40.dp,
-                mapSurroundColor = DarkInk,
-            )
-
-            Column(
-                Modifier.align(Alignment.TopStart).padding(start = startInset, top = safeTop + if (compact) 14.dp else 22.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                    Text("BeThereCentral", color = WarmWhite, fontWeight = FontWeight.Black, letterSpacing = 0.2.sp, fontSize = 13.sp)
-                    Surface(modifier = Modifier.clickable { showPanel(PanelKind.ABOUT) }, shape = RoundedCornerShape(50), color = Panel, border = BorderStroke(1.dp, Edge)) {
-                        Text("SAMPLE · 2D", Modifier.padding(horizontal = 9.dp, vertical = 5.dp), color = AccentText, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.7.sp)
+                Surface(onClick = { showPanel(PanelKind.FLOOR) },
+                    modifier = Modifier.align(Alignment.TopEnd).padding(end = side, top = safeTop + 54.dp).heightIn(min = 48.dp),
+                    color = Panel, shape = RoundedCornerShape(24.dp)) {
+                    Box(Modifier.padding(horizontal = 16.dp), contentAlignment = Alignment.Center) {
+                        Text("${floor.name} ⌄", color = Bright, fontSize = 13.sp)
                     }
                 }
-                SceneTabs(selected = mainScene, onSelect = { selected ->
-                    if (selected != MainScene.MAP) guideProgress = guideProgress?.withPaused(true)
-                    mainScene = selected
-                })
-                SearchBox(
-                    width = searchWidth, query = query, onQuery = { guideProgress = guideProgress?.withPaused(true); query = it; searchOpen = true },
-                    focusRequester = focusRequester,
-                    onFocus = { guideProgress = guideProgress?.withPaused(true); searchOpen = true },
-                    onDone = { searchOpen = false; focusManager.clearFocus(); keyboard?.hide() },
-                    onClear = { query = ""; destinationId = null; searchOpen = false; focusManager.clearFocus(); keyboard?.hide(); overviewCommand++ },
-                )
-                if (searchOpen && query.isNotBlank()) {
-                    val term = query.trim()
-                    val matches = rooms.filter { it.name.contains(term, ignoreCase = true) || it.id.contains(term, ignoreCase = true) }.take(8)
-                    SearchResults(searchWidth, matches, onSelect = ::selectRoom)
-                }
-            }
-
-            Box(Modifier.align(Alignment.TopEnd).padding(end = endInset, top = safeTop + if (compact) 36.dp else 43.dp)) {
-                Control("More options", "⋯") { guideProgress = guideProgress?.withPaused(true); menuOpen = true }
-                DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }, containerColor = PanelSolid) {
-                    DropdownMenuItem(text = { Text("Map panels", fontWeight = FontWeight.Bold, color = Bright) },
-                        onClick = {}, enabled = false)
-                    listOf(MapEnvironment.DARK to "Dark panels", MapEnvironment.LIGHT to "Light panels").forEach { (choice, label) ->
-                        DropdownMenuItem(
-                            text = { Text(label, color = Bright) },
-                            leadingIcon = { Text(if (mapEnvironment == choice) "●" else "○", color = if (mapEnvironment == choice) Orange else Muted) },
-                            onClick = { mapEnvironment = choice; menuOpen = false },
-                        )
-                    }
-                    HorizontalDivider(color = Edge)
-                    listOf(
-                        PanelKind.QR to "Set QR start",
-                        PanelKind.HUNT to "QR hunt",
-                        PanelKind.PEOPLE to "People sharing demo",
-                        PanelKind.ABOUT to "About this map",
-                    ).forEach { (kind, title) ->
-                        DropdownMenuItem(text = { Text(title) }, onClick = { menuOpen = false; showPanel(kind) })
-                    }
-                }
-            }
-
-            if (!searchOpen) {
-                Column(
-                    Modifier.align(Alignment.CenterEnd).padding(end = endInset),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    floors.forEachIndexed { index, candidate ->
-                        Control("Show ${candidate.name}", if (index == 0) "G" else "$index", active = floorId == candidate.id) {
-                            guideProgress = guideProgress?.withPaused(true)
-                            floorId = candidate.id
-                            overviewCommand++
+                Surface(onClick = { showPanel(PanelKind.JOURNEY) },
+                    modifier = Modifier.align(Alignment.BottomCenter).padding(start = side, end = side,
+                        bottom = safeBottom + navHeight + 12.dp).widthIn(max = 560.dp).fillMaxWidth(),
+                    shape = RoundedCornerShape(24.dp), color = Panel) {
+                    Row(Modifier.padding(horizontal = 16.dp, vertical = 10.dp).heightIn(min = 48.dp),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text(destination?.name ?: if (current == null) "Choose a sample start" else "Where to?",
+                                color = Bright, fontWeight = FontWeight.SemiBold, fontSize = 14.sp,
+                                maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text(if (current != null) "Last seen · ${current.name}" else "Fictional map · Four floors",
+                                color = Muted, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            if (guideFrame != null) Text(when(guideFrame.phase) {
+                                GuidePhase.MOVING -> if (guideProgress?.paused == true) "Guide preview paused" else "Guide preview walking"
+                                GuidePhase.WAITING_FOR_FLOOR -> "${if (guideFrame.transitionMode == RouteMode.LIFT) "Lift" else "Stairs"} to ${floors.firstOrNull { it.id == guideFrame.targetFloorId }?.name ?: "next floor"} · Preview"
+                                GuidePhase.ARRIVED -> "Guide preview · Arrived"
+                            }, color = AccentText, fontSize = 10.sp)
                         }
-                    }
-                }
-
-                if (compact) {
-                    Row(Modifier.align(Alignment.BottomStart).padding(start = startInset, bottom = safeBottom + maxOf(225.dp, cardHeight + 64.dp)), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Control("Zoom in", "+") { zoomCommand++ }
-                        Control("Zoom out", "−") { zoomCommand-- }
-                        Control("Fit route and floor", "⌗") { if (route == null) fitFloorCommand++ else overviewCommand++ }
-                    }
-                } else {
-                    Column(Modifier.align(Alignment.BottomEnd).padding(end = endInset, bottom = safeBottom + 24.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Control("Zoom in", "+") { zoomCommand++ }
-                        Control("Zoom out", "−") { zoomCommand-- }
-                        Control("Fit route and floor", "⌗") { if (route == null) fitFloorCommand++ else overviewCommand++ }
+                        if (guideFrame?.phase == GuidePhase.WAITING_FOR_FLOOR) {
+                            TextButton(onClick = ::continueGuide) { Text("Continue") }
+                        } else if (guideFrame?.phase == GuidePhase.MOVING && guideProgress?.paused == false) {
+                            TextButton(onClick = { guideProgress = guideProgress?.withPaused(true) }) { Text("Pause") }
+                        } else Text("⌃", color = AccentText, fontSize = 22.sp)
                     }
                 }
             }
-
-            JourneyCard(
-                modifier = Modifier.align(Alignment.BottomStart).padding(start = startInset, bottom = safeBottom + if (compact) 14.dp else 24.dp).width(cardWidth)
-                    .onSizeChanged { journeyCardHeightPx = it.height },
-                current = current, observedAt = observedAt, destination = destination, route = route,
-                guideFrame = guideFrame, guidePaused = guideProgress?.paused == true, floors = floors,
-                preference = preference, onPreference = { preference = it; overviewCommand++ },
-                onSetStart = { showPanel(PanelKind.QR) }, onFind = ::openSearch,
-                onClear = { destinationId = null; query = ""; overviewCommand++ },
-                onGuidePlay = {
-                    val timeline = guideTimeline
-                    if (timeline != null) {
-                        val next = guideProgress?.withPaused(false) ?: timeline.initial()
-                        guideProgress = next
-                        floorId = timeline.frame(next).floorId
-                        overviewCommand++
+            Row(Modifier.align(Alignment.TopStart).padding(start = side, end = side, top = safeTop + 4.dp)
+                .fillMaxWidth().height(44.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (mainScene == MainScene.EXPLORE) {
+                    TextButton(onClick = { mainScene = MainScene.MAP }, contentPadding = PaddingValues(horizontal = 8.dp),
+                        colors = ButtonDefaults.textButtonColors(contentColor = WarmWhite)) { Text("‹ Map") }
+                }
+                Image(painterResource(Res.drawable.brand_logo), "BeThereCentral",
+                    modifier = Modifier.width(if (mainScene == MainScene.EXPLORE) 150.dp else 182.dp).height(40.dp), contentScale = ContentScale.Crop)
+                Spacer(Modifier.weight(1f))
+                Surface(color = DarkInk, shape = RoundedCornerShape(16.dp)) {
+                    Text(if (mainScene == MainScene.EXPLORE) "ENGINE ROOM\n3D SAMPLE" else "SAMPLE · 2D",
+                        Modifier.padding(horizontal = 8.dp, vertical = 6.dp), color = Peach,
+                        fontSize = 9.sp, lineHeight = 12.sp, maxLines = 2, fontWeight = FontWeight.SemiBold)
+                }
+            }
+            if (mainScene == MainScene.MAP) Surface(Modifier.align(Alignment.BottomCenter).fillMaxWidth(), color = DarkInk) {
+                NavigationBar(Modifier.padding(bottom = safeBottom).height(navHeight), containerColor = DarkInk,
+                    windowInsets = WindowInsets(0, 0, 0, 0)) {
+                    listOf("Rooms", "Set start", "More").forEachIndexed { index, label ->
+                        NavigationBarItem(selected = false,
+                            onClick = {
+                                guideProgress = guideProgress?.withPaused(true)
+                                when(index) {
+                                    0 -> openSearch()
+                                    1 -> showPanel(PanelKind.QR)
+                                    else -> showPanel(PanelKind.MORE)
+                                }
+                            }, icon = { NavSymbol(if (index == 0) 1 else if (index == 1) 0 else 2) }, label = { Text(label, fontSize = 11.sp) },
+                            colors = NavigationBarItemDefaults.colors(unselectedIconColor = if (index == 1) Peach else WarmWhite,
+                                unselectedTextColor = WarmWhite))
                     }
-                },
-                onGuidePause = { guideProgress = guideProgress?.withPaused(true) },
-                onGuideContinueFloor = {
-                    val timeline = guideTimeline
-                    val progress = guideProgress
-                    if (timeline != null && progress != null) {
-                        val next = timeline.continueFloor(progress).withPaused(false)
-                        guideProgress = next
-                        floorId = timeline.frame(next).floorId
-                        overviewCommand++
-                    }
-                },
-                onGuideReplay = {
-                    val timeline = guideTimeline
-                    if (timeline != null) {
-                        val next = timeline.initial()
-                        guideProgress = next
-                        floorId = timeline.frame(next).floorId
-                        overviewCommand++
-                    }
-                },
-                onGuideClose = { guideProgress = null },
-            )
-
+                }
+            }
             panel?.let { selected ->
-                DetailDialog(title = when (selected) {
-                    PanelKind.QR -> "Set your start"
-                    PanelKind.HUNT -> "QR hunt"
-                    PanelKind.PEOPLE -> "People"
-                    PanelKind.ABOUT -> "About the map"
-                }, onDismiss = { panel = null }) {
-                    when (selected) {
-                        PanelKind.QR -> QrPanel(checkpoints, current, observedAt, onPayload = ::acceptPayload, onDone = { panel = null })
+                DetailSheet(title = when(selected) {
+                    PanelKind.MORE -> "More"; PanelKind.SEARCH -> "Find a room"; PanelKind.FLOOR -> "Floor & view"
+                    PanelKind.JOURNEY -> "Your route"; PanelKind.QR -> "Set your start"; PanelKind.HUNT -> "QR hunt"
+                    PanelKind.PEOPLE -> "People"; PanelKind.ABOUT -> "About the sample"
+                }, onDismiss = { panel = null; searchOpen = false; focusManager.clearFocus(); keyboard?.hide() }) {
+                    when(selected) {
+                        PanelKind.SEARCH -> {
+                            SearchBox(sheetWidth, query, { query = it }, focusRequester, {},
+                                { focusManager.clearFocus(); keyboard?.hide() }, { query = "" })
+                            val term = query.trim()
+                            val matches = rooms.filter { term.isEmpty() || it.name.contains(term, true) || it.id.contains(term, true) }.take(16)
+                            SearchResults(sheetWidth, matches, ::selectRoom)
+                        }
+                        PanelKind.FLOOR -> {
+                            floors.forEach { candidate ->
+                                SheetAction(if (candidate.id == floorId) "✓ ${candidate.name}" else candidate.name) {
+                                    floorId = candidate.id; overviewCommand++; panel = null
+                                }
+                            }
+                            HorizontalDivider(color = Edge)
+                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Control("Zoom in", "+") { zoomCommand++ }
+                                Control("Zoom out", "−") { zoomCommand-- }
+                                TextButton(onClick = { if (route == null) fitFloorCommand++ else overviewCommand++; panel = null }) { Text("Fit view") }
+                            }
+                        }
+                        PanelKind.MORE -> {
+                            SheetAction("Set QR start") { showPanel(PanelKind.QR) }
+                            SheetAction("QR hunt") { showPanel(PanelKind.HUNT) }
+                            SheetAction("People sharing demo") { showPanel(PanelKind.PEOPLE) }
+                            SheetAction("About this sample") { showPanel(PanelKind.ABOUT) }
+                            Text("Map panels", color = Muted, fontSize = 12.sp)
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                MapEnvironment.entries.forEach { choice ->
+                                    FilterChip(selected = mapEnvironment == choice, onClick = { mapEnvironment = choice },
+                                        label = { Text(if (choice == MapEnvironment.DARK) "Dark" else "Light") })
+                                }
+                            }
+                        }
+                        PanelKind.JOURNEY -> {
+                          if (supportsExploreScene && destinationId == SampleDoorway.roomId) {
+                            Text("Reception has a doorway to an unrelated engine-room sample.", color = Muted, fontSize = 13.sp)
+                            SheetAction("Enter 3D sample") { openSampleScene() }
+                          }
+                          JourneyCard(
+                            Modifier.fillMaxWidth(), current, observedAt, destination, route,
+                            guideFrame, guideProgress?.paused == true, floors, preference,
+                            { preference = it; overviewCommand++ }, { showPanel(PanelKind.QR) }, ::openSearch,
+                            { destinationId = null; query = ""; overviewCommand++; panel = null },
+                            { playGuide() }, { guideProgress = guideProgress?.withPaused(true) }, ::continueGuide,
+                            { playGuide(true) }, { guideProgress = null },
+                        )
+                        }
+                        PanelKind.QR -> QrPanel(checkpoints, current, observedAt, ::acceptPayload, { panel = null })
                         PanelKind.HUNT -> HuntControls(checkpoints, hunt, { hunt = it }, huntPlayer, { huntPlayer = it })
                         PanelKind.PEOPLE -> ShareControls(current, shareGrant) { shareGrant = it }
                         PanelKind.ABOUT -> AboutPanel()
                     }
                 }
             }
-            }
         }
       }
+    }
+}
+
+@Composable
+private fun SheetAction(label: String, action: () -> Unit) {
+    TextButton(onClick = action, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+        contentPadding = PaddingValues(horizontal = 4.dp)) {
+        Text(label, Modifier.weight(1f), color = Bright, fontSize = 16.sp)
+        Text("›", color = Muted, fontSize = 22.sp)
+    }
+}
+
+@Composable
+private fun NavSymbol(index: Int) {
+    val ink = LocalContentColor.current
+    androidx.compose.foundation.Canvas(Modifier.size(24.dp)) {
+        val w = size.width; val h = size.height; val stroke = 1.8.dp.toPx()
+        if (index == 2) listOf(.2f,.5f,.8f).forEach { drawCircle(ink, 1.8.dp.toPx(), androidx.compose.ui.geometry.Offset(w*it,h*.5f)) }
+        else if (index == 0) {
+            drawCircle(ink, w*.4f, style = androidx.compose.ui.graphics.drawscope.Stroke(stroke))
+            val path = androidx.compose.ui.graphics.Path().apply { moveTo(w*.67f,h*.25f); lineTo(w*.58f,h*.58f); lineTo(w*.3f,h*.73f); lineTo(w*.42f,h*.42f); close() }
+            drawPath(path, ink)
+        } else {
+            val path = androidx.compose.ui.graphics.Path().apply {
+                moveTo(w*.1f,h*.22f); lineTo(w*.36f,h*.12f); lineTo(w*.64f,h*.23f); lineTo(w*.9f,h*.13f)
+                lineTo(w*.9f,h*.78f); lineTo(w*.64f,h*.88f); lineTo(w*.36f,h*.77f); lineTo(w*.1f,h*.87f); close()
+                moveTo(w*.36f,h*.12f); lineTo(w*.36f,h*.77f); moveTo(w*.64f,h*.23f); lineTo(w*.64f,h*.88f)
+            }
+            drawPath(path, ink, style = androidx.compose.ui.graphics.drawscope.Stroke(stroke))
+        }
     }
 }
 
@@ -453,34 +480,6 @@ private fun Control(label: String, glyph: String, active: Boolean = false, onCli
     } else {
         FilledTonalIconButton(onClick = onClick, modifier = modifier, shape = shape,
             colors = IconButtonDefaults.filledTonalIconButtonColors(containerColor = BrandBlue, contentColor = WarmWhite), content = content)
-    }
-}
-
-@Composable
-private fun SceneTabs(selected: MainScene, onSelect: (MainScene) -> Unit, modifier: Modifier = Modifier) {
-    Surface(modifier, shape = RoundedCornerShape(30.dp), color = Panel,
-        border = BorderStroke(1.dp, Edge), shadowElevation = 8.dp) {
-        Row(Modifier.padding(3.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-            listOf(MainScene.EXPLORE to "Explore", MainScene.MAP to "Map demo").forEach { (scene, label) ->
-                val enabled = scene != MainScene.EXPLORE || supportsExploreScene
-                val caption = if (scene == MainScene.EXPLORE && !supportsExploreScene) "Explore · mobile" else label
-                val tabModifier = Modifier.heightIn(min = 48.dp)
-                if (selected == scene) {
-                    Button(onClick = { onSelect(scene) }, enabled = enabled, modifier = tabModifier,
-                        shape = RoundedCornerShape(24.dp), contentPadding = PaddingValues(horizontal = 17.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Orange, contentColor = DarkInk)) {
-                        Text(caption, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                    }
-                } else {
-                    FilledTonalButton(onClick = { onSelect(scene) }, enabled = enabled, modifier = tabModifier,
-                        shape = RoundedCornerShape(24.dp), contentPadding = PaddingValues(horizontal = 17.dp),
-                        colors = ButtonDefaults.filledTonalButtonColors(containerColor = BrandBlue, contentColor = WarmWhite,
-                            disabledContainerColor = Color.Transparent, disabledContentColor = Muted)) {
-                        Text(caption, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -565,17 +564,20 @@ private fun JourneyCard(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DetailDialog(title: String, onDismiss: () -> Unit, content: @Composable () -> Unit) {
-    Dialog(onDismissRequest = onDismiss) {
-        Surface(modifier = Modifier.imePadding(), shape = RoundedCornerShape(24.dp), color = PanelSolid, border = BorderStroke(1.dp, Edge)) {
-            Column(Modifier.fillMaxWidth().heightIn(max = 690.dp).verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(13.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(title, Modifier.weight(1f), color = Bright, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    TextButton(onClick = onDismiss, modifier = Modifier.size(48.dp), contentPadding = PaddingValues(0.dp)) { Text("×", fontSize = 26.sp, color = Muted) }
+private fun DetailSheet(title: String, onDismiss: () -> Unit, content: @Composable () -> Unit) {
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = PanelSolid, contentColor = Bright) {
+        Column(Modifier.fillMaxWidth().heightIn(max = 640.dp).imePadding().verticalScroll(rememberScrollState())
+            .padding(start = 20.dp, end = 20.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(title, Modifier.weight(1f), color = Bright, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                TextButton(onClick = onDismiss, modifier = Modifier.size(48.dp), contentPadding = PaddingValues(0.dp)) {
+                    Text("×", fontSize = 26.sp, color = Muted)
                 }
-                content()
             }
+            content()
         }
     }
 }

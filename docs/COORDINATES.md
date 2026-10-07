@@ -31,3 +31,7 @@ The validator accepts only its declared scheme/building and known checkpoint IDs
 An export should include `schemaVersion`, `buildingId`, `buildingVersion`, unit, coordinate-axis convention, floor IDs/elevations, room IDs/footprints/entrances, graph nodes/edges and checkpoint anchors. Mark sample provenance. Each edge should declare movement type and accessibility/availability; never infer step-free status from its appearance.
 
 Gaussian-splat assets require an asset-to-building transform and provenance; PlayCanvas/WebXR objects attach the same `roomId` used by search and routing. Camera pose and map pixels are view state, not authoritative building coordinates. The prototype ships a PlayCanvas splat loader for an independent licensed sample only. No building JSON exporter, surveyed scene alignment, room-linked 3D client or WebXR experience is implemented.
+
+## Prototype sample doorway
+
+The exploration fixture anchors a **3D sample** launch marker to `room-l1-reception`, two illustrative metres inside its entrance. It uses the map projection, so pan and zoom move it with reception. Other floors have no doorway despite repeated artwork. This is a UI link to the independent engine-room viewer, not a scene registration, room association within the capture or positioning observation. No building coordinates are passed into that viewer.

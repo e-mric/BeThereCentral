@@ -6,25 +6,28 @@
 
 The space is the main interface. Useful orientation, curiosity and control matter more than decorative polish. Minimalism means removing competing messages while keeping the next action understandable. A small, dependable journey is a better experiment than a broad, confusing prototype.
 
-The current capture and map describe different places. Explore shows a licensed engine-room sample; Map demo shows a fictional four-floor building. Never imply that their coordinates, rooms or routes are connected. A permitted, surveyed capture is a later experiment.
+The current capture and map describe different places. Explore shows a licensed engine-room sample; Map demo shows a fictional four-floor building. The reception doorway is a fictional launch point. Never imply that the engine-room coordinates or routes align with reception. A permitted, surveyed capture is a later experiment.
 
 ## The demonstration journey
 
 | Moment | Intended experience | Observable acceptance |
 | --- | --- | --- |
-| Open Explore | Recognise a space worth exploring | Actual scene pixels and usable controls appear within the viewport; a loading state covers preparation |
-| Understand the sample | Know what is being shown | A short scene title and sample label remain visible; provenance and fuller explanation are available in Info |
+| Open the map | Recognise an explorable pixel-art world | Map appears first; a labelled 3D sample doorway sits at ground-floor reception and follows pan/zoom |
+| Enter the doorway | Recognise the separate sample space | Actual scene pixels appear; sample status and native return-to-map stay visible |
+| Understand the sample | Know what is being shown | A short scene title and sample label remain visible; provenance and fuller explanation are available in View controls |
 | Explore | Predict the effect of a gesture or button | Drag changes the view; repeated zoom-out moves back far enough to see the capture from outside; zoom-in reverses it within bounds; pan has a recoverable result |
 | Recover | Regain orientation immediately | Overview stops automatic movement and restores the approved camera, including target and zoom |
-| Choose Map demo | Understand the change of place | The initial map card identifies a separate fictional four-floor building; no transition pretends to align it with the capture |
+| Return to Map | Keep orientation | The same floor, pan and zoom remain, with a fictional four-floor label; no transition pretends to align the capture |
 | Preview a route | Understand start, destination and floor changes | A simulated lobby checkpoint establishes last seen; Orbit on the third floor produces a cross-floor route; Step-free uses the lift |
 | Switch views | Keep the task intact | Destination, last-seen timestamp and route preference survive Explore → Map demo; scene recovery remains available |
-| Encounter a failure | Know how to continue | A readable error and Retry replace competing viewer controls; the native Map demo switch stays usable; failed rendering releases resources |
+| Encounter a failure | Know how to continue | A readable error and Retry replace competing viewer controls; the native return-to-map action stays usable; failed rendering releases resources |
 
 ## Interface rules
 
+The map is home. No top-level Explore/Map tabs: ground-floor reception is the sample doorway. Rooms, Set start and More are bottom actions opening sheets. Use one floor chip and a collapsed journey card; advanced controls expand only on demand. Reception is also discoverable through room search; its room details expose the sample entry.
+
 - Use a compact, specific scene title instead of a large promotional headline. Let captured landmarks provide the character.
-- Keep essential recovery and zoom controls visible. Explain advanced gestures and attribution in Info; avoid a permanent wall of instructions.
+- Keep Overview and View controls visible. Put zoom buttons, advanced gestures and attribution in the View controls sheet; avoid a permanent wall of instructions.
 - Use at least 48 dp native / 48 CSS-pixel web touch targets, readable contrast and meaningful labels. Do not use colour alone to communicate state.
 - Use Material 3 Expressive-style button shapes, clear filled/tonal emphasis and visible selected/pressed states. Keep touch targets at least 48 dp even when the visible art is smaller.
 - Draw the map and scene edge to edge behind system bars; apply safe insets to interactive overlays rather than padding the entire canvas. Maintain readable status icons and keep bottom actions away from the home gesture.
@@ -59,7 +62,7 @@ Use one compact guide row in the journey card. At arrival, introduce only the sa
 
 A successful build proves compilation and packaging. A renderer-ready event proves internal progress. Neither proves that pixels reach the screen or that the journey is understandable.
 
-For a viewer change, inspect the actual opening, changed camera and recovered view on the target being claimed. Check that all controls are reachable, then switch to Map demo and back. For navigation changes, exercise a sample cross-floor route and its step-free alternative. Record the device or emulator, observed results and a representative screenshot in [verification status](testing/STATUS.md). Test failures and limitations belong there too.
+For a viewer change, inspect the actual opening, changed camera and recovered view on the target being claimed. Check that all controls are reachable, then return to the retained map and enter the reception doorway again. For navigation changes, exercise a sample cross-floor route and its step-free alternative. Record the device or emulator, observed results and a representative screenshot in [verification status](testing/STATUS.md). Test failures and limitations belong there too.
 
 Use pure tests for camera invariants and feature behaviour. Visual smoke checks complement them; screenshots alone do not establish TalkBack/VoiceOver usability, physical-device performance or real-building accuracy. Shared changes must state which Android, iOS and browser targets were actually checked. Do not describe an emulator result as a physical-phone pass.
 

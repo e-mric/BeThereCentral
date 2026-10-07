@@ -1,6 +1,6 @@
 # BeThereCentral — Product Requirements
 
-Version 0.5 · 8 October 2026 · Status: interactive sample Explore + fictional-building prototype
+Version 0.6 · 8 October 2026 · Status: interactive sample Explore + fictional-building prototype
 
 ## Problem and audience
 
@@ -49,11 +49,11 @@ Collect observations manually without recording movement history. Summarize anon
 
 [Experience standards](EXPERIENCE.md) define the opening, exploration, recovery and separate-map journey, including required visual evidence. Prototype scope can be small; the implemented journey must remain dependable.
 
-The building is the main interface. The mobile prototype opens in interactive Explore with a persistent Map demo switch. The desktop Compose preview opens on the 2D map; a local browser presents the same sample Explore viewer. Users must not scroll past forms to reach either view. Keep the map surround soft charcoal, while retaining BeCentral blue branding/control accents and WeAreFounders orange/peach warmth. Keep geometry readable and test contrast. The reference is the spatial emphasis and contextual controls of the supplied [Matterport tour](https://my.matterport.com/show/?m=RFxTxqcbUTB), not its proprietary imagery or 3D assets.
+The building is the main interface. The mobile prototype opens on the pixel-art map, with a clearly labelled **3D sample** doorway at ground-floor reception. It launches an unrelated capture, not a surveyed room view. A native **‹ Map** action returns to the retained map viewport and session; there are no Explore/Map tabs. The desktop Compose preview opens on the 2D map; a local browser presents the same sample Explore viewer. Users must not scroll past forms to reach either view. Keep the map surround soft charcoal, while retaining BeCentral blue branding/control accents and WeAreFounders orange/peach warmth. Keep geometry readable and test contrast. The reference is the spatial emphasis and contextual controls of the supplied [Matterport tour](https://my.matterport.com/show/?m=RFxTxqcbUTB), not its proprietary imagery or 3D assets.
 
-- Open Explore at a reviewed wide interior view. Zoom-out must continue beyond lens widening to let the user see the capture from outside. Buttons, pinch, wheel and keyboard share the same bounds. Overview restores the exact opening pose and zoom. Keep the scene title/sample status compact and put extended instructions in Info.
+- Open Explore at a reviewed wide interior view. Zoom-out must continue beyond lens widening to let the user see the capture from outside. Buttons, pinch, wheel and keyboard share the same bounds. Overview restores the exact opening pose and zoom. Keep the scene title/sample status compact and put extended instructions and attribution in View controls.
 - Identify Map demo as a separate fictional building before presenting its next action; do not imply that it represents the captured engine room.
-- In Explore, keep controls limited to camera movement, reset and scene information. In Map, show room search, a compact floor selector, map controls and one contextual next action.
+- In Explore, show Overview and View controls; move zoom buttons, Look around and scene information into a bottom sheet. In Map, show a floor chip, a collapsed journey card and bottom actions Rooms, Set start and More. Search, floors, zoom/Fit, routes and secondary tools open in bottom sheets.
 - Show route preferences in the contextual journey card; reveal checkpoint entry, sharing and the hunt in dismissible panels. Opening or closing panels must preserve the route, last-seen observation, hunt progress and active local grant.
 - Use a compact persistent sample indicator with details on demand: **Sample · 2D** for the current map and explicit sample-scene status for Explore. Retain last-seen wording where location is shown.
 - Destination selection dismisses search/keyboard and brings the route into the visible map area. Map fit must account for controls rather than frame a path underneath them.
@@ -119,7 +119,7 @@ Start with a local sample editor and a versioned room-appearance manifest keyed 
 
 ## User journeys
 
-1. Visitor opens mobile app in the clearly labelled separate sample Explore scene, tries the camera and reset, then chooses Map and establishes a last-seen point using a sample checkpoint, searches for a room and previews its route.
+1. Visitor opens the pixel-art map, enters the explicitly unrelated 3D sample at ground-floor reception, tries the camera and reset, returns to the same map viewport, then establishes a last-seen point using a sample checkpoint, searches for a room and previews its route.
 2. Visitor chooses step-free, sees lift transitions and inspects each floor from the route overview.
 3. Visitor tries the sharing demo, selects sample people and 5/10/15 minutes, observes expiry or revokes. UI makes clear that no person receives data.
 4. Two players use one device in demo mode, switch the active sample player and contribute checkpoint finds to a shared hunt.
