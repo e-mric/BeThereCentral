@@ -106,6 +106,10 @@ Before publication, all 11 reference-server tests passed again, and `scripts/che
 
 Earlier screenshots and checks above describe earlier prototype slices. The README now uses current illustrated-map captures. Room Studio is deferred to the next milestone. The generated logo is a separate transparent raster concept, documented in `docs/brand/README.md`.
 
+### Physical Android update — 8 October
+
+Installed the final illustrated-map/panel-theme debug APK on the connected Samsung SM-F971B using ordinary ADB replacement installation. Installation succeeded; a cold launch of `com.betherecentral/.android.MainActivity` returned `Status: ok`, and the app process remained present in the subsequent check. No instrumentation service was installed or run on the phone. Visible rendering and interaction on this physical device still require user confirmation; emulator/simulator visual results above are separate evidence.
+
 ### Publication status — 8 October
 
 The prototype was pushed successfully to `main` at `https://github.com/e-mric/BeThereCentral` on 8 October 2026 after GitHub CLI authentication. The initial HTTPS attempt had failed because credentials were unavailable. Source publication is complete; this is not an app-store release. The first hosted CI run is tracked on the repository Actions page; local build and test evidence above does not imply a hosted CI pass.
