@@ -108,7 +108,7 @@ Earlier screenshots and checks above describe earlier prototype slices. The READ
 
 ### Publication status — 8 October
 
-The prototype is committed locally on `main`, with origin set to `https://github.com/e-mric/BeThereCentral.git`. The first HTTPS push failed because Git could not obtain a GitHub username/credential in this environment. No remote commit or hosted CI pass is claimed. Authentication remains the publication prerequisite.
+The prototype was pushed successfully to `main` at `https://github.com/e-mric/BeThereCentral` on 8 October 2026 after GitHub CLI authentication. The initial HTTPS attempt had failed because credentials were unavailable. Source publication is complete; this is not an app-store release. The first hosted CI run is tracked on the repository Actions page; local build and test evidence above does not imply a hosted CI pass.
 
 ### Commands
 
