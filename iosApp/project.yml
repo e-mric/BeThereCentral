@@ -1,0 +1,51 @@
+name: BeThereCentral
+options:
+  bundleIdPrefix: com.betherecentral
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  BeThereCentral:
+    type: application
+    platform: iOS
+    sources:
+      - path: BeThereCentral
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.betherecentral.app
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"
+        CODE_SIGN_STYLE: Automatic
+    info:
+      path: BeThereCentral/Info.plist
+      properties:
+        CFBundleDisplayName: BeThereCentral
+        CADisableMinimumFrameDurationOnPhone: true
+        UILaunchScreen: {}
+    preBuildScripts:
+      - name: Build shared Kotlin framework
+        basedOnDependencyAnalysis: false
+        script: |
+          cd "$SRCROOT/.."
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+    postBuildScripts:
+      - name: Bundle offline Explore scene
+        basedOnDependencyAnalysis: false
+        script: |
+          SCENE_SOURCE="$SRCROOT/../exploration/dist"
+          SCENE_TARGET="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/exploration"
+          for SCENE_FILE in index.html viewer.js scene-data.js style.css SCENE-LICENSE.txt PLAYCANVAS-LICENSE.txt; do
+            test -f "$SCENE_SOURCE/$SCENE_FILE" || { echo "Missing offline Explore file: $SCENE_FILE"; exit 1; }
+          done
+          mkdir -p "$SCENE_TARGET"
+          cp -R "$SCENE_SOURCE/." "$SCENE_TARGET/"
+      - name: Bundle pixel map artwork
+        basedOnDependencyAnalysis: false
+        script: |
+          ART_SOURCE="$SRCROOT/../composeApp/src/commonMain/composeResources/drawable"
+          ART_TARGET="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/composeResources/com.betherecentral.resources/drawable"
+          for ART_FILE in founder_atlas.png cowork_floor.png; do
+            test -f "$ART_SOURCE/$ART_FILE" || { echo "Missing pixel map artwork: $ART_FILE"; exit 1; }
+          done
+          mkdir -p "$ART_TARGET"
+          cp "$ART_SOURCE/founder_atlas.png" "$ART_SOURCE/cowork_floor.png" "$ART_TARGET/"

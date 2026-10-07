@@ -1,0 +1,16 @@
+Tugboat Bat engine room, Trieste Italy (XGRIDS PortalCam)
+Creator: Tosolini (https://superspl.at/user/tosolini)
+Source and licence evidence: https://superspl.at/scene/1a14e1e7
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+The creator's public .splat download is linked in their comment on that page:
+https://www.dropbox.com/scl/fi/ktvbx0yjb93olkslu7uel/Tugboat-Bat-engine-room.splat?rlkey=vgiy03o4s0j21vvud1449a852&dl=1
+Accessed 7 October 2026.
+
+Changes by BeThereCentral: decimated from 7,939,602 to 650,000 Gaussians
+using @playcanvas/splat-transform 3.10.0, then converted to compressed PLY.
+The coordinate orientation is rotated for display only. This is an unrelated
+sample space, not a capture or survey of the proposed building. No endorsement
+by the creator is implied. The scene retains CC BY 4.0 separately from the
+MIT-licensed application. See exploration/README.md for reproduction.

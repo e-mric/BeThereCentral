@@ -1,0 +1,12 @@
+import { build } from 'esbuild';
+import { cp, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { verifyBundle } from './verify.mjs';
+await mkdir('dist', {recursive:true});
+await build({entryPoints:['src/viewer.js'],bundle:true,format:'iife',target:'es2020',minify:true,external:['node:worker_threads'],outfile:'dist/viewer.js',legalComments:'eof'});
+for (const file of ['index.html','style.css']) await cp(`src/${file}`,`dist/${file}`);
+const scene=await readFile('public/engine-room.compressed.ply');
+await writeFile('dist/scene-data.js',`window.BETHERE_SCENE_BASE64=${JSON.stringify(scene.toString('base64'))};\n`);
+await cp('public/SCENE-LICENSE.txt','dist/SCENE-LICENSE.txt');
+await cp('node_modules/playcanvas/LICENSE','dist/PLAYCANVAS-LICENSE.txt');
+await verifyBundle('dist');
+console.log(`Bundled offline viewer; source scene ${scene.length} bytes.`);

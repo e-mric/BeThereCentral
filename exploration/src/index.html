@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self' blob:; worker-src blob:; base-uri 'none'; form-action 'none'">
+  <title>BeThereCentral · Explore a sample space</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scene-data.js"></script>
+  <script defer src="viewer.js"></script>
+</head>
+<body>
+  <canvas id="scene" tabindex="0" aria-label="Interactive sample engine room. Drag to orbit, pinch or scroll to zoom. Arrow keys rotate; plus and minus zoom; R resets."></canvas>
+  <header><span class="wordmark">ENGINE ROOM</span><span class="badge">SAMPLE SCENE</span><button id="about" aria-label="About this sample scene">ⓘ</button></header>
+  <div id="status" role="status" aria-live="polite"><span class="spinner"></span><h1>Opening a new perspective</h1><p id="status-detail">Preparing the sample engine room…</p><button id="retry" hidden>Try again</button></div>
+  <footer>
+    <nav aria-label="Scene controls"><button id="reset" aria-label="Return to overview" disabled>Overview</button><button id="zoom-in" aria-label="Zoom in" disabled>+</button><button id="zoom-out" aria-label="Zoom out" disabled>−</button><button id="tour" aria-pressed="false" disabled>Look around</button></nav>
+    <p class="hint">Drag to explore · Pinch to zoom</p>
+  </footer>
+  <dialog id="details"><button id="close-about" class="close" aria-label="Close scene information">×</button><p class="eyebrow">ABOUT THIS DEMO</p><h2>Real Gaussian splats.<br>A sample space.</h2><p>This engine-room scene is a photographic reconstruction, rendered locally. It is unrelated to the four-floor sample map or your building. Camera movement does not track your location.</p><p>Drag to orbit, pinch to zoom, and drag with two fingers to pan. Arrow keys rotate; plus and minus zoom; R returns to the overview.</p><p>Scene: <strong>Tugboat Bat engine room, Trieste, Italy</strong><br>Tosolini · superspl.at/user/tosolini<br>CC BY 4.0 · 650,000 splats</p><p>Source: superspl.at/scene/1a14e1e7 and the creator’s public download. Reduced from 7,939,602 splats and converted to compressed PLY for this demo. Viewer: PlayCanvas 2.23.1 (MIT). Full attribution ships with this demo.</p><p id="metrics">Performance measurements will appear when the scene loads.</p><p>Use the app's Map demo tab for the separate fictional navigation demo. For this building, the next step is an agreed, small capture pilot.</p></dialog>
+  <noscript>This sample viewer needs JavaScript. Use the app's Map tab to continue.</noscript>
+</body>
+</html>
