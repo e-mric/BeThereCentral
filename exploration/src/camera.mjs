@@ -47,3 +47,30 @@ export function position(state) {
         state.target[1] + Math.sin(pitch) * state.distance,
         state.target[2] + Math.cos(yaw) * Math.cos(pitch) * state.distance];
 }
+
+// Bounds of the bundled capture after the display-only 180° X rotation.
+// They are scene coordinates, not surveyed building metres or floor positions.
+const SAMPLE_CENTER = [0.0762, 0.5186, 3.3131];
+const SAMPLE_HALF_EXTENTS = [3.9858, 1.0907, 6.7738];
+export function topView(aspect = 1) {
+    const ratio = Number.isFinite(aspect) && aspect > 0 ? aspect : 1;
+    const pitch = 60;
+    const tilt = radians(pitch);
+    const back = [0, Math.sin(tilt), -Math.cos(tilt)];
+    const up = [0, Math.cos(tilt), Math.sin(tilt)];
+    // Keep the capture clear of the right-hand rail, with matching breathing room.
+    const vertical = Math.tan(radians(MAX_FOV / 2)) * .84;
+    const horizontal = Math.tan(radians(MAX_FOV / 2)) * ratio * .72;
+    let distance = BASE_DISTANCE;
+    for (const x of [-SAMPLE_HALF_EXTENTS[0], SAMPLE_HALF_EXTENTS[0]]) {
+        for (const y of [-SAMPLE_HALF_EXTENTS[1], SAMPLE_HALF_EXTENTS[1]]) {
+            for (const z of [-SAMPLE_HALF_EXTENTS[2], SAMPLE_HALF_EXTENTS[2]]) {
+                const depth = y * back[1] + z * back[2];
+                distance = Math.max(distance, depth + Math.max(Math.abs(x) / horizontal,
+                    Math.abs(y * up[1] + z * up[2]) / vertical));
+            }
+        }
+    }
+    return {target: [...SAMPLE_CENTER], distance: clamp(distance + .8, BASE_DISTANCE, MAX_DISTANCE),
+        yaw: 180, pitch, fov: MAX_FOV};
+}

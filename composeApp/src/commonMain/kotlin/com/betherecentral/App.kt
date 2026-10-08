@@ -268,18 +268,29 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
             if (mainScene == MainScene.EXPLORE && supportsExploreScene) {
                 ExploreScene(Modifier.fillMaxSize().padding(bottom = safeBottom + navHeight))
             } else {
-                Surface(onClick = { showPanel(PanelKind.FLOOR) },
-                    modifier = Modifier.align(Alignment.TopEnd).padding(end = side, top = safeTop + 54.dp).heightIn(min = 48.dp),
-                    color = Panel, shape = RoundedCornerShape(24.dp)) {
-                    Row(Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        CompositionLocalProvider(LocalContentColor provides Bright) { NavSymbol(3) }
-                        Text(floor.name, color = Bright, fontSize = 13.sp)
+                Row(Modifier.align(Alignment.TopCenter).padding(start = side, end = side, top = safeTop + 60.dp)
+                    .fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Surface(onClick = ::openSearch,
+                        modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                        color = Panel, shape = RoundedCornerShape(24.dp), border = BorderStroke(1.dp, Edge)) {
+                        Row(Modifier.padding(horizontal = 16.dp).heightIn(min = 48.dp),
+                            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Text("⌕", color = AccentText, fontSize = 24.sp)
+                            Text("Find a room", color = Bright, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        }
+                    }
+                    Surface(onClick = { showPanel(PanelKind.FLOOR) },
+                        modifier = Modifier.heightIn(min = 48.dp),
+                        color = Panel, shape = RoundedCornerShape(24.dp)) {
+                        Row(Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            CompositionLocalProvider(LocalContentColor provides Bright) { NavSymbol(3) }
+                            Text(floor.name, color = Bright, fontSize = 13.sp)
+                        }
                     }
                 }
                 Surface(onClick = {
                     when {
                         current == null -> showPanel(PanelKind.QR)
-                        destination == null -> openSearch()
                         else -> showPanel(PanelKind.JOURNEY)
                     }
                 },
@@ -309,35 +320,39 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                 }
             }
             Row(Modifier.align(Alignment.TopStart).padding(start = side, end = side, top = safeTop + 4.dp)
-                .fillMaxWidth().height(44.dp), verticalAlignment = Alignment.CenterVertically) {
-                if (mainScene == MainScene.EXPLORE) {
-                    TextButton(onClick = { mainScene = MainScene.MAP }, contentPadding = PaddingValues(horizontal = 8.dp),
-                        colors = ButtonDefaults.textButtonColors(contentColor = WarmWhite)) { Text("Map") }
-                }
+                .fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
                 Image(painterResource(Res.drawable.brand_logo), "BeThereCentral",
-                    modifier = Modifier.width(if (mainScene == MainScene.EXPLORE) 150.dp else 182.dp).height(40.dp), contentScale = ContentScale.Crop)
-                Spacer(Modifier.weight(1f))
+                    modifier = Modifier.weight(1f).height(40.dp), contentScale = ContentScale.Fit,
+                    alignment = Alignment.CenterStart)
                 Surface(color = DarkInk, shape = RoundedCornerShape(16.dp)) {
                     Text(if (mainScene == MainScene.EXPLORE) "ENGINE ROOM\n3D SAMPLE" else "SAMPLE · 2D",
                         Modifier.padding(horizontal = 8.dp, vertical = 6.dp), color = Peach,
                         fontSize = 9.sp, lineHeight = 12.sp, maxLines = 2, fontWeight = FontWeight.SemiBold)
                 }
+                Spacer(Modifier.width(8.dp))
+                FilledTonalIconButton(onClick = { showPanel(PanelKind.MORE) }, modifier = Modifier.size(48.dp)
+                    .semantics { contentDescription = "More options" },
+                    colors = IconButtonDefaults.filledTonalIconButtonColors(containerColor = BrandBlue, contentColor = WarmWhite)) {
+                    NavSymbol(2)
+                }
             }
             Surface(Modifier.align(Alignment.BottomCenter).fillMaxWidth(), color = DarkInk) {
                 NavigationBar(Modifier.padding(bottom = safeBottom).height(navHeight), containerColor = DarkInk,
                     windowInsets = WindowInsets(0, 0, 0, 0)) {
-                    (if (supportsExploreScene) listOf("Rooms", "Start point", "3D", "More") else listOf("Rooms", "Start point", "More")).forEachIndexed { index, label ->
-                        NavigationBarItem(selected = label == "3D" && mainScene == MainScene.EXPLORE,
+                    (listOf("Map") + if (supportsExploreScene) listOf("3D") else emptyList()).forEach { label ->
+                        NavigationBarItem(selected = (label == "Map" && mainScene == MainScene.MAP) ||
+                                (label == "3D" && mainScene == MainScene.EXPLORE),
                             onClick = {
                                 guideProgress = guideProgress?.withPaused(true)
                                 when(label) {
-                                    "Rooms" -> { mainScene = MainScene.MAP; openSearch() }
-                                    "Start point" -> { mainScene = MainScene.MAP; showPanel(PanelKind.QR) }
+                                    "Map" -> {
+                                        panel = null; searchOpen = false; mainScene = MainScene.MAP
+                                        focusManager.clearFocus(); keyboard?.hide()
+                                    }
                                     "3D" -> openSampleScene()
-                                    else -> showPanel(PanelKind.MORE)
                                 }
-                            }, icon = { NavSymbol(when(label) { "Rooms" -> 1; "Start point" -> 0; "3D" -> 4; else -> 2 }) }, label = { Text(label, fontSize = 11.sp) },
-                            colors = NavigationBarItemDefaults.colors(unselectedIconColor = if (index == 1) Peach else WarmWhite,
+                            }, icon = { NavSymbol(if (label == "Map") 1 else 4) }, label = { Text(label, fontSize = 11.sp) },
+                            colors = NavigationBarItemDefaults.colors(unselectedIconColor = WarmWhite,
                                 unselectedTextColor = WarmWhite))
                     }
                 }
@@ -377,7 +392,6 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                             }
                         }
                         PanelKind.MORE -> {
-                            SheetAction("Choose a start point") { showPanel(PanelKind.QR) }
                             SheetAction("Discover the building") { showPanel(PanelKind.HUNT) }
                             SheetAction("People sharing demo") { showPanel(PanelKind.PEOPLE) }
                             SheetAction("About this sample") { showPanel(PanelKind.ABOUT) }
@@ -564,6 +578,9 @@ private fun JourneyCard(
                                     selectedBorderColor = Orange,
                                 ))
                         }
+                    }
+                    TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) {
+                        Text("Change start point", color = AccentText)
                     }
                     if (route != null) GuideControls(
                         frame = guideFrame, paused = guidePaused, destination = destination, floors = floors,

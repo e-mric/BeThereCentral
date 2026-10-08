@@ -1,7 +1,7 @@
 import { AppBase, AppOptions, Asset, CameraComponentSystem, Color, Entity,
     FILLMODE_FILL_WINDOW, GSplatComponentSystem, GSplatHandler,
     RESOLUTION_AUTO, TextureHandler, createGraphicsDevice, GSPLAT_RENDERER_RASTER_CPU_SORT } from 'playcanvas';
-import { orbit, overview, position, zoom } from './camera.mjs';
+import { orbit, overview, position, topView, zoom } from './camera.mjs';
 import { disposeFailedApp } from './lifecycle.mjs';
 
 const $ = id => document.getElementById(id);
@@ -12,6 +12,7 @@ if (location.protocol === 'file:' || location.hostname === 'appassets.androidpla
 const controls = ['reset', 'zoom-in', 'zoom-out', 'tour'];
 let app, camera, asset, state, ready = false, disposed = false, failed = false, automatic = false;
 let phase = 'startup';
+let topFramed = false;
 let firstFrameMs = null, frames = 0, recentFrames = 0, lastMeasure = performance.now(), fps = 0;
 const started = performance.now();
 const pointers = new Map();
@@ -50,15 +51,8 @@ function sanitize(message) {
 }
 const timeout = setTimeout(() => fail('The viewer took too long to load.'), 45000);
 $('retry').onclick = () => location.reload();
-$('view-controls').onclick = () => { stopTour(); $('view-options').showModal(); };
-$('close-view').onclick = () => $('view-options').close();
-$('view-options').addEventListener('click', event => { if (event.target === $('view-options')) {
-    const rect = $('view-options').getBoundingClientRect();
-    if (event.clientY < rect.top || event.clientX < rect.left || event.clientX > rect.right) $('view-options').close();
-} });
 $('about').onclick = () => {
     stopTour();
-    $('view-options').close();
     $('metrics').textContent = firstFrameMs == null ? 'Scene not rendered yet.' : `First scene frame: ${(firstFrameMs / 1000).toFixed(2)} s · Recent rendering: ${fps} fps · 10.58 MB scene. Browser/simulator results do not predict your phone’s performance.`;
     $('details').showModal();
 };
@@ -71,11 +65,15 @@ function updateCamera() {
     camera.camera.fov = state.fov;
     if (app) app.renderNextFrame = true;
 }
-function reset() { if (!ready) return; stopTour(); state = overview(); updateCamera(); }
+function reset() {
+    if (!ready) return;
+    stopTour(); topFramed = true;
+    state = topView(canvas.clientWidth / canvas.clientHeight); updateCamera();
+}
 $('reset').onclick = reset;
-$('zoom-in').onclick = () => { stopTour(); state = zoom(state, 0.8); updateCamera(); };
-$('zoom-out').onclick = () => { stopTour(); state = zoom(state, 1.25); updateCamera(); };
-$('tour').onclick = () => { $('view-options').close(); automatic = !automatic; $('tour').setAttribute('aria-pressed', String(automatic)); $('tour').textContent = automatic ? 'Pause' : 'Look around'; };
+$('zoom-in').onclick = () => { if (!ready) return; stopTour(); topFramed = false; state = zoom(state, 0.8); updateCamera(); };
+$('zoom-out').onclick = () => { if (!ready) return; stopTour(); topFramed = false; state = zoom(state, 1.25); updateCamera(); };
+$('tour').onclick = () => { if (!ready) return; $('details').close(); topFramed = false; automatic = !automatic; $('tour').setAttribute('aria-pressed', String(automatic)); $('tour').textContent = automatic ? 'Pause' : 'Look around'; };
 function pan(dx, dy) {
     const scale = state.distance * 0.0015;
     const right = camera.right, up = camera.up;
@@ -84,7 +82,7 @@ function pan(dx, dy) {
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 canvas.addEventListener('pointerdown', e => {
     if (!ready) return;
-    stopTour(); canvas.focus(); canvas.setPointerCapture(e.pointerId);
+    stopTour(); topFramed = false; canvas.focus(); canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, {x:e.clientX,y:e.clientY}); pinch = null;
 });
 canvas.addEventListener('pointermove', e => {
@@ -101,11 +99,11 @@ canvas.addEventListener('pointermove', e => {
     updateCamera();
 });
 for (const event of ['pointerup','pointercancel','lostpointercapture']) canvas.addEventListener(event,e => { pointers.delete(e.pointerId); pinch = null; });
-canvas.addEventListener('wheel', e => { if (!ready) return; e.preventDefault(); stopTour(); state = zoom(state,Math.exp(Math.max(-200,Math.min(200,e.deltaY))*0.003)); updateCamera(); },{passive:false});
+canvas.addEventListener('wheel', e => { if (!ready) return; e.preventDefault(); stopTour(); topFramed = false; state = zoom(state,Math.exp(Math.max(-200,Math.min(200,e.deltaY))*0.003)); updateCamera(); },{passive:false});
 canvas.addEventListener('keydown', e => {
     if (!ready) return;
     const actions = {ArrowLeft:()=>state=orbit(state,-35,0),ArrowRight:()=>state=orbit(state,35,0),ArrowUp:()=>state=orbit(state,0,-35),ArrowDown:()=>state=orbit(state,0,35),'+':()=>state=zoom(state,.8),'-':()=>state=zoom(state,1.25),'r':reset,'R':reset};
-    if (actions[e.key]) { e.preventDefault(); stopTour(); actions[e.key](); updateCamera(); }
+    if (actions[e.key]) { e.preventDefault(); stopTour(); topFramed = false; actions[e.key](); updateCamera(); }
 });
 canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); fail('Graphics memory became unavailable.'); });
 document.addEventListener('visibilitychange', () => {
@@ -116,7 +114,12 @@ window.addEventListener('pagehide', () => {
     disposed = true; clearTimeout(timeout); stopTour();
     if (app) { app.destroy(); app = null; }
 });
-window.addEventListener('resize', () => { if (app) { app.resizeCanvas(); app.renderNextFrame = true; } });
+window.addEventListener('resize', () => {
+    if (!app) return;
+    app.resizeCanvas();
+    if (ready && topFramed) { state = topView(canvas.clientWidth / canvas.clientHeight); updateCamera(); }
+    app.renderNextFrame = true;
+});
 
 async function start() {
     stage('startup');

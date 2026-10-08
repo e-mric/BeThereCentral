@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { orbit, overview, position, zoom } from '../src/camera.mjs';
+import { orbit, overview, position, topView, zoom } from '../src/camera.mjs';
 const home = {target:[1,2,3],yaw:0,pitch:0,distance:10,fov:75};
 test('orbit changes perspective without moving the independent scene target',()=>{
     const next = orbit(home,100,2000);
@@ -53,4 +53,33 @@ test('overview returns an independent canonical reset pose',()=>{
     changed.target[0] = 3;
     assert.deepEqual(overview(),{target:[0,.3,4],distance:2.5,yaw:180,pitch:15,fov:75});
     assert.notDeepEqual(changed,overview());
+});
+
+test('Top fits the inclined capture with space for controls in portrait and landscape', () => {
+    for (const aspect of [320/700, 412/800, 1, 800/320]) {
+        const state = topView(aspect);
+        assert.equal(state.pitch, 60);
+        assert.equal(state.fov, 85);
+        assert.ok(state.distance > 2.5 && state.distance <= 35);
+        const pitch = state.pitch * Math.PI / 180;
+        const vertical = Math.tan(state.fov * Math.PI / 360);
+        for (const x of [-3.9858, 3.9858]) for (const y of [-1.0907, 1.0907]) for (const z of [-6.7738, 6.7738]) {
+            const depth = state.distance - (y * Math.sin(pitch) - z * Math.cos(pitch));
+            assert.ok(depth > 0);
+            assert.ok(Math.abs(x) / depth < vertical * aspect * .72);
+            assert.ok(Math.abs(y * Math.cos(pitch) + z * Math.sin(pitch)) / depth < vertical * .84);
+        }
+    }
+});
+test('Top resets independently and its zoom is reversible', () => {
+    const initial = topView(.5);
+    const roundTrip = zoom(zoom(initial,.8),1.25);
+    assert.ok(Math.abs(initial.distance-roundTrip.distance)<1e-8);
+    assert.equal(initial.fov,roundTrip.fov);
+    const moved = orbit(initial,50,30);
+    moved.target[0] = 999;
+    assert.deepEqual(topView(.5).target,[.0762,.5186,3.3131]);
+    assert.deepEqual(topView(Number.NaN),topView(1));
+    assert.deepEqual(topView(0),topView(1));
+    assert.ok(Number.isFinite(topView(.01).distance));
 });

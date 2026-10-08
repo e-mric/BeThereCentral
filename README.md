@@ -12,13 +12,13 @@ Built for a proposed BeCentral experience by a WeAreFounders participant. Its vi
 
 **Current stage: runnable sample prototype.** Explore renders a licensed engine-room scene from another location; it has no room hotspots or routes. No real floor plans or positioning hardware have been supplied for the proposed building. All mapped rooms and routes are fictional. A checkpoint records where you were **last seen**; it does not continuously track you.
 
-[Product requirements](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [Experience standards](docs/EXPERIENCE.md) · [Building-team demo](docs/DEMO.md) · [Privacy](docs/PRIVACY.md) · [Contributing](CONTRIBUTING.md) · [Backlog](docs/BACKLOG.md) · [Verified checks](docs/testing/STATUS.md)
+[Product requirements](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [Experience standards](docs/EXPERIENCE.md) · [Building-team demo](docs/DEMO.md) · [Pilot permission checklist](docs/PILOT_REQUEST.md) · [Privacy](docs/PRIVACY.md) · [Contributing](CONTRIBUTING.md) · [Backlog](docs/BACKLOG.md) · [Verified checks](docs/testing/STATUS.md)
 
 ## Designed for immersive exploration and clear navigation
 
-The app opens on the fictional pixel-art floor. **Rooms**, **Start point** and **More** open bottom sheets; **3D** opens the reception sample; a single floor chip switches levels and contains map zoom/Fit controls. Route details expand from a compact journey card. The same bottom menu remains visible in 3D. There are no Explore/Map tabs.
+The app opens on the fictional pixel-art floor. Bottom **Map** and **3D** switches move directly between views; **More** sits at the top right in both. **Find a room** stays visible on Map, while **Plan a route** in the journey card opens the simulated starting-point choices. Route details can change that start later. A single floor chip switches levels and contains map zoom/Fit controls.
 
-On the ground floor, tap the wooden **3D SAMPLE** sign at reception to enter the separately identified engine room. It renders 650,000 Gaussian splats locally. **Overview** restores the camera; **View controls** opens zoom, Look around and attribution. **Map** returns to the same floor, pan and zoom, with route, QR, hunt and local sharing state intact. The doorway is a demo launch point, not evidence that the capture depicts reception.
+On the ground floor, tap the wooden **3D SAMPLE** sign at reception to enter the separately identified engine room. It renders 650,000 Gaussian splats locally. A right-side **Top / + / −** stack controls the camera: Top frames the whole sample from above at an angle. The information button contains Look around and attribution. **Map** returns to the same floor, pan and zoom, with route, QR, hunt and local sharing state intact. The doorway is a demo launch point, not evidence that the capture depicts reception.
 
 Soft charcoal surroundings keep the space in focus. BeCentral blue, orange and peach accents, Material 3 Expressive-inspired controls and an edge-to-edge canvas frame the experience; controls remain clear of system bars and gestures. The separate map uses the approved furnished coworking-floor artwork and a tiny founder guide with an orange backpack.
 
@@ -26,18 +26,18 @@ Choose **Light panels** or **Dark panels** in the map's **More** sheet. Both kee
 
 This direction takes inspiration from the spatial focus of the supplied [Matterport experience](https://my.matterport.com/show/?m=RFxTxqcbUTB). BeThereCentral does not embed that tour or copy its assets. The viewer uses the [CC BY 4.0 Tugboat Bat engine-room sample](exploration/README.md), reduced and bundled for this prototype; it is unrelated to the fictional map and any proposed building. See the [interface decision](docs/adr/0003-map-first-interface.md) and [Explore decision](docs/adr/0004-gaussian-exploration-priority.md) and [located-entry decision](docs/adr/0005-reception-sample-doorway.md).
 
-<img src="docs/screenshots/android-minimal-map.png" alt="Android emulator: pixel-art map home, reception sample doorway and four bottom actions" width="300" />
+<img src="docs/screenshots/android-minimal-map.png" alt="Android emulator: pixel-art map home and reception sample doorway" width="300" />
 <img src="docs/screenshots/android-minimal-explore.png" alt="Android emulator: separate sample scene, return-to-map action and compact camera controls" width="300" />
 
 *Actual Android emulator captures. Physical-phone appearance and performance require separate confirmation. [Verification record](docs/testing/STATUS.md).*
 
 ### Meet the sample rooms
 
-Tap a room or a search result to meet its pixel host, read what the space is for, and choose **Get directions**. Company missions are fictional sample content. Reception offers BeCentral and WeAreFounders links as labelled community resources; fictional tenants have no invented websites. **Start point** chooses a simulated checkpoint; it never detects your position. The bottom **3D** action and the wooden reception sign open the same unrelated Gaussian sample, preserving the map when you return.
+Tap a room or use **Find a room** to meet its pixel host, read what the space is for, and choose **Get directions**. Company missions are fictional sample content. Reception offers BeCentral and WeAreFounders links as labelled community resources; fictional tenants have no invented websites. **Plan a route** chooses a simulated starting checkpoint, which can be changed in route details; it never detects your position. The bottom **3D** switch and the wooden reception sign open the same unrelated Gaussian sample, preserving the map when you return.
 
 ## What you can try
 
-- Enter **3D sample** at ground-floor reception on Android or iOS to move around the separately identified engine-room splat. Orbit, pan, zoom out to see the capture from outside, return to Overview or use Look around; the sample loads from the app bundle without a network service.
+- Enter **3D sample** at ground-floor reception on Android or iOS to move around the separately identified engine-room splat. Orbit, pan, zoom out to see the capture from outside, return to Top or use Look around; the sample loads from the app bundle without a network service.
 - Choose **Map** to return to the separate fictional building without losing the current route, checkpoint observation, hunt progress or local sharing grant.
 - Explore four fictional floors using one illustrated coworking footprint, with company suites, meeting rooms, phone booths, café, lounge and reception; search or tap a room to meet its host, then select **Get directions**. Orbit, Moss, Spark and North are fictional tenants, not a BeCentral directory.
 - Pan and zoom the map. Preview calculated routes, inspect floor transitions, and compare stairs/lift and step-free choices.
@@ -136,10 +136,10 @@ It binds to loopback and prints temporary demo credentials. **The app does not c
 ## A quick walkthrough
 
 1. Open the pixel-art map. **Sample · 2D** identifies the fictional plan; no starting point is set.
-2. Tap **3D sample** at ground-floor reception. It opens an unrelated licensed engine room. Drag or pinch to explore, use **Overview** to recover, and **View controls** for zoom buttons and attribution.
-3. Return with **Map**. Choose **Start point** and a simulated checkpoint, then use **Rooms** or tap a room, meet its host, and choose **Get directions**.
-4. Tap the compact journey card for route preferences and the optional founder guide. Use the floor chip to inspect transitions. Changing floors never moves your last-seen position.
-5. Open **More** for **Discover the building**, **People sharing demo**, sample information and Light/Dark panels.
+2. Tap **3D sample** at ground-floor reception. It opens an unrelated licensed engine room. Drag or pinch to explore, use **Top** to frame the full capture from above, and open information for Look around and attribution.
+3. Return with bottom **Map**. Use **Find a room** or tap a room, meet its host, and choose **Get directions**. Use **Plan a route** to pick a simulated checkpoint.
+4. Tap the compact journey card for route preferences, a change of start and the optional founder guide. Use the floor chip to inspect transitions. Changing floors never moves your last-seen position.
+5. Open top-right **More** for **Discover the building**, **People sharing demo**, sample information and Light/Dark panels.
 
 The app keeps demo state in memory. Restarting resets it; no location history is saved by default.
 

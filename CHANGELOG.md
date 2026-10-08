@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased — direct Map and 3D navigation
+
+- Replaced the four-action bottom menu with direct Map/3D switches and top-right More in both views.
+- Kept Find a room visible on Map; Plan a route opens simulated starting-point choices, and route details can change the start.
+
+- Added a building-team pilot request checklist for permitted pixel-art and 3D capture work.
+- Recorded an unresolved iOS simulator accessibility crash during sheet dismissal; Android verification and Samsung installation are documented separately.
+
+## Unreleased — direct 3D camera controls
+
+- Added a compact right-side Top / + / − stack, clear of the bottom view switches.
+- Top now frames the full sample from an inclined, zoomed-out view and fits portrait/landscape dimensions.
+- Kept attribution and optional Look around behind the information button.
+
 ## Unreleased — room hosts and clearer discovery
 
 - Installed this update on the physical Samsung after reconnection; ordinary ADB replacement installation and cold launch succeeded.
@@ -23,7 +37,7 @@
 ## Unreleased — usable Gaussian-splat zoom-out
 
 - Fixed zoom-out stopping after roughly one tap at the lens limit: zoom now continues by moving the camera backwards to an exterior view.
-- Kept zoom-in reversible within bounds and Overview as the exact opening reset; all zoom inputs share the same behavior.
+- Kept zoom-in reversible within bounds and all zoom inputs on the same behavior; Top now fits the full inclined capture.
 - Made zoom buttons stop automatic Look around, matching other direct camera interactions.
 - Disabled cache reuse for the Android offline viewer so app updates load the current bundled scene controls.
 
@@ -71,7 +85,7 @@
 ## Unreleased — focused demonstration journey
 
 - Replaced the large promotional overlay with a compact Engine room / Sample scene identity, essential controls and a short gesture hint; added fuller controls in Info.
-- Curated a wider, lower-looking interior opening and an explicit Overview recovery action. Lens zoom holds the camera position to avoid moving through nearby captured surfaces; tests cover bounded zoom and canonical recovery.
+- Curated a wider, lower-looking interior opening and camera recovery. Lens zoom holds the camera position to avoid moving through nearby captured surfaces; tests cover bounded zoom and recovery.
 - Renamed the native map entry to Map demo and clarified that its fictional four-floor building is separate from the captured scene.
 - Added experience standards for complete journeys, agent review responsibilities and visual verification. Updated the PRD, README and building-team demonstration guide.
 

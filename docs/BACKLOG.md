@@ -2,9 +2,13 @@
 
 These local work items track the roadmap for [e-mric/BeThereCentral](https://github.com/e-mric/BeThereCentral). Immersive exploration is a core product direction alongside navigation.
 
+## Known verification issue
+
+- Investigate the iOS simulator accessibility crash observed while dismissing a checkpoint sheet on 8 October 2026. The stack faults in Compose accessibility properties during a delayed activation callback; root cause is unconfirmed. Reproduce with touch and VoiceOver, then verify a targeted fix before claiming iOS accessibility stability. See [verification status](testing/STATUS.md).
+
 ## Next experiment
 
-- Test the focused Explore → Overview recovery → separate Map demo journey with 5–8 participants using [experience standards](EXPERIENCE.md). Record unaided recovery, recognition of the separate places, route comprehension and enjoyment; use anonymous observations rather than movement traces.
+- Test the focused Explore → Top recovery → separate Map demo journey with 5–8 participants using [experience standards](EXPERIENCE.md). Record unaided recovery, recognition of the separate places, route comprehension and enjoyment; use anonymous observations rather than movement traces.
 - Test the sample discovery trail with participants: can they name an area and nearby fictional company after reading a checkpoint card, and do they understand that scan and team progress are simulated? Use anonymous task observations, not movement traces.
 - Test real devices with VoiceOver/TalkBack, large text, color-vision differences and reduced dexterity. Confirm map alternatives remain usable.
 

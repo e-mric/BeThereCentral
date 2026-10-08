@@ -206,3 +206,24 @@ Astra reviewed the final source and the four final Android captures (map, host, 
 ### Samsung installation — room hosts and persistent 3D navigation
 
 After reconnection on 8 October 2026, the debug APK from commit `288573d` was installed on the physical Samsung SM_F971B using `adb -P 5038 -s <Samsung serial> install -r --user 0 androidApp/build/outputs/apk/debug/androidApp-debug.apk` (Success). A cold launch with `shell am force-stop com.betherecentral` followed by `shell am start -W -n com.betherecentral/com.betherecentral.android.MainActivity` returned `Status: ok`, 521 ms Activity launch time. A subsequent package-specific `pidof` confirmed the process remained present. This is installation/startup evidence, not visual or performance validation. No phone instrumentation, screenshot capture or continuous monitoring was used; visible appearance awaits user confirmation.
+
+
+### Direct Map / 3D navigation and inclined Top view — 8 October 2026
+
+The bottom bar now contains Map and 3D destinations, which switch views without opening a sheet. More moved to the shared top-right header. Find a room stays visible on the map; Plan a route opens simulated start choices, and route details retain Change start point. Header fitting and a shared search/floor row avoid competing fixed widths. The separate viewer replaces Overview / View controls with Top, +, − and information; Top fits the sample capture at an inclination. Very short landscape layouts use a lower-right horizontal control row.
+
+Commands actually run:
+
+- `npm --prefix exploration run build` and `npm --prefix exploration test`: passed, 12 viewer tests, including inclined fit across portrait/landscape and reversible zoom.
+- `./gradlew :composeApp:compileKotlinDesktop`: passed (executor check).
+- `ANDROID_HOME=… ./gradlew :composeApp:testAndroidHostTest :androidApp:assembleDebug`: passed, 29 Android host feature tests. Subsequent presentation corrections were rebuilt with `:androidApp:assembleDebug`; the domain suite was not rerun after those corrections.
+- Unsigned `xcodebuild -project iosApp/BeThereCentral.xcodeproj -scheme BeThereCentral -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,id=CBB251C4-BDA9-415D-9D6B-DF10DB661509' CODE_SIGNING_ALLOWED=NO build`: passed after final corrections.
+- `git diff --check`: passed.
+
+On the dedicated Pixel 7 / API 36 emulator (5556), visually inspected the map and rendered inclined Top scene with the two-item native bar and top-right More. Plan a route → simulated Ground floor lobby → Find a room → Orbit · Third floor → room host → Get directions produced a stairs route (71 illustrative metres); Step-free changed it to Lift (79 illustrative metres). Map → 3D → More → dismiss → Map returned directly without a sheet, retaining the route and map projection (reception sign bounds unchanged). Third-floor selection also survived a 3D round trip. The final follow-up build additionally exercised the no-destination route card → Change start point path. [Map](../screenshots/android-minimal-map.png) and [Top scene](../screenshots/android-minimal-explore.png) captures show the final navigation layout; they precede only the additional Change start point action. These are emulator checks, not physical-device performance or accessibility certification.
+
+Browser inspection confirmed visible Top framing and controls at 1280×720 and an unobstructed horizontal control row at 800×280; the temporary viewport override was reset. Earlier checks in the same slice exercised +/− reversal and the information dialog.
+
+**iOS is partially verified, with an unresolved crash.** On iPhone 17 Pro / iOS 26.5 simulator, the final map rendered correctly and Plan a route → Ground floor lobby → route details → Change start point worked. During subsequent accessibility-tool sheet dismissal, the app crashed with EXC_BAD_ACCESS in Compose `AccessibilityElement.cachedProperties` / `accessibilityTraits`, reached through Apple's delayed activation callback (incident 8 October 2026, 10:14:47 Europe/Brussels). This does not establish the root cause or prove a normal touch path is safe. No speculative dependency change or accessibility disabling was applied. The final iOS 3D round trip and VoiceOver remain unverified. Reopened the simulator app after recording the failure.
+
+Installed the final APK on the connected Samsung SM_F971B with ordinary `adb -P 5038 -s … install -r --user 0`, then cold-launched the explicit activity: `Status: ok`, 498 ms activity launch, process present. This is installation/startup evidence only; phone appearance remains for the user to confirm. No phone instrumentation, screenshots or continuous monitoring were used. No unchanged server tests, full desktop journey, physical iPhone or hosted CI checks were run for this slice.

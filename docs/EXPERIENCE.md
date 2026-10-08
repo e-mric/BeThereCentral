@@ -14,22 +14,22 @@ The current capture and map describe different places. Explore shows a licensed 
 | --- | --- | --- |
 | Open the map | Recognise an explorable pixel-art world | Map appears first; a labelled 3D sample doorway sits at ground-floor reception and follows pan/zoom |
 | Enter the doorway | Recognise the separate sample space | Actual scene pixels appear; sample status and native return-to-map stay visible |
-| Understand the sample | Know what is being shown | A short scene title and sample label remain visible; provenance and fuller explanation are available in View controls |
+| Understand the sample | Know what is being shown | A short scene title and sample label remain visible; provenance and fuller explanation are available through the information button |
 | Explore | Predict the effect of a gesture or button | Drag changes the view; repeated zoom-out moves back far enough to see the capture from outside; zoom-in reverses it within bounds; pan has a recoverable result |
-| Recover | Regain orientation immediately | Overview stops automatic movement and restores the approved camera, including target and zoom |
+| Recover | Regain orientation immediately | Top stops automatic movement and frames the entire capture from an inclined, zoomed-out view, adapting to viewport shape |
 | Return to Map | Keep orientation | The same floor, pan and zoom remain, with a fictional four-floor label; no transition pretends to align the capture |
-| Preview a route | Understand start, destination and floor changes | A simulated lobby checkpoint establishes last seen; Orbit on the third floor produces a cross-floor route; Step-free uses the lift |
+| Preview a route | Understand start, destination and floor changes | Find a room or tap it; Plan a route opens simulated starting-point choices; Orbit on the third floor produces a cross-floor route; Step-free uses the lift and route details can change the start |
 | Switch views | Keep the task intact | Destination, last-seen timestamp and route preference survive Explore → Map demo; scene recovery remains available |
 | Encounter a failure | Know how to continue | A readable error and Retry replace competing viewer controls; the native return-to-map action stays usable; failed rendering releases resources |
 
 ## Interface rules
 
-Reception uses a clickable pixel-art wooden sign rather than a floating app button. It follows the map projection with bounded visual sizing for readability and a minimum 48 dp hit target. Use a floor-stack icon and plain action labels instead of text chevrons. **Start point** explains where the demo route begins; its primary choices match map floor names, while manual code testing is secondary. The initial journey card opens that sheet directly. Discovery offers educational area/company cards without requiring the game; fictional content and simulated scans remain explicit.
+Reception uses a clickable pixel-art wooden sign rather than a floating app button. It follows the map projection with bounded visual sizing for readability and a minimum 48 dp hit target. Use a floor-stack icon and plain action labels instead of text chevrons. **Plan a route** in the initial journey card opens simulated starting-point choices whose names match map floors; manual code testing is secondary. Route details can change the start. Discovery offers educational area/company cards without requiring the game; fictional content and simulated scans remain explicit.
 
-The map is home. No top-level Explore/Map tabs: ground-floor reception is the sample doorway. Rooms, Start point and More open sheets; 3D opens the reception sample. These bottom actions remain visible in the viewer. Use one floor chip and a collapsed journey card; advanced controls expand only on demand. Reception is also discoverable through room search; its route details expose the sample entry.
+The map is home. Bottom **Map** and **3D** switches move directly between the two views; the ground-floor reception sign also opens the sample. **More** sits at the top right in both views. Map keeps **Find a room** visible, plus one floor chip and a collapsed journey card; advanced controls expand only on demand. Reception is also discoverable through room search; its route details expose the sample entry.
 
 - Use a compact, specific scene title instead of a large promotional headline. Let captured landmarks provide the character.
-- Keep Overview and View controls visible. Put zoom buttons, advanced gestures and attribution in the View controls sheet; avoid a permanent wall of instructions.
+- Keep a compact right-side Top / + / − stack visible. Top restores the full inclined capture; keep attribution and Look around behind the small information action. Preserve bottom navigation and 48 CSS-pixel targets.
 - Use at least 48 dp native / 48 CSS-pixel web touch targets, readable contrast and meaningful labels. Do not use colour alone to communicate state.
 - Use Material 3 Expressive-style button shapes, clear filled/tonal emphasis and visible selected/pressed states. Keep touch targets at least 48 dp even when the visible art is smaller.
 - Draw the map and scene edge to edge behind system bars; apply safe insets to interactive overlays rather than padding the entire canvas. Maintain readable status icons and keep bottom actions away from the home gesture.
@@ -81,7 +81,7 @@ These are development responsibilities, not runtime agents. Keep one named integ
 
 ## Small experiment
 
-Use the [demo guide](DEMO.md) with 5–8 consenting participants. Ask them to explore, recover the overview, identify whether the scene and map represent the same place, and preview a step-free sample route. Record unaided completion, confusion, recovery and one thing they found interesting. Summarise anonymously; do not collect movement traces.
+Use the [demo guide](DEMO.md) with 5–8 consenting participants. Ask them to explore, use Top to frame the full capture, identify whether the scene and map represent the same place, and preview a step-free sample route. Record unaided completion, confusion, recovery and one thing they found interesting. Summarise anonymously; do not collect movement traces.
 
 The next decision is whether this small experience is understandable and worth a permitted building capture. It is not whether we can add more features. Treat the PRD's thresholds as hypotheses, not achieved results.
 
@@ -101,4 +101,4 @@ The bottom **3D** action always opens the reception demo, even from another floo
 
 Room directions use a deep-blue filled action with warm-white text and a subtle outline, keeping orange for accents. The Android launcher foreground is inset 10% per side so the B has more breathing room within launcher masks.
 
-The same bottom menu remains visible in 3D, with 3D selected and viewer controls laid out above it. Rooms returns to map search; Start point returns to the map location sheet. Navigation, directions and resource-link buttons use pixel icons alongside text labels; rounded controls retain their touch targets.
+The bottom **Map** and **3D** switches remain visible in the viewer, with 3D selected and viewer controls laid out above them. Top-right **More** remains available. Navigation, directions and resource-link buttons use pixel icons alongside text labels; rounded controls retain their touch targets.
