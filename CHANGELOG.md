@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — Android CI SDK setup
+
+- Overrode setup-android’s legacy default package list to request platform-tools, avoiding failure on the retired tools package before Gradle runs. Android 36 and Build Tools 36.0.0 remain explicitly installed.
+
 ## Unreleased — capture planning and costs
 
 - Expanded the building pilot guide with LiDAR, photos/video and pixel-art reference capture, a one-room export test, sourced software/store pricing, and phased spending allowances with labor and recurring costs separate.
