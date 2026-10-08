@@ -20,3 +20,7 @@
 - **Checkpoint / last seen / route / step-free**: legacy sample concepts. A checkpoint is a validated sample payload; last seen is its latest timestamped observation, not live tracking; a route traverses a fictional graph; step-free excludes declared inaccessible sample edges, not surveyed real access.
 - **Grant / team simulation / discovery stop**: legacy sample sharing consent, same-device player contributions and ordered fictional hunt content. No networked team session or real recipient delivery is implemented.
 - **Guide preview / room host**: character animating an old fictional sample route, and pixel character introducing a selected place. The active Plan World host states source-supported facts only, never an invented tenant mission.
+
+- **Community Studio (planned)**: SvelteKit browser authoring tool for rooms, characters and declarative quests; distinct from the implemented one-room Room Studio prototype. Implementation awaits resident feedback and revised requirements.
+- **Game content package (planned)**: versioned, bounded data and licensed asset references with stable room/character/quest IDs, independently validated by Studio and Godot. It contains no arbitrary scripts and is separate from player progress.
+- **Fictional game collision (planned)**: geometry controlling movement in a playable scene; it does not establish real building routes or accessibility.

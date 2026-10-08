@@ -17,3 +17,7 @@ Keep courtyards empty and dark for now. On ground, preserve the full silhouette 
 ## Consequences
 
 The prototype can test the basic authoring and interchange flow without changing authoritative plan geometry or introducing user accounts. Browser saves remain local to that browser/device; moving a scene requires explicit JSON export/import. Compose is preview-only and resets when closed. Any future tenant deployment needs verified room mapping, authorization, asset rights, review, versioning, rollback and an owner for publishing. This ADR amends ADR 0006 only to permit a separate local editor experiment; it does not relax the plan-world constraints.
+
+## Future direction amendment — 8 October 2026
+
+[ADR 0008](0008-godot-game-sveltekit-studio.md) selects Godot gameplay and SvelteKit browser authoring as the next direction, with implementation on hold pending resident feedback, revised requirements and user resumption. This ADR still describes the implemented Vite/PixiJS and Compose experiment; no migration has taken place.

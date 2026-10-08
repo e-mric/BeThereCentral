@@ -1,6 +1,8 @@
 # BeThereCentral — Product Requirements
 
-Version 0.8 · 8 October 2026 · Status: five-plan world plus local Room Studio experiment
+Version 0.9 · 8 October 2026 · Status: existing prototypes retained; next implementation on hold
+
+Godot for gameplay and SvelteKit for browser Studio are the selected technical direction. Product scope remains provisional while residents respond to the shared idea. Incorporate their feedback into this PRD and the [implementation plan](plans/GODOT_SVELTEKIT.md), then wait for the user to explicitly resume implementation. No migration or new gameplay is implemented by this requirements update.
 
 ## Problem and current experiment
 
@@ -45,7 +47,9 @@ Studio should eventually author **rooms, characters and quests**. A resident/cla
 
 Proposed first playable experiment: one room, one controllable avatar, one classmate NPC, a conversation, a short discovery task and a visible reward. Rooms, decorative props and characters should export as versioned content with stable IDs and asset references. Preserve the source-plan footprint separately from fictional game collision, interaction points and quest placement. Tenant missions and personal facts must be supplied or approved by their owners. Multiplayer, AI dialogue and a whole-campus RPG are not required for this first experiment.
 
-A real game runtime is now worth evaluating. Godot is the recommended next candidate for the playable experiment; browser Studio can remain an authoring tool. This is a recommendation to validate, not an implemented migration or a superseding engine decision. Test content import, mobile controls, sprite layering/collision, saves and performance before replacing the current app. The existing one-room JSON is a starting fixture, not a complete character/quest interchange standard.
+Godot is selected for the future game runtime and SvelteKit for browser Studio; [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) records the decision and the Compose-for-web alternative. Start with a standalone game experiment only after the feedback gate opens. Test content import, mobile controls, sprite layering/collision, saves and performance before deciding whether to replace or integrate with the current Compose app. The existing one-room JSON is a starting fixture, not a complete character/quest interchange standard.
+
+The intended learning platform serves both players, through educational quests, and contributors, through readable code, original sample assets, exercises and documentation. The first learning outcome and lesson content remain subject to resident input; AI assistance is optional, not a prerequisite for contributing.
 
 References reviewed 8 October 2026: [Sea of Stars listing](https://play.google.com/store/apps/details?id=com.playdigious.seaofstars), [HYKE listing](https://apps.apple.com/in/app/hyke-northern-light-s/id6479881755), [Godot 2D capabilities](https://docs.godotengine.org/en/stable/tutorials/2d/introduction_to_2d.html).
 

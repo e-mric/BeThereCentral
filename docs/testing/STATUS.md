@@ -295,3 +295,12 @@ Replaced bare courtyard mask edges with a renderer-only pass for layered slate m
 The initial visual pass looked too smooth, so slate variation, piers and mullions were added before the final checks. Astra reviewed clipping, polygon winding, zoom scaling and bevel joins without a blocking finding. No image assets or plan geometry were changed. No phone installation, phone instrumentation, browser or assistive-technology check was performed. The source review noted that a decorative midpoint seam may cross a window; it did not prevent readable windows in the checked views.
 
 User steering toward an open-source community game and Studio character creation is recorded in PRD/backlog as planned work. Godot remains a recommended candidate to evaluate; no engine migration, character editor or quest gameplay is implemented by this change.
+
+### Godot / SvelteKit planning only — 8 October 2026
+
+Recorded the selected future game/Studio architecture, the Compose-for-web alternative and the resident-feedback hold. Current application behavior remains unchanged.
+
+- `git diff --check`: passed.
+- Ran a Python `pathlib`/regular-expression check over local Markdown link targets in the nine affected product/architecture documents: all 53 targets exist. This checks file existence, not remote URL availability or heading anchors.
+- Astra reviewed the documentation diff and new plan/ADR: no content blockers; confirmed the explicit hold, current-versus-planned distinction, balanced framework alternative and acceptance checks.
+- No app builds, runtime tests, browser rendering, emulator/simulator or physical-device checks were run for this documentation-only change. No code, configuration, dependencies or generated assets changed. Existing untracked screenshots are excluded from the commit.

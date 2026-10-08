@@ -1,5 +1,9 @@
 # Architecture
 
+## Selected next architecture, implementation deferred
+
+The next direction is a standalone Godot game and a SvelteKit browser Studio, exchanging bounded, versioned room/character/quest content. PixiJS may remain the Studio canvas. Compose stays as the current app during evaluation; embedding or replacing it needs later evidence. Resident feedback, a revised PRD and explicit user resumption are required before scaffolding or migration. The [plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) explain the boundary and why SvelteKit is preferred over a Compose browser UI for this authoring workflow.
+
 ## Active shape
 
 Android, iOS and desktop launch the shared Kotlin Multiplatform/Compose application. Its current home is **Plan World**, with five structured floor records and five full-floor illustrations. The building domain owns source-derived outer-footprint polygons, courtyard voids, places and approximate anchors; presentation fits each illustration to the plan viewport, clips it to the footprint and voids, and transforms the result for pan, zoom and Fit. Search and the accessible legend use the same place records. Geometry and search remain independent of Compose, operating systems and transport. Platform launchers stay thin; tests mirror feature packages under `commonTest`.
@@ -31,8 +35,6 @@ Source-plan images support the silhouette, courtyards and directory labels, not 
 The earlier fictional `sample-building` fixture uses four floors, an illustrative metre coordinate system, a reused coworking raster and a route graph. Its route, optional guide, QR validation, local sharing and same-device hunt behavior remain in internal legacy fixtures/tests. They do not operate on the five real-plan drawings. The disconnected Python reference server still exercises grant authorization, server-clock expiry and revocation with synthetic opaque payloads; the app does not connect to it. Opaque storage is not E2EE.
 
 The licensed Tugboat Bat engine-room splat and PlayCanvas viewer remain bundled offline, with the local browser demo under `exploration/dist/`. This sample is independent of BeCentral. The old mobile reception doorway and Map/3D switches are historical prototype behavior, superseded as the active entry by Plan World. The browser demo is not evidence of mobile performance or room-linked alignment. See [viewer provenance](../exploration/README.md) and [verification](testing/STATUS.md).
-
-## Platform and dependencies
 
 ## Room Studio prototype
 

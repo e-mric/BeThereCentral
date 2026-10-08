@@ -2,7 +2,11 @@
 
 This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeThereCentral). GitHub Issues are the intended public tracker; publishing requires user authorization.
 
-## Next experiment: review five supplied plans
+## Implementation hold
+
+The user is gathering resident input before implementation because the PRD may change. Godot gameplay and SvelteKit browser Studio are the selected direction; the [plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record scope, alternatives and acceptance checks. All implementation items below are deferred proposals, not authorization to execute. Record feedback, revise the PRD/plan/backlog, and receive the user’s instruction to resume first. Preserve the current prototypes meanwhile.
+
+## Proposed review: five supplied plans
 
 - Inspect every source-derived footprint and courtyard mask against its schematic and rendered full-floor artwork. Correct coarse clipping, labels and approximate anchors where needed; review all five distinct scenes. Preserve the complete ground-floor silhouette while leaving the unassigned grey area without furniture; keep ground grey/orange and second grey unassigned in the directory, first-floor FARI detached, and fourth-floor 66 / The Sky unplaced.
 - Confirm source revision, rights and occupant names with the building owner before calling the directory current. Record source provenance and a process for later plan updates.
@@ -13,7 +17,8 @@ This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeTh
 ## Next playable experiment: community game and character Studio
 
 - Prototype one playable room with one avatar, one classmate NPC, a conversation, a short discovery quest and a reward. Keep the current map available during evaluation.
-- Evaluate Godot as the game runtime using a browser-Studio content export; verify Android/iOS controls, collision, sprite layering, save/load and performance before committing to a migration.
+- After explicit resumption, test the selected Godot runtime with a SvelteKit Studio content export; reuse the existing PixiJS canvas where useful. Verify Android/iOS controls, collision, sprite layering, save/load and performance before deciding on replacement or integration with Compose.
+- Choose one learning outcome with residents, then pair the playable quest with a documented contributor exercise. Keep both player learning and learning to build the project in scope.
 - Extend Studio with a modular character creator: appearance, display name, portrait, directional idle/walk animation preview, introduction and optional quest role. Validate one approved classmate before scaling to the roster.
 - Define versioned room/character/quest content, frame dimensions, foot pivots, asset provenance and licences. Keep real-person source photos private; publish only agreed character assets. Photo-assisted generation remains optional future work.
 - Use Sea of Stars and HYKE as art-direction references for atmosphere, depth and animation; build an original coherent palette/asset library. Do not equate a large generated floor image with a fully editable game level.

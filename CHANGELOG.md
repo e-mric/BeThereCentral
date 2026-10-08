@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — community game and Studio planning
+
+- Recorded Godot gameplay and SvelteKit browser Studio as the selected next direction, with Compose web considered as an alternative and the existing prototypes retained.
+- Added a phased plan for portable content, one playable learning quest, manual character creation and later campus expansion.
+- Put implementation on hold until resident feedback is incorporated into the PRD and the user explicitly resumes. This change contains documentation only.
+
 ## Unreleased — courtyard walls
 
 - Replaced bare courtyard mask edges with substantial slate wall caps, framed blue-grey windows and corner piers. These decorative details scale with the map and stay on the building side of the source-derived courtyard boundary.

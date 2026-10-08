@@ -12,6 +12,10 @@ Android and iOS share Kotlin behavior and a Compose Multiplatform interface; a d
 
 [Product requirements](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [Experience standards](docs/EXPERIENCE.md) · [Building-team demo](docs/DEMO.md) · [Coordinates](docs/COORDINATES.md) · [Plan-world decision](docs/adr/0006-plan-derived-pixel-world.md) · [Privacy](docs/PRIVACY.md) · [Backlog](docs/BACKLOG.md) · [Verified checks](docs/testing/STATUS.md)
 
+## Planned direction, implementation on hold
+
+The selected next direction is **Godot for the game and SvelteKit for browser Studio**, with rooms, characters and learning quests exchanged as versioned content. The current Compose app and Vite/PixiJS editor remain the implemented prototypes. Resident feedback may change the PRD; no migration starts until that feedback is incorporated and the user resumes implementation. See the [phased plan](docs/plans/GODOT_SVELTEKIT.md) and [ADR 0008](docs/adr/0008-godot-game-sveltekit-studio.md), including the Compose-for-web alternative.
+
 ## What the current app shows
 
 Each of the five floors has its own illustration clipped to a source-derived outer footprint. These masks preserve approximate relative proportions and courtyard openings remain empty dark voids. The ground-floor silhouette is shown in muted charcoal (#252B2D) with a subtle outline; illustration is confined to known colored regions, leaving its grey source area unfurnished. Generated partitions, desks, furniture and characters are fictional. The source drawings are 2048 × 1448 pixels, with X right and Y down. Their source-pixel positions are useful for drawing, not metres, walking distances, entrances or step-free paths. Pan, zoom and Fit help inspect a floor. Search and the legend expose source-listed names and numbers, including entries without a defensible map position.
