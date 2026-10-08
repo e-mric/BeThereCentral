@@ -33,4 +33,4 @@ Cold-open the exact build on the presentation device. Visually check the scene a
 
 Room discovery: tap a map room or search result to see a pixel host introduction. Company missions are fictional; BeCentral and WeAreFounders links are external community resources. **Get directions** chooses the destination; browsing does not establish a last-seen position. The bottom **3D** action always opens the unrelated reception sample without changing the map floor or position. Matching real 3D capture coordinates remain future work.
 
-Use the [pilot permission checklist](PILOT_REQUEST.md) to agree capture access, permitted assets, tenant content and a private review before publication.
+Use the [pilot permissions, capture and cost guide](PILOT_REQUEST.md) to agree capture access, permitted assets, tenant content, a small spending allowance and a private review before publication. It separates the LiDAR layout pass from photographic splat capture and distinguishes vendor prices from provisional project budgets.

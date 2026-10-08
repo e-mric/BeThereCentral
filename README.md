@@ -12,7 +12,7 @@ Built for a proposed BeCentral experience by a WeAreFounders participant. Its vi
 
 **Current stage: runnable sample prototype.** Explore renders a licensed engine-room scene from another location; it has no room hotspots or routes. No real floor plans or positioning hardware have been supplied for the proposed building. All mapped rooms and routes are fictional. A checkpoint records where you were **last seen**; it does not continuously track you.
 
-[Product requirements](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [Experience standards](docs/EXPERIENCE.md) · [Building-team demo](docs/DEMO.md) · [Pilot permission checklist](docs/PILOT_REQUEST.md) · [Privacy](docs/PRIVACY.md) · [Contributing](CONTRIBUTING.md) · [Backlog](docs/BACKLOG.md) · [Verified checks](docs/testing/STATUS.md)
+[Product requirements](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [Experience standards](docs/EXPERIENCE.md) · [Building-team demo](docs/DEMO.md) · [Pilot permissions, capture and costs](docs/PILOT_REQUEST.md) · [Privacy](docs/PRIVACY.md) · [Contributing](CONTRIBUTING.md) · [Backlog](docs/BACKLOG.md) · [Verified checks](docs/testing/STATUS.md)
 
 ## Designed for immersive exploration and clear navigation
 

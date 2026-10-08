@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — capture planning and costs
+
+- Expanded the building pilot guide with LiDAR, photos/video and pixel-art reference capture, a one-room export test, sourced software/store pricing, and phased spending allowances with labor and recurring costs separate.
+- Distinguished Scaniverse Classic on-device processing from its cloud workflow, and recorded export/publication checks before scaling capture.
+
 ## Unreleased — direct Map and 3D navigation
 
 - Replaced the four-action bottom menu with direct Map/3D switches and top-right More in both views.
