@@ -202,3 +202,7 @@ On iPhone 17 Pro / iOS 26.5 simulator, the final rebuilt app launched; Rooms →
 The Samsung was disconnected from both local ADB connections when checked, so this update was not installed on the phone. No phone instrumentation, screenshot capture or background monitoring was used. Emulator/Simulator results are not physical-device evidence.
 
 Astra reviewed the final source and the four final Android captures (map, host, 3D and launcher) and found no actionable defects. This review did not independently verify iOS or the phone.
+
+### Samsung installation — room hosts and persistent 3D navigation
+
+After reconnection on 8 October 2026, the debug APK from commit `288573d` was installed on the physical Samsung SM_F971B using `adb -P 5038 -s <Samsung serial> install -r --user 0 androidApp/build/outputs/apk/debug/androidApp-debug.apk` (Success). A cold launch with `shell am force-stop com.betherecentral` followed by `shell am start -W -n com.betherecentral/com.betherecentral.android.MainActivity` returned `Status: ok`, 521 ms Activity launch time. A subsequent package-specific `pidof` confirmed the process remained present. This is installation/startup evidence, not visual or performance validation. No phone instrumentation, screenshot capture or continuous monitoring was used; visible appearance awaits user confirmation.

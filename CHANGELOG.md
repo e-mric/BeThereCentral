@@ -2,6 +2,8 @@
 
 ## Unreleased — room hosts and clearer discovery
 
+- Installed this update on the physical Samsung after reconnection; ordinary ADB replacement installation and cold launch succeeded.
+
 - Added pixel hosts explaining all 48 sample rooms, fictional company missions, reception community links and an explicit Get directions action.
 - Kept bottom navigation visible in both map and 3D, with pixel icons and a high-contrast blue/white directions button.
 - Added a bottom 3D shortcut to the same unrelated reception sample, preserving map state on return.
