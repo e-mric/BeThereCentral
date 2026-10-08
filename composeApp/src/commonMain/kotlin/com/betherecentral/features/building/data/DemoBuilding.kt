@@ -67,7 +67,7 @@ object DemoBuilding {
     val checkpoints: List<Checkpoint> = floors.mapIndexed { index, floor ->
         Checkpoint(
             id = "cp-l${index + 1}-lobby", floorId = floor.id,
-            name = "Level ${index + 1} lobby", position = px(755, 595),
+            name = "${floor.name} lobby", position = px(755, 595),
         )
     } + Checkpoint("cp-l1-west", "floor-1", "West entrance", px(200, 595))
 

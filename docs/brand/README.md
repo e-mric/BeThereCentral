@@ -34,7 +34,7 @@ This must be immaculate solid flat graphic artwork: completely filled letters wi
 
 ## Android launcher mark
 
-Generated with the built-in GPT image tool on 8 October 2026 using the approved dark logo as reference. The opaque square is bundled unchanged at `androidApp/src/main/res/drawable-nodpi/launcher_mark.png`; Android applies its launcher mask. SHA-256: `ffbcc4dc8f63917e48d0d3e9dca8a87b9a8758abbe35c07c34dd7885e2b74842`.
+Generated with the built-in GPT image tool on 8 October 2026 using the approved dark logo as reference. The opaque square is bundled unchanged at `androidApp/src/main/res/drawable-nodpi/launcher_mark.png`; Android applies its launcher mask. The adaptive foreground now has a 10% inset on every side, reducing the mark by 20% without modifying the generated image. SHA-256: `ffbcc4dc8f63917e48d0d3e9dca8a87b9a8758abbe35c07c34dd7885e2b74842`.
 
 ```text
 Create an Android launcher icon from this approved BeThereCentral logo. Preserve the exact white B-shaped architectural room symbol and small orange square waypoint, remove all wordmark lettering. One centered large B symbol on a perfectly uniform solid charcoal #0C1114 square background. Crisp clean flat graphic, smooth edges, no texture, shadows, bevel, glow or extra elements. Keep the B and orange waypoint comfortably inside the central 60 percent of the square so Android adaptive icon masking cannot crop them. White #FFF7F2 and orange #F74B23, no rounded outer border because the operating system supplies the mask. Square 1:1 composition.

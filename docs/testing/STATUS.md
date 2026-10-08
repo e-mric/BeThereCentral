@@ -183,3 +183,22 @@ Stop `:composeApp:run` before running another Gradle build in the same checkout:
 - No camera scanning, continuous positioning, real recipient sharing, real multiplayer, production identity/TLS or E2EE verification: these integrations do not exist yet.
 - No real-building geometry/accessibility survey or navigation usability study. PRD thresholds remain hypotheses.
 - Future edits must update this record with the actual commands/results; never count `NO-SOURCE`, compilation alone or an unexecuted CI configuration as test coverage.
+
+### Pixel signs, room hosts and persistent 3D navigation — 8 October 2026
+
+Problem/experiment: make the sample doorway fit the pixel world, make route origins understandable, and let people learn about rooms before asking for directions. The bottom menu is available in both the map and 3D. The global 3D action intentionally opens the same unrelated reception demo from any floor; it never establishes a location or registered capture position.
+
+Final commands and outcomes:
+
+- `ANDROID_HOME=<local Android SDK> ./gradlew :androidApp:assembleDebug :composeApp:desktopTest :composeApp:testAndroidHostTest :composeApp:linkDebugFrameworkIosSimulatorArm64` passed. Both host suites contain 29 passing tests, including the new room-introduction and trail-content checks.
+- `npm --prefix exploration run build` and `npm --prefix exploration test` passed (10 viewer tests). This bundle change only removes the old chevron from Map help text.
+- `xcodebuild -project iosApp/BeThereCentral.xcodeproj -scheme BeThereCentral -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,id=CBB251C4-BDA9-415D-9D6B-DF10DB661509' CODE_SIGNING_ALLOWED=NO build` passed with the local SDK/JDK environment. The generated sign is included in the host resource-copy phase.
+- `git diff --check` passed before delivery.
+
+Dedicated Pixel 7 / API 36 emulator evidence: a map room tap opened the host without setting a start; Get directions opened the clearer start sheet; choosing Third floor lobby produced a route to Orbit on Ground floor. Step-free changed 71 m / Stairs to 79 m / Lift. The bottom 3D action opened the real sample and Map returned to the same floor and last-seen point. The discovery sheet displayed fictional Spark context and Demo scan advanced progress to 1/5, Found by Alex. After the final presentation updates, the wooden sign opened 3D, its scene and controls rendered above the persistent bottom menu, and Rooms returned to map search. The enlarged pixel host, blue/white action and smaller launcher B were visually inspected. Current captures are [map](../screenshots/android-minimal-map.png), [3D](../screenshots/android-minimal-explore.png), [host](../screenshots/android-room-host.png), [discovery](../screenshots/android-discovery-trail.png) and [launcher](../screenshots/android-launcher-logo.png).
+
+On iPhone 17 Pro / iOS 26.5 simulator, the final rebuilt app launched; Rooms → Orbit showed the enlarged host and blue/white directions action. Get directions opened the start sheet; Ground floor lobby established the explicitly last-seen route origin. Layout and text were visually inspected. The final persistent 3D menu was visually checked on Android, not iOS. Full VoiceOver/TalkBack, physical-device rendering, external-link browser launch and a new complete co-op trail were not exercised in this slice. Company link targets are covered by the allowlist tests. Server/sharing behavior is unchanged and was not rerun.
+
+The Samsung was disconnected from both local ADB connections when checked, so this update was not installed on the phone. No phone instrumentation, screenshot capture or background monitoring was used. Emulator/Simulator results are not physical-device evidence.
+
+Astra reviewed the final source and the four final Android captures (map, host, 3D and launcher) and found no actionable defects. This review did not independently verify iOS or the phone.

@@ -26,12 +26,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +37,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
+import com.betherecentral.core.presentation.PixelIcon
+import com.betherecentral.core.presentation.PixelIconKind
+import com.betherecentral.features.discovery.presentation.RoomIntroduction
 import com.betherecentral.features.exploration.data.SampleDoorway
 import com.betherecentral.features.building.data.DemoBuilding
 import com.betherecentral.features.building.domain.Checkpoint
@@ -104,7 +103,7 @@ private val Amber: Color @Composable get() = LocalAppPalette.current.amber
 private val QrItem: Color @Composable get() = LocalAppPalette.current.qrItem
 private val Shape = RoundedCornerShape(24.dp)
 
-private enum class PanelKind { QR, HUNT, PEOPLE, ABOUT, MORE, SEARCH, FLOOR, JOURNEY }
+private enum class PanelKind { QR, HUNT, PEOPLE, ABOUT, MORE, SEARCH, FLOOR, JOURNEY, ROOM }
 private enum class MainScene { EXPLORE, MAP }
 private enum class MapEnvironment { DARK, LIGHT }
 
@@ -118,6 +117,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
     var checkpointId by remember { mutableStateOf<String?>(null) }
     var checkpointRevision by remember { mutableIntStateOf(0) }
     var observedAt by remember { mutableStateOf<String?>(null) }
+    var inspectedRoomId by remember { mutableStateOf<String?>(null) }
     var destinationId by remember { mutableStateOf<String?>(null) }
     var preference by remember { mutableStateOf(RoutePreference.DEFAULT) }
     var query by remember { mutableStateOf("") }
@@ -160,6 +160,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
         return true
     }
     fun selectRoom(room: Room) {
+        mainScene = MainScene.MAP
         destinationId = room.id
         query = room.name
         floorId = current?.floorId ?: room.floorId
@@ -168,6 +169,14 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
         focusManager.clearFocus()
         keyboard?.hide()
         overviewCommand++
+    }
+    fun inspectRoom(room: Room) {
+        inspectedRoomId = room.id
+        guideProgress = guideProgress?.withPaused(true)
+        searchOpen = false
+        focusManager.clearFocus()
+        keyboard?.hide()
+        panel = PanelKind.ROOM
     }
     fun openSampleScene() {
         guideProgress = guideProgress?.withPaused(true)
@@ -248,7 +257,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                     destination = destination, route = route, guide = guideFrame,
                     guideWalkingFrame = if (guideFrame?.phase == GuidePhase.MOVING && guideProgress?.paused != true)
                         (((guideProgress?.distanceOnLegMeters ?: 0.0) * 1.5).toInt() and 1) else -1,
-                    onRoomClick = ::selectRoom, onMapTap = { focusManager.clearFocus() },
+                    onRoomClick = ::inspectRoom, onMapTap = { focusManager.clearFocus() },
                     zoomCommand = zoomCommand, overviewCommand = overviewCommand, fitFloorCommand = fitFloorCommand,
                     topInset = safeTop + 112.dp, bottomInset = safeBottom + navHeight + 98.dp,
                     rightInset = 0.dp, mapSurroundColor = DarkInk,
@@ -257,26 +266,33 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                     onSceneDoorwayClick = ::openSampleScene,
                 )
             if (mainScene == MainScene.EXPLORE && supportsExploreScene) {
-                ExploreScene(Modifier.fillMaxSize())
+                ExploreScene(Modifier.fillMaxSize().padding(bottom = safeBottom + navHeight))
             } else {
                 Surface(onClick = { showPanel(PanelKind.FLOOR) },
                     modifier = Modifier.align(Alignment.TopEnd).padding(end = side, top = safeTop + 54.dp).heightIn(min = 48.dp),
                     color = Panel, shape = RoundedCornerShape(24.dp)) {
-                    Box(Modifier.padding(horizontal = 16.dp), contentAlignment = Alignment.Center) {
-                        Text("${floor.name} ⌄", color = Bright, fontSize = 13.sp)
+                    Row(Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        CompositionLocalProvider(LocalContentColor provides Bright) { NavSymbol(3) }
+                        Text(floor.name, color = Bright, fontSize = 13.sp)
                     }
                 }
-                Surface(onClick = { showPanel(PanelKind.JOURNEY) },
+                Surface(onClick = {
+                    when {
+                        current == null -> showPanel(PanelKind.QR)
+                        destination == null -> openSearch()
+                        else -> showPanel(PanelKind.JOURNEY)
+                    }
+                },
                     modifier = Modifier.align(Alignment.BottomCenter).padding(start = side, end = side,
                         bottom = safeBottom + navHeight + 12.dp).widthIn(max = 560.dp).fillMaxWidth(),
                     shape = RoundedCornerShape(24.dp), color = Panel) {
                     Row(Modifier.padding(horizontal = 16.dp, vertical = 10.dp).heightIn(min = 48.dp),
                         verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                            Text(destination?.name ?: if (current == null) "Choose a sample start" else "Where to?",
+                            Text(destination?.name ?: if (current == null) "Plan a route" else "Where to?",
                                 color = Bright, fontWeight = FontWeight.SemiBold, fontSize = 14.sp,
                                 maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            Text(if (current != null) "Last seen · ${current.name}" else "Fictional map · Four floors",
+                            Text(if (current != null) "Last seen · ${current.name}" else "Choose where your demo route begins",
                                 color = Muted, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             if (guideFrame != null) Text(when(guideFrame.phase) {
                                 GuidePhase.MOVING -> if (guideProgress?.paused == true) "Guide preview paused" else "Guide preview walking"
@@ -288,7 +304,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                             TextButton(onClick = ::continueGuide) { Text("Continue") }
                         } else if (guideFrame?.phase == GuidePhase.MOVING && guideProgress?.paused == false) {
                             TextButton(onClick = { guideProgress = guideProgress?.withPaused(true) }) { Text("Pause") }
-                        } else Text("⌃", color = AccentText, fontSize = 22.sp)
+                        } else if (current != null && destination != null) Text("Details", color = AccentText, fontSize = 12.sp)
                     }
                 }
             }
@@ -296,7 +312,7 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                 .fillMaxWidth().height(44.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (mainScene == MainScene.EXPLORE) {
                     TextButton(onClick = { mainScene = MainScene.MAP }, contentPadding = PaddingValues(horizontal = 8.dp),
-                        colors = ButtonDefaults.textButtonColors(contentColor = WarmWhite)) { Text("‹ Map") }
+                        colors = ButtonDefaults.textButtonColors(contentColor = WarmWhite)) { Text("Map") }
                 }
                 Image(painterResource(Res.drawable.brand_logo), "BeThereCentral",
                     modifier = Modifier.width(if (mainScene == MainScene.EXPLORE) 150.dp else 182.dp).height(40.dp), contentScale = ContentScale.Crop)
@@ -307,19 +323,20 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                         fontSize = 9.sp, lineHeight = 12.sp, maxLines = 2, fontWeight = FontWeight.SemiBold)
                 }
             }
-            if (mainScene == MainScene.MAP) Surface(Modifier.align(Alignment.BottomCenter).fillMaxWidth(), color = DarkInk) {
+            Surface(Modifier.align(Alignment.BottomCenter).fillMaxWidth(), color = DarkInk) {
                 NavigationBar(Modifier.padding(bottom = safeBottom).height(navHeight), containerColor = DarkInk,
                     windowInsets = WindowInsets(0, 0, 0, 0)) {
-                    listOf("Rooms", "Set start", "More").forEachIndexed { index, label ->
-                        NavigationBarItem(selected = false,
+                    (if (supportsExploreScene) listOf("Rooms", "Start point", "3D", "More") else listOf("Rooms", "Start point", "More")).forEachIndexed { index, label ->
+                        NavigationBarItem(selected = label == "3D" && mainScene == MainScene.EXPLORE,
                             onClick = {
                                 guideProgress = guideProgress?.withPaused(true)
-                                when(index) {
-                                    0 -> openSearch()
-                                    1 -> showPanel(PanelKind.QR)
+                                when(label) {
+                                    "Rooms" -> { mainScene = MainScene.MAP; openSearch() }
+                                    "Start point" -> { mainScene = MainScene.MAP; showPanel(PanelKind.QR) }
+                                    "3D" -> openSampleScene()
                                     else -> showPanel(PanelKind.MORE)
                                 }
-                            }, icon = { NavSymbol(if (index == 0) 1 else if (index == 1) 0 else 2) }, label = { Text(label, fontSize = 11.sp) },
+                            }, icon = { NavSymbol(when(label) { "Rooms" -> 1; "Start point" -> 0; "3D" -> 4; else -> 2 }) }, label = { Text(label, fontSize = 11.sp) },
                             colors = NavigationBarItemDefaults.colors(unselectedIconColor = if (index == 1) Peach else WarmWhite,
                                 unselectedTextColor = WarmWhite))
                     }
@@ -328,8 +345,9 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
             panel?.let { selected ->
                 DetailSheet(title = when(selected) {
                     PanelKind.MORE -> "More"; PanelKind.SEARCH -> "Find a room"; PanelKind.FLOOR -> "Floor & view"
-                    PanelKind.JOURNEY -> "Your route"; PanelKind.QR -> "Set your start"; PanelKind.HUNT -> "QR hunt"
+                    PanelKind.JOURNEY -> "Your route"; PanelKind.QR -> "Where does your route begin?"; PanelKind.HUNT -> "Discover the building"
                     PanelKind.PEOPLE -> "People"; PanelKind.ABOUT -> "About the sample"
+                    PanelKind.ROOM -> rooms.firstOrNull { it.id == inspectedRoomId }?.name ?: "Meet your host"
                 }, onDismiss = { panel = null; searchOpen = false; focusManager.clearFocus(); keyboard?.hide() }) {
                     when(selected) {
                         PanelKind.SEARCH -> {
@@ -337,7 +355,13 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                                 { focusManager.clearFocus(); keyboard?.hide() }, { query = "" })
                             val term = query.trim()
                             val matches = rooms.filter { term.isEmpty() || it.name.contains(term, true) || it.id.contains(term, true) }.take(16)
-                            SearchResults(sheetWidth, matches, ::selectRoom)
+                            SearchResults(sheetWidth, matches, ::inspectRoom)
+                        }
+                        PanelKind.ROOM -> rooms.firstOrNull { it.id == inspectedRoomId }?.let { room ->
+                            RoomIntroduction(room = room, onDirections = {
+                                selectRoom(room)
+                                if (current == null) panel = PanelKind.QR
+                            })
                         }
                         PanelKind.FLOOR -> {
                             floors.forEach { candidate ->
@@ -353,8 +377,8 @@ fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
                             }
                         }
                         PanelKind.MORE -> {
-                            SheetAction("Set QR start") { showPanel(PanelKind.QR) }
-                            SheetAction("QR hunt") { showPanel(PanelKind.HUNT) }
+                            SheetAction("Choose a start point") { showPanel(PanelKind.QR) }
+                            SheetAction("Discover the building") { showPanel(PanelKind.HUNT) }
                             SheetAction("People sharing demo") { showPanel(PanelKind.PEOPLE) }
                             SheetAction("About this sample") { showPanel(PanelKind.ABOUT) }
                             Text("Map panels", color = Muted, fontSize = 12.sp)
@@ -396,29 +420,18 @@ private fun SheetAction(label: String, action: () -> Unit) {
     TextButton(onClick = action, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
         contentPadding = PaddingValues(horizontal = 4.dp)) {
         Text(label, Modifier.weight(1f), color = Bright, fontSize = 16.sp)
-        Text("›", color = Muted, fontSize = 22.sp)
     }
 }
 
 @Composable
 private fun NavSymbol(index: Int) {
-    val ink = LocalContentColor.current
-    androidx.compose.foundation.Canvas(Modifier.size(24.dp)) {
-        val w = size.width; val h = size.height; val stroke = 1.8.dp.toPx()
-        if (index == 2) listOf(.2f,.5f,.8f).forEach { drawCircle(ink, 1.8.dp.toPx(), androidx.compose.ui.geometry.Offset(w*it,h*.5f)) }
-        else if (index == 0) {
-            drawCircle(ink, w*.4f, style = androidx.compose.ui.graphics.drawscope.Stroke(stroke))
-            val path = androidx.compose.ui.graphics.Path().apply { moveTo(w*.67f,h*.25f); lineTo(w*.58f,h*.58f); lineTo(w*.3f,h*.73f); lineTo(w*.42f,h*.42f); close() }
-            drawPath(path, ink)
-        } else {
-            val path = androidx.compose.ui.graphics.Path().apply {
-                moveTo(w*.1f,h*.22f); lineTo(w*.36f,h*.12f); lineTo(w*.64f,h*.23f); lineTo(w*.9f,h*.13f)
-                lineTo(w*.9f,h*.78f); lineTo(w*.64f,h*.88f); lineTo(w*.36f,h*.77f); lineTo(w*.1f,h*.87f); close()
-                moveTo(w*.36f,h*.12f); lineTo(w*.36f,h*.77f); moveTo(w*.64f,h*.23f); lineTo(w*.64f,h*.88f)
-            }
-            drawPath(path, ink, style = androidx.compose.ui.graphics.drawscope.Stroke(stroke))
-        }
-    }
+    PixelIcon(when (index) {
+        0 -> PixelIconKind.LOCATION
+        1 -> PixelIconKind.ROOMS
+        3 -> PixelIconKind.FLOORS
+        4 -> PixelIconKind.SCENE
+        else -> PixelIconKind.MORE
+    })
 }
 
 @Composable
@@ -459,7 +472,6 @@ private fun SearchResults(width: Dp, matches: List<Room>, onSelect: (Room) -> Un
                         Text(room.name, color = Bright, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         Text(DemoBuilding.floors.first { it.id == room.floorId }.name, color = Muted, fontSize = 11.sp)
                     }
-                    Text("↗", color = AccentText, fontSize = 19.sp)
                 }
             }
         }
@@ -499,13 +511,13 @@ private fun JourneyCard(
                 current == null && destination == null -> {
                     Text("Fictional map · Four floors", color = Bright, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                     Text("One shared layout, separate from Explore.", color = Muted, fontSize = 12.sp)
-                    TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) { Text("Set sample start  ↗", color = AccentText) }
+                    TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) { Text("Choose a start point", color = AccentText) }
                 }
                 current == null -> {
                     Text(destination!!.name, color = Bright, fontSize = 19.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text("Set a sample QR point to see the route.", color = Muted, fontSize = 13.sp)
+                    Text("Choose where your demo route begins to see directions.", color = Muted, fontSize = 13.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) { Text("Set start", color = AccentText) }
+                        TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) { Text("Choose a start point", color = AccentText) }
                         TextButton(onClick = onClear, contentPadding = PaddingValues(0.dp)) { Text("Clear", color = Muted) }
                     }
                 }
@@ -513,8 +525,8 @@ private fun JourneyCard(
                     Text("Last seen · ${current.name}", color = Bright, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                     Text("Sample QR · ${observedAt ?: "just now"}", color = Muted, fontSize = 12.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        TextButton(onClick = onFind, contentPadding = PaddingValues(0.dp)) { Text("Find a room  ↗", color = AccentText) }
-                        TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) { Text("Change start", color = Muted) }
+                        TextButton(onClick = onFind, contentPadding = PaddingValues(0.dp)) { Text("Find a room", color = AccentText) }
+                        TextButton(onClick = onSetStart, contentPadding = PaddingValues(0.dp)) { Text("Change start point", color = Muted) }
                     }
                 }
                 else -> {
@@ -586,23 +598,34 @@ private fun DetailSheet(title: String, onDismiss: () -> Unit, content: @Composab
 private fun QrPanel(checkpoints: List<Checkpoint>, current: Checkpoint?, observedAt: String?, onPayload: (String) -> Boolean, onDone: () -> Unit) {
     var payload by remember { mutableStateOf("") }
     var invalid by remember { mutableStateOf(false) }
-    Text("Choose a simulated scan to set your last-seen point. This sample has no camera access.", color = Muted, fontSize = 13.sp)
+    var testCode by remember { mutableStateOf(false) }
+    Text("Choose a place on this fictional map. We'll calculate directions from there to the room you select.", color = Bright, fontSize = 14.sp)
+    Text("Demo only: choosing a place simulates a QR checkpoint. It doesn't detect your location or open the camera.", color = Muted, fontSize = 12.sp)
     if (current != null) Text("Last seen: ${current.name} · ${observedAt ?: "just now"}", color = AccentText, fontSize = 12.sp)
     checkpoints.forEach { checkpoint ->
-        Surface(Modifier.fillMaxWidth().clickable {
+        Surface(onClick = {
             if (onPayload("btcentral://${DemoBuilding.id}/checkpoint/${checkpoint.id}")) onDone()
-        }, shape = RoundedCornerShape(20.dp), color = QrItem, border = BorderStroke(1.dp, Edge)) {
-            Text(checkpoint.name, Modifier.padding(14.dp), color = Bright, fontSize = 14.sp)
+        }, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp), shape = RoundedCornerShape(20.dp),
+            color = QrItem, border = BorderStroke(1.dp, if (checkpoint.id == current?.id) AccentText else Edge)) {
+            Row(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(checkpoint.name, Modifier.weight(1f), color = Bright, fontSize = 14.sp)
+                if (checkpoint.id == current?.id) Text("Selected", color = AccentText, fontSize = 11.sp)
+            }
         }
     }
-    OutlinedTextField(value = payload, onValueChange = { payload = it; invalid = false }, label = { Text("Sample QR payload") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-    if (invalid) Text("That QR payload is not one of this building’s checkpoints.", color = Amber, fontSize = 12.sp)
-    Button(onClick = { if (onPayload(payload)) onDone() else invalid = true }, enabled = payload.isNotBlank(), modifier = Modifier.fillMaxWidth()) { Text("Use QR payload") }
+    TextButton(onClick = { testCode = !testCode }, modifier = Modifier.heightIn(min = 48.dp)) {
+        Text(if (testCode) "Hide QR code test" else "Test a QR code", color = Muted, fontSize = 12.sp)
+    }
+    if (testCode) {
+        OutlinedTextField(value = payload, onValueChange = { payload = it; invalid = false }, label = { Text("Sample QR code text") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+        if (invalid) Text("This code isn't a checkpoint on the sample map. Your start point hasn't changed.", color = Amber, fontSize = 12.sp)
+        Button(onClick = { if (onPayload(payload)) onDone() else invalid = true }, enabled = payload.isNotBlank(), modifier = Modifier.fillMaxWidth()) { Text("Use this sample code") }
+    }
 }
 
 @Composable
 private fun AboutPanel() {
     Text("${DemoBuilding.name} reuses one illustrated coworking floor across four fictional demo levels. Its company names, ${DemoBuilding.rooms.size} room entries, QR checkpoints and metre distances are illustrative sample data.", color = Bright, fontSize = 14.sp)
     Text("The Explore engine room is a separate example space. This map is a fictional 2D floor plan. Last seen means the latest accepted sample QR checkpoint, not live tracking. Lift and step-free routes demonstrate route preferences; the sample plan is not an accessibility or emergency guide.", color = Muted, fontSize = 13.sp)
-    Text("People sharing and the cooperative QR hunt run locally in this demo. No location is sent to another person.", color = Muted, fontSize = 13.sp)
+    Text("People sharing and building discovery with a cooperative hunt run locally in this demo. No location is sent to another person.", color = Muted, fontSize = 13.sp)
 }

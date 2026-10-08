@@ -1,6 +1,8 @@
 package com.betherecentral.features.navigation.presentation
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -8,11 +10,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.runtime.Composable
@@ -54,6 +54,7 @@ import com.betherecentral.features.guide.presentation.drawGuideSprite
 import com.betherecentral.resources.Res
 import com.betherecentral.resources.founder_atlas
 import com.betherecentral.resources.cowork_floor
+import com.betherecentral.resources.scene_sign
 import org.jetbrains.compose.resources.imageResource
 import com.betherecentral.features.navigation.domain.Route
 import com.betherecentral.features.navigation.domain.RouteMode
@@ -299,18 +300,22 @@ fun FloorMap(
             )
         }
         sceneDoorway?.let { point ->
-            val anchor = MapProjection(size, floor, zoom, pan, topInsetPx, bottomInsetPx, rightInsetPx).screen(point)
-            val halfWidth = with(density) { 34.dp.toPx() }
-            val halfHeight = with(density) { 24.dp.toPx() }
-            Surface(onClick = onSceneDoorwayClick,
-                modifier = Modifier.offset { IntOffset((anchor.x - halfWidth).roundToInt(), (anchor.y - halfHeight).roundToInt()) }
-                    .size(width = 68.dp, height = 48.dp)
-                    .semantics { contentDescription = "Reception doorway: enter unrelated 3D sample" },
-                shape = RoundedCornerShape(16.dp), color = Color(0xFF171978),
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF74B23)), shadowElevation = 4.dp) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text("3D sample ↗", color = Color(0xFFFFF8F4), fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
-                }
+            val projection = MapProjection(size, floor, zoom, pan, topInsetPx, bottomInsetPx, rightInsetPx)
+            val anchor = projection.screen(point)
+            // Artwork scales with the world; the invisible hit area stays accessible when zoomed out.
+            val boardWidth = with(density) { (projection.scale * 7f).toDp() }.coerceIn(64.dp, 100.dp)
+            val boardHeight = boardWidth * .75f
+            val hitWidth = boardWidth.coerceAtLeast(48.dp)
+            val hitHeight = boardHeight.coerceAtLeast(48.dp)
+            val halfWidth = with(density) { hitWidth.toPx() / 2f }
+            val halfHeight = with(density) { hitHeight.toPx() / 2f }
+            Box(Modifier.offset { IntOffset((anchor.x - halfWidth).roundToInt(), (anchor.y - halfHeight).roundToInt()) }
+                .size(hitWidth, hitHeight)
+                .clickable(role = Role.Button, onClickLabel = "Open sample scene", onClick = onSceneDoorwayClick)
+                .semantics { contentDescription = "Reception sign: explore the unrelated 3D sample" },
+                contentAlignment = Alignment.Center) {
+                Image(imageResource(Res.drawable.scene_sign), contentDescription = null,
+                    modifier = Modifier.size(boardWidth, boardHeight), filterQuality = FilterQuality.None)
             }
         }
     }

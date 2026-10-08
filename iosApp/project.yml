@@ -44,8 +44,8 @@ targets:
         script: |
           ART_SOURCE="$SRCROOT/../composeApp/src/commonMain/composeResources/drawable"
           ART_TARGET="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/composeResources/com.betherecentral.resources/drawable"
-          for ART_FILE in founder_atlas.png cowork_floor.png brand_logo.png; do
+          for ART_FILE in founder_atlas.png cowork_floor.png brand_logo.png scene_sign.png; do
             test -f "$ART_SOURCE/$ART_FILE" || { echo "Missing pixel map artwork: $ART_FILE"; exit 1; }
           done
           mkdir -p "$ART_TARGET"
-          cp "$ART_SOURCE/founder_atlas.png" "$ART_SOURCE/cowork_floor.png" "$ART_SOURCE/brand_logo.png" "$ART_TARGET/"
+          cp "$ART_SOURCE/founder_atlas.png" "$ART_SOURCE/cowork_floor.png" "$ART_SOURCE/brand_logo.png" "$ART_SOURCE/scene_sign.png" "$ART_TARGET/"

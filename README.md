@@ -16,9 +16,9 @@ Built for a proposed BeCentral experience by a WeAreFounders participant. Its vi
 
 ## Designed for immersive exploration and clear navigation
 
-The app opens on the fictional pixel-art floor. **Rooms**, **Set start** and **More** open bottom sheets; a single floor chip switches levels and contains map zoom/Fit controls. Route details expand from a compact journey card. There are no Explore/Map tabs.
+The app opens on the fictional pixel-art floor. **Rooms**, **Start point** and **More** open bottom sheets; **3D** opens the reception sample; a single floor chip switches levels and contains map zoom/Fit controls. Route details expand from a compact journey card. The same bottom menu remains visible in 3D. There are no Explore/Map tabs.
 
-On the ground floor, tap **3D sample** at reception to enter the separately identified engine room. It renders 650,000 Gaussian splats locally. **Overview** restores the camera; **View controls** opens zoom, Look around and attribution. **‹ Map** returns to the same floor, pan and zoom, with route, QR, hunt and local sharing state intact. The doorway is a demo launch point, not evidence that the capture depicts reception.
+On the ground floor, tap the wooden **3D SAMPLE** sign at reception to enter the separately identified engine room. It renders 650,000 Gaussian splats locally. **Overview** restores the camera; **View controls** opens zoom, Look around and attribution. **Map** returns to the same floor, pan and zoom, with route, QR, hunt and local sharing state intact. The doorway is a demo launch point, not evidence that the capture depicts reception.
 
 Soft charcoal surroundings keep the space in focus. BeCentral blue, orange and peach accents, Material 3 Expressive-inspired controls and an edge-to-edge canvas frame the experience; controls remain clear of system bars and gestures. The separate map uses the approved furnished coworking-floor artwork and a tiny founder guide with an orange backpack.
 
@@ -26,21 +26,25 @@ Choose **Light panels** or **Dark panels** in the map's **More** sheet. Both kee
 
 This direction takes inspiration from the spatial focus of the supplied [Matterport experience](https://my.matterport.com/show/?m=RFxTxqcbUTB). BeThereCentral does not embed that tour or copy its assets. The viewer uses the [CC BY 4.0 Tugboat Bat engine-room sample](exploration/README.md), reduced and bundled for this prototype; it is unrelated to the fictional map and any proposed building. See the [interface decision](docs/adr/0003-map-first-interface.md) and [Explore decision](docs/adr/0004-gaussian-exploration-priority.md) and [located-entry decision](docs/adr/0005-reception-sample-doorway.md).
 
-<img src="docs/screenshots/android-minimal-map.png" alt="Android emulator: pixel-art map home, reception sample doorway and three bottom actions" width="300" />
+<img src="docs/screenshots/android-minimal-map.png" alt="Android emulator: pixel-art map home, reception sample doorway and four bottom actions" width="300" />
 <img src="docs/screenshots/android-minimal-explore.png" alt="Android emulator: separate sample scene, return-to-map action and compact camera controls" width="300" />
 
 *Actual Android emulator captures. Physical-phone appearance and performance require separate confirmation. [Verification record](docs/testing/STATUS.md).*
 
+### Meet the sample rooms
+
+Tap a room or a search result to meet its pixel host, read what the space is for, and choose **Get directions**. Company missions are fictional sample content. Reception offers BeCentral and WeAreFounders links as labelled community resources; fictional tenants have no invented websites. **Start point** chooses a simulated checkpoint; it never detects your position. The bottom **3D** action and the wooden reception sign open the same unrelated Gaussian sample, preserving the map when you return.
+
 ## What you can try
 
 - Enter **3D sample** at ground-floor reception on Android or iOS to move around the separately identified engine-room splat. Orbit, pan, zoom out to see the capture from outside, return to Overview or use Look around; the sample loads from the app bundle without a network service.
-- Choose **‹ Map** to return to the separate fictional building without losing the current route, checkpoint observation, hunt progress or local sharing grant.
-- Explore four fictional floors using one illustrated coworking footprint, with company suites, meeting rooms, phone booths, café, lounge and reception; search or tap a room to select a destination. Orbit, Moss, Spark and North are fictional tenants, not a BeCentral directory.
+- Choose **Map** to return to the separate fictional building without losing the current route, checkpoint observation, hunt progress or local sharing grant.
+- Explore four fictional floors using one illustrated coworking footprint, with company suites, meeting rooms, phone booths, café, lounge and reception; search or tap a room to meet its host, then select **Get directions**. Orbit, Moss, Spark and North are fictional tenants, not a BeCentral directory.
 - Pan and zoom the map. Preview calculated routes, inspect floor transitions, and compare stairs/lift and step-free choices.
 - Play an optional pixel-art founder guide along the selected sample route. Pause, continue at floor changes, and meet the destination room; the orange-backpack character is a preview, not a tracked person.
 - Establish a sample starting point with a simulated QR checkpoint. Positions remain labelled **last seen**.
 - Try short-lived sharing consent with sample people and 5, 10 or 15 minutes, then revoke it locally.
-- Complete a cooperative checkpoint hunt with sample teammates on the same device.
+- Discover shared areas and fictional companies through **More → Discover the building**. Read each stop freely, or collect the stops with sample teammates in a same-device QR hunt.
 
 The prototype is deliberately honest about integration status:
 
@@ -111,7 +115,7 @@ The APK, including the offline scene, is written to `androidApp/build/outputs/ap
 
 Open `iosApp/BeThereCentral.xcodeproj` in Xcode, choose the **BeThereCentral** scheme and an iPhone simulator, then Run. The build phase invokes Gradle to create the shared Kotlin framework. The Xcode project is checked in; XcodeGen is only needed if you change `iosApp/project.yml` and regenerate the project.
 
-The iOS build also copies the checked-in offline viewer and scene into the app bundle. The reception doorway opens it in `WKWebView`; the native **‹ Map** action remains available if the viewer cannot run.
+The iOS build also copies the checked-in offline viewer and scene into the app bundle. The reception doorway opens it in `WKWebView`; the native **Map** action remains available if the viewer cannot run.
 
 Compile the shared simulator framework independently:
 
@@ -133,9 +137,9 @@ It binds to loopback and prints temporary demo credentials. **The app does not c
 
 1. Open the pixel-art map. **Sample · 2D** identifies the fictional plan; no starting point is set.
 2. Tap **3D sample** at ground-floor reception. It opens an unrelated licensed engine room. Drag or pinch to explore, use **Overview** to recover, and **View controls** for zoom buttons and attribution.
-3. Return with **‹ Map**. Choose **Set start** and a simulated checkpoint, then use **Rooms** or tap a room.
+3. Return with **Map**. Choose **Start point** and a simulated checkpoint, then use **Rooms** or tap a room, meet its host, and choose **Get directions**.
 4. Tap the compact journey card for route preferences and the optional founder guide. Use the floor chip to inspect transitions. Changing floors never moves your last-seen position.
-5. Open **More** for **QR hunt**, **People sharing demo**, sample information and Light/Dark panels.
+5. Open **More** for **Discover the building**, **People sharing demo**, sample information and Light/Dark panels.
 
 The app keeps demo state in memory. Restarting resets it; no location history is saved by default.
 

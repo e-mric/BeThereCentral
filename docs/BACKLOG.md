@@ -5,6 +5,7 @@ These local work items track the roadmap for [e-mric/BeThereCentral](https://git
 ## Next experiment
 
 - Test the focused Explore → Overview recovery → separate Map demo journey with 5–8 participants using [experience standards](EXPERIENCE.md). Record unaided recovery, recognition of the separate places, route comprehension and enjoyment; use anonymous observations rather than movement traces.
+- Test the sample discovery trail with participants: can they name an area and nearby fictional company after reading a checkpoint card, and do they understand that scan and team progress are simulated? Use anonymous task observations, not movement traces.
 - Test real devices with VoiceOver/TalkBack, large text, color-vision differences and reduced dexterity. Confirm map alternatives remain usable.
 
 ## Next milestone — Room Studio
@@ -22,6 +23,7 @@ Finish and publish the sample app first. Then validate a separate tenant editor 
 - Obtain permission and surveyed plans/room register; validate every entrance and accessible connector. Keep licensed source and graph provenance.
 - Add camera QR scanning on Android/iOS with permission denial, malformed-code and lifecycle tests. Manual entry remains a fallback.
 - Audit checkpoint placement and tamper risk; define freshness presentation and invalidated map versions.
+- Replace fictional discovery descriptions only after a building owner approves accurate area and company information, its reuse rights and a process for updates.
 - Add independently reviewed platform UI tests for selection, route fit, floor transitions and scan results.
 
 ## Before real sharing or multiplayer

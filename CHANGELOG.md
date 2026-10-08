@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — room hosts and clearer discovery
+
+- Added pixel hosts explaining all 48 sample rooms, fictional company missions, reception community links and an explicit Get directions action.
+- Kept bottom navigation visible in both map and 3D, with pixel icons and a high-contrast blue/white directions button.
+- Added a bottom 3D shortcut to the same unrelated reception sample, preserving map state on return.
+- Replaced the reception pill with an original GPT-generated wooden pixel-art sign and an accessible 48 dp minimum hit target.
+- Removed text chevrons, explained Start point, aligned lobby names with map floors and put QR-code testing behind a secondary action.
+- Expanded the local QR hunt with educational area/company cards, readable without playing.
+- Reduced the Android launcher B mark by 20%, adding a 10% inset on every side.
+
 ## Unreleased — pixel-art home and quieter controls
 
 - Replaced Explore/Map tabs with a ground-floor reception doorway into the clearly unrelated 3D sample; retained map viewport and feature state on return.

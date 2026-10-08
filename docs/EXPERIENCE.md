@@ -24,7 +24,9 @@ The current capture and map describe different places. Explore shows a licensed 
 
 ## Interface rules
 
-The map is home. No top-level Explore/Map tabs: ground-floor reception is the sample doorway. Rooms, Set start and More are bottom actions opening sheets. Use one floor chip and a collapsed journey card; advanced controls expand only on demand. Reception is also discoverable through room search; its room details expose the sample entry.
+Reception uses a clickable pixel-art wooden sign rather than a floating app button. It follows the map projection with bounded visual sizing for readability and a minimum 48 dp hit target. Use a floor-stack icon and plain action labels instead of text chevrons. **Start point** explains where the demo route begins; its primary choices match map floor names, while manual code testing is secondary. The initial journey card opens that sheet directly. Discovery offers educational area/company cards without requiring the game; fictional content and simulated scans remain explicit.
+
+The map is home. No top-level Explore/Map tabs: ground-floor reception is the sample doorway. Rooms, Start point and More open sheets; 3D opens the reception sample. These bottom actions remain visible in the viewer. Use one floor chip and a collapsed journey card; advanced controls expand only on demand. Reception is also discoverable through room search; its route details expose the sample entry.
 
 - Use a compact, specific scene title instead of a large promotional headline. Let captured landmarks provide the character.
 - Keep Overview and View controls visible. Put zoom buttons, advanced gestures and attribution in the View controls sheet; avoid a permanent wall of instructions.
@@ -90,3 +92,13 @@ The requested control direction follows [Material 3 Expressive](https://m3.mater
 ## Inspiration
 
 The user's supplied [presentation and transcript](https://www.youtube.com/watch?v=GLvFTMtw4Jk) informed these standards: establish a point of view (5:44), encode intent in the building process (9:00), experience the output as a user (12:25), and protect creative work (16:32). The rules above are BeThereCentral's application of those ideas, not claims that the speaker reviewed this project.
+
+## Room hosts and convenient 3D entry
+
+Every room tap or search result opens a compact introduction sheet with the orange-backpack pixel host, the room purpose and clearly fictional company mission where applicable. Related BeCentral / WeAreFounders community links open only on explicit taps. Reading a room does not change the destination or last-seen point; **Get directions** selects the destination, then requests a sample starting point if missing. Closing the sheet returns to the same map.
+
+The bottom **3D** action always opens the reception demo, even from another floor, as chosen for this prototype. It does not change the map floor, last-seen point or route. The viewer continues to identify the unrelated engine-room capture. A real floor-and-position handoff requires a registered capture and is not implemented.
+
+Room directions use a deep-blue filled action with warm-white text and a subtle outline, keeping orange for accents. The Android launcher foreground is inset 10% per side so the B has more breathing room within launcher masks.
+
+The same bottom menu remains visible in 3D, with 3D selected and viewer controls laid out above it. Rooms returns to map search; Start point returns to the map location sheet. Navigation, directions and resource-link buttons use pixel icons alongside text labels; rounded controls retain their touch targets.

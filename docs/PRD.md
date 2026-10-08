@@ -6,7 +6,7 @@ Version 0.6 · 8 October 2026 · Status: interactive sample Explore + fictional-
 
 The intended campus is BeCentral; the project creator participates in WeAreFounders. Official building and brand approval remain pending.
 
-Visitors, staff and event participants need to find rooms in an unfamiliar four-floor building. People who need a step-free route must understand which connectors a route uses. Friends may want to meet without permanently disclosing their movements. A cooperative treasure hunt can introduce the building through shared exploration.
+Visitors, staff and event participants need to find rooms in an unfamiliar four-floor building. People who need a step-free route must understand which connectors a route uses. Friends may want to meet without permanently disclosing their movements. A cooperative discovery trail can introduce areas and companies through shared exploration, with checkpoint finds providing the game structure.
 
 No real floor plans, room register, accessibility survey, positioning hardware or backend infrastructure have been supplied. The first delivery uses a fictional building. It must not be used for emergency evacuation or relied upon as surveyed accessibility guidance.
 
@@ -53,7 +53,7 @@ The building is the main interface. The mobile prototype opens on the pixel-art 
 
 - Open Explore at a reviewed wide interior view. Zoom-out must continue beyond lens widening to let the user see the capture from outside. Buttons, pinch, wheel and keyboard share the same bounds. Overview restores the exact opening pose and zoom. Keep the scene title/sample status compact and put extended instructions and attribution in View controls.
 - Identify Map demo as a separate fictional building before presenting its next action; do not imply that it represents the captured engine room.
-- In Explore, show Overview and View controls; move zoom buttons, Look around and scene information into a bottom sheet. In Map, show a floor chip, a collapsed journey card and bottom actions Rooms, Set start and More. Search, floors, zoom/Fit, routes and secondary tools open in bottom sheets.
+- In Explore, show Overview and View controls; move zoom buttons, Look around and scene information into a bottom sheet. Keep the native bottom menu visible below these controls. In Map, show a floor chip, a collapsed journey card and bottom actions Rooms, Start point, 3D and More. Search, floors, zoom/Fit, routes and secondary tools open in bottom sheets.
 - Show route preferences in the contextual journey card; reveal checkpoint entry, sharing and the hunt in dismissible panels. Opening or closing panels must preserve the route, last-seen observation, hunt progress and active local grant.
 - Use a compact persistent sample indicator with details on demand: **Sample · 2D** for the current map and explicit sample-scene status for Explore. Retain last-seen wording where location is shown.
 - Destination selection dismisses search/keyboard and brings the route into the visible map area. Map fit must account for controls rather than frame a path underneath them.
@@ -75,6 +75,8 @@ Add a usability observation to the first experiment: can participants find a des
 - Offer default, lift-oriented and step-free routing. Step-free excludes stairs and inaccessible edges. Unavailable routes produce an understandable empty state.
 - Automatically fit a route overview after route selection or changes; expose the floors and transitions involved, including destination floor.
 - Show last-seen observation separately from destination. Floor switching never moves a person.
+
+Room discovery: tap a map room or search result to see a pixel host introduction. Company missions are fictional; BeCentral and WeAreFounders links are external community resources. **Get directions** chooses the destination; browsing does not establish a last-seen position. The bottom **3D** action always opens the unrelated reception sample without changing the map floor or position. Matching real 3D capture coordinates remain future work.
 
 ### Planned Room Studio
 
@@ -110,19 +112,22 @@ Start with a local sample editor and a versioned room-appearance manifest keyed 
 - This prototype has a local UI simulation and a separately runnable reference server for authorization/expiry tests. They are not connected. Production accounts, transport security, key exchange and encryption remain a release gate.
 - Revocation cannot erase information already read, copied or captured by a recipient; disclose this in the production consent flow.
 
-### Cooperative treasure hunt
+### Cooperative discovery trail
 
 - Ordered QR checkpoints, a shared team objective and contributions from selected sample players.
+- Each stop explains its area and nearby sample rooms or fictional companies using the same building dataset as the map. Label these descriptions as sample content; do not imply they describe real BeCentral occupants.
 - Invalid/out-of-order/repeated scans cannot incorrectly advance progress.
 - Clearly label same-device team simulation. Real shared sessions, identity and synchronization are future work.
 - Respect accessibility: do not require inaccessible routes to participate in a real pilot.
+
+The small experiment is whether a visitor can describe one area and a nearby fictional company after using the trail, without mistaking the sample content for a verified campus directory. Keep the orientation text readable before a simulated scan so discovery is useful even when a stop cannot be reached.
 
 ## User journeys
 
 1. Visitor opens the pixel-art map, enters the explicitly unrelated 3D sample at ground-floor reception, tries the camera and reset, returns to the same map viewport, then establishes a last-seen point using a sample checkpoint, searches for a room and previews its route.
 2. Visitor chooses step-free, sees lift transitions and inspects each floor from the route overview.
 3. Visitor tries the sharing demo, selects sample people and 5/10/15 minutes, observes expiry or revokes. UI makes clear that no person receives data.
-4. Two players use one device in demo mode, switch the active sample player and contribute checkpoint finds to a shared hunt.
+4. Two players use one device in demo mode, read the sample area and company descriptions, switch the active sample player and contribute checkpoint finds to a shared discovery trail.
 
 ## Release boundaries
 

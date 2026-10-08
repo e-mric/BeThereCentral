@@ -116,7 +116,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ART_SOURCE=\"$SRCROOT/../composeApp/src/commonMain/composeResources/drawable\"\nART_TARGET=\"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/composeResources/com.betherecentral.resources/drawable\"\nfor ART_FILE in founder_atlas.png cowork_floor.png brand_logo.png; do\n  test -f \"$ART_SOURCE/$ART_FILE\" || { echo \"Missing pixel map artwork: $ART_FILE\"; exit 1; }\ndone\nmkdir -p \"$ART_TARGET\"\ncp \"$ART_SOURCE/founder_atlas.png\" \"$ART_SOURCE/cowork_floor.png\" \"$ART_SOURCE/brand_logo.png\" \"$ART_TARGET/\"\n";
+			shellScript = "ART_SOURCE=\"$SRCROOT/../composeApp/src/commonMain/composeResources/drawable\"\nART_TARGET=\"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/composeResources/com.betherecentral.resources/drawable\"\nfor ART_FILE in founder_atlas.png cowork_floor.png brand_logo.png scene_sign.png; do\n  test -f \"$ART_SOURCE/$ART_FILE\" || { echo \"Missing pixel map artwork: $ART_FILE\"; exit 1; }\ndone\nmkdir -p \"$ART_TARGET\"\ncp \"$ART_SOURCE/founder_atlas.png\" \"$ART_SOURCE/cowork_floor.png\" \"$ART_SOURCE/brand_logo.png\" \"$ART_SOURCE/scene_sign.png\" \"$ART_TARGET/\"\n";
 		};
 		87199AFA35C6B26BAEE1D20D /* Build shared Kotlin framework */ = {
 			isa = PBXShellScriptBuildPhase;
