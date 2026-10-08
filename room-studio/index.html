@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10171b" />
+    <title>Room Studio · BeThereCentral</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="BeThereCentral Room Studio"><span class="brand-mark">B</span><span>BeThereCentral <small>ROOM STUDIO</small></span></a>
+        <span class="prototype-tag"><i></i> Fictional room prototype</span>
+      </header>
+      <main class="layout">
+        <section class="editor-column" aria-label="Room editor">
+          <div class="page-heading"><div><p class="eyebrow">DECORATIVE LAYOUT</p><h1>Make this room yours.</h1><p class="subhead">Arrange a few pixel furnishings in a fictional coworking room.</p></div><div class="room-pill"><span class="status-dot"></span> Local draft</div></div>
+          <div class="canvas-frame">
+            <div class="canvas-stage" id="canvas-stage" aria-label="Interactive room canvas">
+              <canvas id="room-canvas" aria-label="Room scene; drag furniture to move it"></canvas>
+              <div class="room-sign" id="room-sign" aria-live="polite"><span>YOUR TEAM</span><strong>Your company</strong></div>
+              <div class="scene-label"><span class="spark">✦</span> STUDIO DEMO <b>NOT TO SCALE</b></div>
+            </div>
+            <div class="canvas-footer"><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> Move selected item</span><span>Drag pieces to arrange</span></div>
+          </div>
+          <div class="lower-tools">
+            <section class="selection-panel panel">
+              <div class="section-title"><div><p class="eyebrow">IN THIS ROOM</p><h2>Furniture</h2></div><span class="count" id="object-count">0 / 24</span></div>
+              <div id="object-list" class="object-list" role="listbox" aria-label="Room furniture"></div>
+              <div class="move-buttons" aria-label="Move selected furniture">
+                <span>Move selected</span><div><button data-move="up" aria-label="Move up">↑</button><button data-move="left" aria-label="Move left">←</button><button data-move="down" aria-label="Move down">↓</button><button data-move="right" aria-label="Move right">→</button></div>
+              </div>
+            </section>
+            <section class="add-panel panel">
+              <div class="section-title"><div><p class="eyebrow">BUILD YOUR SPACE</p><h2>Add furniture</h2></div></div>
+              <div class="add-grid">
+                <button class="add-item" data-add="desk"><span class="item-icon desk-icon">▦</span><span>Desk</span><b>+</b></button>
+                <button class="add-item" data-add="plant"><span class="item-icon plant-icon">♣</span><span>Plant</span><b>+</b></button>
+                <button class="add-item" data-add="sofa"><span class="item-icon sofa-icon">▰</span><span>Sofa</span><b>+</b></button>
+                <button class="add-item" data-add="rug"><span class="item-icon rug-icon">▧</span><span>Rug</span><b>+</b></button>
+              </div>
+              <button class="delete-button" id="delete-selected" disabled>Remove selected furniture <span>⌫</span></button>
+            </section>
+          </div>
+        </section>
+        <aside class="sidebar">
+          <section class="panel identity-panel"><div class="section-title"><div><p class="eyebrow">ROOM IDENTITY</p><h2>Company label</h2></div><span class="edit-mark">✎</span></div><label class="field-label" for="company-name">Shown above the room</label><input id="company-name" maxlength="60" value="Your company" autocomplete="off" /><p class="field-help">1–60 characters. This sign stays crisp above the pixel scene.</p></section>
+          <section class="panel save-panel"><div class="save-row"><div class="save-icon">⌂</div><div><h2>Save on this device</h2><p id="save-status">Your scene is ready to edit.</p></div></div><button class="primary-button" id="save-button"><span>Save room</span><span>↗</span></button><div class="history-buttons"><button id="undo-button" disabled>↶ Undo</button><button id="redo-button" disabled>↷ Redo</button></div></section>
+          <section class="panel file-panel"><div class="section-title"><div><p class="eyebrow">TAKE IT WITH YOU</p><h2>Room file</h2></div></div><p class="file-copy">Carry your room layout between the browser prototype and the app.</p><div class="file-actions"><button id="export-button">Export JSON <span>↓</span></button><button id="import-button">Import JSON <span>↑</span></button><input type="file" id="import-file" accept="application/json,.json" hidden /></div><p id="file-status" class="file-status" role="status"></p></section>
+          <button id="reset-button" class="reset-button">Start over <span>↻</span></button>
+          <div class="trust-note"><span>ⓘ</span><p><strong>Just for exploring.</strong> This prototype doesn’t publish rooms or connect accounts. Your edits stay in this browser unless you export them.</p></div>
+        </aside>
+      </main>
+      <footer class="footer-note">A small creative experiment from <strong>BeThereCentral</strong><span>•</span> Room details are fictional</footer>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

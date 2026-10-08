@@ -2,6 +2,7 @@ package com.betherecentral.features.building.presentation
 
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -69,6 +70,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
@@ -80,6 +82,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betherecentral.core.presentation.PixelIcon
 import com.betherecentral.core.presentation.PixelIconKind
+import com.betherecentral.features.studio.presentation.RoomStudioPreview
 import com.betherecentral.features.building.data.BeCentralPlans
 import com.betherecentral.features.building.domain.PlanDirectory
 import com.betherecentral.features.building.domain.PlanFloor
@@ -144,6 +147,8 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     var floorIndex by remember { mutableStateOf(0) }
     var searchOpen by remember { mutableStateOf(false) }
     var moreOpen by remember { mutableStateOf(false) }
+    var floorsOpen by remember { mutableStateOf(false) }
+    var studioOpen by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var selected by remember { mutableStateOf<PlanPlace?>(null) }
     var highlightedId by remember { mutableStateOf<String?>(null) }
@@ -152,6 +157,11 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     var canvasSize by remember { mutableStateOf(IntSize.Zero) }
     val floor = floors.getOrNull(floorIndex) ?: return
     val directory = remember(floors) { PlanDirectory(floors) }
+
+    if (studioOpen) {
+        RoomStudioPreview(onClose = { studioOpen = false })
+        return
+    }
 
     Box(Modifier.fillMaxSize().background(WorldCanvas)) {
         PlanCanvas(
@@ -169,7 +179,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             onPanZoom = { nextZoom, nextPan -> zoom = nextZoom; pan = nextPan },
             onPlaceTap = { selected = it; highlightedId = it.id },
             onCanvasSize = { canvasSize = it },
-            modifier = Modifier.fillMaxSize().padding(start = safeStart + 8.dp, end = safeEnd + 68.dp, top = safePadding.calculateTopPadding() + 122.dp, bottom = safePadding.calculateBottomPadding() + 96.dp),
+            modifier = Modifier.fillMaxSize().padding(top = safePadding.calculateTopPadding() + 122.dp, bottom = safePadding.calculateBottomPadding() + 38.dp),
         )
 
         Row(
@@ -178,9 +188,6 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Image(imageResource(Res.drawable.brand_logo), "BeThereCentral logo", Modifier.weight(1f).widthIn(max = 180.dp).height(42.dp), contentScale = ContentScale.Fit, alignment = Alignment.CenterStart)
-            Surface(shape = RoundedCornerShape(50), color = Color(0xFF353C41), contentColor = Color(0xFFFFD9CE)) {
-                Text("PIXEL WORLD", Modifier.padding(horizontal = 11.dp, vertical = 7.dp), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-            }
             Surface(
                 modifier = Modifier.size(48.dp).semantics { contentDescription = "More options" }.clickable { moreOpen = true },
                 shape = CircleShape, color = Color(0xFF353C41), contentColor = Ink,
@@ -189,16 +196,30 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             }
         }
 
-        Surface(
-            Modifier.align(Alignment.TopCenter).fillMaxWidth().padding(start = safeStart + 16.dp, end = safeEnd + 16.dp).padding(top = safePadding.calculateTopPadding() + 66.dp)
-                .heightIn(min = 50.dp).semantics { contentDescription = "Find a company or place" }.clickable { searchOpen = true },
-            shape = RoundedCornerShape(18.dp), color = Color(0xF0343C41), contentColor = Ink,
-            tonalElevation = 2.dp,
+        Row(
+            Modifier.align(Alignment.TopCenter).fillMaxWidth()
+                .padding(start = safeStart + 12.dp, end = safeEnd + 12.dp, top = safePadding.calculateTopPadding() + 66.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(Modifier.padding(horizontal = 16.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("⌕", fontSize = 22.sp, color = PlanBlue)
-                Spacer(Modifier.width(10.dp))
-                Text("Find a company or place", color = Color(0xFFD2D9DC), fontSize = 14.sp)
+            Surface(
+                Modifier.weight(1f).heightIn(min = 50.dp).semantics { contentDescription = "Find a company or place" }.clickable { searchOpen = true },
+                shape = RoundedCornerShape(24.dp), color = Color(0xED242D32), contentColor = Ink,
+                border = BorderStroke(1.dp, Color(0xFF68747B)),
+            ) {
+                Row(Modifier.padding(horizontal = 14.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text("⌕", fontSize = 22.sp, color = PlanOrange)
+                    Spacer(Modifier.width(8.dp))
+                    Text("Find a room", fontSize = 14.sp, maxLines = 1)
+                }
+            }
+            Surface(
+                Modifier.heightIn(min = 50.dp).semantics { contentDescription = "Choose floor. ${floor.name}" }.clickable { floorsOpen = true },
+                shape = RoundedCornerShape(24.dp), color = Color(0xED242D32), contentColor = Ink,
+            ) {
+                Row(Modifier.padding(horizontal = 14.dp, vertical = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                    PixelIcon(PixelIconKind.FLOORS, Modifier.size(16.dp))
+                    Text(floor.name, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                }
             }
         }
 
@@ -211,21 +232,24 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             MapControl("Fit", "Fit whole floor") { zoom = 1f; pan = Offset.Zero }
         }
 
-        Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(start = safeStart + 16.dp, end = safeEnd + 16.dp, bottom = safePadding.calculateBottomPadding() + 10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("${floor.name.uppercase()} · FICTIONAL INTERIORS", Modifier.align(Alignment.CenterHorizontally), color = Color(0xFFBBC4C9), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+        Text("FICTIONAL INTERIORS · PLAN-BASED PREVIEW",
+            Modifier.align(Alignment.BottomCenter).padding(bottom = safePadding.calculateBottomPadding() + 12.dp),
+            color = Color(0xFFBBC4C9), fontSize = 9.sp, letterSpacing = 1.sp)
+    }
+
+    if (floorsOpen) {
+        ModalBottomSheet(onDismissRequest = { floorsOpen = false }, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+            Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("Choose a floor", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 floors.forEachIndexed { index, item ->
-                    val label = when (item.level) { 0 -> "G"; else -> item.level.toString() }
                     val active = index == floorIndex
                     Surface(
-                        modifier = Modifier.weight(1f).heightIn(min = 48.dp).semantics { contentDescription = item.name; this.selected = active }.clickable(role = Role.Tab) {
-                            floorIndex = index; zoom = 1f; pan = Offset.Zero; highlightedId = null
-                        }, shape = RoundedCornerShape(16.dp),
-                        color = if (active) PlanBlue else Color(0xFF343B40),
-                        contentColor = if (active) Color(0xFF101724) else Ink,
-                    ) {
-                        Box(contentAlignment = Alignment.Center) { Text(label, fontWeight = FontWeight.Bold, fontSize = 14.sp) }
-                    }
+                        Modifier.fillMaxWidth().heightIn(min = 52.dp).semantics { this.selected = active }.clickable(role = Role.RadioButton) {
+                            floorIndex = index; zoom = 1f; pan = Offset.Zero; highlightedId = null; floorsOpen = false
+                        }, shape = RoundedCornerShape(18.dp),
+                        color = if (active) Color(0xFF171978) else MaterialTheme.colorScheme.surfaceVariant,
+                        contentColor = if (active) Ink else MaterialTheme.colorScheme.onSurfaceVariant,
+                    ) { Text(item.name + if (active) " · Selected" else "", Modifier.padding(16.dp), fontWeight = FontWeight.SemiBold) }
                 }
             }
         }
@@ -236,7 +260,10 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
         ModalBottomSheet(onDismissRequest = { moreOpen = false }, sheetState = sheetState) {
             Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("About this plan preview", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text("The building outlines and courtyards follow five supplied plans. Rooms, furniture and decorative characters are fictional pixel-art interpretations, including areas left unlabelled in the plans. Company names and numbered anchors come from the supplied legend; some entries have no shown position.", fontSize = 14.sp)
+                Button(onClick = { moreOpen = false; studioOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
+                    Text("Room Studio · preview")
+                }
+                Text("The building outlines and courtyards follow five supplied plans. Rooms, furniture and decorative characters are fictional pixel-art interpretations. The grey ground-floor area is left empty. Company names and numbered anchors come from the supplied legend; some entries have no shown position.", fontSize = 14.sp)
                 Text("The plans do not establish scale, verified room use, accessible routes, live location or a matching 3D scene.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 TextButton(onClick = { onPanelModeChange(true) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(if (lightPanels) "✓ Light panels" else "Light panels")
@@ -291,7 +318,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
 @Composable
 private fun MapControl(label: String, description: String, onClick: () -> Unit) {
     Surface(Modifier.size(width = if (label == "Fit") 54.dp else 48.dp, height = 48.dp).semantics { contentDescription = description }.clickable(onClick = onClick),
-        shape = RoundedCornerShape(16.dp), color = Color(0xE83A4247), contentColor = Ink) {
+        shape = RoundedCornerShape(16.dp), color = Color(0xB31C252A), contentColor = Ink, border = BorderStroke(1.dp, Color(0xAA8C999F))) {
         Box(contentAlignment = Alignment.Center) { Text(label, fontSize = if (label == "Fit") 12.sp else 22.sp, fontWeight = FontWeight.SemiBold) }
     }
 }
@@ -340,7 +367,7 @@ private fun PlanPlaceIntroduction(place: PlanPlace, floorName: String, onClose: 
         if (place.anchors.isEmpty()) {
             Text("Position not shown on plan", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        Button(onClick = onClose, Modifier.fillMaxWidth().heightIn(min = 48.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978))) {
+        Button(onClick = onClose, Modifier.fillMaxWidth().heightIn(min = 48.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink)) {
             Text("Back to plan")
         }
     }
@@ -374,6 +401,7 @@ private fun PlanCanvas(
 ) {
     val density = LocalDensity.current.density
     val textMeasurer = rememberTextMeasurer()
+    val signTargets = remember { mutableListOf<Pair<PlanPlace, androidx.compose.ui.geometry.Rect>>() }
     val currentZoom by rememberUpdatedState(zoom)
     val currentPan by rememberUpdatedState(pan)
     val currentOnPanZoom by rememberUpdatedState(onPanZoom)
@@ -381,6 +409,11 @@ private fun PlanCanvas(
         contentDescription = "Schematic pixel map of ${floor.name}. Search to browse places, or pan and zoom to explore."
     }.onSizeChanged(onCanvasSize).pointerInput(floor, zoom, pan) {
         detectTapGestures { tap ->
+            val sign = signTargets.firstOrNull { it.second.contains(tap) }?.first
+            if (sign != null) {
+                onPlaceTap(sign)
+                return@detectTapGestures
+            }
             val projection = PlanProjection(IntSize(size.width, size.height), zoom, pan)
             val nearest = floor.places.flatMap { place -> place.anchors.map { place to it } }
                 .map { (place, anchor) -> place to hypot(projection.screen(anchor).x - tap.x, projection.screen(anchor).y - tap.y) }
@@ -412,6 +445,16 @@ private fun PlanCanvas(
         val outlinePolygons = floor.footprints.ifEmpty { floor.regions.map { it.polygon } }
         outlinePolygons.forEach { shell = Path.combine(PathOperation.Union, shell, projectedPath(it, projection)) }
         floor.voids.forEach { shell = Path.combine(PathOperation.Difference, shell, projectedPath(it, projection)) }
+        val buildingShell = shell
+        if (floor.id == "ground") {
+            drawPath(buildingShell, Color(0xFF252B2D))
+            // The coarse grey source polygon overlaps coloured regions; keep only the explicitly drawn regions.
+            var assignedFootprint = Path()
+            floor.regions.filter { it.kind != PlanRegionKind.UNMAPPED }.forEach {
+                assignedFootprint = Path.combine(PathOperation.Union, assignedFootprint, projectedPath(it.polygon, projection))
+            }
+            shell = Path.combine(PathOperation.Intersect, shell, assignedFootprint)
+        }
         // Generated furnishings are fictional. Source-pixel silhouette and courtyards remain canonical.
         clipPath(shell) {
             val topLeft = projection.screen(PlanPoint(VIEW_LEFT.toDouble(), VIEW_TOP.toDouble()))
@@ -423,30 +466,33 @@ private fun PlanCanvas(
                 filterQuality = FilterQuality.None,
             )
         }
-        drawPath(shell, Color(0xFF4D4944), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
-        floor.places.forEach { place ->
+        drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
+        signTargets.clear()
+        val occupied = mutableListOf<androidx.compose.ui.geometry.Rect>()
+        floor.places.sortedBy { if (it.id == highlightedId) 0 else 1 }.forEach { place ->
             place.anchors.forEachIndexed { anchorIndex, anchor ->
                 val point = projection.screen(anchor)
                 val selected = place.id == highlightedId
-                val radius = if (selected) 11f else 4f
-                drawCircle(Color(0xFF171717), radius + 3f, point)
-                drawCircle(if (selected) PlanBlue else PlanOrange, radius, point)
-                drawCircle(Color(0xFFFFF8F4), 2.2f, point)
-                if (zoom >= 1.5f || selected) place.number?.let { number ->
-                    val layout = textMeasurer.measure(number, TextStyle(color = Ink, fontSize = 10.sp, fontWeight = FontWeight.Bold))
-                    val labelW = layout.size.width + 8f
-                    val labelH = layout.size.height + 4f
-                    val x = point.x - labelW / 2f
-                    val y = point.y - labelH - 7f
-                    drawRoundRect(Color(0xF51D2327), Offset(x, y), Size(labelW, labelH), androidx.compose.ui.geometry.CornerRadius(5f))
-                    drawText(layout, topLeft = Offset(point.x - layout.size.width / 2f, y + 2f))
-                }
-                if (selected && anchorIndex == 0) {
-                    val label = place.label
-                    val layout = textMeasurer.measure(label, TextStyle(color = Ink, fontSize = 10.sp, fontWeight = FontWeight.SemiBold))
-                    val labelY = point.y + 12f
-                    drawRoundRect(Color(0xE51D2327), Offset(point.x - layout.size.width / 2f - 5f, labelY), Size(layout.size.width + 10f, layout.size.height + 5f), androidx.compose.ui.geometry.CornerRadius(5f))
-                    drawText(layout, topLeft = Offset(point.x - layout.size.width / 2f, labelY + 2f))
+                drawCircle(if (selected) PlanBlue else PlanOrange, 2f * density, point)
+                if (anchorIndex == 0 && (selected || !place.label.contains("name not supplied"))) {
+                    val layout = textMeasurer.measure(
+                        place.label,
+                        TextStyle(color = Color(0xFF201E19), fontSize = if (selected || zoom >= 1.5f) 10.sp else 8.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace),
+                        maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        constraints = androidx.compose.ui.unit.Constraints(maxWidth = (110f * density).roundToInt()),
+                    )
+                    val padding = 3f * density
+                    val width = layout.size.width + padding * 2
+                    val height = layout.size.height + padding * 2
+                    val labelX = (point.x - width / 2).coerceIn(2f * density, (size.width - width - 2f * density).coerceAtLeast(2f * density))
+                    val rect = androidx.compose.ui.geometry.Rect(labelX, point.y - height - 5f * density, labelX + width, point.y - 5f * density)
+                    if ((selected || occupied.none { it.overlaps(rect.inflate(3f * density)) }) && rect.right >= 0 && rect.left < size.width && rect.bottom >= 0 && rect.top < size.height) {
+                        drawRect(Color(0xFF33291E), rect.topLeft - Offset(2f * density, 2f * density), Size(rect.width + 4f * density, rect.height + 4f * density))
+                        drawRect(if (selected) Color(0xFFE5EFFF) else Color(0xFFF2DFC0), rect.topLeft, rect.size)
+                        drawText(layout, topLeft = rect.topLeft + Offset(padding, padding))
+                        occupied.add(rect)
+                        signTargets.add(place to rect)
+                    }
                 }
             }
         }

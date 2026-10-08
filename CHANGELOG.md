@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — bounded Room Studio and plan-world presentation
+
+- Added a local PixiJS one-room editor prototype using the shared fictional room JSON fixture; supports furniture editing, undo/redo, browser-local save/reload and JSON import/export.
+- Added a Compose preview under More that accepts scene JSON or resets to the starter fixture; preview edits are transient and are not saved or published.
+- Kept the demo room's chamfered geometry immutable and unconnected to real tenants or plan anchors. AI generation, accounts, publishing and real-room editing remain future work.
+- Kept the main canvas charcoal with empty courtyard voids, one floor selector sheet and a compact translucent zoom/Fit overlay. Preserved the full ground silhouette in muted charcoal while leaving the unassigned grey source area unfurnished. Garden planting with perspective scaling remains a future art option.
+- Recorded the bounded experiment and its limits in ADR 0007; updated the plan-world decision amendment and product/demo documentation.
+
 ## Unreleased — five-floor BeCentral pixel world
 
 - Replaced the active fictional rectangular map with five distinct interpretations of the supplied ground-to-fourth-floor schematics, with editable geometry, courtyard cutouts, unmapped areas and stair-core patches.

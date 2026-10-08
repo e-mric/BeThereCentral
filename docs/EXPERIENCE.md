@@ -8,21 +8,27 @@
 
 | Moment | Intended experience | Observable acceptance |
 | --- | --- | --- |
-| Open | Recognize an explorable ground-floor world | A furnished pixel-art interior renders within the source-derived footprint and courtyard voids; fictional-interior status is clear |
-| Choose a floor | Explore five visually distinct floors | Ground through fourth each has its own illustration and source-derived outline; floor change keeps viewport controls usable |
+| Open | Recognize an explorable ground-floor world | Full building silhouette remains visible in muted charcoal with a subtle outline; fictional art stays in known colored regions, unassigned grey has no furniture, and courtyard openings remain empty dark voids |
+| Choose a floor | Explore five visually distinct floors | Ground through fourth each has its own illustration and approximate outline; one floor selector sheet keeps the canvas uncluttered |
 | Explore | Read the space at different scales | Pan, zoom and Fit work; labels and source numbers remain understandable |
 | Search | Find a known company or plan number | Case-insensitive results show floor and known source label; selecting a placed result reveals an approximate anchor |
 | Read a place | Learn only what the plan supports | Compact pixel host states the known occupant/number without invented mission, room use or route |
-| Check uncertainty | Understand an unresolved source area or name | Furnished ground grey/orange and second grey source areas still have no confirmed occupant assignment; FARI is detached; The Sky / fourth-floor 66 is searchable and listed without a guessed marker |
+| Check uncertainty | Understand an unresolved source area or name | The ground grey area remains visible but unfurnished; ground grey/orange and second grey source areas have no confirmed occupant assignment; FARI is detached; The Sky / fourth-floor 66 is searchable and listed without a guessed marker |
 | Use an alternative | Access the same information without reading tiny pixels | Search/legend and floor controls expose readable text and assistive labels |
 
 A fitting short walkthrough: search **Campfire AI** on the second floor, search **42 Belgium** on the third, then find **The Sky** on the fourth. The last entry must explain that number 66 is listed but not placed. Do not say that any anchor is an entrance or that the map calculates a route.
 
 ## Appearance and content
 
-Keep a soft charcoal canvas, restrained BeCentral-inspired blue/orange/peach accents and clear text contrast. The full product name is **BeThereCentral**. Website styles inspired this prototype; no approved brand kit or official endorsement has been established. Five generated, richly furnished floor illustrations deliver the world. Source-derived footprint and courtyard masks clip each illustration and retain approximate plan proportions. The generated interior partitions, furniture and characters are fictional; they cannot define doors, accessible routes, real room inventory or tenant facts. Keep text outside crowded art when needed and use a legend for discoverability. Do not let furniture in an unassigned source area imply a confirmed occupant.
+Keep a charcoal canvas, restrained BeCentral-inspired blue/orange/peach accents and clear text contrast. The full product name is **BeThereCentral**. Website styles inspired this prototype; no approved brand kit or official endorsement has been established. Five generated floor illustrations deliver the world, clipped to approximate source-derived outlines. Leave courtyard voids empty dark. On ground, retain the full silhouette in muted charcoal (#252B2D) with a subtle outline; confine furnished art to known colored regions and leave the unassigned grey source area without furniture. The generated interior partitions, furniture and characters are fictional; they cannot define doors, accessible routes, real room inventory or tenant facts. Source labels are approximate and do not solve exact room assignments. Use the legend for discoverability.
 
-The visible **PIXEL WORLD** badge and floor-level **FICTIONAL INTERIORS** label establish the distinction immediately. More explains what came from the supplied plans and what was imagined. Keep these labels readable without covering the world.
+More explains what came from supplied plans and what was imagined. Keep the map controls translucent and compact so the full horizontal canvas remains visible. The floor name opens one selector sheet; +, − and Fit remain directly available. Use a white label on the blue action button for contrast.
+
+## Room Studio prototype journey
+
+Open Room Studio from More. The browser experiment presents one fictional chamfered room, with immutable outline and editable company sign/furniture. Drag or nudge props, add or delete them, and use undo/redo. Save writes to that browser's local storage; export/import moves a versioned JSON scene between devices. Compose offers the matching preview through More: paste/import JSON or reset to the shared fixture. This native preview is transient and does not save or publish edits. Keep the fictional-room notice visible. Do not call the fixture a mapped company room or claim that a tenant has an account, AI generation, or publishing access.
+
+The user's garden suggestion is a possible future courtyard treatment. The current courtyards stay empty and dark; any later multi-floor perspective should render a garden smaller from higher floors, with size tied to apparent perspective. Do not imply that this illustration is an observed BeCentral courtyard.
 
 The supplied plans use a 2048 × 1448 pixel coordinate space with Y down and an approximate viewport of X 80–1940, Y 580–1280. The generated full-floor illustrations are display assets clipped into that source space. These are drawing coordinates, not measured dimensions. A repeated source number belongs to one legend place even when the drawing shows several anchors. Source revision is unknown, so avoid “current tenant” and “verified location” language.
 

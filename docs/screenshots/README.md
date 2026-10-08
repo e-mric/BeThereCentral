@@ -5,3 +5,5 @@
 The interiors are fictional GPT artwork based on supplied plan proportions, clipped to source-derived outlines/courtyards. Names and approximate anchors come from the supplied directory. This does not verify measured dimensions, physical routes or phone performance.
 
 Earlier captures record superseded sample interfaces, including the old rectangular map and the parked 3D engine room. See [verification status](../testing/STATUS.md) for each check's scope and limitations.
+
+The Room Studio follow-up adds `android-ground-silhouette.png` (complete unfurnished ground shell), `android-world-signs.png` (second-floor signs and single floor control), `ios-plan-guide-contrast.png` (readable guide return action), `browser-room-studio.jpg` (editable fictional room), and `android-studio-import.png` (browser export rendered natively). These are emulator/simulator/browser evidence, not physical-phone captures. The native import capture includes the emulator keyboard toolbar.

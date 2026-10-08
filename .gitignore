@@ -19,3 +19,6 @@ __pycache__/
 **/node_modules/
 .scratch/
 node_modules/
+
+# Room Studio is built locally; unlike the bundled exploration runtime, dist is not committed.
+room-studio/dist/

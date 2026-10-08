@@ -4,15 +4,18 @@ This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeTh
 
 ## Next experiment: review five supplied plans
 
-- Inspect every source-derived footprint and courtyard mask against its schematic and rendered full-floor artwork. Correct coarse clipping, labels and approximate anchors where needed; review all five distinct scenes. Confirm ground grey/orange and second grey remain unassigned in the directory despite fictional furnishing, first-floor FARI appears detached, and fourth-floor 66 / The Sky remains unplaced.
+- Inspect every source-derived footprint and courtyard mask against its schematic and rendered full-floor artwork. Correct coarse clipping, labels and approximate anchors where needed; review all five distinct scenes. Preserve the complete ground-floor silhouette while leaving the unassigned grey area without furniture; keep ground grey/orange and second grey unassigned in the directory, first-floor FARI detached, and fourth-floor 66 / The Sky unplaced.
 - Confirm source revision, rights and occupant names with the building owner before calling the directory current. Record source provenance and a process for later plan updates.
 - Test the Campfire AI → 42 Belgium → The Sky walkthrough with 5–8 consenting people. Measure enjoyment of the furnished worlds, whether they find two placed names, explain the unplaced result, and understand that interior contents are fictional; check pan/zoom/Fit comprehension. Keep anonymous notes only.
 - Check labelled controls, search/legend alternative, large text and touch targets with actual accessibility tools. Review Android emulator, iOS simulator, browser demo and physical device separately; do not infer one from another.
 - Investigate the iOS simulator accessibility crash observed while dismissing a checkpoint sheet on 8 October 2026 before re-enabling that legacy journey. Root cause remains unconfirmed; see [verification status](testing/STATUS.md).
 
-## After plan review: Room Studio proposal
+## Room Studio: next experiment steps
 
-Validate one bounded tenant decoration flow against a reviewed plan. Import a tenant-owned logo, preview a pixel treatment and place decorative props within an assigned region. Export a versioned appearance manifest without modifying plan geometry. Define tenant permission, asset rights, review and rollback before publication. This is planned, not implemented.
+- Use the current one-room fictional prototype to test whether a simple furniture editor and JSON handoff are understandable. Record usability evidence separately for browser and Compose preview; a local editor is not tenant production access.
+- Keep the demo room outline immutable. Before using a real place, confirm the approved plan version and exact room-to-company assignment. Source-label anchors alone are insufficient.
+- Keep courtyard planting as a design option for later. If a multi-floor perspective is chosen, test apparent scale by level so the garden reads smaller from higher floors; the current courtyard illustration stays empty charcoal.
+- Before shared use, define tenant identity and authorization, asset rights, review, versioning, rollback, security and a publishing owner. AI generation and public publishing are not in the current prototype.
 
 ## Before a real building pilot
 

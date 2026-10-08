@@ -8,6 +8,19 @@ permissions:
   contents: read
 
 jobs:
+  room-studio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: room-studio/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: room-studio
+      - run: npm test && npm run build
+        working-directory: room-studio
   exploration:
     runs-on: ubuntu-latest
     steps:

@@ -261,3 +261,24 @@ Astra reviewed final code and all Android floor/detail captures without remainin
 No phone was connected on the Samsung's ADB port at the final check, so this slice was not installed on the phone. No phone instrumentation, source-plan upload, location service, backend integration, unchanged Python server rerun or browser-rendering claim was made.
 
 **Hosted CI repair:** [run 37825229211](https://github.com/e-mric/BeThereCentral/actions/runs/37825229211) at 6c4c272 passed shared/Android, iOS framework and exploration after removing the obsolete SDK tools request. This proves the setup repair at that commit, not a later pixel-world commit before its own hosted run completes.
+
+### Room Studio experiment and map presentation — 8 October 2026
+
+User problem: a company needs to edit its own decorations without changing the building geometry; the map also needs a clearer silhouette and quieter controls. This slice experiments with one fictional room shared between a PixiJS browser editor and the native preview. It does not publish edits into the BeCentral floors.
+
+Commands actually run:
+
+- `./gradlew :composeApp:desktopTest :composeApp:testAndroidHostTest :androidApp:assembleDebug` (local SDK environment configured) — passed; desktop 47 tests, Android host 46 tests, zero failures/errors. An initial Android-host resource test failed because Android resources require a runtime; that bundled-fixture test was moved to desktopTest, with seven pure Studio tests retained in commonTest.
+- `npm test && npm run build` in `room-studio/` — passed, five tests. A dedicated GitHub Actions job now runs these checks; remote execution is not yet verified for this change.
+- `xcodebuild -project iosApp/BeThereCentral.xcodeproj -scheme BeThereCentral -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,id=CBB251C4-BDA9-415D-9D6B-DF10DB661509' CODE_SIGNING_ALLOWED=NO build` — passed with local Android SDK/JDK environment configured.
+- `git diff --check` — passed.
+
+Browser evidence: edited the company label to Garden Lab, moved the desk from x47 to x51, exercised undo/redo, saved and reloaded the local draft, dragged furniture and undid the move, and exported JSON. Checked the rendered editor at desktop and 390×844 viewport sizes. The final renderer uses the same four furniture recipes as native. See [browser Room Studio](../screenshots/browser-room-studio.jpg). File import has domain-test coverage but was not separately exercised through the browser file chooser.
+
+Android emulator evidence (dedicated emulator-5556, not the phone): loaded the bundled room, entered the actual browser export, applied it, and observed Garden Lab with desk x51/y45 and all four objects. A first fast ADB text entry was truncated; validation retained the previous scene. Chunked entry of the complete 463-character export succeeded. See [native imported room](../screenshots/android-studio-import.png); the emulator keyboard toolbar remains visible in that capture. Reinstalled the final APK and inspected the full ground silhouette, empty unassigned grey region, dark courtyard, single floor picker and second-floor company signs. See [ground silhouette](../screenshots/android-ground-silhouette.png) and [second-floor signs](../screenshots/android-world-signs.png).
+
+The ground source's coarse grey polygon overlaps its coloured regions. An initial subtraction mask removed too much artwork; visual inspection caught this, and the final renderer instead intersects the art with explicitly assigned regions while retaining the full muted building shell.
+
+iOS simulator evidence (iPhone 17 Pro, iOS 26.5): rebuilt and installed the final app, inspected the full grey ground silhouette and Fit action, tapped the far left of the entrance sign to open its guide, and verified the white-on-blue Back to plan action. See [guide contrast](../screenshots/ios-plan-guide-contrast.png). The Room Studio fixture was visibly rendered earlier in this slice; JSON text entry through the simulator control tool did not succeed, so iOS import is not claimed as manually verified.
+
+Astra's focused final source review found no remaining blocker in schema limits, label hit targets, capacity validation, shared fixture loading or the ground mask. This is not an accessibility audit. No physical-phone installation or inspection was performed for this slice; no instrumentation service was installed on the user's phone. Company anchors remain approximate source-plan positions and the furnished interiors remain fictional. AI generation, real tenant editing, accounts and publishing are future work.
