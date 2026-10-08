@@ -467,6 +467,7 @@ private fun PlanCanvas(
             )
         }
         drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
+        drawCourtyardWalls(floor.voids.map { polygon -> polygon.map(projection::screen) }, projection.scale, buildingShell)
         signTargets.clear()
         val occupied = mutableListOf<androidx.compose.ui.geometry.Rect>()
         floor.places.sortedBy { if (it.id == highlightedId) 0 else 1 }.forEach { place ->

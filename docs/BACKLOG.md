@@ -10,6 +10,14 @@ This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeTh
 - Check labelled controls, search/legend alternative, large text and touch targets with actual accessibility tools. Review Android emulator, iOS simulator, browser demo and physical device separately; do not infer one from another.
 - Investigate the iOS simulator accessibility crash observed while dismissing a checkpoint sheet on 8 October 2026 before re-enabling that legacy journey. Root cause remains unconfirmed; see [verification status](testing/STATUS.md).
 
+## Next playable experiment: community game and character Studio
+
+- Prototype one playable room with one avatar, one classmate NPC, a conversation, a short discovery quest and a reward. Keep the current map available during evaluation.
+- Evaluate Godot as the game runtime using a browser-Studio content export; verify Android/iOS controls, collision, sprite layering, save/load and performance before committing to a migration.
+- Extend Studio with a modular character creator: appearance, display name, portrait, directional idle/walk animation preview, introduction and optional quest role. Validate one approved classmate before scaling to the roster.
+- Define versioned room/character/quest content, frame dimensions, foot pivots, asset provenance and licences. Keep real-person source photos private; publish only agreed character assets. Photo-assisted generation remains optional future work.
+- Use Sea of Stars and HYKE as art-direction references for atmosphere, depth and animation; build an original coherent palette/asset library. Do not equate a large generated floor image with a fully editable game level.
+
 ## Room Studio: next experiment steps
 
 - Use the current one-room fictional prototype to test whether a simple furniture editor and JSON handoff are understandable. Record usability evidence separately for browser and Compose preview; a local editor is not tenant production access.

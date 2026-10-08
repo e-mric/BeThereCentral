@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — courtyard walls
+
+- Replaced bare courtyard mask edges with substantial slate wall caps, framed blue-grey windows and corner piers. These decorative details scale with the map and stay on the building side of the source-derived courtyard boundary.
+- Kept courtyard interiors empty charcoal, the original floor geometry unchanged, and the ground grey area unfurnished. Window placement is fictional illustration, not a surveyed facade.
+- Recorded the open-source community-game direction and future Studio character creation in the PRD/backlog; Godot evaluation, playable characters and quests are planned, not implemented.
+
 ## Unreleased — bounded Room Studio and plan-world presentation
 
 - Added a local PixiJS one-room editor prototype using the shared fictional room JSON fixture; supports furniture editing, undo/redo, browser-local save/reload and JSON import/export.

@@ -16,6 +16,8 @@ For the ground floor, preserve the whole outer building silhouette. Render its u
 
 Park the fictional four-floor routes, QR, sharing, hunt and guide journey as internal legacy fixtures/tests. The licensed engine-room splat and browser viewer remain standalone experiments with no plan alignment. Do not expose a 3D or route handoff implying that the supplied plans support it. This decision supersedes ADR 0005's opening/entry behavior and updates ADRs 0003–0004 for the current experiment; their rationale and historical prototype remain documented.
 
+Courtyard edges receive a renderer-only decorative wall treatment: slate caps, framed window sections and piers, clipped to the building side of the existing void boundary. This replaces the bare mask line without changing source geometry or filling courtyards. These facade details are fictional.
+
 ## Consequences
 
 The first study can test visual recognition, enjoyment, search and source uncertainty without inventing physical guidance. Coarse source masks and generated art cannot supply measured dimensions, floor elevations, door connectivity or step-free status. Before a real pilot, confirm plan rights/revision, occupant register and accessibility with the building owner and survey the needed connections. Future Room Studio decorations may attach to reviewed regions without changing source geometry. Keep browser, emulator and physical-device evidence distinct in verification records.
