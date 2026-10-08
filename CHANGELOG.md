@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — map accuracy and modular ground floor
+
+- Audited all 64 numbered directory entries, repeated badge positions and shared-area occupants against the supplied plans; corrected source badge centers and documented the references.
+- Kept the ground-floor bike icon in its separate west-side room and traced the supplied divider continuously without adding a doorway gap.
+- Rebuilt ground decoration from reusable surface patterns, wall/window modules and individually placed furniture from the existing campus atlas. Upper four floors retain their illustrations.
+- Kept company positions separate from any visual corridor widening; labels wrap and use leader lines as zoom changes, repeat at repeated positions, and disappear when their markers are offscreen. Markers and leader lines render beneath signs to keep names unobscured.
+- Preserved source geometry, courtyard openings and the empty charcoal ground silhouette; reserved stairs remain free of furniture. Toilet positions remain pending user input.
+- Continued the map and directory product iteration. Godot/SvelteKit migration, gameplay and character creation remain on hold pending resident feedback.
+
+
 ## Unreleased — community game and Studio planning
 
 - Recorded Godot gameplay and SvelteKit browser Studio as the selected next direction, with Compose web considered as an alternative and the existing prototypes retained.

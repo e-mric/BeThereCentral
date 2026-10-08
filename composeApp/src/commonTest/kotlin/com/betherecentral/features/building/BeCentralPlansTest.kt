@@ -84,6 +84,23 @@ class BeCentralPlansTest {
     }
 
     @Test
+    fun correctedCompanyAnchorsFollowSourceBadgesAcrossFloors() {
+        // Independently checked original-image badge centres; see COMPANY_PLACEMENT_AUDIT.md.
+        val expected = listOf(
+            Triple("first", "3", PlanPoint(1747.0, 1072.0)),
+            Triple("second", "36", PlanPoint(378.0, 944.0)),
+            Triple("third", "37", PlanPoint(1124.0, 840.0)),
+            Triple("fourth", "57", PlanPoint(618.0, 800.0)),
+        )
+        expected.forEach { (floor, number, anchor) ->
+            assertTrue(anchor in BeCentralPlans.floor(floor)!!.places.single { it.number == number }.anchors)
+        }
+        val ground = BeCentralPlans.floor("ground")!!
+        assertEquals(listOf(PlanPoint(1166.0, 1089.0)), ground.places.single { it.id == "bike-parking" }.anchors)
+        assertTrue(ground.places.none { it.label.contains("toilet", ignoreCase = true) })
+    }
+
+    @Test
     fun everyPlottedPlaceAnchorFallsOnSelectablePlanFootprint() {
         val exceptions = setOf("entrance-cantersteen-12")
         val missed = BeCentralPlans.floors.flatMap { floor ->

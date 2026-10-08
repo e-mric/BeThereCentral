@@ -6,7 +6,9 @@
 
 Residents should be able to recognize their community, play short learning quests and contribute original rooms and characters. The next proposed experiment is one fictional room, one controllable avatar, one approved resident/classmate NPC, one conversation, one short learning/discovery quest and one visible reward. This tests whether playing and authoring are enjoyable before expanding to the campus.
 
-**Do not begin implementation from this plan.** The user explicitly wants resident input first because it may change the PRD. Writing, reviewing, committing and pushing these planning documents does not authorize scaffolding, migration, dependency changes or implementation.
+**9 October scope amendment:** the user separately authorized work on the existing map, starting with reusable ground-floor assets. That map-only slice can proceed in Compose; the game and Studio work below remains on hold.
+
+**Do not begin game/Studio implementation from this plan.** The user explicitly wants resident input first because it may change the PRD. Writing, reviewing, committing and pushing these planning documents does not authorize scaffolding, migration, dependency changes or implementation.
 
 ## Agreed direction and open choices
 
@@ -28,7 +30,7 @@ The open-source learning platform has two intended audiences: players learn thro
 3. Revise `docs/PRD.md`, this plan and the backlog together. Define the first learning outcome, success criteria, content owner, representation permissions and deferred features.
 4. Obtain the user's explicit instruction to resume implementation against that revised scope. Resident feedback arriving by itself does not open this gate.
 
-Until all four steps are complete, continue only authorized planning/documentation work. Do not create engine projects, migrate Studio, install tooling, generate production assets or change application code/configuration.
+Until all four steps are complete, this plan permits only authorized planning/documentation work. The separately authorized existing-map asset slice may change map code/assets; it does not permit engine projects, Studio migration, gameplay or character creation.
 
 ## Intended architecture after the gate
 

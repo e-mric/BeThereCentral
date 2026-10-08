@@ -35,3 +35,7 @@ Game behavior and browser authoring can evolve independently through a tested co
 ADR 0006 continues to govern the current Plan World and its source uncertainty; ADR 0007 continues to describe the implemented one-room experiment. This ADR supersedes the earlier recommendation merely to evaluate Godot as the selected future direction, while leaving those current behaviors intact. A later integration/replacement decision needs resident evidence and mobile validation.
 
 Official framework references: [Godot 2D](https://docs.godotengine.org/en/stable/tutorials/2d/index.html) and [SvelteKit introduction](https://svelte.dev/docs/kit/introduction). These describe technology capabilities, not implemented features.
+
+## Scope amendment — 9 October 2026
+
+The user separately resumed work on the existing map, explicitly selecting reusable assets starting with the ground floor. This authorizes a bounded Compose map/art change while the game/Studio migration hold remains. It does not authorize Godot/SvelteKit scaffolding, quests or a character creator.

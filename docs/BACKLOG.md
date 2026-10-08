@@ -2,13 +2,15 @@
 
 This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeThereCentral). GitHub Issues are the intended public tracker; publishing requires user authorization.
 
-## Implementation hold
+## Godot and Studio implementation hold
 
-The user is gathering resident input before implementation because the PRD may change. Godot gameplay and SvelteKit browser Studio are the selected direction; the [plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record scope, alternatives and acceptance checks. All implementation items below are deferred proposals, not authorization to execute. Record feedback, revise the PRD/plan/backlog, and receive the user’s instruction to resume first. Preserve the current prototypes meanwhile.
+The user is gathering resident input before implementing the selected Godot gameplay and SvelteKit browser Studio direction; the [plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record scope, alternatives and acceptance checks. The user separately resumed the existing Compose map and directory iteration on 9 October. That map work is active; game migration, quests and character/Studio implementation below remain deferred until feedback is recorded, the PRD/plan are revised and the user explicitly resumes that work. The standalone Room Studio remains a separate local prototype.
 
-## Proposed review: five supplied plans
+## Current iteration: map and reusable assets
 
-- Inspect every source-derived footprint and courtyard mask against its schematic and rendered full-floor artwork. Correct coarse clipping, labels and approximate anchors where needed; review all five distinct scenes. Preserve the complete ground-floor silhouette while leaving the unassigned grey area without furniture; keep ground grey/orange and second grey unassigned in the directory, first-floor FARI detached, and fourth-floor 66 / The Sky unplaced.
+- Completed source review: all 64 numbered entries, repeated badge centers and shared-area occupants are recorded in the [company placement audit](assets/COMPANY_PLACEMENT_AUDIT.md), and corrected source centers are in the floor data. The ground-floor bike icon and continuous divider are also traced as a separate west-side room. Keep toilet positions pending user input.
+- Review all five rendered maps against the source silhouettes, courtyard masks and audited markers. Keep company positions tied to source badges while adjusting decorative assets and readable corridor width; keep source and display geometry separate. Preserve the complete ground silhouette with grey unfurnished, ground orange and second grey unassigned, first-floor FARI detached, and fourth-floor 66 / The Sky unplaced.
+- Retain wrapped company labels, marker leader lines, repeated names and offscreen-label filtering across zoom levels. Keep map controls on the top-right side and verify the complete search/legend journey on rendered screens.
 - Confirm source revision, rights and occupant names with the building owner before calling the directory current. Record source provenance and a process for later plan updates.
 - Test the Campfire AI → 42 Belgium → The Sky walkthrough with 5–8 consenting people. Measure enjoyment of the furnished worlds, whether they find two placed names, explain the unplaced result, and understand that interior contents are fictional; check pan/zoom/Fit comprehension. Keep anonymous notes only.
 - Check labelled controls, search/legend alternative, large text and touch targets with actual accessibility tools. Review Android emulator, iOS simulator, browser demo and physical device separately; do not infer one from another.

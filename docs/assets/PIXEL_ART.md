@@ -1,10 +1,16 @@
 # Current plan-derived pixel world
 
-The creator supplied five BeCentral schematic plans on 8 October 2026, then explicitly approved fictional interiors in the detailed coworking pixel-art style. The current app uses five distinct, fully furnished GPT illustrations. Source-derived outer footprints and courtyard masks preserve approximate relative plan proportions; internal rooms, partitions, furniture and decorative characters are fictional. These images are not a record of the building's actual furnishings or navigable entrances. See [ADR 0006](../adr/0006-plan-derived-pixel-world.md).
+The creator supplied five BeCentral schematic plans on 8 October 2026, then explicitly approved fictional interiors in the detailed coworking pixel-art style. The current app uses a modular ground-floor scene and four distinct, fully furnished GPT upper-floor illustrations. The original ground illustration remains a reference asset. Source-derived outer footprints and courtyard masks preserve approximate relative plan proportions; internal rooms, partitions, furniture and decorative characters are fictional. These images are not a record of the building's actual furnishings or navigable entrances. See [ADR 0006](../adr/0006-plan-derived-pixel-world.md).
 
-## Runtime floor artwork
+## Modular ground assets — 9 October 2026
 
-The five original PNG outputs are saved unchanged in `composeApp/src/commonMain/composeResources/drawable/`. All are 2048×768 RGBA. No image-generation service is needed at runtime. The app registers the full image to source plan X 80–1940, Y 580–1280, then clips it to the independently traced footprint and courtyard voids. Generated alpha includes soft background shading; the canonical clipping masks keep the true courtyard shapes clear. Interior walls and props in the illustration are fictional rather than authoritative geometry. Source labels and approximate anchors remain rendered from structured data; generated artwork has no company text baked into it.
+`GroundFloorScene.kt` is an explicitly authored decorative recipe in source pixels. `FloorScene.kt` defines the reusable material/prop references; `ModularFloorRenderer.kt` renders wood/tile patterns, wall/window modules and individual atlas sprites. Ground no longer renders `plan_ground.png`. The existing `campus_props.png` is reused unchanged, with nearest-neighbour sampling and separate placements; no new image generation or external asset service is used in this slice. Its checksum and origin remain below.
+
+Scene data is separate from source geometry and directory facts. Paint is clipped to the canonical shell minus courtyards and to assigned colored regions; stairs are reserved, and the grey silhouette stays unfurnished. Materials and furniture are fictional decorative choices. This is part of the active map and directory product iteration; it does not change company badge positions or supply a portable Godot content package.
+
+## Retained full-floor artwork
+
+The five original PNG outputs are saved unchanged in `composeApp/src/commonMain/composeResources/drawable/`. All are 2048×768 RGBA. The ground image is retained as a reference; only the first through fourth-floor images currently render as full-floor art. No image-generation service is needed at runtime. Upper-floor images register to source plan X 80–1940, Y 580–1280 and clip to independently traced footprint and courtyard masks. Generated alpha includes soft background shading; the canonical clipping masks keep courtyard shapes clear. Interior walls and props are fictional rather than authoritative geometry. Company labels and source badge centers render from structured data; generated artwork has no company text baked into it.
 
 | Asset | SHA-256 |
 | --- | --- |
@@ -18,9 +24,9 @@ The [generation prompts](../design/plan-world-generation-prompts.md) identify th
 
 ## Plan structure and directory
 
-`BeCentralPlans.kt` owns transcribed numbers, known names/occupants, approximate anchors, hand-interpreted region fills and internal wall hints. `TracedPlanGeometry.kt` owns coarse exterior and courtyard vectors extracted from the supplied images on a six-source-pixel grid, simplified within eight source pixels. `scripts/trace_plan_geometry.py` reads five local source files and emits Kotlin vectors only; it never edits or embeds a bitmap. Regeneration needs Pillow and NumPy. Ordinary app builds consume the checked-in vectors and need neither. Plan coordinates are source pixels, y down, with no measured scale or elevations.
+`BeCentralPlans.kt` owns transcribed numbers, known names/occupants, plan badge centers, region fills and source wall hints. All 64 numbered entries, repeated anchors and shared-area names were checked against the source in the [company placement audit](COMPANY_PLACEMENT_AUDIT.md). Ground bike parking is a separate unnumbered source icon in the west-side lobby room; its continuous divider is traced independently. `TracedPlanGeometry.kt` owns coarse exterior and courtyard vectors extracted from the supplied images on a six-source-pixel grid, simplified within eight source pixels. `scripts/trace_plan_geometry.py` reads five local source files and emits Kotlin vectors only; it never edits or embeds a bitmap. Regeneration needs Pillow and NumPy. Ordinary app builds consume the checked-in vectors and need neither. Plan coordinates are source pixels, Y down, with no measured scale or elevations; any corridor display widening remains separate from these positions.
 
-Repeated source badges share one directory entry with several anchors. Unplaced number 66 / The Sky remains searchable without a guessed marker. Source-unlabelled grey/orange areas may have fictional visual decoration, but no real occupant is assigned to them. The guide sheet lists all supplied occupants for shared areas, and explains that the interior design is illustrative. Decorative figures are fictional and cannot represent real location sharing.
+Repeated source badges share one directory entry with several anchors; each source position is rendered with its company name. Long labels wrap or use a leader line as zoom changes, and offscreen labels are omitted. Unplaced number 66 / The Sky remains searchable and visible in the legend without a guessed marker. Ground and second-floor grey and ground orange areas have no confirmed occupant assignment. The guide sheet lists all supplied occupants for shared areas and explains that the interior design is illustrative. Decorative figures are fictional and cannot represent real location sharing. Toilet positions remain pending user input.
 
 ## Source input identity
 
@@ -34,11 +40,11 @@ All input images are 2048×1448, supplied in this chat on 8 October 2026; revisi
 | third | `5682e43e25bccfe3ef9b183f836d0cff0245b6aa43934221b8d776e05f313290` |
 | fourth | `42804ffb11f27e756d4b5801a6b73570fd1055ab3ef6e1e7f13cadbde390280b` |
 
-Receiving references and permission to make a fictional prototype do not establish building-team approval of a real visitor service. Review plan revision, directory facts and asset distribution before a real campus pilot. Generated illustrations are offered under the project's asset terms to the extent applicable, without relicensing third-party plans, names or marks.
+Receiving references and permission to develop the map do not establish building-team approval of a real visitor service. Review plan revision, directory facts and asset distribution before a real campus pilot. Generated illustrations are offered under the project's asset terms to the extent applicable, without relicensing third-party plans, names or marks.
 
 ## Retained props study
 
-`campus_props.png` is an original 1254×1254 transparent 4×4 atlas generated in the same style. SHA-256: `4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138`. It was used in an intermediate procedural-world study; the final active renderer uses the five cohesive floor illustrations instead. Its prompt is retained in [generation prompts](../design/generation-prompts.md). The historical founder atlas remains the fictional guide-sheet character.
+`campus_props.png` is an original 1254×1254 transparent 4×4 atlas generated in the same style. SHA-256: `4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138`. It was first used in an intermediate procedural-world study and is now reused for independently placed ground-floor furniture. Upper floors still use their cohesive full-floor illustrations. Its prompt is retained in [generation prompts](../design/generation-prompts.md). The historical founder atlas remains the fictional guide-sheet character.
 
 ## Historical fictional sample assets
 

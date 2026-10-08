@@ -1,11 +1,11 @@
 # Shared vocabulary
 
 - **Supplied plan**: one of five schematic BeCentral floor images supplied on 8 October 2026, ground through fourth floor. Revision and survey accuracy are unverified.
-- **Plan World**: active five-floor pixel-art world, with source-derived outer shapes and courtyard voids and fictional furnished interiors. It is an exploration and visual directory experiment, not a navigable survey.
+- **Plan World**: active five-floor pixel-art map and directory, built iteratively with source-derived outer shapes, courtyard voids and company positions. Fictional decoration does not establish a navigable survey.
+- **Modular floor scene**: independently placed materials, wall/window segments and reusable furniture assets in source-pixel coordinates. Ground uses this recipe; the four upper floors retain their illustrations pending later conversion.
 - **Source pixel**: coordinate in an original 2048 × 1448 plan image, X right and Y down. It has no metric scale.
 - **Floor**: named plan level with its own identity and shape. The plans do not establish reliable elevations.
 - **Region**: source-derived area or footprint used to organize the drawing. Its illustrated interior does not establish a real room, tenant or accessible space.
-- **Courtyard void**: area excluded from the drawn floor footprint; visual evidence only.
 - **Place**: one numbered or named floor-legend entry. A repeated number can have multiple approximate anchors for the same place.
 - **Unplaced place**: a source-listed occupant with no defensible map anchor, still available in search and the accessible legend; fourth-floor number 66 / The Sky is an example.
 - **Plan anchor**: approximate source-label position shown over fictional room art. It does not register that art to a real room or establish an entrance, route endpoint or measured coordinate.
@@ -14,6 +14,7 @@
 - **Room scene JSON**: versioned interchange format shared by the browser Studio and Compose preview. Import validates the fixed demo-room geometry and bounded furniture data.
 - **Studio preview**: Compose-only rendering of the shared demo scene; pasted/imported JSON changes this preview until reset/close and is not persisted.
 - **Ground unassigned area**: grey source-plan area shown within the complete building silhouette using muted charcoal fill and a subtle outline; it remains without furniture because its occupant assignment is unconfirmed.
+- **Bike room**: separate room west of the ground-floor lobby stairs, identified by the supplied bicycle icon and continuous angled/vertical white divider. Furniture stays within that traced boundary; no entrance is inferred from the continuous line.
 - **Courtyard void**: empty dark area in the current five-floor illustrations, preserving the courtyard opening visible in the supplied plan. A planted garden is a possible future decorative idea, not current content or a surveyed landscape.
 - **Detached region**: separated plan shape, such as first-floor FARI, without a proven connection to the main footprint.
 - **Sample building**: earlier fictional four-floor fixture retained for internal tests; not the five-plan BeCentral world.

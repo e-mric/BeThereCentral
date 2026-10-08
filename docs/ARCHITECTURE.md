@@ -1,12 +1,12 @@
 # Architecture
 
-## Selected next architecture, implementation deferred
+## Future game architecture — implementation deferred
 
 The next direction is a standalone Godot game and a SvelteKit browser Studio, exchanging bounded, versioned room/character/quest content. PixiJS may remain the Studio canvas. Compose stays as the current app during evaluation; embedding or replacing it needs later evidence. Resident feedback, a revised PRD and explicit user resumption are required before scaffolding or migration. The [plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) explain the boundary and why SvelteKit is preferred over a Compose browser UI for this authoring workflow.
 
 ## Active shape
 
-Android, iOS and desktop launch the shared Kotlin Multiplatform/Compose application. Its current home is **Plan World**, with five structured floor records and five full-floor illustrations. The building domain owns source-derived outer-footprint polygons, courtyard voids, places and approximate anchors; presentation fits each illustration to the plan viewport, clips it to the footprint and voids, and transforms the result for pan, zoom and Fit. Search and the accessible legend use the same place records. Geometry and search remain independent of Compose, operating systems and transport. Platform launchers stay thin; tests mirror feature packages under `commonTest`.
+Android, iOS and desktop launch the shared Kotlin Multiplatform/Compose application. Its current home is **Plan World**, with five structured floor records, a modular ground-floor decoration recipe and four active upper-floor illustrations. Ground scene data remains independent of Compose and source geometry; the renderer combines material patterns, reusable wall/window modules and individually cropped atlas assets. The building domain owns source-derived outer-footprint polygons, courtyard voids, places and plan-image badge centers; presentation clips content to the floor shell and transforms it for pan, zoom and Fit. Search and the accessible legend use the same place records. Marker labels wrap and use leader lines as needed, repeated positions retain their names, and offscreen labels are omitted. Geometry and search remain independent of Compose, operating systems and transport. Platform launchers stay thin; tests mirror feature packages under `commonTest`.
 
 ```mermaid
 flowchart TD
@@ -16,8 +16,10 @@ flowchart TD
     UI --> Plans[Five floor plan data]
     UI --> Search[Place search and legend]
     Search --> Plans
-    UI --> Art[Five fictional furnished floor illustrations]
-    Art --> Mask[Source-derived footprint / courtyard clipping]
+    UI --> Ground[Modular ground decoration]
+    UI --> Art[Four fictional upper-floor illustrations]
+    Ground --> Mask[Source-derived shell / region clipping]
+    Art --> Mask
     Legacy[Internal fictional sample fixtures] --> LegacyTests[Route / checkpoint / consent / hunt tests]
     Browser[Standalone browser demo] --> Viewer[Licensed unrelated engine-room sample]
 ```
@@ -26,9 +28,9 @@ There is no edge from the supplied-plan world to sample routing, checkpoint obse
 
 ## Plan data and provenance
 
-Each original plan is 2048 × 1448 pixels, X right and Y down. Active tracing lies approximately in X 80–1940, Y 580–1280. These values are source-art positions, not metric coordinates. Five independent datasets preserve differences in outer footprints and courtyard voids. The footprint masks are coarsely extracted from source pixels and simplified; they preserve relative shape, not exact wall dimensions. Full-floor generated art is fitted to this plan viewport and clipped by those masks. Its interior partitions, desks, furniture and characters are fictional. On ground, the full silhouette remains visible in muted charcoal (#252B2D) with a subtle outline; furnished artwork stays in known colored regions and the unassigned grey source area has no furniture. Courtyards remain empty dark voids. Ground/second grey and ground orange source areas have no confirmed occupant assignment; first-floor FARI is detached; fourth-floor 66 / The Sky has a legend entry but no defensible anchor. One place may own multiple anchors when the source repeats a number.
+Each original plan is 2048 × 1448 pixels, X right and Y down. Active tracing lies approximately in X 80–1940, Y 580–1280. These values are source-art positions, not metric coordinates. Five independent datasets preserve differences in outer footprints and courtyard voids. The footprint masks are coarsely extracted from source pixels and simplified; they preserve relative shape, not exact wall dimensions. Ground decorations use source-coordinate regions and clip to the shell, known colored areas and stair reservations. The upper four generated illustrations are fitted to the plan viewport and clipped by the floor masks. All decorative partitions, desks, furniture and characters are fictional. On ground, the full silhouette remains visible in muted charcoal (#252B2D) with a subtle outline; the unassigned grey source area has no furniture. Courtyards remain empty dark voids. Ground/second grey and ground orange source areas have no confirmed occupant assignment; first-floor FARI is detached; fourth-floor 66 / The Sky has a legend entry but no source badge. One place may have multiple badge centers when the source repeats a number.
 
-Source-plan images support the silhouette, courtyards and directory labels, not surveyed topology. The five generated floor images create a rich fictional world; their illustrated walls and contents are not source-plan facts. The clipping geometry remains editable as data, though art may need review after large mask corrections. The plans' revision is unknown; future imported editions need explicit provenance and review. See [coordinates](COORDINATES.md) and [ADR 0006](adr/0006-plan-derived-pixel-world.md).
+Numbered company marker centers follow the supplied source badges; the [company placement audit](assets/COMPANY_PLACEMENT_AUDIT.md) documents the 64 entries, repeated badges, occupants and source coordinates. Ground FARI's marker is region-supported rather than badge-supported. The bike icon is a separate unnumbered point in a west-side room whose supplied divider remains continuous. Source-plan images support these drawing references, the silhouette and courtyards, not surveyed topology or exact room assignment. Company anchors stay in source coordinates even if display corridors are widened for readability. The four generated upper-floor illustrations create fictional interiors; their walls and contents are not source-plan facts. The plans' revision is unknown; future imported editions need explicit provenance and review. See [coordinates](COORDINATES.md) and [ADR 0006](adr/0006-plan-derived-pixel-world.md).
 
 ## Parked code and separate viewer
 

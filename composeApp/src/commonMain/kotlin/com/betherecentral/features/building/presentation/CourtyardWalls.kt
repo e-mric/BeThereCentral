@@ -14,6 +14,7 @@ internal fun DrawScope.drawCourtyardWalls(
     voids: List<List<Offset>>,
     scale: Float,
     buildingShell: Path,
+    insideBoundary: Boolean = false,
 ) {
     if (scale <= 0f) return
     val shadow = Color(0xFF181C1E)
@@ -48,8 +49,9 @@ internal fun DrawScope.drawCourtyardWalls(
                 val tx = dx / length
                 val ty = dy / length
                 // In y-down screen coordinates, this points from the courtyard into the shell.
-                val nx = if (winding >= 0f) ty else -ty
-                val ny = if (winding >= 0f) -tx else tx
+                val direction = if (insideBoundary) -1f else 1f
+                val nx = (if (winding >= 0f) ty else -ty) * direction
+                val ny = (if (winding >= 0f) -tx else tx) * direction
                 val pitch = 60f * scale
                 val module = 36f * scale
                 val count = ((length - 16f * scale) / pitch).toInt().coerceAtLeast(0)

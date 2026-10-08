@@ -25,3 +25,9 @@ The first study can test visual recognition, enjoyment, search and source uncert
 ## Amendment
 
 ADR 0007 accepts a local, fictional one-room Studio experiment as a separate authoring prototype. It does not change this decision: the Studio room is not bound to a plan anchor, tenant or real room, and its editable decoration model cannot modify the supplied-plan geometry. Courtyard openings remain empty dark voids in the current experience; a garden and floor-height perspective scaling remain future art options.
+
+## Modular ground-floor amendment — 9 October 2026
+
+Replace only the ground illustration with a structured decorative recipe: reusable wood/tile materials, slate wall/window segments, stair motifs and individually positioned props from the existing campus atlas. Preserve source footprints, courtyard voids, directory anchors and grey silhouette exactly; clip decoration to the assigned source regions and keep stair areas free of furniture. Upper floors retain their illustrations pending review of this first slice. The original ground image remains as a reference. This is map asset work, not game-engine migration or Studio authoring.
+
+The user clarified that this is iterative product development. Company placements must be faithful to the supplied plans, while corridor width may be exaggerated for legibility. Source coordinates remain separate from display adjustments. Toilet positions are pending the user’s later input and must not be guessed.

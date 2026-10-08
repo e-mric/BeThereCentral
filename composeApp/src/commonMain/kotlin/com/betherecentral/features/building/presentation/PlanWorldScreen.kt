@@ -95,7 +95,7 @@ import com.betherecentral.features.building.domain.PlanViewport
 import com.betherecentral.features.guide.presentation.drawGuideSprite
 import com.betherecentral.resources.Res
 import com.betherecentral.resources.brand_logo
-import com.betherecentral.resources.plan_ground
+import com.betherecentral.resources.campus_props
 import com.betherecentral.resources.plan_first
 import com.betherecentral.resources.plan_second
 import com.betherecentral.resources.plan_third
@@ -166,13 +166,13 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     Box(Modifier.fillMaxSize().background(WorldCanvas)) {
         PlanCanvas(
             floor = floor,
-            floorArtwork = imageResource(when (floor.id) {
-                "ground" -> Res.drawable.plan_ground
+            floorArtwork = if (floor.id == "ground") null else imageResource(when (floor.id) {
                 "first" -> Res.drawable.plan_first
                 "second" -> Res.drawable.plan_second
                 "third" -> Res.drawable.plan_third
                 else -> Res.drawable.plan_fourth
             }),
+            propsAtlas = if (floor.id == "ground") imageResource(Res.drawable.campus_props) else null,
             zoom = zoom,
             pan = pan,
             highlightedId = highlightedId,
@@ -224,7 +224,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
         }
 
         Column(
-            Modifier.align(Alignment.CenterEnd).padding(end = safeEnd + 10.dp),
+            Modifier.align(Alignment.TopEnd).padding(end = safeEnd + 10.dp, top = safePadding.calculateTopPadding() + 128.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MapControl("+", "Zoom in") { zoom = (zoom * 1.25f).coerceAtMost(8f) }
@@ -232,7 +232,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             MapControl("Fit", "Fit whole floor") { zoom = 1f; pan = Offset.Zero }
         }
 
-        Text("FICTIONAL INTERIORS · PLAN-BASED PREVIEW",
+        Text("PLAN-BASED LOCATIONS · FICTIONAL DECOR",
             Modifier.align(Alignment.BottomCenter).padding(bottom = safePadding.calculateBottomPadding() + 12.dp),
             color = Color(0xFFBBC4C9), fontSize = 9.sp, letterSpacing = 1.sp)
     }
@@ -259,7 +259,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         ModalBottomSheet(onDismissRequest = { moreOpen = false }, sheetState = sheetState) {
             Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("About this plan preview", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text("About the map", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Button(onClick = { moreOpen = false; studioOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
                     Text("Room Studio · preview")
                 }
@@ -390,7 +390,8 @@ private data class PlanProjection(val size: IntSize, val zoom: Float, val pan: O
 @Composable
 private fun PlanCanvas(
     floor: PlanFloor,
-    floorArtwork: ImageBitmap,
+    floorArtwork: ImageBitmap?,
+    propsAtlas: ImageBitmap?,
     zoom: Float,
     pan: Offset,
     highlightedId: String?,
@@ -455,48 +456,76 @@ private fun PlanCanvas(
             }
             shell = Path.combine(PathOperation.Intersect, shell, assignedFootprint)
         }
-        // Generated furnishings are fictional. Source-pixel silhouette and courtyards remain canonical.
-        clipPath(shell) {
-            val topLeft = projection.screen(PlanPoint(VIEW_LEFT.toDouble(), VIEW_TOP.toDouble()))
-            drawImage(
-                image = floorArtwork,
-                dstOffset = androidx.compose.ui.unit.IntOffset(topLeft.x.roundToInt(), topLeft.y.roundToInt()),
-                dstSize = IntSize((VIEW_WIDTH * projection.scale).roundToInt().coerceAtLeast(1),
-                    (VIEW_HEIGHT * projection.scale).roundToInt().coerceAtLeast(1)),
-                filterQuality = FilterQuality.None,
-            )
+        // Ground uses independent decoration assets; upper floors retain their illustrations.
+        // The source shell and voids remain canonical for both rendering approaches.
+        if (floor.id == "ground" && propsAtlas != null) {
+            drawModularGroundFloor(floor, propsAtlas, projection::screen, projection.scale, shell)
+        } else if (floorArtwork != null) {
+            clipPath(shell) {
+                val topLeft = projection.screen(PlanPoint(VIEW_LEFT.toDouble(), VIEW_TOP.toDouble()))
+                drawImage(
+                    image = floorArtwork,
+                    dstOffset = androidx.compose.ui.unit.IntOffset(topLeft.x.roundToInt(), topLeft.y.roundToInt()),
+                    dstSize = IntSize((VIEW_WIDTH * projection.scale).roundToInt().coerceAtLeast(1),
+                        (VIEW_HEIGHT * projection.scale).roundToInt().coerceAtLeast(1)),
+                    filterQuality = FilterQuality.None,
+                )
+            }
         }
         drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
         drawCourtyardWalls(floor.voids.map { polygon -> polygon.map(projection::screen) }, projection.scale, buildingShell)
         signTargets.clear()
         val occupied = mutableListOf<androidx.compose.ui.geometry.Rect>()
+        val paintSigns = mutableListOf<() -> Unit>()
+        // Markers and leaders stay beneath every sign, including signs laid out earlier.
+        floor.places.forEach { place ->
+            place.anchors.forEach { anchor ->
+                drawCircle(if (place.id == highlightedId) PlanBlue else PlanOrange, 2f * density, projection.screen(anchor))
+            }
+        }
         floor.places.sortedBy { if (it.id == highlightedId) 0 else 1 }.forEach { place ->
             place.anchors.forEachIndexed { anchorIndex, anchor ->
                 val point = projection.screen(anchor)
+                if (point.x !in 0f..size.width || point.y !in 0f..size.height) return@forEachIndexed
                 val selected = place.id == highlightedId
-                drawCircle(if (selected) PlanBlue else PlanOrange, 2f * density, point)
-                if (anchorIndex == 0 && (selected || !place.label.contains("name not supplied"))) {
+                if ((anchorIndex == 0 || zoom >= 1.5f) && (selected || !place.label.contains("name not supplied"))) {
                     val layout = textMeasurer.measure(
                         place.label,
-                        TextStyle(color = Color(0xFF201E19), fontSize = if (selected || zoom >= 1.5f) 10.sp else 8.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace),
-                        maxLines = 1, overflow = TextOverflow.Ellipsis,
-                        constraints = androidx.compose.ui.unit.Constraints(maxWidth = (110f * density).roundToInt()),
+                        TextStyle(color = Color(0xFF201E19), fontSize = if (selected || zoom >= 1.5f) 11.sp else 9.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace),
+                        maxLines = if (selected || zoom >= 1.5f) 2 else 1, overflow = TextOverflow.Ellipsis,
+                        constraints = androidx.compose.ui.unit.Constraints(maxWidth = ((if (selected || zoom >= 1.5f) 160f else 110f) * density).roundToInt()),
                     )
                     val padding = 3f * density
                     val width = layout.size.width + padding * 2
                     val height = layout.size.height + padding * 2
                     val labelX = (point.x - width / 2).coerceIn(2f * density, (size.width - width - 2f * density).coerceAtLeast(2f * density))
-                    val rect = androidx.compose.ui.geometry.Rect(labelX, point.y - height - 5f * density, labelX + width, point.y - 5f * density)
-                    if ((selected || occupied.none { it.overlaps(rect.inflate(3f * density)) }) && rect.right >= 0 && rect.left < size.width && rect.bottom >= 0 && rect.top < size.height) {
-                        drawRect(Color(0xFF33291E), rect.topLeft - Offset(2f * density, 2f * density), Size(rect.width + 4f * density, rect.height + 4f * density))
-                        drawRect(if (selected) Color(0xFFE5EFFF) else Color(0xFFF2DFC0), rect.topLeft, rect.size)
-                        drawText(layout, topLeft = rect.topLeft + Offset(padding, padding))
+                    // A short leader retains the source location when labels need space.
+                    val candidates = listOf(
+                        point.y - height - 5f * density,
+                        point.y + 6f * density,
+                        point.y - 2 * height - 10f * density,
+                        point.y - 3 * height - 15f * density,
+                        point.y + height + 11f * density,
+                    ).map { top -> androidx.compose.ui.geometry.Rect(labelX, top, labelX + width, top + height) }
+                    val visibleCandidates = candidates.filter { it.top >= 0 && it.bottom <= size.height }
+                    val rect = visibleCandidates.firstOrNull { candidate ->
+                        occupied.none { it.overlaps(candidate.inflate(3f * density)) }
+                    } ?: if (selected) visibleCandidates.firstOrNull() else null
+                    if (rect != null) {
+                        val labelPoint = Offset(point.x.coerceIn(rect.left, rect.right), point.y.coerceIn(rect.top, rect.bottom))
+                        drawLine(Color(0xCCF2DFC0), point, labelPoint, density)
+                        paintSigns.add {
+                            drawRect(Color(0xFF33291E), rect.topLeft - Offset(2f * density, 2f * density), Size(rect.width + 4f * density, rect.height + 4f * density))
+                            drawRect(if (selected) Color(0xFFE5EFFF) else Color(0xFFF2DFC0), rect.topLeft, rect.size)
+                            drawText(layout, topLeft = rect.topLeft + Offset(padding, padding))
+                        }
                         occupied.add(rect)
                         signTargets.add(place to rect)
                     }
                 }
             }
         }
+        paintSigns.forEach { it() }
     })
 }
 

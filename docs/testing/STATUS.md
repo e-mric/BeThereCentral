@@ -1,6 +1,6 @@
 # Verification status
 
-7–8 October 2026 · local Apple Silicon macOS environment
+7–9 October 2026 · local Apple Silicon macOS environment
 
 ## Environment inspected
 
@@ -304,3 +304,13 @@ Recorded the selected future game/Studio architecture, the Compose-for-web alter
 - Ran a Python `pathlib`/regular-expression check over local Markdown link targets in the nine affected product/architecture documents: all 53 targets exist. This checks file existence, not remote URL availability or heading anchors.
 - Astra reviewed the documentation diff and new plan/ADR: no content blockers; confirmed the explicit hold, current-versus-planned distinction, balanced framework alternative and acceptance checks.
 - No app builds, runtime tests, browser rendering, emulator/simulator or physical-device checks were run for this documentation-only change. No code, configuration, dependencies or generated assets changed. Existing untracked screenshots are excluded from the commit.
+
+### Modular ground-floor assets and company-placement audit — 9 October 2026
+
+The existing-map product iteration resumed independently of the Godot/Studio hold. All 64 numbered directory entries were checked against the supplied five plans, including repeated badges and the unplaced Sky entry. The ground floor now composes reusable materials, walls/windows and furniture from the existing atlas. Bike parking occupies a separate room with the supplied continuous angled/vertical partition; no door gap or toilet position was guessed.
+
+`./gradlew :composeApp:desktopTest :androidApp:assembleDebug` passed using JDK 17 and the configured Android SDK. A final `./gradlew :composeApp:desktopTest` passed after the source-divider regression was tightened: 50 tests, zero failures/errors/skips. `git diff --check` passed.
+
+The updated APK was installed and launched on the dedicated Pixel 7 / API 36 emulator (`emulator-5556`). Actual rendered checks covered all five floor overviews, closer zoom/pan, bike parking, Campfire AI search/selection, tapping 42 Belgium Office, Fit recovery and The Sky's unplaced guide. Controls covering a label and marker dots painting over text were found visually and fixed. Long names wrap at closer zoom; dense full-floor views still abbreviate or omit some labels, with search exposing the full directory. See the [complete smoke record and captures](floor-assets-smoke.md).
+
+iOS, browser, desktop rendering and physical phones were not checked for this slice. The JVM desktop test suite is shared-logic evidence only. No phone instrumentation was used. The four upper-floor interiors remain fictional raster illustrations, and no real route/accessibility claim follows from these plan positions.
