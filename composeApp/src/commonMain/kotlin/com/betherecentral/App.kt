@@ -3,6 +3,7 @@ package com.betherecentral
 import androidx.compose.foundation.Image
 import androidx.compose.ui.layout.ContentScale
 import org.jetbrains.compose.resources.painterResource
+import com.betherecentral.features.building.presentation.PlanWorldScreen
 import com.betherecentral.resources.Res
 import com.betherecentral.resources.brand_logo
 import androidx.compose.foundation.BorderStroke
@@ -109,6 +110,14 @@ private enum class MapEnvironment { DARK, LIGHT }
 
 @Composable
 fun App(onAppearanceChanged: (Boolean) -> Unit = {}) {
+    MaterialTheme(colorScheme = darkScheme) {
+        PlanWorldScreen(onAppearanceChanged)
+    }
+}
+
+/** Kept as a historical fictional navigation experiment; never used for the supplied plans. */
+@Composable
+private fun LegacySampleApp(onAppearanceChanged: (Boolean) -> Unit = {}) {
     val floors = DemoBuilding.floors
     val rooms = DemoBuilding.rooms
     val checkpoints = DemoBuilding.checkpoints

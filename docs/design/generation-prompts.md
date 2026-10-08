@@ -42,3 +42,12 @@ Do not move, resize or alter the adjacent stairs or reception. Do not change any
 ### Cafe edit brief
 
 Preserve the full 1536 × 1024 layout except the cafe seating island. Move its communal table, chairs and rug upward and shorten its lower boundary, leaving a clear cream-tiled passage beneath it, above Spark's wall. Keep the lift's north approach open. Preserve all room signs, furniture elsewhere, palette, empty-of-people state and charcoal surround. Review the actual output rather than assuming requested pixel positions are exact.
+
+
+## Plan-world furniture atlas — 8 October 2026
+
+Built-in image generation; style reference was the approved coworking concept. Structure is independently traced from the five supplied plans. Saved unchanged as `composeApp/src/commonMain/composeResources/drawable/campus_props.png`; actual output 1254×1254 RGBA, four rows/columns.
+
+```text
+Create ONE production pixel-art sprite atlas for the BeThereCentral coworking map. The supplied image is STYLE REFERENCE ONLY: match its detailed warm 16-bit pixel interiors, readable crisp pixels, dark outlines, wood, sage green, orange and navy accents. Do not recreate its floorplan, text or people. Output a square transparent 1024x1024 PNG sprite sheet, exact 4 columns by 4 rows of equal 256x256 cells. Each sprite centered in its cell, fully contained within inner 190x190 area leaving transparent gutters; no visible grid, no labels, no text, no logos, no people, no baked floor patches. Consistent orthographic top-down view like the reference, subtle low raised front edges, coherent pixel lighting and tiny shadows only under objects. Cells row-major: row1 (1) wooden work desk with laptop and green chair, (2) two facing cowork desks with navy chairs, (3) rectangular meeting table with four sage chairs and papers, (4) round meeting table with four orange chairs; row2 (5) orange lounge sofa, (6) packed wooden bookshelf, (7) lush potted floor plant, (8) coffee counter with cups and coffee machine; row3 (9) parked bicycle on rack, (10) compact phone booth with glass sides and desk, (11) white office printer, (12) drinking water dispenser; row4 (13) movable whiteboard on stand, (14) warm patterned rectangular rug with no furniture, (15) wooden reception desk with monitor but no person, (16) sage bench with side table. These are illustrative decoration props used inside separately traced BeCentral room geometry; do not add walls or corridors. Prioritize beautiful artisanal pixel-art detail and individually separable alpha sprites.
+```

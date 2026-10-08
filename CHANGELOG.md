@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — five-floor BeCentral pixel world
+
+- Replaced the active fictional rectangular map with five distinct interpretations of the supplied ground-to-fourth-floor schematics, with editable geometry, courtyard cutouts, unmapped areas and stair-core patches.
+- Added five richly furnished GPT floor illustrations with explicitly fictional interiors, clipped to source-derived outline/courtyard masks, plus source-labelled company/place search, floor selection, pan/zoom/Fit and factual pixel-host introductions. Repeated badges share a legend entry; fourth-floor The Sky remains unplaced.
+- Parked in-app 3D, fictional directions, checkpoints, sharing and hunt to prevent mixing their sample coordinates with the supplied plans. The experiments and tests remain in the repository.
+- Recorded unknown scale, approximate trace and illustrative furnishings rather than treating schematics as surveyed navigation.
+
 ## Unreleased — Android CI SDK setup
 
 - Overrode setup-android’s legacy default package list to request platform-tools, avoiding failure on the retired tools package before Gradle runs. Android 36 and Build Tools 36.0.0 remain explicitly installed.

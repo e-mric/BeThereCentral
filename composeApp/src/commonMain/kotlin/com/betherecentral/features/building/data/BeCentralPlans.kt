@@ -1,0 +1,346 @@
+package com.betherecentral.features.building.data
+
+import com.betherecentral.features.building.domain.PlanFloor
+import com.betherecentral.features.building.domain.PlanPlace
+import com.betherecentral.features.building.domain.PlanPoint
+import com.betherecentral.features.building.domain.PlanRegion
+import com.betherecentral.features.building.domain.PlanRegionKind
+
+/**
+ * Manual trace of the five supplied BeCentral schematic images (2048 × 1448 pixels).
+ * Source badges and legend text are transcribed; polygons and wall lines are approximate
+ * visual interpretation. They are not surveyed rooms, access paths or routing data.
+ */
+object BeCentralPlans {
+    const val sourceWidth = 2048
+    const val sourceHeight = 1448
+    const val viewportLeft = 80
+    const val viewportTop = 580
+    const val viewportRight = 1940
+    const val viewportBottom = 1280
+
+    private fun path(points: String): List<PlanPoint> = points.trim().split(" ").map {
+        val (x, y) = it.split(",")
+        PlanPoint(x.toDouble(), y.toDouble())
+    }
+
+    private fun region(
+        id: String, label: String, color: Long, points: String,
+        kind: PlanRegionKind = PlanRegionKind.WORKSPACE,
+    ) = PlanRegion(id, label, path(points), color, kind)
+
+    private fun place(
+        number: Int, label: String, anchors: String, regionId: String? = null,
+        occupants: List<String> = emptyList(), details: String = "",
+    ) = PlanPlace(
+        id = "place-$number", label = label, number = number.toString(),
+        anchors = if (anchors.isBlank()) emptyList() else path(anchors),
+        regionId = regionId, occupants = occupants, details = details,
+    )
+
+    private val NAVY = 0xFF171978
+    private val GREY = 0xFFE1DFDF
+
+    val floors: List<PlanFloor> = listOf(
+        PlanFloor(
+            id = "ground", name = "Ground floor", level = 0,
+            regions = listOf(
+                region("ground-unmapped", "Unmapped footprint", GREY,
+                    "185,1054 385,911 484,843 747,650 806,620 850,615 926,627 1040,625 1119,599 1170,599 1427,776 1448,847 1411,1046 1380,1158 1342,1189 240,1199 204,1160 187,1102",
+                    PlanRegionKind.UNMAPPED),
+                region("ground-orange", "Orange area (unlabelled)", 0xFFF49600,
+                    "642,1063 1018,953 1064,1097 1080,1188 654,1188 654,1113"),
+                region("ground-west-stair", "West stair", NAVY,
+                    "572,1087 641,1067 653,1188 603,1188", PlanRegionKind.STAIRS),
+                region("ground-lobby", "The lobby", 0xFFFFC41F,
+                    "1143,1072 1320,1022 1395,1049 1370,1150 1335,1188 1141,1188",
+                    PlanRegionKind.SHARED),
+                region("ground-lobby-stair", "Lobby stair", NAVY,
+                    "1224,1047 1303,1025 1325,1061 1249,1087", PlanRegionKind.STAIRS),
+                region("ground-fari", "FARI AI Experience Center", 0xFF830021,
+                    "1558,938 1617,928 1860,1124 1840,1189 1500,1189",
+                    PlanRegionKind.WORKSPACE),
+                region("ground-east-stair", "East stair", NAVY,
+                    "1534,1116 1617,1117 1616,1194 1537,1202", PlanRegionKind.STAIRS),
+            ),
+            voids = listOf(path("509,891 820,801 795,703 1018,645 1126,994 568,1090")),
+            walls = listOf(
+                path("753,1032 782,1098 937,1057"), path("914,984 933,1033"),
+                path("739,1094 741,1151"), path("850,1072 852,1125"),
+                path("1143,1072 1142,1188"), path("1219,1052 1222,1179"),
+                path("1617,928 1604,954 1608,1002 1663,1055"),
+                path("1617,1117 1690,1117 1690,1189"),
+            ),
+            places = listOf(
+                PlanPlace("entrance-cantersteen-12", "Entrance Cantersteen 12",
+                    anchors = path("1380,1198"), regionId = "ground-lobby",
+                    details = "Entrance arrow on the supplied ground-floor plan."),
+                PlanPlace("front-desk", "Front Desk", anchors = path("1273,1126"),
+                    regionId = "ground-lobby"),
+                PlanPlace("fari-experience", "FARI AI Experience Center",
+                    anchors = path("1733,1063"), regionId = "ground-fari"),
+            ),
+            notes = "The large grey area has no supplied room labels; orange area is also unlabelled. This plan establishes no indoor routes.",
+        ),
+        PlanFloor(
+            id = "first", name = "First floor", level = 1,
+            regions = listOf(
+                region("first-youth", "Youth Campus", 0xFFD4108A,
+                    "112,1095 128,1058 390,886 425,880 505,984 548,1237 169,1255 123,1198"),
+                region("first-west-stair", "West stair", NAVY,
+                    "425,880 499,825 550,923 473,948", PlanRegionKind.STAIRS),
+                region("first-southwest-stair", "Southwest stair", NAVY,
+                    "529,1137 586,1118 611,1239 551,1241", PlanRegionKind.STAIRS),
+                region("first-sunset", "Sunset", 0xFFF15A54,
+                    "498,826 777,641 836,630 1013,639 1033,716 785,788 802,834 546,922"),
+                region("first-angels", "Angels Hub", 0xFFE9789D,
+                    "605,1149 863,1054 891,1160 1069,1116 1093,1238 609,1238"),
+                region("first-red", "Red zone", 0xFFFF2540,
+                    "1015,640 1173,610 1208,694 1182,716 1395,740 1454,833 1385,1239 1129,1240"),
+                region("first-north-stair", "North stair", NAVY,
+                    "1194,648 1232,634 1274,670 1230,719", PlanRegionKind.STAIRS),
+                region("first-center-stair", "Center stair", NAVY,
+                    "1232,1091 1328,1063 1355,1135 1251,1164", PlanRegionKind.STAIRS),
+                region("first-red-base", "Red zone", 0xFFB91E31,
+                    "1065,1133 1201,1086 1385,1158 1392,1238 1085,1238"),
+                region("first-grey", "Unmapped gap", GREY,
+                    "1381,1126 1509,1174 1570,1170 1581,1239 1379,1239",
+                    PlanRegionKind.UNMAPPED),
+                region("first-east-stair", "East stair", NAVY,
+                    "1569,1167 1666,1165 1668,1248 1571,1253", PlanRegionKind.STAIRS),
+                region("first-fari", "FARI AI Experience Centre", 0xFF830021,
+                    "1545,1169 1594,977 1662,965 1824,1096 1919,1169 1902,1239 1667,1248 1666,1165",
+                    PlanRegionKind.WORKSPACE),
+            ),
+            voids = listOf(
+                path("241,1092 410,1062 406,1177 242,1192"),
+                path("783,786 1018,659 1130,1083 902,1133 864,1054 783,1073"),
+                path("1784,1137 1818,1081 1878,1136 1878,1180 1818,1190"),
+            ),
+            walls = listOf(
+                path("165,1066 235,1192 240,1251"), path("272,994 350,1120 465,1058"),
+                path("372,921 440,1028 496,995"), path("548,821 591,908 702,772"),
+                path("626,768 726,887 800,836"), path("728,660 752,718 849,677"),
+                path("1074,633 1128,866 1192,848"), path("1195,681 1272,1067 1368,1025"),
+                path("1302,725 1350,1132 1417,1083"), path("1130,1083 1173,1184"),
+                path("1374,738 1300,832 1416,871"), path("1615,969 1647,1168 1748,1114"),
+                path("1670,1098 1818,1100"), path("1732,1183 1761,1238"),
+            ),
+            places = listOf(
+                place(3, "FARI Offices", "1747,1044 1713,1210", "first-fari"),
+                place(4, "Red zone · name not supplied", "1132,850", "first-red"),
+                place(5, "Red zone · name not supplied", "1301,1016", "first-red"),
+                place(6, "Red zone · name not supplied", "1242,783 1270,900 1333,1199", "first-red"),
+                place(7, "Red zone · name not supplied", "1302,735 1387,826 1386,949 1225,1199", "first-red"),
+                place(8, "Angels Hub · name not supplied", "1038,1194", "first-angels"),
+                place(9, "MakePlan", "887,1212", "first-angels"),
+                place(10, "Be education", "450,1220", "first-youth"),
+                place(11, "Mediawijs", "347,1206", "first-youth"),
+                place(12, "Teach For Belgium", "163,1122 176,1188", "first-youth"),
+                place(13, "Bibliothèques Sans Frontières", "245,1050 371,960", "first-youth"),
+                place(14, "Khan Academy", "313,1002", "first-youth"),
+                place(15, "CodeNPlay", "544,832", "first-sunset"),
+                place(16, "Sunset · name not supplied", "627,769", "first-sunset"),
+                place(17, "Sunset · name not supplied", "775,678", "first-sunset"),
+                place(18, "Privacy Salon", "360,1057", "first-youth"),
+            ),
+            notes = "FARI wing is detached by an unmapped gap. Repeated badges are anchors of one legend entry, not claims of separate rooms.",
+        ),
+        PlanFloor(
+            id = "second", name = "Second floor", level = 2,
+            regions = listOf(
+                region("second-junction", "Junction Area", 0xFF6999E7,
+                    "120,1121 135,1073 391,870 434,866 505,1012 562,1230 179,1239 138,1198"),
+                region("second-west-stair", "West stair", NAVY,
+                    "430,867 508,798 551,893 470,926", PlanRegionKind.STAIRS),
+                region("second-southwest-stair", "Southwest stair", NAVY,
+                    "536,1123 598,1109 629,1195 564,1210", PlanRegionKind.STAIRS),
+                region("second-unmapped", "Unmapped footprint", GREY,
+                    "510,800 744,647 790,612 846,609 898,624 1014,622 1043,727 806,1041 505,1114",
+                    PlanRegionKind.UNMAPPED),
+                region("second-field", "Central Perk", 0xFF4A76E8,
+                    "540,1110 864,1029 894,1133 1236,1051 1249,1222 568,1223"),
+                region("second-field-upper", "Field Open Space", 0xFF4A76E8,
+                    "1014,621 1183,593 1248,660 1322,1050 894,1133 864,1029 806,1041 1044,729"),
+                region("second-field-19", "Field Open Space", 0xFF9C98F0,
+                    "1014,621 1183,593 1204,696 1044,730"),
+                region("second-beta", "Beta Zone", 0xFF4A4FE6,
+                    "1184,593 1280,645 1925,1148 1927,1196 1890,1230 1248,1222 1322,1050"),
+                region("second-north-stair", "North stair", NAVY,
+                    "1192,629 1240,612 1287,645 1237,703", PlanRegionKind.STAIRS),
+                region("second-center-stair", "Center stair", NAVY,
+                    "1236,1083 1317,1057 1345,1124 1256,1151", PlanRegionKind.STAIRS),
+                region("second-east-stair", "East stair", NAVY,
+                    "1569,1146 1677,1148 1665,1240 1567,1248", PlanRegionKind.STAIRS),
+            ),
+            voids = listOf(
+                path("198,1069 403,1046 416,1166 190,1196"),
+                path("779,674 1016,635 1100,1076 897,1125 859,1031 780,1061"),
+                path("1352,975 1555,1019 1542,1129 1364,1098"),
+            ),
+            walls = listOf(
+                path("220,1046 307,1146 438,1063"), path("317,925 411,1048"),
+                path("391,869 461,972 504,1012"), path("596,1149 624,1230"),
+                path("716,1110 721,1230"), path("810,1090 820,1223"),
+                path("929,1119 930,1223"), path("1041,1092 1106,1223"),
+                path("1205,696 1268,933 1105,1057"), path("1240,705 1386,763 1300,889"),
+                path("1300,889 1478,934 1560,995"), path("1370,1098 1489,1140"),
+                path("1249,1127 1249,1222"), path("1405,1116 1405,1225"),
+                path("1508,1139 1508,1228"), path("1694,1145 1694,1233"),
+                path("1771,1115 1771,1233"),
+            ),
+            places = listOf(
+                place(19, "Field Open Space", "1113,663", "second-field-19",
+                    listOf("Besecure", "Curewiki", "EAIF", "European Startup Network", "Sandora VR", "Startup Factory", "WeTechCare")),
+                place(20, "Ring Twice", "1282,744", "second-beta"),
+                place(21, "Campfire AI", "1401,842 1520,914 1596,954", "second-beta"),
+                place(22, "Beta Zone · name not supplied", "1655,987", "second-beta"),
+                place(23, "MyGrid", "1720,1047", "second-beta"),
+                place(24, "Beta Zone · name not supplied", "1695,1191", "second-beta"),
+                place(25, "Beta Zone · name not supplied", "1537,1184", "second-beta"),
+                place(26, "Beta Zone · name not supplied", "1450,1184", "second-beta"),
+                place(27, "BeCode Team", "1268,1184 1310,1184 1366,1184", "second-beta"),
+                place(28, "Central Perk · name not supplied", "1167,1163", "second-field"),
+                place(29, "Central Perk · name not supplied", "1044,1176", "second-field"),
+                place(30, "Central Perk · name not supplied", "870,1190", "second-field"),
+                place(31, "BeCentral Meeting Room", "763,1190", "second-field"),
+                place(32, "SkillsFactory Class Room", "446,1190", "second-junction"),
+                place(33, "redpencil.io", "296,1214", "second-junction"),
+                place(34, "Junction Area · name not supplied", "194,1214", "second-junction"),
+                place(35, "Rosa", "162,1156 274,1017", "second-junction"),
+                place(36, "Backstage Network", "380,906", "second-junction"),
+            ),
+            notes = "Grey upper-west span is explicitly unmapped. Badges are schematic; no door or route locations are established.",
+        ),
+        PlanFloor(
+            id = "third", name = "Third floor", level = 3,
+            regions = listOf(
+                region("third-garden", "Garden", 0xFF087446,
+                    "118,1133 130,1084 385,878 430,869 506,1010 554,1249 177,1251 137,1207"),
+                region("third-garden-dark", "Garden", 0xFF003B24,
+                    "118,1133 185,1088 210,1250 177,1251 137,1207"),
+                region("third-west-stair", "West stair", NAVY,
+                    "430,869 507,803 552,893 472,929", PlanRegionKind.STAIRS),
+                region("third-southwest-stair", "Southwest stair", NAVY,
+                    "532,1128 603,1109 625,1195 551,1213", PlanRegionKind.STAIRS),
+                region("third-garden-upper", "Garden", 0xFF127A47,
+                    "507,803 786,625 843,619 1020,632 1044,731 802,826 807,856 555,898"),
+                region("third-galaxy", "Galaxy", 0xFF16728A,
+                    "548,1128 866,1048 895,1145 1231,1066 1251,1232 557,1233"),
+                region("third-42", "42 Belgium", 0xFF80A99B,
+                    "1020,632 1181,603 1242,651 1792,1052 1695,1144 1355,961 1317,1070 1136,1086"),
+                region("third-north-stair", "North stair", NAVY,
+                    "1196,636 1237,611 1284,648 1242,709", PlanRegionKind.STAIRS),
+                region("third-center-stair", "Center stair", NAVY,
+                    "1239,1081 1320,1053 1344,1122 1255,1150", PlanRegionKind.STAIRS),
+                region("third-atlantis", "Atlantis", 0xFFA0AD5A,
+                    "1357,960 1536,1019 1695,1070 1925,1159 1929,1205 1894,1241 1253,1233 1251,1083"),
+                region("third-east-stair", "East stair", NAVY,
+                    "1574,1154 1665,1155 1671,1247 1573,1255", PlanRegionKind.STAIRS),
+            ),
+            voids = listOf(
+                path("259,1091 408,1062 429,1161 275,1188"),
+                path("776,721 1024,638 1137,1087 896,1148 866,1048 776,1077"),
+                path("1375,985 1579,1038 1569,1131 1356,1087"),
+            ),
+            walls = listOf(
+                path("187,1062 252,1150 399,1091"), path("386,880 469,1000"),
+                path("541,819 585,901 701,783"), path("740,664 779,726 846,686"),
+                path("1043,632 1135,1087"), path("1136,712 1212,1068"),
+                path("1185,604 1242,651 1202,716"), path("1239,760 1465,938"),
+                path("1066,982 1229,934"), path("560,1175 836,1134 879,1201"),
+                path("873,1180 873,1233"), path("976,1150 978,1233"),
+                path("1136,1115 1136,1233"), path("1251,1083 1253,1233"),
+                path("1408,1156 1408,1236"), path("1476,1155 1476,1236"),
+                path("1533,1155 1533,1236"), path("1698,1140 1698,1237"),
+            ),
+            places = listOf(
+                place(37, "42 Belgium Office", "1123,806 1354,795", "third-42"),
+                place(38, "42 Belgium Class Room", "1094,639", "third-42"),
+                place(39, "Switchfully", "1836,1180", "third-atlantis"),
+                place(40, "Atlantis · name not supplied", "1538,1193", "third-atlantis"),
+                place(41, "Atlantis · name not supplied", "1484,1193", "third-atlantis"),
+                place(42, "Atlantis · name not supplied", "1427,1193", "third-atlantis"),
+                place(43, "Skipr", "1331,1193", "third-atlantis"),
+                place(44, "Galaxy · name not supplied", "1186,1216", "third-galaxy"),
+                place(45, "Galaxy · name not supplied", "1059,1216", "third-galaxy"),
+                place(46, "Democratic Society", "936,1216", "third-galaxy"),
+                place(47, "D4Dhub", "760,1216", "third-galaxy"),
+                place(48, "Microstart", "427,1220", "third-garden"),
+                place(49, "NOX Energy", "268,1038", "third-garden"),
+                place(50, "Valkuren", "365,932", "third-garden"),
+                place(51, "Garden · name not supplied", "386,1019", "third-garden"),
+                place(52, "Garden · name not supplied", "545,826", "third-garden-upper"),
+                place(53, "Ecas", "650,738", "third-garden-upper"),
+                place(54, "Optiniti", "740,808", "third-garden-upper"),
+                place(55, "Mbrella", "185,1189", "third-garden-dark"),
+            ),
+            notes = "The plan leaves two courtyard voids. Repeated 37 is one legend entry with two plotted anchors.",
+        ),
+        PlanFloor(
+            id = "fourth", name = "Fourth floor", level = 4,
+            regions = listOf(
+                region("fourth-proximus", "Proximus", 0xFF680AB3,
+                    "137,1138 149,1091 439,878 515,821 734,669 786,641 842,638 1022,652 1052,783 795,868 809,836 555,917 571,1238 193,1253 154,1215"),
+                region("fourth-west-stair", "West stair", NAVY,
+                    "439,878 515,821 556,915 478,941", PlanRegionKind.STAIRS),
+                region("fourth-southwest-stair", "Southwest stair", NAVY,
+                    "541,1137 600,1119 625,1204 558,1221", PlanRegionKind.STAIRS),
+                region("fourth-bottom", "Proximus / BeAngels", 0xFF6A51D4,
+                    "555,1136 870,1057 897,1157 1226,1065 1219,1236 572,1238"),
+                region("fourth-fari", "Fari, AI for the Common Good", 0xFFAEB8F8,
+                    "1022,652 1126,623 1175,622 1244,663 1458,839 1355,964 1338,1123 1123,1098"),
+                region("fourth-north-stair", "North stair", NAVY,
+                    "1200,660 1239,643 1287,675 1239,744", PlanRegionKind.STAIRS),
+                region("fourth-beangels", "BeAngels & Scalefund", 0xFF895FCC,
+                    "1037,1120 1226,1065 1219,1236 1040,1236"),
+                region("fourth-right", "Lighthouse and neighbours", 0xFFA58ED6,
+                    "1458,839 1904,1162 1906,1210 1872,1240 1342,1240 1338,1123 1355,964"),
+                region("fourth-unmapped", "Unmapped central shape", GREY,
+                    "1314,832 1377,882 1358,970 1338,1123 1314,1171 1224,1175 1224,1093 1251,945",
+                    PlanRegionKind.UNMAPPED),
+                region("fourth-east-stair", "East stair", NAVY,
+                    "1563,1173 1662,1176 1661,1257 1564,1261", PlanRegionKind.STAIRS),
+            ),
+            voids = listOf(
+                path("260,1090 412,1061 429,1161 276,1187"),
+                path("778,731 1022,669 1134,1088 896,1156 867,1057 779,1083"),
+                path("1408,1010 1593,1058 1568,1165 1354,1114"),
+            ),
+            walls = listOf(
+                path("515,822 557,911 619,870"), path("738,672 772,730 849,690"),
+                path("842,638 857,692"), path("1022,652 1135,1090"),
+                path("1126,623 1163,786 1250,945"), path("1238,671 1392,851"),
+                path("1145,1070 1218,1035"), path("650,1180 864,1147"),
+                path("878,1164 880,1236"), path("984,1140 984,1236"),
+                path("1040,1120 1040,1236"), path("1226,1065 1219,1236"),
+                path("1342,1134 1342,1240"), path("1450,1150 1450,1240"),
+                path("1518,1168 1518,1240"), path("1695,1168 1695,1240"),
+            ),
+            places = listOf(
+                place(56, "Proximus Ada", "344,1032", "fourth-proximus"),
+                place(57, "Proximus CSIRT", "620,827", "fourth-proximus"),
+                place(58, "Proximus Ada", "803,1207 939,1207 1006,1207", "fourth-bottom"),
+                place(59, "BeAngels & Scalefund", "1110,1205", "fourth-beangels"),
+                place(60, "Space 60 · name not supplied", "1181,992", "fourth-fari"),
+                place(61, "Fari, AI for the Common Good", "1080,660 1083,702 1174,665 1145,858 1369,826 1448,890", "fourth-fari"),
+                place(62, "Lighthouse", "1527,944", "fourth-right"),
+                place(63, "DT Services & Consultancy", "1604,988", "fourth-right"),
+                place(64, "Réseau Entreprendre Bruxelles", "1652,1018", "fourth-right"),
+                place(65, "Poppy", "1712,1069", "fourth-right",
+                    listOf("Poppy", "Joule", "MyMove")),
+                place(66, "The Sky", "", null,
+                    listOf("Agence Digitale Solidaire", "SkillsFactory", "Moon 9", "Alliance4Europe", "I.CY"),
+                    "Legend entry 66 appears without a corresponding plotted badge; location is not supplied."),
+            ),
+            notes = "Legend entry 66 has no visible map position. The central grey shape is unmapped; no access or route is inferred.",
+        ),
+    ).map { floor ->
+        floor.copy(
+            footprints = TracedPlanGeometry.footprints.getValue(floor.id),
+            voids = TracedPlanGeometry.voids.getValue(floor.id),
+        )
+    }
+
+    fun floor(id: String): PlanFloor? = floors.firstOrNull { it.id == id }
+}

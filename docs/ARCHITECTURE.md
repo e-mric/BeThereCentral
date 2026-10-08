@@ -1,68 +1,41 @@
 # Architecture
 
-## Shape
+## Active shape
 
-The Android activity, SwiftUI iOS host and desktop window launch the same Compose application. The shared module groups code by feature: building, navigation, checkpoints, sharing, hunt and exploration. Domain behavior is plain Kotlin. Presentation depends on domain results; sample data supplies fictional building geometry. Tests mirror features under `commonTest`.
+Android, iOS and desktop launch the shared Kotlin Multiplatform/Compose application. Its current home is **Plan World**, with five structured floor records and five full-floor illustrations. The building domain owns source-derived outer-footprint polygons, courtyard voids, places and approximate anchors; presentation fits each illustration to the plan viewport, clips it to the footprint and voids, and transforms the result for pan, zoom and Fit. Search and the accessible legend use the same place records. Geometry and search remain independent of Compose, operating systems and transport. Platform launchers stay thin; tests mirror feature packages under `commonTest`.
 
 ```mermaid
 flowchart TD
-    Android[Android activity] --> UI[Shared Compose presentation]
-    iOS[SwiftUI host / UIViewController] --> UI
+    Android[Android activity] --> UI[Shared Compose Plan World]
+    iOS[SwiftUI host] --> UI
     Desktop[Desktop window] --> UI
-    UI --> Navigation[Navigation rules]
-    UI --> Checkpoints[Checkpoint validation]
-    UI --> Sharing[Local sharing simulation]
-    UI --> Hunt[Local team hunt]
-    UI --> Explore[Explore scene adapter]
-    Explore --> Bundle[Bundled offline sample splat and viewer]
-    Navigation --> Building[Sample building / coordinate model]
-    Checkpoints --> Building
-    Hunt --> Checkpoints
-    Reference[Disconnected loopback reference server] --> Grants[Server-owned grants and expiry]
+    UI --> Plans[Five floor plan data]
+    UI --> Search[Place search and legend]
+    Search --> Plans
+    UI --> Art[Five fictional furnished floor illustrations]
+    Art --> Mask[Source-derived footprint / courtyard clipping]
+    Legacy[Internal fictional sample fixtures] --> LegacyTests[Route / checkpoint / consent / hunt tests]
+    Browser[Standalone browser demo] --> Viewer[Licensed unrelated engine-room sample]
 ```
 
-There is intentionally no edge from the app to the reference server. No camera, radio positioning, account provider, analytics or remote multiplayer adapter is implemented.
+There is no edge from the supplied-plan world to sample routing, checkpoint observations, sharing, hunt or the standalone splat viewer. No camera, positioning radio, account provider, analytics, external location upload or multiplayer adapter is implemented for the plan world.
 
-On Android and iOS, the application opens the pixel-art map. A sample doorway anchored to ground-floor reception opens the independent Explore viewer. The map composable retains viewport state while its drawing and gestures are removed; returning recreates its canvas with the same pan and zoom. Bottom actions open Material 3 sheets instead of switching tabs. Desktop opens the map and provides a separate loopback browser demo for Explore. Feature state is held above scene selection and panels, so switching views or dismissing panels preserves navigation, hunt progress and the local sharing grant. The presentation direction is recorded in [ADR 0003](adr/0003-map-first-interface.md) and [ADR 0004](adr/0004-gaussian-exploration-priority.md). The sample doorway is a fixture in the exploration feature, tested against the reception footprint and floor ID; it does not provide a capture-to-building transform. Map geometry and route rules remain independent of this visual layout.
+## Plan data and provenance
 
-## Feature responsibilities
+Each original plan is 2048 × 1448 pixels, X right and Y down. Active tracing lies approximately in X 80–1940, Y 580–1280. These values are source-art positions, not metric coordinates. Five independent datasets preserve differences in outer footprints and courtyard voids. The footprint masks are coarsely extracted from source pixels and simplified; they preserve relative shape, not exact wall dimensions. Full-floor generated art is fitted to this plan viewport and clipped by those masks. Its interior partitions, desks, furniture and characters are fictional. Grey/orange on ground and grey on second have no confirmed occupant assignment even where the art furnishes them; first-floor FARI is detached; fourth-floor 66 / The Sky has a legend entry but no defensible anchor. One place may own multiple anchors when the source repeats a number.
 
-| Feature | Owns | Important behavior checks |
-| --- | --- | --- |
-| Building | Floors, rooms, geometry, stable IDs and sample fixtures | All rooms/checkpoints reference valid floors and route destinations |
-| Navigation | Graph route choices, connector segments and map presentation | Cross-floor paths, stairs/lift choices, step-free exclusions, invalid destinations |
-| Guide | Optional preview timeline over an existing route and pixel actor presentation | Distance-based progress, explicit floor transitions, pause/resume and arrival without changing last-seen observations |
-| Checkpoints | Narrow payload validation and latest observation | Valid known checkpoint; wrong scheme/building/ID rejection; no update on rejection |
-| Sharing | Local recipient consent, bounded duration and stop/expiry presentation | Allowed durations and exact deadline |
-| Hunt | Team objective, ordered finds and contributions | Invalid/out-of-order/repeated checkpoints cannot advance progress |
-| Exploration | Platform viewer adapter and separate sample scene identity | Offline bundle completeness, browser camera controls and return-to-map behavior |
+Source-plan images support the silhouette, courtyards and directory labels, not surveyed topology. The five generated floor images create a rich fictional world; their illustrated walls and contents are not source-plan facts. The clipping geometry remains editable as data, though art may need review after large mask corrections. The plans' revision is unknown; future imported editions need explicit provenance and review. See [coordinates](COORDINATES.md) and [ADR 0006](adr/0006-plan-derived-pixel-world.md).
 
-The app state is in memory. It resets on restart. This is deliberate for the first experiment; lifecycle persistence and secure background sharing require separate decisions and tests.
+## Parked code and separate viewer
 
-The map draws a generated coworking-floor raster through a fixed image-to-world registration, shared with room hitboxes and corridor waypoints. The image is a presentation asset; explicit sample data owns navigation topology. All four floors reuse the illustration with distinct floor-qualified room IDs. The crop is 1488 × 872 pixels at an illustrative 20 pixels per metre, yielding 74.4 × 43.6 sample metres; this is not a building survey. Original generated floor/founder assets are shared Compose resources. The guide consumes calculated route legs and has no positioning or sharing dependency. See [asset provenance](assets/PIXEL_ART.md). Scene and map backgrounds fill the window; interactive overlays handle safe insets separately.
+The earlier fictional `sample-building` fixture uses four floors, an illustrative metre coordinate system, a reused coworking raster and a route graph. Its route, optional guide, QR validation, local sharing and same-device hunt behavior remain in internal legacy fixtures/tests. They do not operate on the five real-plan drawings. The disconnected Python reference server still exercises grant authorization, server-clock expiry and revocation with synthetic opaque payloads; the app does not connect to it. Opaque storage is not E2EE.
+
+The licensed Tugboat Bat engine-room splat and PlayCanvas viewer remain bundled offline, with the local browser demo under `exploration/dist/`. This sample is independent of BeCentral. The old mobile reception doorway and Map/3D switches are historical prototype behavior, superseded as the active entry by Plan World. The browser demo is not evidence of mobile performance or room-linked alignment. See [viewer provenance](../exploration/README.md) and [verification](testing/STATUS.md).
 
 ## Platform and dependencies
 
-- Kotlin 2.3.20 and Compose Multiplatform 1.11.1. Both `composeApp` and the Android launcher apply the Compose compiler plugin: the launcher’s `setContent` lambda also needs transformation.
-- Gradle 9.5.0 wrapper with Android Gradle Plugin 9.3.1; shared Android KMP library and separate Android application module.
-- Compose resources package the pixel-art atlases across targets. The Android KMP target explicitly enables resources; verify the final APK and iOS app bundle, since successful compilation alone does not establish that artwork is packaged.
-- Material 3 `1.11.0-alpha07` is pinned separately. It is a prerelease UI dependency; reevaluate before a production release and test upgrades across platforms.
-- Explore bundles PlayCanvas `2.23.1` and a reduced CC BY 4.0 Gaussian-splat sample locally. Android's `WebViewAssetLoader` serves bundled assets from a local HTTPS origin; explicit full-size WebView layout parameters keep its HTML viewport aligned with Compose's bounded container; iOS uses `WKWebView` with app-bundle file access. Both keep a Map fallback in the shared shell. Desktop can serve the same viewer over loopback from `exploration/dist/`; the desktop app itself opens the 2D map.
-- Android compile SDK 36, minimum API 26. iOS deployment target 16, ARM64 device and Apple Silicon simulator frameworks. Desktop uses the JVM.
-- Plain constructor/function dependencies instead of a DI framework. Kotlin test for shared behavior; Python unittest for the disconnected server.
+The project pins Kotlin 2.3.20, Compose Multiplatform 1.11.1, Gradle 9.5.0, Android Gradle Plugin 9.3.1 and Material 3 `1.11.0-alpha07`. Android targets API 26+ and compiles against 36. iOS targets 16+ with ARM64 device/Apple Silicon simulator frameworks. Compose resources package artwork; verify the target bundle and visible screen rather than inferring success from compilation. Plain constructors/functions suffice for dependencies; add a layer or module only for a concrete need.
 
-The current [official compatibility guide](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) and [Android KMP library guidance](https://developer.android.com/kotlin/multiplatform/plugin) inform configuration, but local verification is recorded separately. A dependency declaration is not proof a target has run.
+## Future integration boundary
 
-## Reference server
-
-`server/sharing/store.py` is a small behavioral interface: create, publish latest payload, read as a selected recipient, revoke and purge. A injected server clock allows exact-deadline tests. `http.py` authenticates temporary demo bearer tokens and maps HTTP to the store. It binds only to loopback and suppresses request logs. There is no database or historical position storage.
-
-This Python standard-library experiment is intentionally independent of the Kotlin UI. A production backend remains undecided. See [ADR 0002](adr/0002-disconnected-sharing-reference.md) and [privacy design](PRIVACY.md).
-
-## Extension points without speculative code
-
-Gaussian exploration is a core product slice ([ADR 0004](adr/0004-gaussian-exploration-priority.md)). The current renderer is a bundled web viewer hosted in native app surfaces; the sample engine room is unrelated to the fictional building and has no room hotspots. Scene assets and camera state are separate from authoritative room/route data. Room-linked exploration would require permitted captures, surveyed alignment and verified IDs under the coordinate contract. The 2D view remains available during loading, errors and unsupported rendering. A separate WebXR client remains planned.
-
-Real building import should preserve the coordinate and ID contract while validating geometry and graph connectivity. Camera scanning should return the same validated checkpoint payloads. Positioning hardware should produce observations with explicit accuracy and freshness, never silently replace last-seen semantics. Network sharing requires real identity and audited client cryptography before app transport is added. Future 3D clients consume the same building version and room IDs, while 2D remains available.
-
-We use packages first, not a Gradle module per feature. Extract a module only when enforcing dependencies, separate ownership or build performance creates a concrete need. [ADR 0001](adr/0001-sample-first-shared-app.md) records this choice.
+A real navigation import needs approved, versioned plans; stable room identities; surveyed entrances/connectors; accessibility evidence; and validation of graph connectivity. Source pixels cannot be converted into measured routes by assuming a scale. A room-linked 3D capture needs permitted assets and surveyed alignment. QR scanning, positioning and network sharing each require separate adapters and consent/security checks. Keep last-seen semantics distinct from live position, and keep no location history by default.
