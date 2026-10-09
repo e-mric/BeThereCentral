@@ -9,7 +9,7 @@
 | Moment | Intended experience | Observable acceptance |
 | --- | --- | --- |
 | Open | Recognize an explorable ground-floor world | Full building silhouette remains visible in muted charcoal with a subtle outline; fictional art stays in known colored regions, unassigned grey has no furniture, and courtyard openings remain empty dark voids |
-| Choose a floor | Explore five visually distinct floors | Ground through fourth each has its own asset arrangement and approximate outline; one floor selector sheet keeps the canvas uncluttered |
+| Choose a floor | Explore five visually distinct floors | Ground through fourth each has its own asset arrangement and approximate outline; one floor selector sheet keeps the canvas uncluttered, and all five choices remain reachable by scrolling on short screens |
 | Explore | Read the space at different scales | Pan, zoom and Fit work; labels and source numbers remain understandable |
 | Search | Find a known company or plan number | Case-insensitive results show floor and known source label; selecting a placed result reveals an approximate anchor |
 | Select a place | Open a character-led guide for the chosen place | Tapping its map sign/marker focuses that exact source anchor; directory/search selection focuses its first known anchor. The map animates to zoom 2.6 with the selected place above the sheet. Unplaced entries stay at Fit without an invented point |

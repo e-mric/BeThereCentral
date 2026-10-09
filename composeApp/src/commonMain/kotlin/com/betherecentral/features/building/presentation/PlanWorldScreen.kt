@@ -244,7 +244,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
 
     if (floorsOpen) {
         ModalBottomSheet(onDismissRequest = { floorsOpen = false }, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-            Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Choose a floor", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 floors.forEachIndexed { index, item ->
                     val active = index == floorIndex

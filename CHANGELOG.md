@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — floor selector on short screens
+
+- Made the floor choices scroll vertically so all five floors remain reachable when the selector sheet is taller than the available landscape height.
+
 ## Unreleased — five-floor interior linework
 
 - Restored source-derived interior partition and stair linework on all five floors, including small returns, curves and visible gaps. Removed conflicting invented divider segments and furniture that crosses these lines.

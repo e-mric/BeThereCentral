@@ -368,3 +368,14 @@ Actual renderer images were visually reviewed for all five floors against the su
 The final APK was installed on the **Android emulator `betherecentral-demo` (`emulator-5556`)**, using ordinary ADB on port 5039. Launch, floor selection (ground to third), tapping NOX Energy, its correct Plan 49 character guide, returning to the map and Fit reset were visually verified. Evidence: [ground](../assets/linework-audit/android-ground.png), [third](../assets/linework-audit/android-third.png), [guide](../assets/linework-audit/android-guide.png). Earlier in this pass, first-floor rendering and Fit were also inspected. The Android CLI inspector could not connect to this alternate ADB server; emulator-only UI dumps and screenshots were used instead. No physical phone inspection service was installed.
 
 This pass did **not** rerun iOS, browser, physical-device or hosted CI verification. The source drawings remain unscaled schematics; no real route graph, door interpretation or toilet locations were inferred.
+
+### Landscape floor-selector clipping — 9 October 2026
+
+Problem: the non-scrollable five-row selector exceeded the landscape sheet height and clipped Fourth floor. The selector now scrolls vertically, retaining its existing 52dp minimum targets and selection semantics. Astra reviewed the bounded approach; Luna applied the modifier and experience/changelog updates.
+
+- `JAVA_HOME=<local JDK 17> ANDROID_HOME=<local SDK> ./gradlew :androidApp:assembleDebug`: passed.
+- `adb -P 5039 -s emulator-5556 install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk` and explicit MainActivity launch: passed on the BeThereCentral Android emulator. Ordinary emulator UI dumps/screenshots were used because of the previously recorded Android CLI connection limitation.
+- Landscape: opened the selector, swiped upward, confirmed the complete Fourth floor target, selected it and visually confirmed the fourth-floor map/header. [Selector](../screenshots/floor-selector/landscape-floor-selector.png) · [Selected map](../screenshots/floor-selector/landscape-fourth.png).
+- Portrait: all five options visible without scrolling. [Capture](../screenshots/floor-selector/portrait-floor-selector.png).
+- Landscape with system font scale 1.3: scrolled to the fully visible Fourth floor target. [Capture](../screenshots/floor-selector/landscape-floor-large-text.png). Restored font scale 1.0 and original automatic-rotation setting afterward.
+- `git diff --check`: passed. No new unit test for this one-modifier layout change; actual rendered interaction is the acceptance check. iOS, browser, physical devices and assistive-technology interaction were not reverified in this pass.
