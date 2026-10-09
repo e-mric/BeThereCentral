@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
-import com.betherecentral.features.building.data.GroundFloorScene
+import com.betherecentral.features.building.domain.FloorScene
 import com.betherecentral.features.building.domain.FloorMaterial
 import com.betherecentral.features.building.domain.PlanFloor
 import com.betherecentral.features.building.domain.PlanPoint
@@ -21,17 +21,18 @@ import com.betherecentral.features.building.domain.FloorWallSegment
 import kotlin.math.floor
 import kotlin.math.min
 
-/** Draws the authored ground-floor materials and reusable prop atlas inside the caller's shell. */
-internal fun DrawScope.drawModularGroundFloor(
+/** Draws independent surface, wall and furniture assets inside the source-derived shell. */
+internal fun DrawScope.drawModularFloor(
     floor: PlanFloor,
+    scene: FloorScene,
     propsAtlas: ImageBitmap,
     project: (PlanPoint) -> Offset,
     scale: Float,
     assignedShell: Path,
 ) {
-    if (floor.id != GroundFloorScene.scene.floorId || scale <= 0f || propsAtlas.width <= 0 || propsAtlas.height <= 0) return
+    if (floor.id != scene.floorId || scale <= 0f || propsAtlas.width <= 0 || propsAtlas.height <= 0) return
     clipPath(assignedShell) {
-        GroundFloorScene.scene.materials.forEach { patch ->
+        scene.materials.forEach { patch ->
             val region = floor.regions.firstOrNull { it.id == patch.regionId } ?: return@forEach
             val polygon = projectedPath(region.polygon, project)
             clipPath(polygon) {
@@ -43,7 +44,7 @@ internal fun DrawScope.drawModularGroundFloor(
 
         // Reuse the slate/window kit on the furnished areas' perimeter. The same
         // modules face inward here, while courtyard modules face out of the opening.
-        GroundFloorScene.scene.materials.forEach { patch ->
+        if (floor.id == "ground") scene.materials.forEach { patch ->
             val region = floor.regions.first { it.id == patch.regionId }
             var trim = projectedPath(region.polygon, project)
             floor.regions.filter { it.kind == PlanRegionKind.STAIRS }.forEach {
@@ -57,6 +58,12 @@ internal fun DrawScope.drawModularGroundFloor(
             if (region.id != "ground-bike-room") {
                 drawCourtyardWalls(listOf(region.polygon.map(project)), scale, trim, insideBoundary = true)
             }
+        }
+
+        // Upper-floor zones overlap. Only the external silhouette receives automatic
+        // perimeter trim; interior walls are independently authored in each recipe.
+        if (floor.id != "ground") {
+            drawCourtyardWalls(floor.footprints.map { it.map(project) }, scale, assignedShell, insideBoundary = true)
         }
 
         // Stair landings remain reserved and visually distinct, including where a colored
@@ -77,9 +84,9 @@ internal fun DrawScope.drawModularGroundFloor(
             }
         }
 
-        GroundFloorScene.scene.walls.forEach { wall -> drawWallSegment(wall, floor, project, scale) }
+        scene.walls.forEach { wall -> drawWallSegment(wall, floor, project, scale) }
 
-        GroundFloorScene.scene.props.sortedWith(compareBy({ it.layer }, { it.center.y })).forEach { prop ->
+        scene.props.sortedWith(compareBy({ it.layer }, { it.center.y })).forEach { prop ->
             val src = atlasCell(propsAtlas, prop.asset.column, prop.asset.row) ?: return@forEach
             val points = prop.bounds.map(project)
             val left = points.minOf { it.x }; val right = points.maxOf { it.x }
@@ -138,12 +145,19 @@ private fun atlasCell(image: ImageBitmap, column: Int, row: Int): SourceRect? {
     // Tight source-pixel boxes for the assets used by this recipe (atlas is 1254 × 1254).
     // They avoid the very different transparent margins around each cell's sprite.
     val box = when (row to column) {
+        0 to 0 -> listOf(40f, 88f, 296f, 307f)   // single desk
+        0 to 1 -> listOf(318f, 52f, 620f, 310f)  // paired workstations
         0 to 2 -> listOf(652f, 65f, 904f, 307f)   // broad shared table
         0 to 3 -> listOf(966f, 52f, 1218f, 305f)  // round table
         1 to 1 -> listOf(356f, 328f, 590f, 620f)  // bookcase
         1 to 2 -> listOf(670f, 340f, 902f, 619f)  // potted plant
         1 to 3 -> listOf(956f, 380f, 1226f, 610f) // café counter
+        1 to 0 -> listOf(20f, 378f, 310f, 616f)  // lounge corner
         2 to 0 -> listOf(46f, 672f, 295f, 911f) // bike parking
+        2 to 1 -> listOf(375f, 632f, 582f, 920f) // phone booth
+        2 to 2 -> listOf(680f, 680f, 882f, 930f) // printer
+        2 to 3 -> listOf(1038f, 642f, 1198f, 924f) // water cooler
+        3 to 0 -> listOf(38f, 960f, 290f, 1215f) // whiteboard
         3 to 1 -> listOf(329f, 970f, 615f, 1205f) // rug
         3 to 2 -> listOf(640f, 982f, 920f, 1186f) // reception desk
         3 to 3 -> listOf(950f, 1010f, 1224f, 1172f) // sofa

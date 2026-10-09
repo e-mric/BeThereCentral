@@ -2,7 +2,7 @@
 
 - **Supplied plan**: one of five schematic BeCentral floor images supplied on 8 October 2026, ground through fourth floor. Revision and survey accuracy are unverified.
 - **Plan World**: active five-floor pixel-art map and directory, built iteratively with source-derived outer shapes, courtyard voids and company positions. Fictional decoration does not establish a navigable survey.
-- **Modular floor scene**: independently placed materials, wall/window segments and reusable furniture assets in source-pixel coordinates. Ground uses this recipe; the four upper floors retain their illustrations pending later conversion.
+- **Modular floor scene**: independently placed materials, wall/window segments and reusable furniture assets in source-pixel coordinates. All five active floors use this recipe and the shared renderer; original full-floor PNGs remain historical references, not active fallback art.
 - **Source pixel**: coordinate in an original 2048 × 1448 plan image, X right and Y down. It has no metric scale.
 - **Floor**: named plan level with its own identity and shape. The plans do not establish reliable elevations.
 - **Region**: source-derived area or footprint used to organize the drawing. Its illustrated interior does not establish a real room, tenant or accessible space.

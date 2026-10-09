@@ -1,16 +1,16 @@
 # Current plan-derived pixel world
 
-The creator supplied five BeCentral schematic plans on 8 October 2026, then explicitly approved fictional interiors in the detailed coworking pixel-art style. The current app uses a modular ground-floor scene and four distinct, fully furnished GPT upper-floor illustrations. The original ground illustration remains a reference asset. Source-derived outer footprints and courtyard masks preserve approximate relative plan proportions; internal rooms, partitions, furniture and decorative characters are fictional. These images are not a record of the building's actual furnishings or navigable entrances. See [ADR 0006](../adr/0006-plan-derived-pixel-world.md).
+The creator supplied five BeCentral schematic plans on 8 October 2026, then explicitly approved fictional interiors in the detailed coworking pixel-art style. The current app uses five authored modular floor scenes through a shared renderer. All five original full-floor images remain as historical references and are not active art or fallback. Source-derived outer footprints and courtyard masks preserve approximate relative plan proportions; internal rooms, partitions, furniture and decorative characters are fictional. These images are not a record of the building's actual furnishings or navigable entrances. See [ADR 0006](../adr/0006-plan-derived-pixel-world.md).
 
-## Modular ground assets — 9 October 2026
+## Modular floor scenes — 9 October 2026
 
-`GroundFloorScene.kt` is an explicitly authored decorative recipe in source pixels. `FloorScene.kt` defines the reusable material/prop references; `ModularFloorRenderer.kt` renders wood/tile patterns, wall/window modules and individual atlas sprites. Ground no longer renders `plan_ground.png`. The existing `campus_props.png` is reused unchanged, with nearest-neighbour sampling and separate placements; no new image generation or external asset service is used in this slice. Its checksum and origin remain below.
+`CampusFloorScenes.kt` selects the explicitly authored source-pixel recipes in `GroundFloorScene.kt` and `UpperFloorScenes.kt`. `FloorScene.kt` defines reusable material/prop references; `ModularFloorRenderer.kt` draws wood/tile patterns, wall/window modules and individual atlas sprites for every floor. No active floor loads or falls back to a `plan_*.png`. The atlas sprite enum now exposes all furniture types used across the recipes. No new image-generation service is used for this conversion.
 
-Scene data is separate from source geometry and directory facts. Paint is clipped to the canonical shell minus courtyards and to assigned colored regions; stairs are reserved, and the grey silhouette stays unfurnished. Materials and furniture are fictional decorative choices. This is part of the active map and directory product iteration; it does not change company badge positions or supply a portable Godot content package.
+Scene data is separate from source geometry and directory facts. Paint is clipped to the canonical shell minus courtyards and to assigned colored regions; stairs are reserved, and the grey silhouette stays unfurnished. Materials and furniture are fictional decorative choices. This is part of the active map and directory product iteration; it does not change company badge positions or supply a portable Godot content package. Scene recipes are source data, not an in-app floor editor.
 
 ## Retained full-floor artwork
 
-The five original PNG outputs are saved unchanged in `composeApp/src/commonMain/composeResources/drawable/`. All are 2048×768 RGBA. The ground image is retained as a reference; only the first through fourth-floor images currently render as full-floor art. No image-generation service is needed at runtime. Upper-floor images register to source plan X 80–1940, Y 580–1280 and clip to independently traced footprint and courtyard masks. Generated alpha includes soft background shading; the canonical clipping masks keep courtyard shapes clear. Interior walls and props are fictional rather than authoritative geometry. Company labels and source badge centers render from structured data; generated artwork has no company text baked into it.
+The five original PNG outputs are retained unchanged under `docs/assets/reference-floors/`; they are documentation references and are not packaged with the app. All are 2048×768 RGBA. All five images are retained as historical references and none is loaded by the active floor renderer. No image-generation service is needed at runtime. Their historical registration was to source plan X 80–1940, Y 580–1280 and independently traced footprint and courtyard masks. Generated alpha includes soft background shading; the canonical clipping masks keep courtyard shapes clear. Interior walls and props are fictional rather than authoritative geometry. Company labels and source badge centers render from structured data; generated artwork has no company text baked into it.
 
 | Asset | SHA-256 |
 | --- | --- |
@@ -44,7 +44,7 @@ Receiving references and permission to develop the map do not establish building
 
 ## Retained props study
 
-`campus_props.png` is an original 1254×1254 transparent 4×4 atlas generated in the same style. SHA-256: `4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138`. It was first used in an intermediate procedural-world study and is now reused for independently placed ground-floor furniture. Upper floors still use their cohesive full-floor illustrations. Its prompt is retained in [generation prompts](../design/generation-prompts.md). The historical founder atlas remains the fictional guide-sheet character.
+`campus_props.png` is an original 1254×1254 transparent 4×4 atlas generated in the same style. SHA-256: `4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138`. It was first used in an intermediate procedural-world study and is now reused for independently placed furniture on all five floors. Its prompt is retained in [generation prompts](../design/generation-prompts.md). The historical founder atlas remains the fictional guide-sheet character.
 
 ## Historical fictional sample assets
 

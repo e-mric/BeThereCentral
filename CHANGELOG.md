@@ -1,12 +1,12 @@
 # Changelog
 
-## Unreleased — map accuracy and modular ground floor
+## Unreleased — map accuracy and five modular floor scenes
 
 - Audited all 64 numbered directory entries, repeated badge positions and shared-area occupants against the supplied plans; corrected source badge centers and documented the references.
 - Kept the ground-floor bike icon in its separate west-side room and traced the supplied divider continuously without adding a doorway gap.
-- Rebuilt ground decoration from reusable surface patterns, wall/window modules and individually placed furniture from the existing campus atlas. Upper four floors retain their illustrations.
+- Converted all five floors to authored reusable scene recipes drawn by the shared modular renderer, using materials, wall/window modules and individually placed furniture from the existing campus atlas. Original full-floor PNGs remain historical references; no active floor loads or falls back to them.
 - Kept company positions separate from any visual corridor widening; labels wrap and use leader lines as zoom changes, repeat at repeated positions, and disappear when their markers are offscreen. Markers and leader lines render beneath signs to keep names unobscured.
-- Preserved source geometry, courtyard openings and the empty charcoal ground silhouette; reserved stairs remain free of furniture. Toilet positions remain pending user input.
+- Preserved source geometry, empty courtyard voids and plain unassigned grey regions, including the ground region within the charcoal silhouette; the continuous bike-room divider and stair reservations remain intact. Toilet positions remain pending user input. The source recipes are not an in-app floor editor and do not change the Godot/Studio hold.
 - Continued the map and directory product iteration. Godot/SvelteKit migration, gameplay and character creation remain on hold pending resident feedback.
 
 

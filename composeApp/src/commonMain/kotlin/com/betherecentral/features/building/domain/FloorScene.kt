@@ -5,7 +5,10 @@ enum class FloorMaterial { WOOD, TILE }
 
 /** Named cell in the supplied 4 × 4 campus props atlas. */
 enum class CampusPropAsset(val column: Int, val row: Int) {
+    DESK(0, 0), TWIN_DESK(1, 0),
     SHARED_TABLE(2, 0), ROUND_TABLE(3, 0), BOOKCASE(1, 1), PLANT(2, 1),
+    LOUNGE(0, 1), CAFE_COUNTER(3, 1), PHONE_BOOTH(1, 2), PRINTER(2, 2),
+    WATER_COOLER(3, 2), WHITEBOARD(0, 3),
     BIKE_RACK(0, 2), RUG(1, 3), RECEPTION_DESK(2, 3), SOFA(3, 3),
 }
 

@@ -53,14 +53,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.PathOperation
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
@@ -77,18 +74,17 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.betherecentral.core.presentation.PixelIcon
 import com.betherecentral.core.presentation.PixelIconKind
 import com.betherecentral.features.studio.presentation.RoomStudioPreview
+import com.betherecentral.features.building.data.CampusFloorScenes
 import com.betherecentral.features.building.data.BeCentralPlans
 import com.betherecentral.features.building.domain.PlanDirectory
 import com.betherecentral.features.building.domain.PlanFloor
 import com.betherecentral.features.building.domain.PlanPlace
 import com.betherecentral.features.building.domain.PlanPoint
-import com.betherecentral.features.building.domain.PlanRegion
 import com.betherecentral.features.building.domain.PlanRegionKind
 import com.betherecentral.features.building.domain.PlanWorld
 import com.betherecentral.features.building.domain.PlanViewport
@@ -96,25 +92,15 @@ import com.betherecentral.features.guide.presentation.drawGuideSprite
 import com.betherecentral.resources.Res
 import com.betherecentral.resources.brand_logo
 import com.betherecentral.resources.campus_props
-import com.betherecentral.resources.plan_first
-import com.betherecentral.resources.plan_second
-import com.betherecentral.resources.plan_third
-import com.betherecentral.resources.plan_fourth
 import com.betherecentral.resources.founder_atlas
 import org.jetbrains.compose.resources.imageResource
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
 private val WorldCanvas = Color(0xFF0C1114)
-private val WallInk = Color(0xFF33302C)
-private val WallLight = Color(0xFFD9C7A6)
 private val Ink = Color(0xFFFFF8F4)
 private val PlanBlue = Color(0xFF8DAEFF)
 private val PlanOrange = Color(0xFFF77A55)
-private const val VIEW_LEFT = 80f
-private const val VIEW_TOP = 580f
-private const val VIEW_WIDTH = 1860f
-private const val VIEW_HEIGHT = 700f
 
 /** Pixel-art preview of the supplied schematic plans. It exposes source labels and place anchors only. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -166,13 +152,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     Box(Modifier.fillMaxSize().background(WorldCanvas)) {
         PlanCanvas(
             floor = floor,
-            floorArtwork = if (floor.id == "ground") null else imageResource(when (floor.id) {
-                "first" -> Res.drawable.plan_first
-                "second" -> Res.drawable.plan_second
-                "third" -> Res.drawable.plan_third
-                else -> Res.drawable.plan_fourth
-            }),
-            propsAtlas = if (floor.id == "ground") imageResource(Res.drawable.campus_props) else null,
+            propsAtlas = imageResource(Res.drawable.campus_props),
             zoom = zoom,
             pan = pan,
             highlightedId = highlightedId,
@@ -381,8 +361,6 @@ private data class PlanProjection(val size: IntSize, val zoom: Float, val pan: O
         pan = PlanPoint(pan.x.toDouble(), pan.y.toDouble()),
     )
     val scale get() = viewport.scale.toFloat()
-    val left get() = viewport.screen(PlanPoint(VIEW_LEFT.toDouble(), VIEW_TOP.toDouble())).x.toFloat()
-    val top get() = viewport.screen(PlanPoint(VIEW_LEFT.toDouble(), VIEW_TOP.toDouble())).y.toFloat()
     fun screen(point: PlanPoint): Offset = viewport.screen(point).let { Offset(it.x.toFloat(), it.y.toFloat()) }
     fun plan(point: Offset) = viewport.plan(PlanPoint(point.x.toDouble(), point.y.toDouble()))
 }
@@ -390,8 +368,7 @@ private data class PlanProjection(val size: IntSize, val zoom: Float, val pan: O
 @Composable
 private fun PlanCanvas(
     floor: PlanFloor,
-    floorArtwork: ImageBitmap?,
-    propsAtlas: ImageBitmap?,
+    propsAtlas: ImageBitmap,
     zoom: Float,
     pan: Offset,
     highlightedId: String?,
@@ -435,43 +412,24 @@ private fun PlanCanvas(
     }, onDraw = {
         drawRect(WorldCanvas)
         val projection = PlanProjection(IntSize(size.width.roundToInt(), size.height.roundToInt()), zoom, pan)
-        val geometry = floor.regions.map { region -> region to Path().apply {
-            region.polygon.forEachIndexed { i, point ->
-                val p = projection.screen(point)
-                if (i == 0) moveTo(p.x, p.y) else lineTo(p.x, p.y)
-            }
-            close()
-        } }
         var shell = Path()
         val outlinePolygons = floor.footprints.ifEmpty { floor.regions.map { it.polygon } }
         outlinePolygons.forEach { shell = Path.combine(PathOperation.Union, shell, projectedPath(it, projection)) }
         floor.voids.forEach { shell = Path.combine(PathOperation.Difference, shell, projectedPath(it, projection)) }
         val buildingShell = shell
-        if (floor.id == "ground") {
-            drawPath(buildingShell, Color(0xFF252B2D))
-            // The coarse grey source polygon overlaps coloured regions; keep only the explicitly drawn regions.
-            var assignedFootprint = Path()
-            floor.regions.filter { it.kind != PlanRegionKind.UNMAPPED }.forEach {
-                assignedFootprint = Path.combine(PathOperation.Union, assignedFootprint, projectedPath(it.polygon, projection))
-            }
-            shell = Path.combine(PathOperation.Intersect, shell, assignedFootprint)
+        // The complete silhouette stays visible even where the source has no assigned interior.
+        drawPath(buildingShell, Color(0xFF252B2D))
+        var assignedFootprint = Path()
+        floor.regions.filter { it.kind != PlanRegionKind.UNMAPPED }.forEach {
+            assignedFootprint = Path.combine(PathOperation.Union, assignedFootprint, projectedPath(it.polygon, projection))
         }
-        // Ground uses independent decoration assets; upper floors retain their illustrations.
-        // The source shell and voids remain canonical for both rendering approaches.
-        if (floor.id == "ground" && propsAtlas != null) {
-            drawModularGroundFloor(floor, propsAtlas, projection::screen, projection.scale, shell)
-        } else if (floorArtwork != null) {
-            clipPath(shell) {
-                val topLeft = projection.screen(PlanPoint(VIEW_LEFT.toDouble(), VIEW_TOP.toDouble()))
-                drawImage(
-                    image = floorArtwork,
-                    dstOffset = androidx.compose.ui.unit.IntOffset(topLeft.x.roundToInt(), topLeft.y.roundToInt()),
-                    dstSize = IntSize((VIEW_WIDTH * projection.scale).roundToInt().coerceAtLeast(1),
-                        (VIEW_HEIGHT * projection.scale).roundToInt().coerceAtLeast(1)),
-                    filterQuality = FilterQuality.None,
-                )
-            }
+        shell = Path.combine(PathOperation.Intersect, shell, assignedFootprint)
+        // Ground's grey polygon describes the coarse whole shell. On upper floors,
+        // grey polygons are actual unassigned areas and must also exclude surfaces.
+        if (floor.id != "ground") floor.regions.filter { it.kind == PlanRegionKind.UNMAPPED }.forEach {
+            shell = Path.combine(PathOperation.Difference, shell, projectedPath(it.polygon, projection))
         }
+        drawModularFloor(floor, CampusFloorScenes.forFloor(floor.id), propsAtlas, projection::screen, projection.scale, shell)
         drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
         drawCourtyardWalls(floor.voids.map { polygon -> polygon.map(projection::screen) }, projection.scale, buildingShell)
         signTargets.clear()
@@ -535,10 +493,4 @@ private fun projectedPath(points: List<PlanPoint>, projection: PlanProjection) =
         if (index == 0) moveTo(p.x, p.y) else lineTo(p.x, p.y)
     }
     close()
-}
-private fun projectedPolyline(points: List<PlanPoint>, projection: PlanProjection) = Path().apply {
-    points.forEachIndexed { index, point ->
-        val p = projection.screen(point)
-        if (index == 0) moveTo(p.x, p.y) else lineTo(p.x, p.y)
-    }
 }
