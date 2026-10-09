@@ -1,6 +1,6 @@
 # Current plan-derived pixel world
 
-The creator supplied five BeCentral schematic plans on 8 October 2026, then explicitly approved fictional interiors in the detailed coworking pixel-art style. The current app uses five authored modular floor scenes through a shared renderer. All five original full-floor images remain as historical references and are not active art or fallback. Source-derived outer footprints and courtyard masks preserve approximate relative plan proportions; internal rooms, partitions, furniture and decorative characters are fictional. These images are not a record of the building's actual furnishings or navigable entrances. See [ADR 0006](../adr/0006-plan-derived-pixel-world.md).
+The creator supplied five BeCentral schematic plans on 8 October 2026, then explicitly approved fictional interiors in the detailed coworking pixel-art style. The current app uses five authored modular floor scenes through a shared renderer. All five original full-floor images remain as historical references and are not active art or fallback. Source-derived outer footprints and courtyard masks preserve approximate relative plan proportions; Interior partitions and stair marks now follow the supplied schematic linework; furniture, windows and decorative characters remain fictional. See the [five-floor source audit](SOURCE_LINEWORK_AUDIT.md). These images are not a record of the building's actual furnishings or navigable entrances. See [ADR 0006](../adr/0006-plan-derived-pixel-world.md).
 
 ## Modular floor scenes — 9 October 2026
 

@@ -46,4 +46,5 @@ data class FloorScene(
     val materials: List<FloorMaterialPatch>,
     val walls: List<FloorWallSegment>,
     val props: List<FloorProp>,
+    val sourceLinework: PlanLinework? = null,
 )

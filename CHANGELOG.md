@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — five-floor interior linework
+
+- Restored source-derived interior partition and stair linework on all five floors, including small returns, curves and visible gaps. Removed conflicting invented divider segments and furniture that crosses these lines.
+- Preserved original schematic references with hashes and a reproducible vector extraction workflow; added source comparisons and actual desktop-render evidence.
+- Clarified that furnishings remain fictional while interior lines follow the supplied plans; schematic accuracy is distinct from surveyed doors or navigation.
+
 ## Unreleased — character-led place guide
 
 - Selecting a map sign/marker or directory entry opens a compact place guide and animates toward the selected source anchor. Repeated markers preserve the exact tapped anchor; search and directory selection use the first anchor, while unplaced entries remain at Fit.

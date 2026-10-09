@@ -9,7 +9,7 @@
 - **Place**: one numbered or named floor-legend entry. A repeated number can have multiple approximate anchors for the same place.
 - **Unplaced place**: a source-listed occupant with no defensible map anchor, still available in search and the accessible legend; fourth-floor number 66 / The Sky is an example.
 - **Plan anchor**: approximate source-label position shown over fictional room art. It does not register that art to a real room or establish an entrance, route endpoint or measured coordinate.
-- **Fictional interior**: generated partitions, desks, furniture, characters and other details that make the world explorable; they do not claim actual room inventory or access.
+- **Fictional interior**: desks, furniture, window styling, characters and other decorative details that make the world explorable; they do not claim actual room inventory or access.
 - **Room Studio**: one-room local editor experiment using a fictional convex chamfered demo room. Its trusted outline is immutable; a company sign and up to 24 furniture items are editable. It is not an editor for mapped BeCentral tenant rooms.
 - **Room scene JSON**: versioned interchange format shared by the browser Studio and Compose preview. Import validates the fixed demo-room geometry and bounded furniture data.
 - **Studio preview**: Compose-only rendering of the shared demo scene; pasted/imported JSON changes this preview until reset/close and is not persisted.
@@ -25,3 +25,5 @@
 - **Community Studio (planned)**: SvelteKit browser authoring tool for rooms, characters and declarative quests; distinct from the implemented one-room Room Studio prototype. Implementation awaits resident feedback and revised requirements.
 - **Game content package (planned)**: versioned, bounded data and licensed asset references with stable room/character/quest IDs, independently validated by Studio and Godot. It contains no arbitrary scripts and is separate from player progress.
 - **Fictional game collision (planned)**: geometry controlling movement in a playable scene; it does not establish real building routes or accessibility.
+
+- **Source linework**: source-coordinate contours of visible schematic partition and stair marks, distinct from fictional decoration. Preserve their gaps and small returns; this drawing evidence does not establish door semantics or a navigable graph.

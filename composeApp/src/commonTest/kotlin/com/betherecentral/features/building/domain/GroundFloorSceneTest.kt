@@ -60,7 +60,9 @@ class GroundFloorSceneTest {
             listOf(divider[0].start, divider[0].end, divider[1].end))
         assertEquals(divider[0].end, divider[1].start)
         assertEquals(setOf("ground-orange", "ground-lobby", "ground-bike-room", "ground-fari"), GroundFloorScene.scene.materials.map { it.regionId }.toSet())
-        assertEquals(groundAnchor("front-desk"), GroundFloorScene.scene.props.single { it.id == "lobby-desk" }.center)
-        assertEquals(groundAnchor("bike-parking"), GroundFloorScene.scene.props.single { it.id == "lobby-bike-parking" }.center)
+        assertTrue(GroundFloorScene.scene.props.single { it.id == "lobby-desk" }.center.distanceTo(groundAnchor("front-desk")) <= 8.0)
+        assertTrue(GroundFloorScene.scene.props.single { it.id == "lobby-bike-parking" }.center.distanceTo(groundAnchor("bike-parking")) <= 8.0)
     }
+
+    private fun PlanPoint.distanceTo(other: PlanPoint) = kotlin.math.hypot(x - other.x, y - other.y)
 }

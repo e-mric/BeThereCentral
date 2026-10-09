@@ -1,0 +1,47 @@
+{
+  "ground": {
+    "file": "ground.png",
+    "sha256": "e650986b84242ffde65df0158ac2aaf98b2075161c2d6e66d66465f33e4677c1",
+    "dimensions": [
+      2048,
+      1448
+    ],
+    "provided": "2026-10-09"
+  },
+  "first": {
+    "file": "first.png",
+    "sha256": "cdd8d4b30a5e90a30e5ac42b7137e4e31d24283becaa4a48003e4539743d3416",
+    "dimensions": [
+      2048,
+      1448
+    ],
+    "provided": "2026-10-09"
+  },
+  "second": {
+    "file": "second.png",
+    "sha256": "41d1520f58b9ff8cdb26bf4d5e969ec5b84d9762f64c22d61732d576278d340b",
+    "dimensions": [
+      2048,
+      1448
+    ],
+    "provided": "2026-10-09"
+  },
+  "third": {
+    "file": "third.png",
+    "sha256": "5682e43e25bccfe3ef9b183f836d0cff0245b6aa43934221b8d776e05f313290",
+    "dimensions": [
+      2048,
+      1448
+    ],
+    "provided": "2026-10-09"
+  },
+  "fourth": {
+    "file": "fourth.png",
+    "sha256": "42804ffb11f27e756d4b5801a6b73570fd1055ab3ef6e1e7f13cadbde390280b",
+    "dimensions": [
+      2048,
+      1448
+    ],
+    "provided": "2026-10-09"
+  }
+}

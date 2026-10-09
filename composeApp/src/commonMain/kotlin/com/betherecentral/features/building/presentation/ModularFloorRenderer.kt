@@ -5,6 +5,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathOperation
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipPath
@@ -72,15 +73,17 @@ internal fun DrawScope.drawModularFloor(
             val stairPath = projectedPath(stair.polygon, project)
             clipPath(stairPath) {
                 drawPath(stairPath, Color(0xFF343B3D))
-                val bounds = bounds(stair.polygon)
-                val startY = floor(bounds.top / 30.0).toInt() * 30
-                var y = startY
-                while (y < bounds.bottom) {
-                    val line = projectedPath(listOf(PlanPoint(bounds.left, y.toDouble()), PlanPoint(bounds.right, y.toDouble())), project)
-                    drawPath(line, Color(0xFF596264), style = Stroke(width = 2.2f * scale))
-                    y += 30
+                if (scene.sourceLinework == null) {
+                    val bounds = bounds(stair.polygon)
+                    val startY = floor(bounds.top / 30.0).toInt() * 30
+                    var y = startY
+                    while (y < bounds.bottom) {
+                        val line = projectedPath(listOf(PlanPoint(bounds.left, y.toDouble()), PlanPoint(bounds.right, y.toDouble())), project)
+                        drawPath(line, Color(0xFF596264), style = Stroke(width = 2.2f * scale))
+                        y += 30
+                    }
+                    drawPath(stairPath, Color(0xFF202729), style = Stroke(width = 5f * scale))
                 }
-                drawPath(stairPath, Color(0xFF202729), style = Stroke(width = 5f * scale))
             }
         }
 
@@ -113,6 +116,59 @@ internal fun DrawScope.drawModularFloor(
               )
             }
         }
+    }
+
+}
+
+/** Draws source-observed contours above decorative art and perimeter trim. */
+internal fun DrawScope.drawSourceLinework(
+    scene: FloorScene,
+    project: (PlanPoint) -> Offset,
+    scale: Float,
+    partitionColor: Color = Color(0xFF454C4E),
+    stairColor: Color = Color(0xFF98A7AA),
+    unmappedMask: Path? = null,
+) {
+    // This layer sits outside the coarse assigned-region mask, preserving source marks
+    // that cross those approximate polygons and keeping their authored width.
+    scene.sourceLinework?.let { linework ->
+        drawSourceContours(linework.partitions, project, scale, partitionColor)
+        drawSourceContours(linework.stairs, project, scale, stairColor)
+        // Source marks on charcoal need the same contrast as the reserved stairs.
+        // Recolour the existing geometry; do not expand its edges or close gaps.
+        unmappedMask?.let { mask ->
+            clipPath(mask) {
+                drawSourceContours(linework.partitions, project, scale, stairColor)
+            }
+        }
+    }
+}
+
+private fun DrawScope.drawSourceContours(
+    contours: List<List<PlanPoint>>,
+    project: (PlanPoint) -> Offset,
+    scale: Float,
+    color: Color,
+) {
+    val compound = Path().apply {
+        fillType = PathFillType.EvenOdd
+        contours.filter { it.size >= 3 }.forEach { contour ->
+            contour.forEachIndexed { index, point ->
+                val screen = project(point)
+                if (index == 0) moveTo(screen.x, screen.y) else lineTo(screen.x, screen.y)
+            }
+            close()
+        }
+    }
+    if (contours.any { it.size >= 3 }) {
+        drawPath(compound, color)
+        drawPath(compound, color, style = Stroke(width = scale.coerceAtLeast(.01f)))
+    }
+    contours.filter { it.size == 2 }.forEach { contour ->
+        drawLine(color, project(contour[0]), project(contour[1]), strokeWidth = scale.coerceAtLeast(.01f))
+    }
+    contours.filter { it.size == 1 }.forEach { contour ->
+        drawCircle(color, radius = scale.coerceAtLeast(.01f) / 2f, center = project(contour.single()))
     }
 }
 

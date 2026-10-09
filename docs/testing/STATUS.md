@@ -350,3 +350,21 @@ Manual Android journey (Pixel 7 / API 36 ARM64 emulator, 1080 × 2400):
 Search inputs were entered only after the layout exposed FOCUSED. Standard-font search used header `(367,382)`, field `(540,949)`, `input text Campfire/Meeting/Sky`, then sole result `(540,2166)`. Guide actions used Directions `(540,1895)`, About or Back to choices `(540,2053)`, Back to map `(540,2211)`, with fresh layout checks between actions. Large-text search used header `(340,392)`, field `(540,941)`, result `(540,2148)`.
 
 Astra source review found no blocker in selection/provenance/guide behavior. Optional supplied text/links are domain-validated, but there is no resident content editor or populated company profile yet. No iOS, browser or physical-device test was run for this slice. No hosted CI result is claimed.
+
+### Five-floor source-line audit — 9 October 2026
+
+The supplied ground–fourth schematics and hash manifest are preserved under `docs/assets/source-plans/`. The [audit report](../assets/SOURCE_LINEWORK_AUDIT.md) links all five source overlays and actual full-floor Compose/Skia renders. Source partitions, curved marks, visible openings and stair motifs replace the fictional divider screens. Company anchors are unchanged. Furniture is fitted or omitted rather than moving source geometry.
+
+Commands actually run:
+
+- `PYTHONPATH=/tmp/btc-linework/python-deps <bundled-python> scripts/trace_plan_linework.py --kotlin-out composeApp/src/commonMain/kotlin/com/betherecentral/features/building/data/SourcePlanLinework.kt`: passed. Pillow/NumPy came from the bundled runtime; OpenCV was installed only under the temporary dependency directory. All five extracted contour masks round-trip without missing/added candidate pixels.
+- Repeated extraction with `--out /tmp/btc-linework-repeat --kotlin-out /tmp/SourcePlanLinework-repeat.kt`, then `cmp` against the checked-in generated source: identical.
+- `BTC_RENDER_AUDIT=1 ./gradlew :composeApp:desktopTest :androidApp:assembleDebug`, with local JDK 17 and Android SDK environment variables: final run **passed, 64 tests, zero failures/errors/skips**, Android debug build successful. An intermediate unresolved variable in the contrast mask was corrected before this final run.
+- `PYTHONPATH=/tmp/btc-linework/python-deps <bundled-python> scripts/audit_plan_renders.py`: passed on all five floors; zero missing/extra candidate pixels outside a one-source-pixel envelope in the actual source-only Compose render. This measures rendering retention, not architectural semantics or surveyed completeness.
+- `git diff --check`: passed before delivery.
+
+Actual renderer images were visually reviewed for all five floors against the supplied drawings. Astra independently reviewed first/third partition fidelity and source-layer ordering; its stair contrast finding was addressed. Fine lines retain source width and need zoom at phone scale. Existing coarse silhouette/courtyard masks and decorative window caps remain approximate.
+
+The final APK was installed on the **Android emulator `betherecentral-demo` (`emulator-5556`)**, using ordinary ADB on port 5039. Launch, floor selection (ground to third), tapping NOX Energy, its correct Plan 49 character guide, returning to the map and Fit reset were visually verified. Evidence: [ground](../assets/linework-audit/android-ground.png), [third](../assets/linework-audit/android-third.png), [guide](../assets/linework-audit/android-guide.png). Earlier in this pass, first-floor rendering and Fit were also inspected. The Android CLI inspector could not connect to this alternate ADB server; emulator-only UI dumps and screenshots were used instead. No physical phone inspection service was installed.
+
+This pass did **not** rerun iOS, browser, physical-device or hosted CI verification. The source drawings remain unscaled schematics; no real route graph, door interpretation or toilet locations were inferred.

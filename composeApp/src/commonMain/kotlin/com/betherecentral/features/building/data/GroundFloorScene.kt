@@ -27,20 +27,20 @@ object GroundFloorScene {
         props = listOf(
             // Orange area: an open shared-work lounge, with its west stair left clear.
             prop("orange-rug", "ground-orange", 861.0, 1114.0, 206.0, 118.0, CampusPropAsset.RUG, -1),
-            prop("orange-worktable", "ground-orange", 935.0, 1040.0, 118.0, 82.0, CampusPropAsset.SHARED_TABLE),
+            prop("orange-worktable", "ground-orange", 964.0, 1031.0, 56.0, 40.0, CampusPropAsset.SHARED_TABLE),
             prop("orange-sofa", "ground-orange", 955.0, 1113.0, 132.0, 78.0, CampusPropAsset.SOFA),
-            prop("orange-plant", "ground-orange", 705.0, 1148.0, 50.0, 68.0, CampusPropAsset.PLANT),
+            prop("orange-plant", "ground-orange", 704.0, 1153.0, 24.0, 28.0, CampusPropAsset.PLANT),
             prop("orange-round-table", "ground-orange", 995.0, 1085.0, 66.0, 56.0, CampusPropAsset.ROUND_TABLE),
             // Lobby: furniture stays clear of stairs; bike rack follows the source icon.
-            prop("lobby-bike-parking", "ground-bike-room", 1166.0, 1089.0, 34.0, 28.0, CampusPropAsset.BIKE_RACK),
+            prop("lobby-bike-parking", "ground-bike-room", 1170.0, 1090.0, 22.0, 20.0, CampusPropAsset.BIKE_RACK),
             prop("lobby-rug", "ground-lobby", 1310.0, 1160.0, 40.0, 36.0, CampusPropAsset.RUG, -1),
-            prop("lobby-desk", "ground-lobby", 1273.0, 1126.0, 94.0, 58.0, CampusPropAsset.RECEPTION_DESK),
-            prop("lobby-plant", "ground-lobby", 1318.0, 1156.0, 28.0, 32.0, CampusPropAsset.PLANT),
+            prop("lobby-desk", "ground-lobby", 1272.0, 1128.0, 40.0, 32.0, CampusPropAsset.RECEPTION_DESK),
+            prop("lobby-plant", "ground-lobby", 1339.0, 1112.0, 24.0, 24.0, CampusPropAsset.PLANT),
             // Detached FARI area: a compact visitor lounge; east stair is kept clear.
             prop("fari-rug", "ground-fari", 1690.0, 1090.0, 110.0, 70.0, CampusPropAsset.RUG, -1),
-            prop("fari-table", "ground-fari", 1690.0, 1060.0, 80.0, 60.0, CampusPropAsset.SHARED_TABLE),
+            prop("fari-table", "ground-fari", 1714.0, 1152.0, 48.0, 36.0, CampusPropAsset.SHARED_TABLE),
             prop("fari-sofa", "ground-fari", 1710.0, 1105.0, 80.0, 54.0, CampusPropAsset.SOFA),
-            prop("fari-plant", "ground-fari", 1640.0, 1052.0, 44.0, 60.0, CampusPropAsset.PLANT),
+            prop("fari-plant", "ground-fari", 1602.0, 1052.0, 24.0, 28.0, CampusPropAsset.PLANT),
             prop("fari-shelf", "ground-fari", 1802.0, 1142.0, 50.0, 66.0, CampusPropAsset.BOOKCASE),
         ),
     )

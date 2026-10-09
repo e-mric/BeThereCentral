@@ -37,3 +37,12 @@ The user clarified that this is iterative product development. Company placement
 The user extended the authorized map-asset iteration from the ground-floor slice to all five floors. Each floor now has an authored reusable scene recipe rendered by the generalized modular renderer, using additional sprites from the existing furniture atlas. The original full-floor PNGs remain historical references and are not loaded or used as active fallback art. Preserve all source geometry and directory anchors; keep the ground bike-room divider continuous, its unassigned grey area plain, and courtyard voids empty. Toilet positions remain pending user input; do not add toilet markers or routes. This remains Compose map work: scene data is editable in source, not through an in-app floor editor, and it does not implement or resume Godot/game Studio work.
 
 This amendment records the newer implementation state. The preceding ground-floor amendment documents the first slice and is retained as history.
+
+
+## Source-linework fidelity amendment — 9 October 2026
+
+The user clarified that fictional decoration does not permit omitting or inventing the supplied plans’ interior divisions. The previous modular conversion retained outlines and badge anchors but omitted most room and corridor lines. All five floors now receive a separate reproducible source-coordinate linework layer. This supersedes the earlier permission for fictional interior partitions in the active map.
+
+Trace the supplied schematic pixels, preserving small returns, curves, holes and visible gaps. Separate stair marks using reviewed stair regions, not tenant-zone colour. Exclude legend badges and information icons from geometry. Render the source layer independently of coarse decorative region masks and after trim. Remove arbitrary decorative dividers and omit furniture that crosses observed lines. Keep source width for dense detail so adjacent gaps remain open. Outer and courtyard window bands remain fictional styling on the existing approximate footprint masks. The schematic layer still does not establish surveyed doors, routes or accessibility.
+
+Retain original schematics, extraction source, generated vectors and audit evidence together. Company anchors, toilets pending user input, empty courtyards, and the Godot/Studio hold are unchanged.

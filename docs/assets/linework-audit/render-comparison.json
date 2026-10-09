@@ -1,0 +1,42 @@
+{
+  "target": "Actual Compose/Skia source-only desktop render, not emulator or physical device",
+  "tolerance_source_pixels": 1,
+  "limitation": "Candidate retention only; does not prove all source marks are walls, or that every wall was identified.",
+  "floors": [
+    {
+      "floor": "ground",
+      "candidate_pixels": 13907,
+      "rendered_pixels": 20141,
+      "missing_outside_one_pixel": 0,
+      "extra_outside_one_pixel": 0
+    },
+    {
+      "floor": "first",
+      "candidate_pixels": 31261,
+      "rendered_pixels": 42057,
+      "missing_outside_one_pixel": 0,
+      "extra_outside_one_pixel": 0
+    },
+    {
+      "floor": "second",
+      "candidate_pixels": 27531,
+      "rendered_pixels": 36826,
+      "missing_outside_one_pixel": 0,
+      "extra_outside_one_pixel": 0
+    },
+    {
+      "floor": "third",
+      "candidate_pixels": 24842,
+      "rendered_pixels": 33328,
+      "missing_outside_one_pixel": 0,
+      "extra_outside_one_pixel": 0
+    },
+    {
+      "floor": "fourth",
+      "candidate_pixels": 27608,
+      "rendered_pixels": 35967,
+      "missing_outside_one_pixel": 0,
+      "extra_outside_one_pixel": 0
+    }
+  ]
+}

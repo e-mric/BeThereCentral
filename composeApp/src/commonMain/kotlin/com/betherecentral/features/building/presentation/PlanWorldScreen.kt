@@ -268,7 +268,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
                 Button(onClick = { moreOpen = false; studioOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
                     Text("Room Studio · preview")
                 }
-                Text("The building outlines and courtyards follow five supplied plans. Rooms, furniture and decorative characters are fictional pixel-art interpretations. The grey ground-floor area is left empty. Company names and numbered anchors come from the supplied legend; some entries have no shown position.", fontSize = 14.sp)
+                Text("Building outlines, courtyard openings and interior lines follow the supplied plans. Furniture, windows and characters are fictional decoration. The grey ground-floor area is left empty. Company names and numbered anchors come from the supplied legend; some entries have no shown position.", fontSize = 14.sp)
                 Text("The plans do not establish scale, verified room use, accessible routes, live location or a matching 3D scene.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 TextButton(onClick = { onPanelModeChange(true) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(if (lightPanels) "✓ Light panels" else "Light panels")
@@ -414,9 +414,12 @@ private fun PlanCanvas(
         if (floor.id != "ground") floor.regions.filter { it.kind == PlanRegionKind.UNMAPPED }.forEach {
             shell = Path.combine(PathOperation.Difference, shell, projectedPath(it.polygon, projection))
         }
-        drawModularFloor(floor, CampusFloorScenes.forFloor(floor.id), propsAtlas, projection::screen, projection.scale, shell)
+        val floorScene = CampusFloorScenes.forFloor(floor.id)
+        drawModularFloor(floor, floorScene, propsAtlas, projection::screen, projection.scale, shell)
         drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
         drawCourtyardWalls(floor.voids.map { polygon -> polygon.map(projection::screen) }, projection.scale, buildingShell)
+        drawSourceLinework(floorScene, projection::screen, projection.scale,
+            unmappedMask = Path.combine(PathOperation.Difference, buildingShell, shell))
         signTargets.clear()
         val occupied = mutableListOf<androidx.compose.ui.geometry.Rect>()
         val paintSigns = mutableListOf<() -> Unit>()
