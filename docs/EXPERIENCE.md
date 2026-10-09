@@ -12,11 +12,14 @@
 | Choose a floor | Explore five visually distinct floors | Ground through fourth each has its own asset arrangement and approximate outline; one floor selector sheet keeps the canvas uncluttered |
 | Explore | Read the space at different scales | Pan, zoom and Fit work; labels and source numbers remain understandable |
 | Search | Find a known company or plan number | Case-insensitive results show floor and known source label; selecting a placed result reveals an approximate anchor |
-| Read a place | Learn only what the plan supports | Compact pixel host states the known occupant/number without invented mission, room use or route |
+| Select a place | Open a character-led guide for the chosen place | Tapping its map sign/marker focuses that exact source anchor; directory/search selection focuses its first known anchor. The map animates to zoom 2.6 with the selected place above the sheet. Unplaced entries stay at Fit without an invented point |
+| Read a place | Learn only what the plan supports | The guide offers Directions and a type-specific About choice. Directions shows floor and source plan position, and says entrance and walking routes are unconfirmed. Company mission, meeting-room purpose and other details use supplied, attributed content or an explicit empty state |
 | Check uncertainty | Understand an unresolved source area or name | The ground grey area remains visible but unfurnished; ground grey/orange and second grey source areas have no confirmed occupant assignment; FARI is detached; The Sky / fourth-floor 66 is searchable and listed without a guessed marker |
 | Use an alternative | Access the same information without reading tiny pixels | Search/legend and floor controls expose readable text and assistive labels |
 
 A fitting short walkthrough: search **Campfire AI** on the second floor, search **42 Belgium** on the third, then find **The Sky** on the fourth. The last entry must explain that number 66 is listed but not placed. Do not say that any anchor is an entrance or that the map calculates a route.
+
+From a map sign/marker or directory entry, the guide preserves the selected source anchor, including the exact repeated marker tapped. Search chooses the first known anchor. The character is an illustrative guide, not a real resident avatar. Profile data can carry attributed extra information and labelled HTTPS links, but this slice has no resident editing, publishing, or tenant-content integration; show empty states instead of inventing a company mission or meeting-room facilities.
 
 ## Appearance and content
 

@@ -322,3 +322,31 @@ Replaced the four remaining full-floor illustrations with authored reusable asse
 The first incremental APK retained deleted PNGs in generated resources. Cleaning both modules removed that stale output; final ZIP inspection confirmed **no `plan_*.png`** and the retained `campus_props.png`. Historical PNGs moved unchanged to documentation.
 
 Installed and launched the final APK on dedicated Pixel 7 / API 36 ARM64 **emulator-5556**. Inspected all five floors at Fit and detail scale, Campfire AI and 42 Belgium searches/guide/return, unplaced The Sky, bike-room separation, and Fit recovery after pan/minus. Search exposes the readable directory list. The first layout request after restart returned an instrumentation-server response error; retry recovered. The checks are manual visual smoke evidence, not a physical-phone, iOS, browser, performance or assistive-technology pass. Those targets and unchanged server/viewer suites were not run for this slice. Astra reviewed source boundaries and modular rendering; see [five-floor asset walkthrough](all-floor-assets-smoke.md).
+
+### Character-led place guide — 9 October 2026
+
+The existing Compose map now animates toward the exact tapped source marker and presents the character with Directions and a type-specific About choice. This verifies the provisional marker interaction, not entrance-facing placement or real walking directions.
+
+Commands actually run:
+
+- `env JAVA_HOME=/Users/emericvanfrausum/Library/Java/JavaVirtualMachines/jdk-17.0.20.1+1/Contents/Home ANDROID_HOME=/Users/emericvanfrausum/Library/Android/sdk ./gradlew :composeApp:desktopTest :androidApp:assembleDebug` — passed, 57 shared JVM tests, zero failures/errors/skips; Android APK built. Log: `/tmp/btc-place-guide-build.log`.
+- `adb -s emulator-5556 install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk` — passed. Force-stop and explicit MainActivity launch succeeded.
+- `android layout --device emulator-5556` and `android screen capture --device emulator-5556 -o ...` — actual emulator layout and pixels inspected at each recorded state. First layout after relaunch returned an unrecognized instrumentation response; retry succeeded. No phone inspection service used.
+- `adb -s emulator-5556 shell settings get system font_scale` returned `1.0`; `settings put system font_scale 1.3` exercised larger text and was restored with `settings put system font_scale 1.0`. Changing this setting recreated the Activity and reset the map; the meeting-room journey was repeated after recreation.
+- `git diff --check` — passed before commit.
+
+Manual Android journey (Pixel 7 / API 36 ARM64 emulator, 1080 × 2400):
+
+| Action / expectation | Result |
+| --- | --- |
+| Search Campfire, choose result, see character and selected marker above sheet | Passed; [company guide](../screenshots/android-place-guide-company.png) |
+| Open Directions | Passed; source floor/marker only, explicit unconfirmed entrances/routes; [directions](../screenshots/android-place-guide-directions.png) |
+| Back to choices → About the company | Passed in layout; missing supplied mission stated, no invented description or link |
+| Back to map → tap third Campfire sign at `(847,1080)` | Passed; third marker moves to the focus point, not the first; [repeated marker](../screenshots/android-place-guide-repeated-marker.png) |
+| Search Meeting → Room purpose | Passed; room 31 identified and purpose/facilities marked unsupplied; [meeting purpose](../screenshots/android-place-guide-meeting-purpose.png) |
+| Repeat meeting selection with font scale 1.3 | Passed; name, greeting, both choices and dismissal readable, marker above sheet; [large text](../screenshots/android-place-guide-large-text.png) |
+| Search Sky → Directions | Passed; fourth floor stays at Fit, no fabricated location, position unknown explained; [unplaced entry](../screenshots/android-place-guide-unplaced.png) |
+
+Search inputs were entered only after the layout exposed FOCUSED. Standard-font search used header `(367,382)`, field `(540,949)`, `input text Campfire/Meeting/Sky`, then sole result `(540,2166)`. Guide actions used Directions `(540,1895)`, About or Back to choices `(540,2053)`, Back to map `(540,2211)`, with fresh layout checks between actions. Large-text search used header `(340,392)`, field `(540,941)`, result `(540,2148)`.
+
+Astra source review found no blocker in selection/provenance/guide behavior. Optional supplied text/links are domain-validated, but there is no resident content editor or populated company profile yet. No iOS, browser or physical-device test was run for this slice. No hosted CI result is claimed.

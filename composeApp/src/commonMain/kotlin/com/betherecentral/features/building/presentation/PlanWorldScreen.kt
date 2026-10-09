@@ -1,5 +1,12 @@
 package com.betherecentral.features.building.presentation
 
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.tween
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import com.betherecentral.features.building.domain.PlaceSelection
+import com.betherecentral.features.building.domain.focusOn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.BorderStroke
@@ -88,11 +95,9 @@ import com.betherecentral.features.building.domain.PlanPoint
 import com.betherecentral.features.building.domain.PlanRegionKind
 import com.betherecentral.features.building.domain.PlanWorld
 import com.betherecentral.features.building.domain.PlanViewport
-import com.betherecentral.features.guide.presentation.drawGuideSprite
 import com.betherecentral.resources.Res
 import com.betherecentral.resources.brand_logo
 import com.betherecentral.resources.campus_props
-import com.betherecentral.resources.founder_atlas
 import org.jetbrains.compose.resources.imageResource
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -136,13 +141,33 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     var floorsOpen by remember { mutableStateOf(false) }
     var studioOpen by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
-    var selected by remember { mutableStateOf<PlanPlace?>(null) }
+    var selected by remember { mutableStateOf<PlaceSelection?>(null) }
     var highlightedId by remember { mutableStateOf<String?>(null) }
     var zoom by remember { mutableFloatStateOf(1f) }
     var pan by remember { mutableStateOf(Offset.Zero) }
     var canvasSize by remember { mutableStateOf(IntSize.Zero) }
     val floor = floors.getOrNull(floorIndex) ?: return
     val directory = remember(floors) { PlanDirectory(floors) }
+    val scope = rememberCoroutineScope()
+    var focusJob by remember { mutableStateOf<Job?>(null) }
+
+    fun choosePlace(resultFloor: PlanFloor, place: PlanPlace, anchor: PlanPoint? = null) {
+        focusJob?.cancel()
+        val selection = PlaceSelection.resolve(place, anchor)
+        val changingFloor = resultFloor.id != floor.id
+        floorIndex = floors.indexOf(resultFloor).coerceAtLeast(0)
+        selected = selection
+        highlightedId = place.id
+        val target = PlanViewport(canvasSize.width.toDouble(), canvasSize.height.toDouble()).focusOn(selection)
+        val startZoom = if (changingFloor) 1f else zoom
+        val startPan = if (changingFloor) Offset.Zero else pan
+        focusJob = scope.launch {
+            animate(0f, 1f, animationSpec = tween(380)) { fraction, _ ->
+                zoom = startZoom + (target.zoom.toFloat() - startZoom) * fraction
+                pan = startPan + (Offset(target.pan.x.toFloat(), target.pan.y.toFloat()) - startPan) * fraction
+            }
+        }
+    }
 
     if (studioOpen) {
         RoomStudioPreview(onClose = { studioOpen = false })
@@ -156,8 +181,8 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             zoom = zoom,
             pan = pan,
             highlightedId = highlightedId,
-            onPanZoom = { nextZoom, nextPan -> zoom = nextZoom; pan = nextPan },
-            onPlaceTap = { selected = it; highlightedId = it.id },
+            onPanZoom = { nextZoom, nextPan -> focusJob?.cancel(); zoom = nextZoom; pan = nextPan },
+            onPlaceTap = { place, anchor -> choosePlace(floor, place, anchor) },
             onCanvasSize = { canvasSize = it },
             modifier = Modifier.fillMaxSize().padding(top = safePadding.calculateTopPadding() + 122.dp, bottom = safePadding.calculateBottomPadding() + 38.dp),
         )
@@ -207,9 +232,9 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
             Modifier.align(Alignment.TopEnd).padding(end = safeEnd + 10.dp, top = safePadding.calculateTopPadding() + 128.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            MapControl("+", "Zoom in") { zoom = (zoom * 1.25f).coerceAtMost(8f) }
-            MapControl("−", "Zoom out") { zoom = (zoom / 1.25f).coerceAtLeast(0.7f) }
-            MapControl("Fit", "Fit whole floor") { zoom = 1f; pan = Offset.Zero }
+            MapControl("+", "Zoom in") { focusJob?.cancel(); zoom = (zoom * 1.25f).coerceAtMost(8f) }
+            MapControl("−", "Zoom out") { focusJob?.cancel(); zoom = (zoom / 1.25f).coerceAtLeast(0.7f) }
+            MapControl("Fit", "Fit whole floor") { focusJob?.cancel(); zoom = 1f; pan = Offset.Zero }
         }
 
         Text("PLAN-BASED LOCATIONS · FICTIONAL DECOR",
@@ -225,7 +250,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
                     val active = index == floorIndex
                     Surface(
                         Modifier.fillMaxWidth().heightIn(min = 52.dp).semantics { this.selected = active }.clickable(role = Role.RadioButton) {
-                            floorIndex = index; zoom = 1f; pan = Offset.Zero; highlightedId = null; floorsOpen = false
+                            focusJob?.cancel(); selected = null; floorIndex = index; zoom = 1f; pan = Offset.Zero; highlightedId = null; floorsOpen = false
                         }, shape = RoundedCornerShape(18.dp),
                         color = if (active) Color(0xFF171978) else MaterialTheme.colorScheme.surfaceVariant,
                         contentColor = if (active) Ink else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -266,17 +291,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
                 LazyColumn(Modifier.fillMaxWidth().heightIn(max = 460.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         items(results, key = { it.floor.id + it.place.id }) { (resultFloor, place) ->
                         SearchResult(resultFloor.name, place, onClick = {
-                            floorIndex = floors.indexOf(resultFloor).coerceAtLeast(0)
-                            selected = place
-                            highlightedId = place.id
-                            place.anchors.firstOrNull()?.let { anchor ->
-                                zoom = 1.55f
-                                val point = PlanProjection(canvasSize, 1.55f, Offset.Zero).screen(anchor)
-                                pan = Offset(canvasSize.width / 2f - point.x, canvasSize.height / 2f - point.y)
-                            } ?: run {
-                                zoom = 1f
-                                pan = Offset.Zero
-                            }
+                            choosePlace(resultFloor, place)
                             searchOpen = false
                             query = ""
                         })
@@ -287,10 +302,10 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
         }
     }
 
-    selected?.let { place ->
+    selected?.let { selection ->
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         ModalBottomSheet(onDismissRequest = { selected = null }, sheetState = sheetState) {
-            PlanPlaceIntroduction(place, floor.name, onClose = { selected = null })
+            PlanPlaceGuide(selection.place, floor.name, onClose = { selected = null })
         }
     }
 }
@@ -323,36 +338,6 @@ private fun NumberBadge(number: String) {
     }
 }
 
-@Composable
-private fun PlanPlaceIntroduction(place: PlanPlace, floorName: String, onClose: () -> Unit) {
-    val atlas = imageResource(Res.drawable.founder_atlas)
-    val name = place.label
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Canvas(Modifier.size(width = 48.dp, height = 56.dp).semantics { contentDescription = "Pixel founder guide" }) {
-                drawGuideSprite(atlas, Offset(size.width / 2f, size.height), walkingFrame = -1, facingLeft = false)
-            }
-            Column {
-                Text("Plan guide", fontSize = 12.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.SemiBold)
-                Text(name, fontSize = 19.sp, fontWeight = FontWeight.Bold)
-            }
-        }
-        Text(place.details.ifBlank { "The supplied plan labels this as ${place.label}." }, fontSize = 14.sp)
-        if (place.occupants.isNotEmpty()) {
-            Text("Listed occupants", fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-            place.occupants.forEach { occupant -> Text(occupant, fontSize = 14.sp) }
-        }
-        Text("Source plan · $floorName${place.number?.let { " · $it" }.orEmpty()}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text("The illustrated interior is fictional.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        if (place.anchors.isEmpty()) {
-            Text("Position not shown on plan", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-        Button(onClick = onClose, Modifier.fillMaxWidth().heightIn(min = 48.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink)) {
-            Text("Back to plan")
-        }
-    }
-}
-
 private data class PlanProjection(val size: IntSize, val zoom: Float, val pan: Offset) {
     private val viewport = PlanViewport(
         width = size.width.toDouble(),
@@ -373,13 +358,13 @@ private fun PlanCanvas(
     pan: Offset,
     highlightedId: String?,
     onPanZoom: (Float, Offset) -> Unit,
-    onPlaceTap: (PlanPlace) -> Unit,
+    onPlaceTap: (PlanPlace, PlanPoint) -> Unit,
     onCanvasSize: (IntSize) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current.density
     val textMeasurer = rememberTextMeasurer()
-    val signTargets = remember { mutableListOf<Pair<PlanPlace, androidx.compose.ui.geometry.Rect>>() }
+    val signTargets = remember { mutableListOf<Triple<PlanPlace, PlanPoint, androidx.compose.ui.geometry.Rect>>() }
     val currentZoom by rememberUpdatedState(zoom)
     val currentPan by rememberUpdatedState(pan)
     val currentOnPanZoom by rememberUpdatedState(onPanZoom)
@@ -387,17 +372,17 @@ private fun PlanCanvas(
         contentDescription = "Schematic pixel map of ${floor.name}. Search to browse places, or pan and zoom to explore."
     }.onSizeChanged(onCanvasSize).pointerInput(floor, zoom, pan) {
         detectTapGestures { tap ->
-            val sign = signTargets.firstOrNull { it.second.contains(tap) }?.first
+            val sign = signTargets.firstOrNull { it.third.contains(tap) }
             if (sign != null) {
-                onPlaceTap(sign)
+                onPlaceTap(sign.first, sign.second)
                 return@detectTapGestures
             }
             val projection = PlanProjection(IntSize(size.width, size.height), zoom, pan)
             val nearest = floor.places.flatMap { place -> place.anchors.map { place to it } }
-                .map { (place, anchor) -> place to hypot(projection.screen(anchor).x - tap.x, projection.screen(anchor).y - tap.y) }
-                .filter { it.second <= 28f * density }
-                .minByOrNull { it.second }
-            nearest?.first?.let(onPlaceTap)
+                .map { (place, anchor) -> Triple(place, anchor, hypot(projection.screen(anchor).x - tap.x, projection.screen(anchor).y - tap.y)) }
+                .filter { it.third <= 28f * density }
+                .minByOrNull { it.third }
+            nearest?.let { onPlaceTap(it.first, it.second) }
         }
     }.pointerInput(floor) {
         detectTransformGestures { centroid, panChange, zoomChange, _ ->
@@ -478,7 +463,7 @@ private fun PlanCanvas(
                             drawText(layout, topLeft = rect.topLeft + Offset(padding, padding))
                         }
                         occupied.add(rect)
-                        signTargets.add(place to rect)
+                        signTargets.add(Triple(place, anchor, rect))
                     }
                 }
             }

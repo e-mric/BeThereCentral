@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — character-led place guide
+
+- Selecting a map sign/marker or directory entry opens a compact place guide and animates toward the selected source anchor. Repeated markers preserve the exact tapped anchor; search and directory selection use the first anchor, while unplaced entries remain at Fit.
+- Added Directions showing only the known floor and source plan position, with an explicit note that entrances and routes are unconfirmed. Added type-specific company, meeting-room and other place sections with honest missing-content states.
+- Structured optional attributed profile text and HTTPS links for future supplied content. The guide character is illustrative; resident editing, publishing, and route guidance are not implemented.
+
 ## Unreleased — map accuracy and five modular floor scenes
 
 - Audited all 64 numbered directory entries, repeated badge positions and shared-area occupants against the supplied plans; corrected source badge centers and documented the references.
