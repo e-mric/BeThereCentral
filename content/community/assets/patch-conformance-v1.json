@@ -1,0 +1,38 @@
+{
+  "presetId": "patch-v1",
+  "format": "row-major RGBA8, floor sampling; SHA-256 of64*96*4bytes",
+  "dimensions": [
+    64,
+    96
+  ],
+  "hashes": {
+    "front": {
+      "idle": "e250c6c04bc9a6fc57b21e57acc67527c72dbd278b73c4f952f40bd66e8cae78",
+      "walk1": "1bd2b414fe60a6ff73f1246e4fd710d38dda85d412f0224e4bf7e4787a91f8d4",
+      "walk2": "3bff6318f3bb18212dab01c6f66006b7069a24d05a16f0f7f57f79e852a796a1",
+      "walk3": "1a8eb34ddc21e73ed9fdcb9a69be7b8b877ee246e5dc1a0399f38d6656bb51fe",
+      "walk4": "2f69e60ffc8ea3cbb723012a3c441887e6080a4cfc3bd95d328034e0199e8b4a"
+    },
+    "back": {
+      "idle": "de67f64439f1eb5ff15c12e7bc069d8d1bc22d8b2d6f724a6faf2a547708e6ca",
+      "walk1": "492811ba3b48b9e3c701783a346193172cab4441c9be3050205065dae204b287",
+      "walk2": "03fd8d60726d6732ebfd20c993c8149baee8346bca7d122e1428571c800d843d",
+      "walk3": "77620f13255d20e6a893fd651d605a9010bdd282299ecf8d9c3a49301dd714b6",
+      "walk4": "5f57ec24673728a1d72754e8fd52b8c66e9ea18bc5ec939367220bb09c92cefd"
+    },
+    "left": {
+      "idle": "20215a7c5e15921d7d16743705296185c442a881e4e2d2940cc20b7ac42c3bef",
+      "walk1": "1cbccf8e63c6ad391343dfff05c5d069043597c39d08635b84e57123f6125381",
+      "walk2": "f83c64c9e8c5d87e0894edd790cb196b8d2ff511be7f4978cd9466709cba678c",
+      "walk3": "8cbfa69a05e8d3cfdc0b1eb0635df66565d96defdea6c127201509145f1ff7b1",
+      "walk4": "f389e6e0e54cb30f2183a273ed0e95455d7c16318b37a8c655b42b5e14b4e816"
+    },
+    "right": {
+      "idle": "0de781ab1c71f6eca84b58bd50ebdc31baaf61317c4777c365854c934624d4ca",
+      "walk1": "bf4a9778604b2676be52bb24b07fc80e378bd42ccce04c0303f96b5b4ca8a439",
+      "walk2": "22bb335e2ccc3e5fc526f8416b89c11c7e96a36c29a12be7439c8e0574147b84",
+      "walk3": "3a90e78f081c75b1cc08cf9e0eb0120f7d5826aaa0afcdfd24cf6d1cc0c01882",
+      "walk4": "03a9ed631c1292f3cd44d4f321df6f649dcd2e3594c38cac73a53c501805edee"
+    }
+  }
+}

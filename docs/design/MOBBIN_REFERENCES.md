@@ -21,3 +21,13 @@ Queries covered a top-down pixel world, avatar editing, Life Reset world content
 Build a warm, readable pixel world with original reusable props and coherent portrait/directional animation parts. Keep the game HUD compact, and use ordinary clear form controls in SvelteKit Studio around a live preview. Character appearance can be created manually; real resident names/introductions and representations require their approval. Study the patterns, rather than importing screenshots or third-party sprites into the open-source asset pack.
 
 This reference pass does not change source company coordinates, building approval or privacy boundaries. No Mobbin image was copied into the shipped app or asset pack.
+
+## Browser Studio workspace references
+
+The follow-up search inspected [Rive's workspace](https://mobbin.com/screens/50d95b13-5861-4795-9f8c-f81185c426e1) and [Figma's asset browser](https://mobbin.com/screens/6f26ce58-d438-4e67-a4db-84d493b94789). Rive places hierarchy/assets left, a large canvas centrally and properties right. Figma makes asset categories and thumbnails easy to browse beside that canvas. Use that three-pane structure with beginner-friendly labels, visible selections and numeric alternatives to dragging. Group original props into Workspaces, Play, Wellness, Meetings, Lounge and Secrets. Tolan remains the reference for a large character preview and labelled appearance choices. No screenshot or third-party sprite is included in the asset catalog.
+
+## Character redraw follow-up
+
+The user rejected the flat initial sprites and requested a focused Mobbin character search. A detailed human RPG-profile query and a Habitica-style customization query again returned [Life Reset's profile](https://mobbin.com/screens/28db14a2-e6a1-4f49-a304-a048fa1880b4) as the strongest actual pixel-art match: expressive brown hair, shaped face, layered green clothing and warm interior shading. The Habitica query did not return a Habitica screen; no result is presented as one. [Finch's outfit editor](https://mobbin.com/screens/d6fd99b7-80c0-4684-9b66-c66a6751daaa) offers a large character preview with category icons and item slots; its vector character art is a workflow reference rather than the pixel style.
+
+The next original modular redraw targets shaped silhouettes, hair volume, clothing folds, separated footwear and genuinely directional walking poses. Study the Life Reset design, but do not copy its character pixels or screenshots into the distributed pack. Shared source art and consumer RGBA parity remain separate from the actual visual-quality review.

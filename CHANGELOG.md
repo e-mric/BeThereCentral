@@ -1,9 +1,23 @@
 # Changelog
 
+## Unreleased
+
+- Add approved pixel presets for programme guides Ninon and Morgane and the user as The Architect, with four directions and idle/walking frames, matching Studio and Godot rendering, and separate sample packages. Selecting a personal preset uses its approved name and clears earlier fictional introduction text. Original photographs remain outside the repository. — local community Studio and learning room
+
+- Added a separate SvelteKit Studio for fictional rooms, 24 original props, manual characters or trusted Founder/Patch presets, and a supported two-clue/three-answer activity. Local save/load, undo/redo, numeric/keyboard edits and bounded v1/v2 import/export are implemented; browser interaction verification remains pending.
+- Added a standalone Godot desktop learning room with independently validated content, keyboard movement, readable clues/journal, hints/retries, one local reward, compatible progress reload/reset, a hidden white Construct with return, and debugging duck interaction.
+- Retained the recognizable original blue-haired founder and expanded its directional idle/walk art; added matching fictional Patch. Both consumers share exact frame/crop/pivot rules, with native RGBA conformance tests; the custom modular creator remains separate.
+- Added original hacker workstation, arcade cabinet, yoga mat, conference screen, secret bookshelf, burgundy chair, CRT and duck, with generation prompts, source hashes and attribution. Added Mobbin reference notes and a beginner contribution lesson.
+- Recorded actual Godot desktop walkthrough/screens separately from browser, emulator and phone evidence. Existing Compose map and Experimental 3D remain in place. No mobile Godot release or resident feedback is claimed.
+
+## Unreleased — community implementation resumed
+
+- Recorded the user's 12 October resumption of Stage 1, starting with the fictional `rooms-v1` handoff contract. SvelteKit 3.0.1 and Godot 4.7.2 are the selected current consumers; no resident feedback has been collected, and the default next challenge uses fictional open-source contribution content. Updated the PRD, plans and ADR; this entry records scope/status and does not claim a platform verification result.
+
 ## Unreleased — experimental 3D sample and community roadmap
 
 - Added More → Experimental → 3D exploration · sample on mobile, reusing the licensed offline engine-room viewer with explicit unrelated-scene labels and a persistent return to the retained map view. The More menu scrolls in landscape.
-- Documented the community game plan covering exploration, resident characters, room Studio, learning quests and contributor exercises, with Godot/SvelteKit work pending feedback and explicit resumption.
+- Initially documented the community game plan covering exploration, resident characters, room Studio, learning quests and contributor exercises. Its feedback/resumption hold was superseded by the user's 12 October Stage 1 resumption recorded above.
 
 ## Unreleased — floor selector on short screens
 
@@ -32,15 +46,15 @@
 - Kept the ground-floor bike icon in its separate west-side room and traced the supplied divider continuously without adding a doorway gap.
 - Converted all five floors to authored reusable scene recipes drawn by the shared modular renderer, using materials, wall/window modules and individually placed furniture from the existing campus atlas. Original full-floor PNGs remain historical references; no active floor loads or falls back to them.
 - Kept company positions separate from any visual corridor widening; labels wrap and use leader lines as zoom changes, repeat at repeated positions, and disappear when their markers are offscreen. Markers and leader lines render beneath signs to keep names unobscured.
-- Preserved source geometry, empty courtyard voids and plain unassigned grey regions, including the ground region within the charcoal silhouette; the continuous bike-room divider and stair reservations remain intact. Toilet positions remain pending user input. The source recipes are not an in-app floor editor and do not change the Godot/Studio hold.
-- Continued the map and directory product iteration. Godot/SvelteKit migration, gameplay and character creation remain on hold pending resident feedback.
+- Preserved source geometry, empty courtyard voids and plain unassigned grey regions, including the ground region within the charcoal silhouette; the continuous bike-room divider and stair reservations remain intact. Toilet positions remain pending user input. At that time, the source recipes did not change the Godot/Studio hold; the 12 October Stage 1 resumption above supersedes that status.
+- Continued the map and directory product iteration. The game/Studio feedback hold recorded at that time was superseded by the user's 12 October resumption above.
 
 
 ## Unreleased — community game and Studio planning
 
 - Recorded Godot gameplay and SvelteKit browser Studio as the selected next direction, with Compose web considered as an alternative and the existing prototypes retained.
 - Added a phased plan for portable content, one playable learning quest, manual character creation and later campus expansion.
-- Put implementation on hold until resident feedback is incorporated into the PRD and the user explicitly resumes. This change contains documentation only.
+- Initially put implementation on hold until resident feedback was incorporated and the user explicitly resumed. The user later resumed Stage 1 on 12 October; the historical hold is superseded by the entry at the top of this changelog. This earlier change contained documentation only.
 
 ## Unreleased — courtyard walls
 

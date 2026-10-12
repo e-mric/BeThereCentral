@@ -1,0 +1,28 @@
+{
+  "packageVersion": 2,
+  "packageId": "betherecentral.sample-room",
+  "contentRevision": 1,
+  "features": ["rooms-v2"],
+  "assets": {"catalogId": "betherecentral-community", "catalogRevision": 2},
+  "attribution": ["betherecentral-original-community-assets"],
+  "room": {
+    "schemaVersion": 2,
+    "companyName": "Community Workshop",
+    "room": {"id":"studio-demo","width":320,"height":224,"polygon":[[24,0],[296,0],[320,24],[320,200],[296,224],[24,224],[0,200],[0,24]]},
+    "objects": [
+      {"id":"desk-1","kind":"desk","x":54,"y":52,"width":64,"height":44},
+      {"id":"plant-1","kind":"plant","x":268,"y":48,"width":26,"height":30},
+      {"id":"sofa-1","kind":"sofa","x":178,"y":144,"width":88,"height":52},
+      {"id":"rug-1","kind":"rug","x":98,"y":132,"width":78,"height":48},
+      {"id":"hacker-1","kind":"hacker-desk","x":188,"y":44,"width":72,"height":64},
+      {"id":"arcade-1","kind":"arcade-cabinet","x":34,"y":48,"width":30,"height":60},
+      {"id":"yoga-1","kind":"yoga-mat","x":50,"y":144,"width":32,"height":40},
+      {"id":"screen-1","kind":"conference-screen","x":248,"y":128,"width":40,"height":52},
+      {"id":"secret-1","kind":"secret-bookshelf","x":28,"y":32,"width":36,"height":52},
+      {"id":"duck-1","kind":"rubber-duck","x":92,"y":68,"width":12,"height":14}
+    ]
+  },
+  "characters": [],
+  "quest": null,
+  "gameplay": null
+}

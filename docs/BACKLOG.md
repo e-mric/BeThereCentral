@@ -2,9 +2,9 @@
 
 This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeThereCentral). GitHub Issues are the intended public tracker; publishing requires user authorization.
 
-## Godot and Studio implementation hold
+## Community game and Studio implementation
 
-The user is gathering resident input before implementing the selected Godot gameplay and SvelteKit browser Studio direction; the [community game plan](plans/COMMUNITY_GAME.md), [technical plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record scope, alternatives and acceptance checks. The user separately resumed the existing Compose map and directory iteration on 9 October. That map work is active; game migration, quests and character/Studio implementation below remain deferred until feedback is recorded, the PRD/plans are revised and the user explicitly resumes that work. The standalone Room Studio remains a separate local prototype. The 12 October authorization to expose the unrelated 3D sample under Experimental and install Android is a separate existing-app slice, not game/Studio resumption.
+The user explicitly resumed Stage 1 on 12 October, beginning with the fictional `rooms-v1` contract and SvelteKit/Godot consumers. No resident feedback has been collected; it may shape later scope but is not a gate for this bounded work. The [community game plan](plans/COMMUNITY_GAME.md), [technical plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record the active slice and acceptance checks. The existing Compose map, experimental 3D sample and Vite/PixiJS Room Studio remain separate. Do not imply Godot mobile support, real tenant content or a production publishing service.
 
 ## Current iteration: five-floor map and reusable assets
 
@@ -18,11 +18,11 @@ The user is gathering resident input before implementing the selected Godot game
 
 ## Next playable experiment: community game and character Studio
 
-The [12 October written plan](plans/COMMUNITY_GAME.md) defines dependencies and exit evidence. All implementation items below remain deferred behind Stage 0; no stage is marked shipped.
+The [12 October plan](plans/COMMUNITY_GAME.md) defines dependencies and exit evidence. Stage 1 is active; later stages remain planned.
 
-- **Stage 0 — feedback and resumption:** record resident needs, choose one approved project/learning outcome and challenge template, agree success targets, revise the PRD/plans and obtain explicit user resumption.
-- **Stage 1 — room handoff:** one fictional room edited in SvelteKit exports to standalone Godot with independent validation and visible placement parity. Keep Compose/PixiJS runnable; deliver a beginner decorate/export lesson. Define bounded versioned content and licence/provenance records.
-- **Stage 2 — play and learn:** one avatar meets one approved NPC, discovers one project, completes one challenge with hints/retry/explanation and earns one nonduplicated reward. Verify local save/reset, collision, layering and mobile controls; record Android/iOS evidence separately. Deliver a clue-writing lesson.
+- **Stage 0 — optional discovery:** record resident needs to inform later scope; no feedback has been collected. It is not a gate for the fictional Stage 1 handoff.
+- **Stage 1 — contract-first room handoff:** the v1 shared contract and common fixtures are in `content/community/v1/`; SvelteKit 3.0.1 authors packages, and Godot 4.7.2 previews them on desktop. Finish independent consumer validation, browser/Godot screen review and beginner decorate/export lesson. Preserve Compose/PixiJS and keep the sample fictional.
+- **Stage 2 — default fictional open-source contribution task:** if the user gives no different preference, teach a small sample-room/package edit or review with hint, retry, explanation and reward. Keep it independent of resident or tenant content. Assess desktop and mobile target behavior separately.
 - **Stage 3 — manual character and quest authoring:** create appearance, display name, portrait, coherent directional idle/walk sprites and an approved introduction; author a supported challenge template and preview it in the game. Provide keyboard/text alternatives and design/pixel-art lessons. Photo-assisted generation remains optional later work with explicit consent.
 - **Stage 4 — reviewed community pack:** add a small approved set of rooms, characters, project introductions and challenges after participant evidence. Validate cross-references, updates, progress compatibility, rollback and content withdrawal from future versions. Keep source geometry separate from fictional collision and verify any real room association before claiming it.
 - Build coding, design, pixel-art, storytelling and optional AI-assisted lessons alongside the capability they teach. Each has a small visible result, fixture, check and review path; contributors need no AI subscription. Keep private approval records and source photos out of public packages.
@@ -53,3 +53,15 @@ The [12 October written plan](plans/COMMUNITY_GAME.md) defines dependencies and 
 ## Publishing
 
 Enable and review a hosted CI run before claiming it passed. Choose platform accounts before signing/distribution. Keep [verification status](testing/STATUS.md) tied to commands actually run.
+
+### Active community asset/game slice — 12 October
+
+- [x] Exercise browser editing, save/reload and actual export → Godot import handoff for Stage 1.
+- [ ] Finish browser file-import UI verification and assistive-technology checks.
+- [x] Ship original coworking and Easter egg catalog with provenance and shared crop/scale/collision rules.
+- [x] Add v2 independently validated manual characters and two-clue learning quest, preserving v1 room imports.
+- [x] Verify desktop movement, retry/reward/local progress, hidden bookshelf → white Construct → safe return.
+- [ ] Verify responsive three-pane Studio, categorized thumbnails and numeric/keyboard authoring alternatives.
+- [ ] Review fictional content before expansion; collect optional resident feedback and separate portrayal/content approvals.
+
+Beginner path: [first community contribution](learning/FIRST_CONTRIBUTION.md). Accounts, publishing, real room editing and mobile Godot delivery remain separately scoped.

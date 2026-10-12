@@ -1,0 +1,2188 @@
+{
+  "catalogId": "betherecentral-community",
+  "catalogRevision": 2,
+  "attributionId": "betherecentral-original-community-assets",
+  "props": [
+    {
+      "id": "desk",
+      "label": "Desk",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        40,
+        88,
+        256,
+        219
+      ],
+      "defaultSize": [
+        64,
+        44
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "paired-desks",
+      "label": "Paired desks",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        318,
+        52,
+        302,
+        258
+      ],
+      "defaultSize": [
+        80,
+        56
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "shared-table",
+      "label": "Shared table",
+      "category": "Meetings",
+      "image": "v1/campus-props.png",
+      "crop": [
+        652,
+        65,
+        252,
+        242
+      ],
+      "defaultSize": [
+        64,
+        56
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "round-table",
+      "label": "Round table",
+      "category": "Meetings",
+      "image": "v1/campus-props.png",
+      "crop": [
+        966,
+        52,
+        252,
+        253
+      ],
+      "defaultSize": [
+        52,
+        52
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "lounge-corner",
+      "label": "Lounge corner",
+      "category": "Lounge",
+      "image": "v1/campus-props.png",
+      "crop": [
+        20,
+        378,
+        290,
+        238
+      ],
+      "defaultSize": [
+        76,
+        60
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "bookcase",
+      "label": "Bookcase",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        356,
+        328,
+        234,
+        292
+      ],
+      "defaultSize": [
+        36,
+        48
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "plant",
+      "label": "Plant",
+      "category": "Lounge",
+      "image": "v1/campus-props.png",
+      "crop": [
+        670,
+        340,
+        232,
+        279
+      ],
+      "defaultSize": [
+        26,
+        30
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "cafe-counter",
+      "label": "Cafe counter",
+      "category": "Lounge",
+      "image": "v1/campus-props.png",
+      "crop": [
+        956,
+        380,
+        270,
+        230
+      ],
+      "defaultSize": [
+        64,
+        48
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "bike-rack",
+      "label": "Bike rack",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        46,
+        672,
+        249,
+        239
+      ],
+      "defaultSize": [
+        56,
+        48
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "phone-booth",
+      "label": "Phone booth",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        375,
+        632,
+        207,
+        288
+      ],
+      "defaultSize": [
+        36,
+        48
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "printer",
+      "label": "Printer",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        680,
+        680,
+        202,
+        250
+      ],
+      "defaultSize": [
+        26,
+        32
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "water-cooler",
+      "label": "Water cooler",
+      "category": "Lounge",
+      "image": "v1/campus-props.png",
+      "crop": [
+        1038,
+        642,
+        160,
+        282
+      ],
+      "defaultSize": [
+        22,
+        36
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "whiteboard",
+      "label": "Whiteboard",
+      "category": "Meetings",
+      "image": "v1/campus-props.png",
+      "crop": [
+        38,
+        960,
+        252,
+        255
+      ],
+      "defaultSize": [
+        42,
+        44
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "rug",
+      "label": "Rug",
+      "category": "Lounge",
+      "image": "v1/campus-props.png",
+      "crop": [
+        329,
+        970,
+        286,
+        235
+      ],
+      "defaultSize": [
+        78,
+        48
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "floor",
+      "collision": null,
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "reception-desk",
+      "label": "Reception desk",
+      "category": "Workspaces",
+      "image": "v1/campus-props.png",
+      "crop": [
+        640,
+        982,
+        280,
+        204
+      ],
+      "defaultSize": [
+        64,
+        48
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "sofa",
+      "label": "Sofa",
+      "category": "Lounge",
+      "image": "v1/campus-props.png",
+      "crop": [
+        950,
+        1010,
+        274,
+        162
+      ],
+      "defaultSize": [
+        88,
+        52
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4aad722c140dab17cfffd79d9ce80a7ea9178ab2c271fb0dcce9a56686e6a138"
+    },
+    {
+      "id": "hacker-desk",
+      "label": "Hacker workstation",
+      "category": "Workspaces",
+      "image": "v1/hacker-desk.png",
+      "crop": [
+        147,
+        177,
+        963,
+        916
+      ],
+      "defaultSize": [
+        72,
+        64
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "e21f0091d14ed6a55f4482b15508fa388646855f5e51f804ccf7ff27af8d3efd"
+    },
+    {
+      "id": "arcade-cabinet",
+      "label": "Arcade cabinet",
+      "category": "Play",
+      "image": "v1/arcade-cabinet.png",
+      "crop": [
+        369,
+        89,
+        517,
+        1044
+      ],
+      "defaultSize": [
+        30,
+        60
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "15bc4e49a3641ce399b9fdf00f65a1a911d437fa1d815fe39be69ef950fdcc36"
+    },
+    {
+      "id": "yoga-mat",
+      "label": "Yoga mat",
+      "category": "Wellness",
+      "image": "v1/yoga-mat.png",
+      "crop": [
+        281,
+        168,
+        766,
+        916
+      ],
+      "defaultSize": [
+        32,
+        40
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "floor",
+      "collision": null,
+      "interaction": null,
+      "sha256": "73e6c0efa5842eed20a0144106d755361c7bed86e18345b4dcb93476176e24c0"
+    },
+    {
+      "id": "conference-screen",
+      "label": "Conference screen",
+      "category": "Meetings",
+      "image": "v1/conference-screen.png",
+      "crop": [
+        230,
+        78,
+        840,
+        1098
+      ],
+      "defaultSize": [
+        40,
+        52
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "4b3489d4d5193b5ae1695d4154fa0c9b1af5d4b081f6beab4a9a66efa6f2e0a0"
+    },
+    {
+      "id": "secret-bookshelf",
+      "label": "Secret bookshelf",
+      "category": "Secrets",
+      "image": "v1/secret-bookshelf.png",
+      "crop": [
+        263,
+        92,
+        729,
+        1040
+      ],
+      "defaultSize": [
+        36,
+        52
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": "white-construct",
+      "sha256": "fdf2fe3b437633a4ff0f913dd050870796c2e81f7e90f666ae990b2cf7377252"
+    },
+    {
+      "id": "burgundy-chair",
+      "label": "Burgundy chair",
+      "category": "Lounge",
+      "image": "v1/burgundy-chair.png",
+      "crop": [
+        226,
+        131,
+        802,
+        991
+      ],
+      "defaultSize": [
+        34,
+        42
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "5ffca2e22a006a4dabd0d3cbde9472f939333cfe9c41331a5a9712bbc8e3d47c"
+    },
+    {
+      "id": "crt-television",
+      "label": "CRT television",
+      "category": "Secrets",
+      "image": "v1/crt-television.png",
+      "crop": [
+        268,
+        244,
+        719,
+        821
+      ],
+      "defaultSize": [
+        34,
+        40
+      ],
+      "minSize": [
+        16,
+        16
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": [
+        0.12,
+        0.62,
+        0.76,
+        0.32
+      ],
+      "interaction": null,
+      "sha256": "7bd3c6970a1091f93737ef4707cf4352f3e795043225337a0a0b09bf969b4d93"
+    },
+    {
+      "id": "rubber-duck",
+      "label": "Debugging duck",
+      "category": "Secrets",
+      "image": "v1/rubber-duck.png",
+      "crop": [
+        380,
+        330,
+        541,
+        592
+      ],
+      "defaultSize": [
+        12,
+        14
+      ],
+      "minSize": [
+        8,
+        8
+      ],
+      "maxSize": [
+        128,
+        96
+      ],
+      "drawOrder": "prop",
+      "collision": null,
+      "interaction": "debug-duck",
+      "sha256": "62e5c757cd7fba556848d173f210bb36591222595d982330ca87d750bdeaa78f"
+    }
+  ],
+  "character": {
+    "frameSize": [
+      32,
+      48
+    ],
+    "footPivot": [
+      16,
+      44
+    ],
+    "frameDurationMs": 160,
+    "bodyPalette": [
+      "warm",
+      "deep",
+      "light",
+      "olive"
+    ],
+    "hair": [
+      "short",
+      "curly",
+      "long",
+      "bald"
+    ],
+    "hairPalette": [
+      "black",
+      "brown",
+      "gold",
+      "silver"
+    ],
+    "top": [
+      "tee",
+      "hoodie",
+      "jacket"
+    ],
+    "topPalette": [
+      "teal",
+      "orange",
+      "purple",
+      "cream"
+    ],
+    "trousersPalette": [
+      "slate",
+      "navy",
+      "brown"
+    ],
+    "accessory": [
+      "none",
+      "glasses"
+    ]
+  },
+  "avatarPresets": {
+    "founder-v1": {
+      "label": "Founder",
+      "image": "v1/founder-directions-v1.png",
+      "sha256": "f59b241622d9b11f1fad25b922f4d458aa656eef45f81ed4ed3161ad4f4426ad",
+      "frameSize": [
+        64,
+        96
+      ],
+      "worldSize": [
+        32,
+        48
+      ],
+      "footPivot": [
+        32,
+        88
+      ],
+      "frameDurationMs": 160,
+      "sourceScale": 0.32,
+      "frames": {
+        "front": {
+          "idle": {
+            "crop": [
+              96,
+              19,
+              136,
+              261
+            ],
+            "sourcePivot": [
+              68.0,
+              259
+            ]
+          },
+          "walk1": {
+            "crop": [
+              356,
+              19,
+              139,
+              261
+            ],
+            "sourcePivot": [
+              69.5,
+              259
+            ]
+          },
+          "walk2": {
+            "crop": [
+              626,
+              19,
+              142,
+              261
+            ],
+            "sourcePivot": [
+              71.0,
+              259
+            ]
+          },
+          "walk3": {
+            "crop": [
+              897,
+              19,
+              136,
+              261
+            ],
+            "sourcePivot": [
+              68.0,
+              259
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1167,
+              19,
+              140,
+              261
+            ],
+            "sourcePivot": [
+              70.0,
+              259
+            ]
+          }
+        },
+        "back": {
+          "idle": {
+            "crop": [
+              95,
+              296,
+              138,
+              256
+            ],
+            "sourcePivot": [
+              69.0,
+              254
+            ]
+          },
+          "walk1": {
+            "crop": [
+              361,
+              296,
+              139,
+              256
+            ],
+            "sourcePivot": [
+              69.5,
+              254
+            ]
+          },
+          "walk2": {
+            "crop": [
+              629,
+              297,
+              140,
+              255
+            ],
+            "sourcePivot": [
+              70.0,
+              253
+            ]
+          },
+          "walk3": {
+            "crop": [
+              893,
+              297,
+              143,
+              255
+            ],
+            "sourcePivot": [
+              71.5,
+              253
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1166,
+              296,
+              140,
+              256
+            ],
+            "sourcePivot": [
+              70.0,
+              254
+            ]
+          }
+        },
+        "left": {
+          "idle": {
+            "crop": [
+              96,
+              565,
+              138,
+              260
+            ],
+            "sourcePivot": [
+              69.0,
+              258
+            ]
+          },
+          "walk1": {
+            "crop": [
+              363,
+              565,
+              142,
+              260
+            ],
+            "sourcePivot": [
+              71.0,
+              258
+            ]
+          },
+          "walk2": {
+            "crop": [
+              625,
+              565,
+              143,
+              261
+            ],
+            "sourcePivot": [
+              71.5,
+              259
+            ]
+          },
+          "walk3": {
+            "crop": [
+              890,
+              565,
+              145,
+              261
+            ],
+            "sourcePivot": [
+              72.5,
+              259
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1160,
+              565,
+              143,
+              260
+            ],
+            "sourcePivot": [
+              71.5,
+              258
+            ]
+          }
+        },
+        "right": {
+          "idle": {
+            "crop": [
+              93,
+              833,
+              142,
+              262
+            ],
+            "sourcePivot": [
+              71.0,
+              260
+            ]
+          },
+          "walk1": {
+            "crop": [
+              356,
+              833,
+              145,
+              262
+            ],
+            "sourcePivot": [
+              72.5,
+              260
+            ]
+          },
+          "walk2": {
+            "crop": [
+              623,
+              833,
+              148,
+              262
+            ],
+            "sourcePivot": [
+              74.0,
+              260
+            ]
+          },
+          "walk3": {
+            "crop": [
+              887,
+              831,
+              149,
+              264
+            ],
+            "sourcePivot": [
+              74.5,
+              262
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1159,
+              832,
+              147,
+              263
+            ],
+            "sourcePivot": [
+              73.5,
+              261
+            ]
+          }
+        }
+      },
+      "attribution": "Original BeThereCentral founder identity; directional expansion generated with Codex built-in image generation, 12 October 2026. MIT project art. See docs/design/community-character-prompts.json."
+    },
+    "patch-v1": {
+      "label": "Patch",
+      "image": "v1/patch-directions-v1.png",
+      "sha256": "4ee6cf692b7150f96431e7027ac67d479dcddc9274cd457056c3c13b825e4b7c",
+      "frameSize": [
+        64,
+        96
+      ],
+      "worldSize": [
+        32,
+        48
+      ],
+      "footPivot": [
+        32,
+        88
+      ],
+      "frameDurationMs": 160,
+      "sourceScale": 0.32,
+      "frames": {
+        "front": {
+          "idle": {
+            "crop": [
+              92,
+              20,
+              141,
+              261
+            ],
+            "sourcePivot": [
+              70.5,
+              259
+            ]
+          },
+          "walk1": {
+            "crop": [
+              352,
+              21,
+              142,
+              261
+            ],
+            "sourcePivot": [
+              71.0,
+              259
+            ]
+          },
+          "walk2": {
+            "crop": [
+              623,
+              20,
+              144,
+              262
+            ],
+            "sourcePivot": [
+              72.0,
+              260
+            ]
+          },
+          "walk3": {
+            "crop": [
+              896,
+              21,
+              140,
+              261
+            ],
+            "sourcePivot": [
+              70.0,
+              259
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1162,
+              21,
+              145,
+              261
+            ],
+            "sourcePivot": [
+              72.5,
+              259
+            ]
+          }
+        },
+        "back": {
+          "idle": {
+            "crop": [
+              88,
+              292,
+              145,
+              261
+            ],
+            "sourcePivot": [
+              72.5,
+              259
+            ]
+          },
+          "walk1": {
+            "crop": [
+              352,
+              293,
+              148,
+              260
+            ],
+            "sourcePivot": [
+              74.0,
+              258
+            ]
+          },
+          "walk2": {
+            "crop": [
+              625,
+              293,
+              145,
+              260
+            ],
+            "sourcePivot": [
+              72.5,
+              258
+            ]
+          },
+          "walk3": {
+            "crop": [
+              890,
+              293,
+              147,
+              260
+            ],
+            "sourcePivot": [
+              73.5,
+              258
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1162,
+              293,
+              146,
+              259
+            ],
+            "sourcePivot": [
+              73.0,
+              257
+            ]
+          }
+        },
+        "left": {
+          "idle": {
+            "crop": [
+              93,
+              562,
+              141,
+              263
+            ],
+            "sourcePivot": [
+              70.5,
+              261
+            ]
+          },
+          "walk1": {
+            "crop": [
+              357,
+              562,
+              142,
+              262
+            ],
+            "sourcePivot": [
+              71.0,
+              260
+            ]
+          },
+          "walk2": {
+            "crop": [
+              623,
+              562,
+              141,
+              263
+            ],
+            "sourcePivot": [
+              70.5,
+              261
+            ]
+          },
+          "walk3": {
+            "crop": [
+              887,
+              564,
+              143,
+              261
+            ],
+            "sourcePivot": [
+              71.5,
+              259
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1159,
+              564,
+              144,
+              261
+            ],
+            "sourcePivot": [
+              72.0,
+              259
+            ]
+          }
+        },
+        "right": {
+          "idle": {
+            "crop": [
+              97,
+              831,
+              144,
+              265
+            ],
+            "sourcePivot": [
+              72.0,
+              263
+            ]
+          },
+          "walk1": {
+            "crop": [
+              360,
+              832,
+              145,
+              264
+            ],
+            "sourcePivot": [
+              72.5,
+              262
+            ]
+          },
+          "walk2": {
+            "crop": [
+              625,
+              832,
+              144,
+              264
+            ],
+            "sourcePivot": [
+              72.0,
+              262
+            ]
+          },
+          "walk3": {
+            "crop": [
+              892,
+              833,
+              145,
+              263
+            ],
+            "sourcePivot": [
+              72.5,
+              261
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1160,
+              832,
+              146,
+              264
+            ],
+            "sourcePivot": [
+              73.0,
+              262
+            ]
+          }
+        }
+      },
+      "attribution": "Original fictional Patch helper; built-in Codex image generation matching the original founder art family, 12 October2026. MIT project art. See docs/design/community-character-prompts.json."
+    },
+    "ninon-v1": {
+      "label": "Ninon",
+      "image": "v1/ninon-directions-v1.png",
+      "sha256": "470e65790fe939c8eedf4dffc53bf63f76da5bfda42f74213469e708c83a6373",
+      "frameSize": [
+        64,
+        96
+      ],
+      "worldSize": [
+        32,
+        48
+      ],
+      "footPivot": [
+        32,
+        88
+      ],
+      "frameDurationMs": 160,
+      "sourceScale": 0.32,
+      "frames": {
+        "front": {
+          "idle": {
+            "crop": [
+              96,
+              18,
+              140,
+              272
+            ],
+            "sourcePivot": [
+              70.0,
+              270
+            ]
+          },
+          "walk1": {
+            "crop": [
+              359,
+              18,
+              141,
+              271
+            ],
+            "sourcePivot": [
+              70.5,
+              269
+            ]
+          },
+          "walk2": {
+            "crop": [
+              622,
+              18,
+              144,
+              271
+            ],
+            "sourcePivot": [
+              72.0,
+              269
+            ]
+          },
+          "walk3": {
+            "crop": [
+              889,
+              19,
+              143,
+              271
+            ],
+            "sourcePivot": [
+              71.5,
+              269
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1159,
+              19,
+              145,
+              271
+            ],
+            "sourcePivot": [
+              72.5,
+              269
+            ]
+          }
+        },
+        "back": {
+          "idle": {
+            "crop": [
+              94,
+              297,
+              146,
+              257
+            ],
+            "sourcePivot": [
+              73.0,
+              255
+            ]
+          },
+          "walk1": {
+            "crop": [
+              358,
+              296,
+              146,
+              258
+            ],
+            "sourcePivot": [
+              73.0,
+              256
+            ]
+          },
+          "walk2": {
+            "crop": [
+              625,
+              296,
+              144,
+              258
+            ],
+            "sourcePivot": [
+              72.0,
+              256
+            ]
+          },
+          "walk3": {
+            "crop": [
+              888,
+              297,
+              145,
+              257
+            ],
+            "sourcePivot": [
+              72.5,
+              255
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1155,
+              297,
+              149,
+              257
+            ],
+            "sourcePivot": [
+              74.5,
+              255
+            ]
+          }
+        },
+        "left": {
+          "idle": {
+            "crop": [
+              99,
+              561,
+              142,
+              270
+            ],
+            "sourcePivot": [
+              71.0,
+              268
+            ]
+          },
+          "walk1": {
+            "crop": [
+              363,
+              561,
+              142,
+              270
+            ],
+            "sourcePivot": [
+              71.0,
+              268
+            ]
+          },
+          "walk2": {
+            "crop": [
+              628,
+              561,
+              144,
+              270
+            ],
+            "sourcePivot": [
+              72.0,
+              268
+            ]
+          },
+          "walk3": {
+            "crop": [
+              891,
+              561,
+              147,
+              270
+            ],
+            "sourcePivot": [
+              73.5,
+              268
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1162,
+              561,
+              144,
+              270
+            ],
+            "sourcePivot": [
+              72.0,
+              268
+            ]
+          }
+        },
+        "right": {
+          "idle": {
+            "crop": [
+              89,
+              833,
+              144,
+              261
+            ],
+            "sourcePivot": [
+              72.0,
+              259
+            ]
+          },
+          "walk1": {
+            "crop": [
+              352,
+              832,
+              148,
+              262
+            ],
+            "sourcePivot": [
+              74.0,
+              260
+            ]
+          },
+          "walk2": {
+            "crop": [
+              618,
+              832,
+              146,
+              262
+            ],
+            "sourcePivot": [
+              73.0,
+              260
+            ]
+          },
+          "walk3": {
+            "crop": [
+              882,
+              832,
+              151,
+              262
+            ],
+            "sourcePivot": [
+              75.5,
+              260
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1151,
+              832,
+              151,
+              262
+            ],
+            "sourcePivot": [
+              75.5,
+              260
+            ]
+          }
+        }
+      },
+      "attribution": "Original Ninon programme-guide pixel portrayal; public inclusion permission reported by user on 12 October 2026. Generated project art; reference photograph not distributed. See docs/design/community-character-prompts.json.",
+      "realPerson": true
+    },
+    "morgane-v1": {
+      "label": "Morgane",
+      "image": "v1/morgane-directions-v1.png",
+      "sha256": "ac7a3a067a78ae9902805b0c25a3c0ac4e8651712ab5c65859ccbc27eb0ced54",
+      "frameSize": [
+        64,
+        96
+      ],
+      "worldSize": [
+        32,
+        48
+      ],
+      "footPivot": [
+        32,
+        88
+      ],
+      "frameDurationMs": 160,
+      "sourceScale": 0.32,
+      "frames": {
+        "front": {
+          "idle": {
+            "crop": [
+              93,
+              29,
+              142,
+              252
+            ],
+            "sourcePivot": [
+              71.0,
+              250
+            ]
+          },
+          "walk1": {
+            "crop": [
+              355,
+              29,
+              140,
+              255
+            ],
+            "sourcePivot": [
+              70.0,
+              253
+            ]
+          },
+          "walk2": {
+            "crop": [
+              621,
+              29,
+              143,
+              254
+            ],
+            "sourcePivot": [
+              71.5,
+              252
+            ]
+          },
+          "walk3": {
+            "crop": [
+              893,
+              29,
+              138,
+              254
+            ],
+            "sourcePivot": [
+              69.0,
+              252
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1162,
+              29,
+              148,
+              253
+            ],
+            "sourcePivot": [
+              74.0,
+              251
+            ]
+          }
+        },
+        "back": {
+          "idle": {
+            "crop": [
+              94,
+              301,
+              142,
+              252
+            ],
+            "sourcePivot": [
+              71.0,
+              250
+            ]
+          },
+          "walk1": {
+            "crop": [
+              358,
+              301,
+              145,
+              252
+            ],
+            "sourcePivot": [
+              72.5,
+              250
+            ]
+          },
+          "walk2": {
+            "crop": [
+              627,
+              301,
+              147,
+              252
+            ],
+            "sourcePivot": [
+              73.5,
+              250
+            ]
+          },
+          "walk3": {
+            "crop": [
+              892,
+              301,
+              143,
+              252
+            ],
+            "sourcePivot": [
+              71.5,
+              250
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1164,
+              300,
+              146,
+              252
+            ],
+            "sourcePivot": [
+              73.0,
+              250
+            ]
+          }
+        },
+        "left": {
+          "idle": {
+            "crop": [
+              96,
+              565,
+              143,
+              260
+            ],
+            "sourcePivot": [
+              71.5,
+              258
+            ]
+          },
+          "walk1": {
+            "crop": [
+              359,
+              567,
+              143,
+              258
+            ],
+            "sourcePivot": [
+              71.5,
+              256
+            ]
+          },
+          "walk2": {
+            "crop": [
+              625,
+              566,
+              141,
+              259
+            ],
+            "sourcePivot": [
+              70.5,
+              257
+            ]
+          },
+          "walk3": {
+            "crop": [
+              888,
+              566,
+              140,
+              259
+            ],
+            "sourcePivot": [
+              70.0,
+              257
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1160,
+              566,
+              141,
+              259
+            ],
+            "sourcePivot": [
+              70.5,
+              257
+            ]
+          }
+        },
+        "right": {
+          "idle": {
+            "crop": [
+              96,
+              836,
+              143,
+              259
+            ],
+            "sourcePivot": [
+              71.5,
+              257
+            ]
+          },
+          "walk1": {
+            "crop": [
+              360,
+              836,
+              143,
+              259
+            ],
+            "sourcePivot": [
+              71.5,
+              257
+            ]
+          },
+          "walk2": {
+            "crop": [
+              627,
+              836,
+              146,
+              259
+            ],
+            "sourcePivot": [
+              73.0,
+              257
+            ]
+          },
+          "walk3": {
+            "crop": [
+              893,
+              836,
+              145,
+              259
+            ],
+            "sourcePivot": [
+              72.5,
+              257
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1167,
+              836,
+              143,
+              259
+            ],
+            "sourcePivot": [
+              71.5,
+              257
+            ]
+          }
+        }
+      },
+      "attribution": "Original Morgane programme-guide pixel portrayal; public inclusion permission reported by user on 12 October 2026. Generated project art; reference photograph not distributed. See docs/design/community-character-prompts.json.",
+      "realPerson": true
+    },
+    "architect-v1": {
+      "label": "The Architect",
+      "image": "v1/architect-directions-v1.png",
+      "sha256": "db1059c1f3ab284ae0ba99a411ae9692f4b51b733f8bb061cc53e1cc4fe282c7",
+      "frameSize": [
+        64,
+        96
+      ],
+      "worldSize": [
+        32,
+        48
+      ],
+      "footPivot": [
+        32,
+        88
+      ],
+      "frameDurationMs": 160,
+      "sourceScale": 0.32,
+      "frames": {
+        "front": {
+          "idle": {
+            "crop": [
+              63,
+              3,
+              156,
+              281
+            ],
+            "sourcePivot": [
+              78.0,
+              280
+            ]
+          },
+          "walk1": {
+            "crop": [
+              344,
+              3,
+              156,
+              281
+            ],
+            "sourcePivot": [
+              78.0,
+              281
+            ]
+          },
+          "walk2": {
+            "crop": [
+              618,
+              2,
+              153,
+              282
+            ],
+            "sourcePivot": [
+              76.5,
+              280
+            ]
+          },
+          "walk3": {
+            "crop": [
+              909,
+              2,
+              155,
+              282
+            ],
+            "sourcePivot": [
+              77.5,
+              282
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1183,
+              2,
+              154,
+              282
+            ],
+            "sourcePivot": [
+              77.0,
+              280
+            ]
+          }
+        },
+        "back": {
+          "idle": {
+            "crop": [
+              68,
+              284,
+              158,
+              276
+            ],
+            "sourcePivot": [
+              79.0,
+              274
+            ]
+          },
+          "walk1": {
+            "crop": [
+              353,
+              285,
+              156,
+              277
+            ],
+            "sourcePivot": [
+              78.0,
+              276
+            ]
+          },
+          "walk2": {
+            "crop": [
+              626,
+              284,
+              156,
+              278
+            ],
+            "sourcePivot": [
+              78.0,
+              277
+            ]
+          },
+          "walk3": {
+            "crop": [
+              910,
+              285,
+              159,
+              277
+            ],
+            "sourcePivot": [
+              79.5,
+              277
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1190,
+              284,
+              156,
+              278
+            ],
+            "sourcePivot": [
+              78.0,
+              278
+            ]
+          }
+        },
+        "left": {
+          "idle": {
+            "crop": [
+              58,
+              562,
+              160,
+              273
+            ],
+            "sourcePivot": [
+              80.0,
+              273
+            ]
+          },
+          "walk1": {
+            "crop": [
+              339,
+              562,
+              161,
+              273
+            ],
+            "sourcePivot": [
+              80.5,
+              273
+            ]
+          },
+          "walk2": {
+            "crop": [
+              613,
+              562,
+              160,
+              273
+            ],
+            "sourcePivot": [
+              80.0,
+              273
+            ]
+          },
+          "walk3": {
+            "crop": [
+              904,
+              562,
+              165,
+              273
+            ],
+            "sourcePivot": [
+              82.5,
+              273
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1183,
+              562,
+              162,
+              273
+            ],
+            "sourcePivot": [
+              81.0,
+              273
+            ]
+          }
+        },
+        "right": {
+          "idle": {
+            "crop": [
+              71,
+              835,
+              162,
+              271
+            ],
+            "sourcePivot": [
+              81.0,
+              269
+            ]
+          },
+          "walk1": {
+            "crop": [
+              351,
+              835,
+              164,
+              271
+            ],
+            "sourcePivot": [
+              82.0,
+              269
+            ]
+          },
+          "walk2": {
+            "crop": [
+              625,
+              835,
+              164,
+              271
+            ],
+            "sourcePivot": [
+              82.0,
+              269
+            ]
+          },
+          "walk3": {
+            "crop": [
+              912,
+              835,
+              168,
+              271
+            ],
+            "sourcePivot": [
+              84.0,
+              269
+            ]
+          },
+          "walk4": {
+            "crop": [
+              1191,
+              835,
+              165,
+              271
+            ],
+            "sourcePivot": [
+              82.5,
+              269
+            ]
+          }
+        }
+      },
+      "attribution": "Original The Architect pixel portrayal; user requested their own character on 12 October 2026, then bare wrists and clearer directional walking. Generated project art; reference photographs not distributed. See docs/design/community-character-prompts.json.",
+      "realPerson": true
+    }
+  }
+}

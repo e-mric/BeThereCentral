@@ -66,3 +66,11 @@ From More, open **Experimental → 3D exploration · sample** on mobile. The men
 Real campus capture remains conditional on building permission and privacy review. Phone installation/launch evidence is separate from emulator visual checks; the user verifies visible phone behavior.
 
 The decorative wall finish uses final facade/courtyard caps above partition tips at their junctions; the raw audit remains independent. See the [wall finish audit](assets/PARTITION_WALL_FINISH.md).
+
+## Community Studio and fictional game journey
+
+The separate SvelteKit Studio provides a local authoring workspace: categorized original prop thumbnails, a large room canvas and the selected item's properties. Preserve keyboard and numeric alternatives to dragging, visible selection, undo/redo and transactional import. Export is a local JSON download; Save is an explicit browser-local draft, not publishing. The trusted fictional outline stays fixed. Keep labels readable on short windows and stack panes where needed.
+
+Manual character creation should expose a large preview, labelled palette/hair/clothing options, and front/back/side idle/walk previews. One supported learning challenge has two clues, three answers, hint, explanation and a single reward. Positions are fictional game coordinates. Validation should identify unreachable or blocked interactions before export.
+
+The standalone Godot game reads the same package independently. Test author → export → open → walk → inspect clues → answer/retry → reward → secret → return, plus local progress reload/reset. The bookshelf's white Construct is a fictional hidden realm with two original burgundy chairs and a CRT. Return and Escape must always work and preserve source-room/quest state. The debugging duck is a harmless built-in discovery. None of these props imply real campus equipment, doors, routes or resident likenesses. Record browser and Godot desktop evidence separately from Compose emulator/phone evidence.

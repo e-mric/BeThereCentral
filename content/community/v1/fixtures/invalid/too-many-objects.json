@@ -1,0 +1,293 @@
+{
+  "packageVersion": 1,
+  "packageId": "betherecentral.sample-room",
+  "contentRevision": 1,
+  "features": [
+    "rooms-v1"
+  ],
+  "assets": [
+    {
+      "id": "campus-props-atlas",
+      "type": "image-atlas",
+      "path": "composeApp/src/commonMain/composeResources/drawable/campus_props.png",
+      "mimeType": "image/png",
+      "license": "MIT",
+      "attribution": "BeThereCentral project; original generated pixel-art atlas. See docs/design/generation-prompts.md and docs/assets/PIXEL_ART.md."
+    }
+  ],
+  "attribution": [
+    {
+      "id": "betherecentral-sample-room",
+      "text": "Fictional BeThereCentral Room Studio sample. Room layout and company label are illustrative and are not mapped to a real tenant room."
+    }
+  ],
+  "room": {
+    "schemaVersion": 1,
+    "companyName": "Your company",
+    "room": {
+      "id": "studio-demo",
+      "width": 320,
+      "height": 224,
+      "polygon": [
+        [
+          24,
+          0
+        ],
+        [
+          296,
+          0
+        ],
+        [
+          320,
+          24
+        ],
+        [
+          320,
+          200
+        ],
+        [
+          296,
+          224
+        ],
+        [
+          24,
+          224
+        ],
+        [
+          0,
+          200
+        ],
+        [
+          0,
+          24
+        ]
+      ]
+    },
+    "objects": [
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "desk-1",
+        "kind": "desk",
+        "x": 47,
+        "y": 45,
+        "width": 72,
+        "height": 38
+      },
+      {
+        "id": "plant-1",
+        "kind": "plant",
+        "x": 262,
+        "y": 44,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "sofa-1",
+        "kind": "sofa",
+        "x": 163,
+        "y": 133,
+        "width": 91,
+        "height": 43
+      },
+      {
+        "id": "rug-1",
+        "kind": "rug",
+        "x": 44,
+        "y": 132,
+        "width": 78,
+        "height": 48
+      }
+    ]
+  }
+}

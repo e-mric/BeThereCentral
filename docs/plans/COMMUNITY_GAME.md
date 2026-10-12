@@ -1,50 +1,51 @@
 # Community game implementation plan
 
-12 October 2026 · Written proposal · Game and Community Studio implementation on hold
+12 October 2026 · Stage 1 implementation resumed · No resident feedback collected
 
 ## The idea and the first useful experiment
 
 BeThereCentral should let people discover the BeCentral community through a pixel-art game: explore companies and projects, meet characters, complete small quests, puzzles and learning challenges, then contribute something themselves. A simple browser Studio should eventually let people shape a fictional space, create their character and author supported challenges. Learning happens both by playing and by helping build the project through coding, design, pixel art, AI-assisted work or storytelling. Beginners should have a complete small contribution they can make; experienced contributors should have clear review and extension paths.
 
-The first experiment is deliberately one room: explore, meet one approved character, discover one approved project, complete one short learning challenge and receive a visible reward. A contributor can then change that room or challenge, preview it and export a working content package. This tests the full play–learn–contribute loop before investing in a whole campus or a publishing service. The precise learning topic and project are not selected yet; no tenant mission or personal biography is invented by this plan.
+The active first experiment is a bounded fictional room package authored in SvelteKit and opened in Godot, with independent validation at both ends. Once that handoff is established, the default next playable experiment is a small open-source contribution task using sample content. A broader explore–meet–learn–reward–contribute loop can follow evidence; the precise learning topic and project are not set, and this plan invents no tenant mission or personal biography.
 
 ## Current state and authorization boundary
 
-| Available now | Planned after the feedback gate |
+| Current or in progress | Later scope |
 | --- | --- |
 | Compose Plan World: five schematic floors, directory/search and place guide | Standalone Godot gameplay, movement, dialogue, learning challenges and local progress |
 | Authored reusable floor decoration in source; approximate source-plan anchors | Playable scenes with separately authored fictional collision and interactions |
-| Separate local Vite/PixiJS Room Studio and transient Compose preview | SvelteKit Community Studio for rooms, characters and supported quests |
-| Manual JSON handoff for one fictional room | Independently validated, versioned game content packages |
+| Separate local Vite/PixiJS Room Studio and transient Compose preview | Later SvelteKit authoring for characters and supported quests |
+| Stage 1 `rooms-v1` package contract and fixtures | Further package features for characters, quests and progress |
+| SvelteKit 3.0.1 fictional room editor and Godot 4.7.2 desktop preview in progress | Mobile game targets, gameplay, resident content and publishing |
 | Open repository and development documentation | Guided contribution lessons and reviewed community content |
 
-Godot and SvelteKit are selected, not implemented replacements. The [technical plan](GODOT_SVELTEKIT.md) and [ADR 0008](../adr/0008-godot-game-sveltekit-studio.md) remain authoritative for architecture. The current Room Studio fixture is a starting point, not an existing character/quest standard. The unrelated licensed 3D engine-room sample is an Experimental viewer, not a BeCentral capture or evidence of game progress; its separately authorized menu exposure and Android installation do not resume this plan.
+The user explicitly resumed the community implementation plan on 12 October with Stage 1. No resident feedback has been collected. This first slice uses a fictional sample and does not depend on resident participation. The [technical plan](GODOT_SVELTEKIT.md) and [ADR 0008](../adr/0008-godot-game-sveltekit-studio.md) remain authoritative for architecture. The existing Room Studio fixture is a starting point, not a character/quest standard. The unrelated licensed 3D engine-room sample remains a separate Experimental viewer, not a BeCentral capture or evidence of game progress; its menu exposure and Android installation are independent.
 
-Before Stage 1, record resident feedback, revise the PRD and plans, and obtain the user's explicit instruction to resume game/Studio implementation. Feedback arriving alone does not open this gate. Planning does not authorize engine projects, dependencies, scaffolding, production assets, accounts or publishing. Existing authorized Compose map work can continue independently.
+The map remains in Compose. Later stages may use optional resident feedback to refine the experience, but feedback is not a gate for this authorized fictional implementation. Real-person portrayals, resident introductions, tenant facts, accounts and public publishing require their own approval and scope.
 
-## Stage 0 — agree on one learning moment
+## Stage 0 — optional discovery for later stages
 
 **Problem:** the public idea invites many kinds of participation but does not establish which experience residents actually want. **Experiment:** discuss the one-room loop with 5–8 consenting residents or classmates, including beginners and prospective content contributors. Use the existing map and room prototype as clearly labelled references, not as a playable-game demonstration.
 
 Record whether people want to play, explain their project, portray themselves, decorate a space or contribute a particular skill; ask what they would want a visitor to learn. Capture anonymous task notes and disagreements. Photos, accounts and movement logs are unnecessary. Select one content owner, one learning outcome, one challenge format, a short completion-time target and intended test devices. Agree measurable usability and performance targets before implementation; do not infer success from this proposal.
 
-**Exit evidence:** a short findings record, a revised PRD/backlog and explicit user resumption. A willing participant's portrayal approval is separate from their permission to distribute assets or introductions. If feedback rejects the first room or learning topic, revise the proposal before building it.
+**Use:** findings can refine the Stage 2 challenge, success measures and later content decisions. No feedback has been collected as of 12 October. A participant's portrayal approval remains separate from permission to distribute assets or introductions.
 
-## Stage 1 — edit a room and open it in the game
+## Stage 1 — contract-first room handoff
 
-**Depends on:** Stage 0. **Problem:** a contributor needs confidence that their simple space survives the handoff from editor to game. **Experiment:** one bounded fictional room in SvelteKit Studio, using licensed reusable props, exports to a standalone Godot scene. Retain the current prototypes during evaluation; choose exact compatible tool versions at this stage.
+**Status:** implementation resumed 12 October; the contract and both consumers are in the current slice. **Problem:** a contributor needs confidence that a simple space survives the handoff from editor to game. **Experiment:** one bounded fictional room in SvelteKit Studio exports a portable package consumed by a standalone Godot desktop preview. Use the existing licensed project atlas; retain Compose, Vite/PixiJS and the unrelated Experimental 3D sample. The current versions are SvelteKit 3.0.1 and Godot 4.7.2.
 
-The author changes a sign, adds/moves/removes furniture, uses undo/redo, saves locally and imports/exports a package. Keep the outline fixed for this first slice. Keyboard controls and property fields provide an alternative to dragging. Loading, validation failures and reset must be understandable.
+The `rooms-v1` envelope is frozen at seven fields: package version/ID/revision, declared features, trusted asset catalog, attribution and one room scene. The shared validator enforces a 65,536-byte limit, exact keys/feature version, safe IDs, text/geometry bounds, unique object IDs, the 24-object cap, and trusted local asset identifiers. JSON remains declarative; imported paths, URLs and executable resources are not loaded. The author can change a company sign, add/move/remove furniture, undo/redo, save locally and import/export. The room outline is fixed. Keyboard controls and numeric position fields provide alternatives to dragging; invalid loads leave the last valid room unchanged.
 
-**Acceptance:** the same IDs, sign and visible placements survive Studio → package → Godot; malformed or oversized imports cannot replace the last valid scene. Both consumers reject unsupported versions, duplicate IDs, broken references and unsafe paths/types against common fixtures. Inspect actual browser and Godot screens and document the first measured performance baseline. A clean checkout can run the fictional sample from documented commands without a paid AI account. Deliver a beginner lesson: decorate the sample, export it and explain one validation error.
+**Acceptance:** the same IDs, sign and placements survive Studio → package → Godot. Both consumers independently reject unsupported versions, duplicate IDs, unknown fields/features, malformed or oversized data, and untrusted asset references against common fixtures. Inspect actual browser and Godot screens; record desktop evidence and do not imply mobile support. A clean checkout can run the fictional sample from documented commands without a paid AI account. Provide a beginner lesson to decorate, export and explain one validation error.
 
-## Stage 2 — play one learning challenge
+## Stage 2 — default fictional open-source contribution challenge
 
-**Depends on:** Stage 1 and approved challenge content. **Problem:** reading a directory is different from learning through play. **Experiment:** one controllable avatar meets one approved NPC, reads a short project introduction, completes a bounded challenge and sees one reward. Use a fictional character if no person has approved representation.
+**Default unless the user gives a different preference:** make the first challenge teach one small open-source contribution using fictional sample content, such as finding and correcting a bounded room/package issue, then previewing and explaining the change. This avoids requiring resident feedback, a real company project or a real-person portrayal. **Problem:** package authoring and review are easier to learn when tied to a visible outcome. **Experiment:** a Godot avatar follows a short fictional contribution task, receives a hint, completes the stated condition and sees one reward.
 
-Choose one initial template after feedback, for example inspect two project clues and answer a question, or put a small set of steps in order. Offer hints, retry and an explanation of the answer. Keep dialogue and objectives declarative; do not execute player-supplied code. Additional puzzle templates follow evidence rather than being prerequisites.
+Offer retry and an explanation of the result. Keep dialogue and objectives declarative; do not execute player-supplied code. Resident, tenant or project-specific material requires later approval. Additional challenge templates follow evidence rather than being prerequisites.
 
-**Acceptance:** keyboard and touch movement, layering, collision, all directional idle/walk animations and dialogue are understandable on rendered screens. Completion requires its stated condition; retries and save/reload cannot duplicate the reward. Local progress is versioned, minimal, resettable and separate from content. A player can describe the intended learning outcome after the task, and the content owner verifies accuracy. Record named Android and iOS test targets independently, explicitly marking any unverified target. Deliver a storytelling lesson that changes a clue and explanation within the supported template.
+**Acceptance:** keyboard movement, layering, collision and task dialogue are understandable on rendered desktop screens; touch/mobile targets are assessed separately before being claimed. Completion requires its stated condition; retries and save/reload cannot duplicate the reward. Local progress is versioned, minimal, resettable and separate from content. A player can explain the open-source contribution step after the task. Deliver a beginner lesson that changes a sample clue or room detail within the supported workflow.
 
 ## Stage 3 — create a character and author a challenge
 
@@ -64,12 +65,12 @@ Run the complete enter → discover → learn → reward → edit → export →
 
 ## Proposed content and trust boundary
 
-These are design requirements for the future contract, not files or schemas already implemented. Set exact bounds in Stage 1 and extend them only with fixtures and compatibility tests.
+The package and room records in `content/community/v1/` implement the Stage 1 subset: one room, a trusted local asset catalog and attribution. Character, quest, company/project and progress records below describe future contract additions. Define their bounds and compatibility only when the corresponding stage is scoped, with fixtures and independent consumer validation.
 
 | Record | Minimum responsibility and validation |
 | --- | --- |
-| Package | Schema/content versions, stable IDs, asset manifest, attribution and compatibility rules; reject unknown required features before loading |
-| Room | Bounded decoration, spawn points, fictional collision and interactions; source-plan geometry and optional approved place association remain separate |
+| Package | Stage 1 v1 envelope has package/version IDs, features, asset catalog, attribution and one room; later versions may add reviewed records while preserving compatibility |
+| Room | Stage 1 supports bounded decoration and a fixed fictional outline; future spawn points, collision and interactions remain separate from source-plan geometry |
 | Company/project introduction | Stable identity, supplied description, attributed source, content owner and review date/status; do not infer current occupancy or an endorsement from a plan name |
 | Character | Approved display name/introduction, modular choices, portrait and directional animation references; optional project/quest role without requiring real identity or a photo |
 | Quest/challenge | Learning objective, approved subject matter, supported objectives/conditions, hints, explanation, reward and tested state transitions; no arbitrary scripts |
@@ -101,3 +102,17 @@ Avoid publishing contributor identities or content without approval. Track learn
 Implement each resumed stage as small runnable changes with feature-matched behavioral tests, affected documentation and changelog updates. Record commands actually run and their outcomes in [verification status](../testing/STATUS.md). Each user-facing slice needs review of its actual screens and complete journey; compilation or renderer-ready output alone is insufficient. Keep browser, emulator/simulator and physical-device evidence separate. The user's phone permits ordinary ADB install/launch and narrow crash diagnostics only; the user verifies visible behavior unless they authorize another inspection method.
 
 The first delivery excludes multiplayer, live positioning, real routes, arbitrary user scripting, AI dialogue, external generation, cloud accounts and automatic publishing. These can receive later proposals if feedback justifies them. This plan completes the written planning request; it does not claim any future stage has shipped or passed testing.
+
+## 12 October asset and playable-slice amendment
+
+The user requested original coworking props, a Studio design reference pass and Easter eggs, including a hidden entrance to a white Construct room. The active next slice keeps v1 frozen and adds a separate v2 catalog and contract. The shared catalog contains sixteen existing props plus hacker workstation, arcade cabinet, yoga mat, conference screen, secret bookshelf, burgundy chair, CRT and debugging duck. These are fictional decorations, never assertions about real tenant equipment or entrances.
+
+The browser Studio uses a responsive three-pane workspace inspired by the inspected Rive/Figma references: categorized thumbnails, central room canvas and editable properties. Manual character options and one supported learning template follow through the same validated export. The default activity teaches a first open-source contribution using two clues, three answers, a hint, an explanation and one reward. A v1 room can migrate to room-only v2; migration must not invent gameplay spawn points or personal profiles.
+
+Godot validates v2 independently. Fictional movement uses six-pixel player clearance and trusted furniture footprints; a bounded four-pixel grid checks required interaction reachability. The hidden bookshelf opens only the bundled white Construct realm. A persistent Return action and Escape preserve room state, quest progress and a safe return point. The two burgundy chairs/CRT use original assets; no film footage, actors or dialogue are shipped. The debugging duck supplies a small built-in interaction. Content cannot specify scripts, resource paths or arbitrary destinations.
+
+Before calling this slice complete, run the author → edit → export → play → inspect clues → answer/retry → reward → secret → return journey on actual browser and Godot screens. Verify undo/redo, local save/reload, rejected import, character facing/walk states, collision, progress reset and no duplicated rewards. Browser editing remains unverified until this interaction check succeeds. Desktop game evidence does not establish mobile support. No resident study has been conducted. Public portrayal permission for Ninon/Morgane was reported by the user, who also requested their own character as The Architect; photographs remain outside the repository and personal introductions empty.
+
+## Current verification boundary
+
+The fictional v2 development slice now includes original Founder/Patch presets as well as custom modular appearances, 24 props, character/activity authoring, independent Godot validation, local progress, clue journal and the white Construct. The recognizable existing founder identity is retained in new directional source art. Automated consumer/frame checks and the Godot desktop walkthrough are recorded in testing status. The actual Chrome room edit/save/reload, approved portrait selection, activity title edit and downloaded package→Godot handoff now have rendered evidence. Browser file-import UI and assistive-technology verification remain outstanding. Resident discovery and reviewed factual community introductions remain uncollected; the three authorized pixel portrayals are included separately.

@@ -1,0 +1,1 @@
+campus_props.png is copied byte-for-byte from ../composeApp/src/commonMain/composeResources/drawable/campus_props.png (1254x1254 RGBA), original generated BeThereCentral pixel-art atlas, MIT. Generation direction and project attribution: docs/design/generation-prompts.md; docs/assets/PIXEL_ART.md.

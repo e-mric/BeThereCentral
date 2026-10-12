@@ -1,20 +1,20 @@
 # Godot game and SvelteKit Studio plan
 
-8 October 2026 · Direction agreed; implementation on hold pending resident input.
+8 October 2026 · Direction agreed · Stage 1 resumed 12 October 2026
 
-Updated 12 October 2026: the [community game implementation plan](COMMUNITY_GAME.md) develops the public idea into a play–learn–contribute journey, dependent stages, content ownership and contribution lessons. This document retains the selected architecture and technical acceptance checks. Both plans share the same feedback/resumption gate; neither authorizes implementation. The separate request to expose the existing unrelated 3D sample under Experimental and install the Android app is outside the game/Studio migration.
+Updated 12 October 2026: the [community game implementation plan](COMMUNITY_GAME.md) develops the public idea into a play–learn–contribute journey, dependent stages, content ownership and contribution lessons. The user explicitly resumed implementation with Stage 1, beginning with the shared `rooms-v1` contract. No resident feedback has been collected; it may shape later stages but is not required for this fictional handoff. The separate Experimental 3D sample and existing Android app remain independent.
 
 ## Problem and experiment
 
-Residents should be able to recognize their community, play short learning quests and contribute original rooms and characters. The next proposed experiment is one fictional room, one controllable avatar, one approved resident/classmate NPC, one conversation, one short learning/discovery quest and one visible reward. This tests whether playing and authoring are enjoyable before expanding to the campus.
+Contributors should be able to author a bounded fictional room and open it in the standalone game. Stage 1 implements the portable handoff before gameplay: one room, one company sign, a small furniture set and a shared validator contract consumed independently by SvelteKit and Godot. A fictional open-source contribution challenge is the default next learning experiment if the user gives no other preference.
 
-**9 October scope amendment:** the user separately authorized work on the existing map, starting with reusable ground-floor assets. That map-only slice can proceed in Compose; the game and Studio work below remains on hold.
+**9 October scope amendment:** the user separately authorized work on the existing map, starting with reusable ground-floor assets. That map work remains in Compose.
 
-**Do not begin game/Studio implementation from this plan.** The user explicitly wants resident input first because it may change the PRD. Writing, reviewing, committing and pushing these planning documents does not authorize scaffolding, migration, dependency changes or implementation.
+**12 October resumption:** the user explicitly authorized Stage 1 community implementation after the planning work. Resident feedback remains an optional input for later scope; none has been collected.
 
 ## Agreed direction and open choices
 
-| Agreed | Provisional until feedback and revised PRD |
+| Agreed | Later decisions and stages |
 | --- | --- |
 | Godot for the open-source game | Exact first quest, learning objective and reward |
 | SvelteKit for browser Studio | Editor layout, roster and content workflow |
@@ -27,24 +27,24 @@ The open-source learning platform has two intended audiences: players learn thro
 
 The proposed public experience includes discovering approved company/project introductions, making a character, editing a simple fictional space and completing quests, puzzles or learning challenges. Start with one supported challenge template and manual creation. The [community plan](COMMUNITY_GAME.md#learning-to-contribute-at-different-levels) makes coding, design, pixel art, storytelling and optional AI-assisted contribution paths explicit for beginners and experienced contributors.
 
-## Gate 0 — resident input before any implementation
+## Stage 0 — optional discovery for later stages
 
 1. Collect resident/classmate feedback on the useful learning moments, proposed quest, desired self-representation, editing needs and mobile use. Use voluntary, minimal notes; do not collect movement histories or require photos.
 2. Record the input, unresolved disagreements and proposed scope changes. Separate a person's approval of their portrayal from permission to publish their assets or personal introduction.
 3. Revise `docs/PRD.md`, this plan and the backlog together. Define the first learning outcome, success criteria, content owner, representation permissions and deferred features.
-4. Obtain the user's explicit instruction to resume implementation against that revised scope. Resident feedback arriving by itself does not open this gate.
+4. If findings materially change scope, agree with the user on the next slice before expanding beyond the already authorized Stage 1. Do not add personal or tenant content without its separate approvals.
 
-Until all four steps are complete, this plan permits only authorized planning/documentation work. The separately authorized existing-map asset slice may change map code/assets; it does not permit engine projects, Studio migration, gameplay or character creation.
+This stage is optional for the fictional Stage 1 handoff. No resident feedback has been collected as of 12 October 2026. Use later findings to revise challenge choice, usability targets and product scope; do not treat feedback as authorization or as a prerequisite for the already resumed Stage 1.
 
-## Intended architecture after the gate
+## Intended architecture
 
 Godot owns playable scenes, movement, fictional collision, interaction, dialogue, animation, bounded quest state and local progress. Begin with a standalone Godot project so its behavior can be assessed independently. Embedding it in Compose is not promised; replacement or integration needs a later decision supported by mobile evidence.
 
-SvelteKit owns the browser authoring application: forms, navigation, validation feedback, asset selection and import/export. It is not the game renderer. The existing PixiJS room canvas may be reused as a client-only preview if useful; evaluate that after the gate rather than assuming SvelteKit requires a new canvas engine. Server-side rendering must not instantiate browser-only rendering code.
+SvelteKit owns the browser authoring application: forms, navigation, validation feedback, asset selection and import/export. It is not the game renderer. The current Stage 1 Studio uses its own canvas preview. Server-side rendering must not instantiate browser-only rendering code.
 
 Keep modules organized around room authoring, character authoring, quests, content validation and game behavior. Pure validation and quest rules stay independent of UI, platform APIs and transport. Reuse fixtures and contract tests across consumers where practical; do not introduce shared layers without a concrete purpose.
 
-The current Compose Plan World, Compose Studio preview, Vite/PixiJS editor and separate licensed splat viewer remain runnable references. Preserve their present behavior and provenance; the Godot selection does not describe a completed migration. Pick and pin compatible engine, export-template, framework and toolchain versions only when implementation starts.
+The current Compose Plan World, Compose Studio preview, Vite/PixiJS editor and separate licensed splat viewer remain separate runnable projects. Preserve their behavior and provenance; the Godot selection does not describe a completed migration. Stage 1 uses Godot 4.7.2 and SvelteKit 3.0.1. Mobile export templates and toolchains are not yet part of the claimed target.
 
 ## Browser framework alternative: Compose Multiplatform
 
@@ -54,35 +54,35 @@ For this proposal, recommend SvelteKit: browser Studio has a different job from 
 
 The tradeoff is maintaining a web stack alongside Godot and, temporarily, the existing Kotlin prototype. Share portable content and conformance fixtures rather than promising a single UI or executable codebase. Do not create a new Kotlin bridge solely to reuse a small validator. Revisit this choice if resident feedback prioritizes the same native/browser editor, an offline native Studio, or a Kotlin-only contributor team. Accessibility, browser support and performance still require testing whichever framework is chosen. Browser gameplay, if later requested, is a separate Godot-export decision; SvelteKit does not replace the game engine.
 
-Sources: [Compose shared UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html), [SvelteKit introduction](https://svelte.dev/docs/kit/introduction). Framework capabilities are sourced; suitability for this project is an architectural judgment.
+Sources: [Compose shared UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html), [SvelteKit introduction](https://svelte.dev/docs/kit/introduction). Framework capabilities are sourced; suitability for this project is an architectural judgment. The selected [Mobbin references](../design/MOBBIN_REFERENCES.md) guide original UI patterns and are not source assets.
 
 ## Portable content boundary
 
-Design a documented, versioned data package with stable IDs and explicit references between rooms, characters, quests and assets. The existing room JSON is a starting fixture, not already a complete game-content standard. Preserve its current consumers until an explicit compatibility/migration path exists.
+The Stage 1 contract is implemented and documented in [`content/community/v1`](../../content/community/v1/README.md). It carries one bounded fictional room with stable IDs, attribution and references into a pinned local asset catalog. It is not the future full game-content standard. Extend it only with a versioned compatibility plan and fixtures for each consumer.
 
 - Rooms describe fictional decoration, spawn/interaction points and game collision separately from source-plan geometry. Any association with a real place is optional and requires approved mapping.
 - Characters describe approved display name/introduction, modular appearance choices, portrait reference, directional idle/walk sprite references and optional quest roles.
 - Quests use a small declarative set of objectives, dialogue choices, completion conditions and rewards. Content imports cannot introduce arbitrary scripts or executable engine resources.
 - Assets carry stable references, type, dimensions/frame layout, provenance, licence and distribution permission. Specify palette, frame dimensions, directional coverage and foot pivots before producing animation sets.
-- Define finite limits for package bytes, object counts, coordinates, text lengths, image dimensions, frames and quest transitions in the revised contract. Reject unsupported versions, duplicate IDs, dangling references, disallowed paths/types and out-of-range data.
+- The current contract limits input to 65,536 UTF-8 bytes and room furniture to 24 objects, with bounded text/geometry and safe IDs. Future package features must add explicit limits for image dimensions, animation frames and quest transitions before those features are accepted. Reject unsupported versions, duplicate IDs, unknown fields/features, untrusted asset references and out-of-range data.
 - Validate in Studio for clear author feedback and independently in the Godot client before loading. An exported file is untrusted input; Studio validation does not replace runtime validation. Invalid imports must leave the last valid scene intact.
 - Test valid round trips, supported migrations and rejected malformed/oversized packages against common fixtures. Save progress separately from authored content, with explicit version handling and reset behavior.
 
 Source-plan pixels, approximate anchors and fictional collision remain separate datasets. Collision that makes a game walkable does not establish physical corridors, entrances, measured routes or step-free access. Retain the unplaced/uncertain directory entries and the source-grounding constraints of ADR 0006.
 
-## Runnable slices after explicit resumption
+## Runnable slices
 
-### Slice 1 — one room from Studio to Godot
+### Slice 1 — contract-first room handoff (active)
 
-Problem: an author needs confidence that a saved room renders consistently in the game. Experiment: move bounded furniture, edit a sign, export a package and load that same fictional room in a standalone Godot scene.
+Problem: an author needs confidence that a saved room renders consistently in the game. Experiment: use the frozen `content/community/v1/rooms-v1` contract to move bounded furniture, edit a sign, export a package and load that same fictional room in the standalone Godot desktop scene.
 
-Acceptance: the valid fixture preserves IDs and visible placement through export/import; invalid content reports useful errors without replacing the last valid room. Inspect the actual SvelteKit browser editor and Godot scene. Keep the existing prototypes runnable. Choose test-device and performance budgets with the revised PRD, then record a baseline instead of claiming unmeasured performance.
+Acceptance: the valid fixture preserves IDs and visible placement through export/import; invalid content reports useful errors without replacing the last valid room. Both validators enforce the same contract against common valid/invalid fixtures. Inspect actual browser and Godot desktop screens. Keep the existing prototypes runnable. Record evidence for each target separately; do not claim mobile support based on the desktop preview.
 
-### Slice 2 — walk, meet one NPC and complete one learning quest
+### Slice 2 — fictional open-source contribution challenge
 
-Problem: a room must support an understandable, enjoyable learning interaction. Experiment: one avatar walks to one approved NPC, reads a portrait-led conversation, completes one bounded task and receives one reward.
+Default if the user gives no other preference: teach one small open-source contribution using fictional sample content. Problem: contributors need a visible first result and a clear way to understand review. Experiment: one avatar completes a bounded room/package editing task with a hint, retry, explanation and one reward.
 
-Acceptance: directional idle/walk animation, foot placement, layering and collision read correctly; keyboard and touch controls work; dialogue is readable; the quest cannot complete before its condition or grant duplicate rewards. Local save/reload and reset behave predictably. Observe participants explaining what they learned. Inspect named Android and iOS targets separately; record unsupported or unverified targets honestly.
+Acceptance: animation, foot placement, layering, collision and keyboard controls read correctly on rendered desktop screens; touch and mobile targets are separately assessed before claims. The task cannot complete before its condition or grant duplicate rewards. Local save/reload and reset behave predictably. A player can explain the contribution step. Use no real tenant or resident content without approval.
 
 ### Slice 3 — manual character creator and reviewed quest authoring
 
@@ -106,10 +106,10 @@ Ship a small fictional sample pack and a documented exercise with each useful ca
 
 Manual modular creation comes first. Optional photo-assisted AI generation is a later, separately scoped experiment requiring explicit consent, a chosen processing provider, clear upload/retention/deletion behavior and review of outputs. Keep source photos and unapproved personal material out of the public repository. Generated portraits must still be converted into coherent, reviewed animation assets before gameplay use.
 
-The code's MIT licence does not automatically cover supplied plans, portraits, sprite packs, music or third-party scenes. Maintain per-asset provenance and distribution terms; artistic references are inspiration, not asset sources. Define how approved personal content is withdrawn from future distributed versions without promising erasure from copies already downloaded.
+The code's MIT licence does not automatically cover supplied plans, portraits, sprite packs, music or third-party scenes. Maintain per-asset provenance and distribution terms; artistic references are inspiration, not asset sources. The [Mobbin references](../design/MOBBIN_REFERENCES.md) guide original UI patterns only; do not copy their screenshots or third-party sprites into the asset pack. Define how approved personal content is withdrawn from future distributed versions without promising erasure from copies already downloaded.
 
 Accounts, cloud publishing, multiplayer, AI dialogue, external generation, analytics and real-world positioning are outside the first proposal. Keep local progress minimal and resettable; no location history by default, no external location upload without explicit consent, and no E2EE claim without implementation and review.
 
 ## References and decision
 
-Technical direction is recorded in [ADR 0008](../adr/0008-godot-game-sveltekit-studio.md). These official references describe capabilities, not completed repository integration: [Godot 2D](https://docs.godotengine.org/en/stable/tutorials/2d/index.html), [Android export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html), [iOS export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_ios.html), and [SvelteKit introduction](https://svelte.dev/docs/kit/introduction) (framework reference only). Reviewed 8 October 2026; recheck toolchain requirements when implementation is authorized.
+Technical direction is recorded in [ADR 0008](../adr/0008-godot-game-sveltekit-studio.md). Official references describe capabilities, not repository integration: [Godot 2D](https://docs.godotengine.org/en/stable/tutorials/2d/index.html), [Android export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html), [iOS export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_ios.html), and [SvelteKit introduction](https://svelte.dev/docs/kit/introduction). Godot mobile export remains unverified.

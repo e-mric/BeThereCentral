@@ -1,0 +1,33 @@
+{
+  "valid": [
+    "package-v2.json",
+    "package-play-learn-v2.json",
+    "all-props-v2.json",
+    "upgraded-v1.json",
+    "package-founder-v2.json",
+    "package-founders-v2.json",
+    "package-ninon-v2.json",
+    "package-morgane-v2.json",
+    "package-architect-v2.json"
+  ],
+  "invalid": [
+    "unknown-root-field.json",
+    "unknown-nested-field.json",
+    "bad-version.json",
+    "bad-feature.json",
+    "bad-catalog.json",
+    "bad-attribution.json",
+    "bad-prop-kind.json",
+    "bad-prop-dimensions.json",
+    "bad-character-enum.json",
+    "bad-character-reference.json",
+    "bad-quest-counts.json",
+    "bad-answer-reference.json",
+    "bad-gameplay-reference.json",
+    "blocked-path.json",
+    "too-large.json",
+    "bad-character-mixed-preset.json",
+    "bad-character-unknown-preset.json",
+    "bad-character-resource-injection.json"
+  ]
+}

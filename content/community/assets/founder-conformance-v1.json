@@ -1,0 +1,38 @@
+{
+  "presetId": "founder-v1",
+  "format": "row-major RGBA8; pixel centers sampled with documented floor formula; SHA-256 of64*96*4 bytes",
+  "dimensions": [
+    64,
+    96
+  ],
+  "hashes": {
+    "front": {
+      "idle": "d6f8b9f5a812a779fabb0c480af47c416e7a0fcc83fabade3737deacf8c08f79",
+      "walk1": "615ba0824b8d17eb32147e6296dc72905fe608631f42d42f8647ae9f50d68236",
+      "walk2": "492e40c1a310bae5f526830e41c1d28708ec332482f75f7277870e73476d92eb",
+      "walk3": "143c1463ca1cb23f6fbc48d18d9d484a86b8759b5a2f2fdc46223357f9c7254d",
+      "walk4": "5169eb685fa69d2457dfefda9a4b99c248e28e247ee000276354a773f6ad3067"
+    },
+    "back": {
+      "idle": "dcb2676aee201a4ff94854c603e046d2e744ef5b80ae8948d0c7f30f02288400",
+      "walk1": "5def401862609ec730e6e6d0e270a5cb948a1d69ce1c2641079f49f014c4fbe5",
+      "walk2": "88a2c92ae8583ec0b92a2812274178797b1acae0a8df01d103c8aa80268ee5f3",
+      "walk3": "de960c21b9dae401165ab0f77908f45a056929b1a7dd458b4af38236178305a2",
+      "walk4": "e62ef44f560148a91dc79f2b5988c695453d8cf1c14a788ede65d90fd3378c81"
+    },
+    "left": {
+      "idle": "0ea7c208621e18e47ba28c083c01e0780016bdb58ac546ceb46542818f907e9f",
+      "walk1": "648113462411e05ec424fa9533e9825e150019ab0e224b20e2c2169180ce0217",
+      "walk2": "bc611f1124e909c21ab0304f49030f7701354f36f6a1c3800044e08a26ddc6e7",
+      "walk3": "8a9ce23e11daa53bb64fd3029a1d1efee43a618da56e864010c4dec2ed00872b",
+      "walk4": "85b56fa5fd3e6c1086e260a96b2abfec9f0d24815b0085f85367543b9a3d556f"
+    },
+    "right": {
+      "idle": "627db8585f73a20be05ea1b6e4e48be533af0acec6e1ac6f556487e5f09405d2",
+      "walk1": "5df80cf04010367614b607dbb4106eefa5b1da0b208c9b585c702ecfdab6f7f8",
+      "walk2": "5ccdaecdadcb74dc573c0880f0456339f9f7739d4161779d22bd40949bcd4cf4",
+      "walk3": "eb5fa31d11e638d543c48f858d30b881d236a053660febc05decb97b0abdb6aa",
+      "walk4": "9f9eb385fc9ad2aab8da9c633b51346c5f39b6fc9ad1b29db4e04676a7b57229"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "presetId": "ninon-v1",
+  "format": "row-major RGBA8, floor sampling; SHA-256 of64*96*4bytes",
+  "dimensions": [
+    64,
+    96
+  ],
+  "hashes": {
+    "front": {
+      "idle": "8d0f696ecc394ac188c81e8e74f295014c2c89af7150665add78a301c04779e8",
+      "walk1": "51b525af81f783cfc10da26b42a970c34372a164c20c359c251679132fd915e8",
+      "walk2": "e3f2e7700f257d6f3b552cfe85089148d963d7c773e0c8e4c1a95a4d080ff906",
+      "walk3": "6ee946a3475ee8d2018f5a3fbcf20d81cb1c3cfdd8c7b691d631e0121e35124e",
+      "walk4": "95e2fbfec81657f8702b93166b02b57284ca9e8638bae7ec6adf48c823680e38"
+    },
+    "back": {
+      "idle": "1cc2dcd890b02d3eb396ea507b0add33a15eb26043a859a06a53724decafb1f4",
+      "walk1": "aa173600e4e2aa099d21934bca0cb83ab32882c3c217a73959db6e5fe8d4841d",
+      "walk2": "9d26b9a1a696de0c7069e47c955f089078d7d07b38e72b7fe7262fbbefb16942",
+      "walk3": "7e6cdf6eb877e9285f274c3382208555c652f54922e373e3ae870fb20de13f16",
+      "walk4": "de8463d9ecf555bf7e7a849c6033ab79cb96dd6c5f87c7dc554f120c39051f5d"
+    },
+    "left": {
+      "idle": "06f435a0892da51f2ec3ee367041da181f7afc2bcb0d40c7db507eec460623c4",
+      "walk1": "0d38050207839b4058b7a274fca49dd2f90c7424b51ff53151bd846803e8ba91",
+      "walk2": "92f34d49f9b520314c684aef702f53202af38c08f650780e905b046e2036e48a",
+      "walk3": "41a59c52394067df21953aaf3f76cc90e55845e97fb70500708340fa5fb4286f",
+      "walk4": "cd03aa5a19875f31290b5be2656b484656f4621803e55c08077e947150594431"
+    },
+    "right": {
+      "idle": "46cd3cd1f3d7115f3c5266afa3d65f69c553e138a4e5841e2959022c6385d7c8",
+      "walk1": "e0bb94440e08cd006a785da15bc90c7298ef6017a0e9987869511bc7d6f62cb4",
+      "walk2": "ea389e5fbffe989b91cb27ddc118dc57fb08e3c5937adaa3dd00caf0fa703834",
+      "walk3": "1aba0e2b98c5dc54ddfc435a6326570aad283e6f6495ad1cbc9a6648ed55e243",
+      "walk4": "2d72e518b5834f61d70e77aa949c71a5f12f1d31d7cbcda7c18ea86a8412ea95"
+    }
+  }
+}

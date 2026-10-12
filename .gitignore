@@ -22,3 +22,7 @@ node_modules/
 
 # Room Studio is built locally; unlike the bundled exploration runtime, dist is not committed.
 room-studio/dist/
+
+# Community Studio and Godot caches are regenerated locally.
+community-studio/.svelte-kit/
+game/.godot/

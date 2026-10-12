@@ -1,0 +1,183 @@
+{
+  "packageVersion": 2,
+  "packageId": "betherecentral.sample-room",
+  "contentRevision": 2,
+  "features": [
+    "rooms-v2",
+    "play-learn-v1"
+  ],
+  "assets": {
+    "catalogId": "betherecentral-community",
+    "catalogRevision": 2
+  },
+  "attribution": [
+    "betherecentral-original-community-assets"
+  ],
+  "room": {
+    "schemaVersion": 2,
+    "companyName": "Open Source Workshop",
+    "room": {
+      "id": "studio-demo",
+      "width": 320,
+      "height": 224,
+      "polygon": [
+        [
+          24,
+          0
+        ],
+        [
+          296,
+          0
+        ],
+        [
+          320,
+          24
+        ],
+        [
+          320,
+          200
+        ],
+        [
+          296,
+          224
+        ],
+        [
+          24,
+          224
+        ],
+        [
+          0,
+          200
+        ],
+        [
+          0,
+          24
+        ]
+      ]
+    },
+    "objects": [
+      {
+        "id": "desk-1",
+        "kind": "hacker-desk",
+        "x": 44,
+        "y": 36,
+        "width": 72,
+        "height": 64
+      },
+      {
+        "id": "bookshelf-1",
+        "kind": "secret-bookshelf",
+        "x": 252,
+        "y": 40,
+        "width": 36,
+        "height": 52
+      },
+      {
+        "id": "duck-1",
+        "kind": "rubber-duck",
+        "x": 136,
+        "y": 76,
+        "width": 12,
+        "height": 14
+      },
+      {
+        "id": "mat-1",
+        "kind": "yoga-mat",
+        "x": 56,
+        "y": 148,
+        "width": 32,
+        "height": 40
+      }
+    ]
+  },
+  "characters": [
+    {
+      "id": "player",
+      "displayName": "Player",
+      "introduction": "A curious open-source learner.",
+      "appearance": {
+        "bodyPalette": "warm",
+        "hair": "short",
+        "hairPalette": "brown",
+        "top": "hoodie",
+        "topPalette": "teal",
+        "trousersPalette": "slate",
+        "accessory": "none"
+      }
+    },
+    {
+      "id": "guide",
+      "displayName": "Patch",
+      "introduction": "I can help you make your first small contribution.",
+      "appearance": {
+        "bodyPalette": "olive",
+        "hair": "curly",
+        "hairPalette": "black",
+        "top": "jacket",
+        "topPalette": "orange",
+        "trousersPalette": "navy",
+        "accessory": "glasses"
+      }
+    }
+  ],
+  "quest": {
+    "id": "first-contribution",
+    "template": "inspect-two-answer-one-v1",
+    "title": "A first contribution",
+    "learningObjective": "Practice making and reviewing a small change.",
+    "introduction": "Find both clues, then choose the step that makes a contribution easy to review.",
+    "clues": [
+      {
+        "id": "small-change",
+        "title": "Keep it small",
+        "text": "A focused change is easier to understand and review."
+      }
+    ],
+    "question": "Which pair of habits helps a teammate review a change?",
+    "answers": [
+      {
+        "id": "focused-and-tested",
+        "text": "Keep the change focused and report the checks you ran."
+      },
+      {
+        "id": "large-and-silent",
+        "text": "Make a large change and leave the review to others."
+      },
+      {
+        "id": "skip-context",
+        "text": "Share code without explaining its purpose."
+      }
+    ],
+    "correctAnswerId": "focused-and-tested",
+    "hint": "Think about what lets a reviewer understand the change and trust the result.",
+    "explanation": "Small changes with clear verification notes are easier to review and maintain.",
+    "reward": {
+      "id": "review-ready",
+      "label": "Review-ready badge"
+    }
+  },
+  "gameplay": {
+    "playerCharacterId": "player",
+    "spawn": {
+      "x": 64,
+      "y": 160
+    },
+    "npc": {
+      "characterId": "guide",
+      "x": 240,
+      "y": 160
+    },
+    "clues": [
+      {
+        "clueId": "small-change",
+        "x": 112,
+        "y": 160
+      },
+      {
+        "clueId": "show-evidence",
+        "x": 192,
+        "y": 160
+      }
+    ]
+  }
+}

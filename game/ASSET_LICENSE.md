@@ -1,0 +1,9 @@
+# Bundled asset provenance
+
+`assets/campus_props.png` is an unchanged copy of `composeApp/src/commonMain/composeResources/drawable/campus_props.png`, the original project-generated pixel-art atlas. The project code and original art are distributed under the repository's MIT License. See [`docs/assets/PIXEL_ART.md`](../docs/assets/PIXEL_ART.md) and [`docs/design/generation-prompts.md`](../docs/design/generation-prompts.md) for provenance and generation notes.
+
+The community package's `campus-props-atlas` catalog entry is a stable identifier for this trusted bundled file. Imported packages cannot substitute a path, URL, or other resource. The preview room and its company label are fictional and are not mapped to a real tenant room.
+
+The shared procedural character artwork is an original pixel-art parts definition in `content/community/assets/avatar-parts-v1.json`, bundled into this project as `assets/community/avatar-parts-v1.json`. It is distributed under the repository's MIT License. Its enum-driven parts, palettes, poses, and pixel-run coordinates are data only; the renderer contains no imported scripts or expressions.
+
+The bundled Founder, Patch, Ninon, Morgane and The Architect direction atlases are original project character art in `content/community/assets/v1/`, copied with the trusted catalog into `assets/community/v1/`. Their four directions and five poses are sampled from catalog-owned crops and pivots into the same fixed 64 × 96 frame. The package can select only trusted preset IDs; it cannot supply image paths or crop metadata. Ninon and Morgane are programme-guide portrayals based on photos the user provided and explicitly approved for public pixel characters. The Architect portrays the user, based on six photos the user provided and their explicit request. Source photos are not bundled, and these example packages add no biographies. These original images are distributed under the repository's MIT License.

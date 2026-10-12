@@ -12,9 +12,9 @@ Android and iOS share Kotlin behavior and a Compose Multiplatform interface; a d
 
 [Product requirements](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [Experience standards](docs/EXPERIENCE.md) · [Building-team demo](docs/DEMO.md) · [Coordinates](docs/COORDINATES.md) · [Plan-world decision](docs/adr/0006-plan-derived-pixel-world.md) · [Privacy](docs/PRIVACY.md) · [Backlog](docs/BACKLOG.md) · [Verified checks](docs/testing/STATUS.md)
 
-## Planned direction, implementation on hold
+## Community game and Studio implementation
 
-The selected next direction is **Godot for the game and SvelteKit for browser Studio**, with rooms, characters and learning quests exchanged as versioned content. The current Compose app remains the map implementation; the Vite/PixiJS editor remains a separate Room Studio prototype. Resident feedback may change the PRD; no migration starts until that feedback is incorporated and the user resumes implementation. On 9 October, the user separately resumed existing-map asset work, converting all five floors to authored modular recipes; this does not resume the game or Studio migration. See the [community game roadmap](docs/plans/COMMUNITY_GAME.md) and [technical phased plan](docs/plans/GODOT_SVELTEKIT.md) and [ADR 0008](docs/adr/0008-godot-game-sveltekit-studio.md), including the Compose-for-web alternative.
+The selected direction is **Godot for the game and SvelteKit for browser Studio**, joined by a versioned content package. On 12 October, the user explicitly resumed implementation with Stage 1, centred on a frozen fictional room handoff contract consumed by the browser editor and standalone game preview. No resident feedback has been collected; it remains useful input for later stages, while Stage 1 uses fictional sample content. The Compose Plan World and its existing Experimental 3D sample remain in place. The earlier Vite/PixiJS editor remains a separate Room Studio prototype. See the [community game roadmap](docs/plans/COMMUNITY_GAME.md), [technical plan](docs/plans/GODOT_SVELTEKIT.md), [ADR 0008](docs/adr/0008-godot-game-sveltekit-studio.md), and [Mobbin design references](docs/design/MOBBIN_REFERENCES.md).
 
 ## What the current app shows
 
@@ -105,6 +105,9 @@ composeApp/
 androidApp/                   # Android launcher
 iosApp/                       # SwiftUI host and checked-in Xcode project
 exploration/                  # Independent licensed sample viewer and provenance
+content/community/v1/         # Bounded fictional room package and shared fixtures
+community-studio/             # SvelteKit local room/character/activity authoring
+game/                         # Standalone fictional Godot learning room
 server/sharing/               # Disconnected reference sharing service
 docs/                         # Requirements, decisions, source notes and verification
 ```
@@ -135,6 +138,12 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the [backlog](docs/BACKLOG.md)
 
 The repository uses Astra for planning/review, Sol for integration and Luna for bounded implementation, as [AGENTS.md](AGENTS.md) describes. These are development roles, not app features. Human contributors can build and modify the app without an AI subscription. Selected vendored Matt Pocock skills have [provenance](docs/agents/SKILLS.md).
 
-Room Studio is now a local one-room editor experiment, available from **More** in the app and as a standalone browser project. It uses a shared fictional-room JSON fixture; the browser editor can move/add/delete furniture, edit the company sign, undo/redo, save locally, and import/export JSON. The Compose view can paste/import JSON and reset its preview, but does not persist edits. The fixture is not mapped to a real tenant room; accounts, AI generation and publishing are future work. Run the browser project with `cd room-studio && npm ci && npm run dev` (tests: `npm test`; production build: `npm run build`). See [ADR 0007](docs/adr/0007-room-studio-experiment.md). Code is [MIT licensed](LICENSE); the independent splat scene keeps its [CC BY 4.0 attribution](exploration/public/SCENE-LICENSE.txt). See [SECURITY.md](SECURITY.md) for security boundaries.
+The original one-room Room Studio remains a local prototype. The resumed Community Studio work is a separate SvelteKit project, and the Godot project is a standalone desktop consumer of the shared fictional room package. The frozen v1 handoff is retained; v2 adds original presets, custom characters and a bounded learning activity. See [`content/community/v1`](content/community/v1/README.md), [Studio](community-studio/), and [Godot preview](game/README.md) for current scope and commands. Neither project edits a mapped tenant room; there are no accounts or publishing service. See [ADR 0007](docs/adr/0007-room-studio-experiment.md) for the original prototype and [SECURITY.md](SECURITY.md) for security boundaries. Code is [MIT licensed](LICENSE); the independent splat scene keeps its [CC BY 4.0 attribution](exploration/public/SCENE-LICENSE.txt).
 
 The [five-floor source-line audit](docs/assets/SOURCE_LINEWORK_AUDIT.md) records restored partitions, source comparisons and current fidelity limits.
+
+## Current community development slice
+
+The separate local Studio edits fictional rooms, manual character parts or original Founder/Patch, Ninon, Morgane and The Architect presets, and one two-clue/three-answer learning activity. Its three-pane workspace exposes 24 original coworking/Easter egg props, undo/redo, numeric positions, local save/load and bounded JSON import/export. The Godot desktop game independently validates that content, supports keyboard movement, clue reading/retries, one local reward and reset. A secret bookshelf opens a fictional white Construct with original chairs/CRT and an always-available return. The existing founder identity anchors the polished preset art; supplied Sea of Stars screenshots are style references only.
+
+The browser room edit, undo/redo, local save/reload, character selection, activity edit and real download→Godot handoff have been exercised in Chrome for Testing. Godot desktop gameplay evidence is recorded separately in [verification status](docs/testing/STATUS.md). Browser file-import interaction still needs a separate check. No mobile Godot delivery or resident study is claimed. The user reported public portrayal permission for Ninon and Morgane, and requested their own character as The Architect. Their source photographs stay outside the repository; no personal introductions have been supplied. [Beginner contribution lesson](docs/learning/FIRST_CONTRIBUTION.md) · [Asset provenance](content/community/assets/README.md) · [V2 package contract](content/community/v2/README.md).

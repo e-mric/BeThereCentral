@@ -1,0 +1,255 @@
+{
+  "packageVersion": 2,
+  "packageId": "betherecentral.sample-room",
+  "contentRevision": 1,
+  "features": [
+    "rooms-v2"
+  ],
+  "assets": {
+    "catalogId": "betherecentral-community",
+    "catalogRevision": 2
+  },
+  "attribution": [
+    "betherecentral-original-community-assets"
+  ],
+  "room": {
+    "schemaVersion": 2,
+    "companyName": "Community Workshop",
+    "room": {
+      "id": "studio-demo",
+      "width": 320,
+      "height": 224,
+      "polygon": [
+        [
+          24,
+          0
+        ],
+        [
+          296,
+          0
+        ],
+        [
+          320,
+          24
+        ],
+        [
+          320,
+          200
+        ],
+        [
+          296,
+          224
+        ],
+        [
+          24,
+          224
+        ],
+        [
+          0,
+          200
+        ],
+        [
+          0,
+          24
+        ]
+      ]
+    },
+    "objects": [
+      {
+        "id": "prop-1",
+        "kind": "desk",
+        "x": 32,
+        "y": 8,
+        "width": 64,
+        "height": 44
+      },
+      {
+        "id": "prop-2",
+        "kind": "paired-desks",
+        "x": 32,
+        "y": 8,
+        "width": 80,
+        "height": 56
+      },
+      {
+        "id": "prop-3",
+        "kind": "shared-table",
+        "x": 32,
+        "y": 8,
+        "width": 64,
+        "height": 56
+      },
+      {
+        "id": "prop-4",
+        "kind": "round-table",
+        "x": 32,
+        "y": 8,
+        "width": 52,
+        "height": 52
+      },
+      {
+        "id": "prop-5",
+        "kind": "lounge-corner",
+        "x": 32,
+        "y": 8,
+        "width": 76,
+        "height": 60
+      },
+      {
+        "id": "prop-6",
+        "kind": "bookcase",
+        "x": 32,
+        "y": 8,
+        "width": 36,
+        "height": 48
+      },
+      {
+        "id": "prop-7",
+        "kind": "plant",
+        "x": 32,
+        "y": 8,
+        "width": 26,
+        "height": 30
+      },
+      {
+        "id": "prop-8",
+        "kind": "cafe-counter",
+        "x": 32,
+        "y": 8,
+        "width": 64,
+        "height": 48
+      },
+      {
+        "id": "prop-9",
+        "kind": "bike-rack",
+        "x": 32,
+        "y": 8,
+        "width": 56,
+        "height": 48
+      },
+      {
+        "id": "prop-10",
+        "kind": "phone-booth",
+        "x": 32,
+        "y": 8,
+        "width": 36,
+        "height": 48
+      },
+      {
+        "id": "prop-11",
+        "kind": "printer",
+        "x": 32,
+        "y": 8,
+        "width": 26,
+        "height": 32
+      },
+      {
+        "id": "prop-12",
+        "kind": "water-cooler",
+        "x": 32,
+        "y": 8,
+        "width": 22,
+        "height": 36
+      },
+      {
+        "id": "prop-13",
+        "kind": "whiteboard",
+        "x": 32,
+        "y": 8,
+        "width": 42,
+        "height": 44
+      },
+      {
+        "id": "prop-14",
+        "kind": "rug",
+        "x": 32,
+        "y": 8,
+        "width": 78,
+        "height": 48
+      },
+      {
+        "id": "prop-15",
+        "kind": "reception-desk",
+        "x": 32,
+        "y": 8,
+        "width": 64,
+        "height": 48
+      },
+      {
+        "id": "prop-16",
+        "kind": "sofa",
+        "x": 32,
+        "y": 8,
+        "width": 88,
+        "height": 52
+      },
+      {
+        "id": "prop-17",
+        "kind": "hacker-desk",
+        "x": 32,
+        "y": 8,
+        "width": 72,
+        "height": 64
+      },
+      {
+        "id": "prop-18",
+        "kind": "arcade-cabinet",
+        "x": 32,
+        "y": 8,
+        "width": 30,
+        "height": 60
+      },
+      {
+        "id": "prop-19",
+        "kind": "yoga-mat",
+        "x": 32,
+        "y": 8,
+        "width": 32,
+        "height": 40
+      },
+      {
+        "id": "prop-20",
+        "kind": "conference-screen",
+        "x": 32,
+        "y": 8,
+        "width": 40,
+        "height": 52
+      },
+      {
+        "id": "prop-21",
+        "kind": "secret-bookshelf",
+        "x": 32,
+        "y": 8,
+        "width": 36,
+        "height": 52
+      },
+      {
+        "id": "prop-22",
+        "kind": "burgundy-chair",
+        "x": 32,
+        "y": 8,
+        "width": 34,
+        "height": 42
+      },
+      {
+        "id": "prop-23",
+        "kind": "crt-television",
+        "x": 32,
+        "y": 8,
+        "width": 34,
+        "height": 40
+      },
+      {
+        "id": "prop-24",
+        "kind": "rubber-duck",
+        "x": 32,
+        "y": 8,
+        "width": 12,
+        "height": 14
+      }
+    ]
+  },
+  "characters": [],
+  "quest": null,
+  "gameplay": null
+}

@@ -1,0 +1,128 @@
+{
+  "dimensions": [
+    64,
+    96
+  ],
+  "format": "row-major RGBA8, top-left origin; SHA-256 of all 64*96*4 bytes",
+  "appearances": {
+    "Player": {
+      "bodyPalette": "warm",
+      "hairPalette": "brown",
+      "topPalette": "teal",
+      "trousersPalette": "slate",
+      "hair": "short",
+      "top": "jacket",
+      "accessory": "glasses"
+    },
+    "Patch": {
+      "bodyPalette": "deep",
+      "hairPalette": "gold",
+      "topPalette": "orange",
+      "trousersPalette": "navy",
+      "hair": "curly",
+      "top": "hoodie",
+      "accessory": "none"
+    },
+    "Bald": {
+      "bodyPalette": "olive",
+      "hairPalette": "silver",
+      "topPalette": "cream",
+      "trousersPalette": "brown",
+      "hair": "bald",
+      "top": "tee",
+      "accessory": "none"
+    }
+  },
+  "hashes": {
+    "Player": {
+      "front": {
+        "idle": "cdbdba4717df483d2da24443f6323581ad524d18e29ec969888042d61b1e5f76",
+        "walk-a": "b15f1c103bcc8c475954a3446b8ff97ce949b4f1c025d58cae39acc027be3b43",
+        "walk-b": "e1060f6a2e73061474363084afc7560cd99210e680532f4834cd5c1945e54ce5",
+        "walk-c": "7552fdcd57800b3d0b7ba8beab77d26b0849d9db436b6f32fee22354028d2b9f",
+        "walk-d": "bd5d64bc096df716e7dfaf099b593bddbb070b9ef2844767492d5ade9c77bf93"
+      },
+      "back": {
+        "idle": "e454ef5b96a4969f6fcb6c35b1c168a18b0844fa1dc3403131a181408fc63496",
+        "walk-a": "f1d89e69ef3e79b63e782ef95d7b4917ebaf88860e5075ba706ba411e31af4a2",
+        "walk-b": "1dacae60e39bb04bec5c80ff884eabfb435e20526980eaa931c7f0f9e73d25cc",
+        "walk-c": "dec818af19ea5775236625119de3288b4e44971137522f7ac163930e65592d68",
+        "walk-d": "45105d009b85d773dbca2d8903e06a182d1f5d83572744bc3d944eadff2eae23"
+      },
+      "left": {
+        "idle": "10cd823c2cb8dae1b4ca6301666b25a04520f90cc49a81edac4211b4e31ebf23",
+        "walk-a": "a06e638cd1677b2e3b849c0d7f1eb66d01e0007792f7022820f240581943f139",
+        "walk-b": "b926cc8cd315345ec8a6f9b4744eebf14ee3208e3e650442cf11fbe55ec4d0f5",
+        "walk-c": "1e50388d954d8eb7495cbfca7a46c6fc5b9ee141dac4e1fdcc3c60931667f5aa",
+        "walk-d": "bd92f7254328b6d8d2cbeebcd1f5057d858084af1351d22320774687b16483e8"
+      },
+      "right": {
+        "idle": "4910f191f1d386c1c7b88f177ad06af5f750651bca84db7084c1973ddd9b113a",
+        "walk-a": "5b881bc4fcb02f4203b2168c5c74eb6b62d878321c7304ab2852b161b5aa5d26",
+        "walk-b": "9b87501460d126e15ac9c0fc2ea3f1495d4f42019c51911794eb7d79ad42a475",
+        "walk-c": "23f6b7c8291080763ab8e006cf700f3fa3e3e23369d0efe38be6c0c8820dc9b5",
+        "walk-d": "17049e9a92aa3d91b7d0c1bb338a219f127a00f4e7291424feaa720f27ca5a4a"
+      }
+    },
+    "Patch": {
+      "front": {
+        "idle": "2e81350d8322e63c050b96d2d9c7ad5874f951d9a49280e4b52024c133653e9f",
+        "walk-a": "92058f85c593b0a2a79c639f3074859f5a9f6146baf7b399c3566b219ede669f",
+        "walk-b": "b72b2b6a3bb3abb3cfc17107320670fa0530e4dafd5cb3195c3696b5ac1b74cc",
+        "walk-c": "70fc4e7e0845b7b31224bb0f71f3d2507033977072ec916a3320d142cbe3d919",
+        "walk-d": "531851fbeb932922f0f30f183934e8d0e550fc19d7fab97835eee2c99c0c0d32"
+      },
+      "back": {
+        "idle": "46f0167bb7a0304522055c447165c768117ad6c1d70385f99b7af9828b28a55f",
+        "walk-a": "78a4d35d5e931c510c8fc838c3d1395908f426aea2193b7459374340c57394fc",
+        "walk-b": "9b658b850b8c3fcd28eb30b61bfbbb3545248634880585a7fc8c783c01dd2e3b",
+        "walk-c": "fe107b4ab24d034110e07e1c38799c82b22a679fba46c8af9b510a16d4538cf9",
+        "walk-d": "039f47253e25c4311c3808bbaedb3c7a504459ab5586c775257c6f2334930be3"
+      },
+      "left": {
+        "idle": "b4713fce541b2ab943cb1658b320aeaf35e6c9afd607da3f2de84e2af403e548",
+        "walk-a": "f97c8ca9be8c786d102c7c5ebc87ef62cb8bf93a517d50788f17305788f6dd0e",
+        "walk-b": "963c75f11ccfbe158ffd8fa6282f79c62479ee28828d9d1537e2d96aeb264a54",
+        "walk-c": "1ad92ba83763f65909ba21e31160e46e7592a74589af59948857ab7964b2457f",
+        "walk-d": "304a486541c22dc5fc2127164548950fc3dd64ae137e5de8f20ae34e784b3e01"
+      },
+      "right": {
+        "idle": "f5973946ae3dd8958c854f23b85a07c5b6df1960491256c4cf15458a97a68343",
+        "walk-a": "6a0f24a87a7c4429e744feaa0cce708ca64df78fffbc8b48c0d210322e5be7ad",
+        "walk-b": "eed203087fc060844cb3f397ff7986009b333a25cca9fb4366ff3706e2752e35",
+        "walk-c": "31a403678fc8389146ed3ce4c7de8e19295f14b212dcfaa2ab3450a09ddf7b9f",
+        "walk-d": "1925fd935ebf69c7fdb2df096c6ab46665502466f47ecf2fc9eaf3a9c1aac2b7"
+      }
+    },
+    "Bald": {
+      "front": {
+        "idle": "2f1cf10ad09e1c7c57c2f446b261f9333b5fad3ffc54b6d0d6cc584b1bed320e",
+        "walk-a": "840e92b96dfef586e09273080e63ac04c5b20a28aed2436936dca54a5c78e563",
+        "walk-b": "4b92a7f48d83421600c0b842b6c5cf4bdbaf4a462135720eb5e943bd22b68255",
+        "walk-c": "a0c4967d322f233a093bd5965453fcfec0d759e6535b3bf5baab746e716a26bc",
+        "walk-d": "ed402d28f8503c562328b003e81081c47cdb6eaf0503c0580544ecd523cf4369"
+      },
+      "back": {
+        "idle": "c39264e93d3bf60b7f31271e8f9152ce4ba9773a7f9d224976f9c803dd5bbeb9",
+        "walk-a": "13b1e2c56269157217485e49a4a150a05ab749e163e9417ce6a43736451ada89",
+        "walk-b": "b623d8d20239bffaa0882364742bf32c3d4d82de18d8ebf73c2e69ab61b62116",
+        "walk-c": "9eac7041e8f7c1d7bf90a471de86c7705570d219affb2e37f2a61097345abd8d",
+        "walk-d": "6b598dbbd7abc71fd22f67f82e3b6b890e97278ecef3077c0bd60790c86a53cb"
+      },
+      "left": {
+        "idle": "0f925724a9f61ee5494f6e0516bd2919251f9a05a55b6f72813424accb5e4b45",
+        "walk-a": "341c853885cc150ff28e083d520f54cb0b5b3c50c287d2c2cfe346eba8965c27",
+        "walk-b": "227ac65980c1514c2be9f6cdd99c1be0364ea0e4726176a2a0add295a244b64e",
+        "walk-c": "e3a54f29416e491cd3bf6da3db2c49e89817fa71577791a4dc10c67109fc489c",
+        "walk-d": "06e87173d6c110e864345f78583a236e6a8edb566f5b4337d5cacdf3970273b2"
+      },
+      "right": {
+        "idle": "0630ff56f7e30bf7b3ac6d6eccf344a013a36528693b2505368bfd0bf05af13d",
+        "walk-a": "9139b7329ef4cea1de3b8b7297d38e92daa1a811232fb82d7989e283b78c0ded",
+        "walk-b": "f228e3a42e6b068f95caaf9d65d671d0cf4150087c9fd4cf7e2cbca016070492",
+        "walk-c": "c226b9cc9eafc307f90905e6643a8d30be05fff533205d8fedb69ab0999e0f2c",
+        "walk-d": "030fb49a9bf1bd690852e8dd27e5849ed7e47e2dafa1d53e55758fc27684df23"
+      }
+    }
+  }
+}

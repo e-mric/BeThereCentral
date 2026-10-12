@@ -1,0 +1,38 @@
+{
+  "presetId": "architect-v1",
+  "format": "row-major RGBA8, floor sampling; SHA-256 of64*96*4bytes",
+  "dimensions": [
+    64,
+    96
+  ],
+  "hashes": {
+    "front": {
+      "idle": "1f312be17fba48248a250a0564e69999b508b02ff6234999f9227d8df5d8fb1a",
+      "walk1": "fcafff4a58205b6a4db790592a979f182c9dc1f64c5479321a737eb618ff792c",
+      "walk2": "21b064b2cea3ef3269df3d1d783f3e2d0f07768baa66a853ce461dbd0ba6232f",
+      "walk3": "fb52db411010d0d8ffe38743c4e762dc38268f6f2102b9ccf2a090839c6fab57",
+      "walk4": "1508337d00738caa7cd40648adf0125e9b875328d07316df75f8405b1d3c975a"
+    },
+    "back": {
+      "idle": "e4955d26ce6b569a1c22187902120db2aa807bec72bcfdcb00a9231a11c14231",
+      "walk1": "4195b9506db595432b2fe5a4d4fd9de69a62639c1655942b350f993bc60b6c15",
+      "walk2": "b8446cebe47cf39b000819c045abf57e119151bebe8fcc5862b1775e9846fa40",
+      "walk3": "709d032ddb01122c6841c73f5ea542ae109d520a336e6b8da1f53b96aa6b40d7",
+      "walk4": "d01208f38c8466070da29f5f78c620d92c9d61859bd68ce3ad210b004825839e"
+    },
+    "left": {
+      "idle": "2188f37c6ab5fe1ff298effc2f58226aa7dbda90cff57c8e0f765b86f9bab413",
+      "walk1": "a0825241944dd6f098f8a548cc6be156ba9aff4db0ea9bab7c82cef2ba92fbbb",
+      "walk2": "a5302d176bd69fa1004e0814bcd903db50e723c1b27f1bdc2c11c6a1d7858cb0",
+      "walk3": "2d13c78f6837c7365cbb9483f027f39c3edb7d7231dd443c243b000cec7c25db",
+      "walk4": "42b98c316cee8810f7881063dfde120ff39350fe3c2fac859330a517303af279"
+    },
+    "right": {
+      "idle": "98ceef9ebf024725a6fc1dac9fcaaed800175e2387b6bccc3b46d15d0624a11e",
+      "walk1": "3fe05fb456d46e32a0e4643be0360316f12e23ae893f362356bcd9790aab627b",
+      "walk2": "325d82117426e2d61521472eec5ef0a701777db0460108e3e4557bbd86f33b17",
+      "walk3": "2b7932a4b39358862656c1bc49930d8cecc2a33e3f6841440473df6c348d9ea4",
+      "walk4": "9d505875189512f7649e40ce3009d0a5891177258461cff50e0ac17a04c26098"
+    }
+  }
+}
