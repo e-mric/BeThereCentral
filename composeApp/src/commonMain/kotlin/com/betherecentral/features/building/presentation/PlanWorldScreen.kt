@@ -432,10 +432,15 @@ private fun PlanCanvas(
         }
         val floorScene = CampusFloorScenes.forFloor(floor.id)
         drawModularFloor(floor, floorScene, propsAtlas, projection::screen, projection.scale, shell)
+        drawSourceLinework(floorScene, projection::screen, projection.scale,
+            buildingMask = buildingShell,
+            unmappedMask = Path.combine(PathOperation.Difference, buildingShell, shell))
+        // Decorative caps cover the ends of partitions at facade junctions.
         drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = (2f * projection.scale).coerceAtLeast(.6f)))
         drawCourtyardWalls(floor.voids.map { polygon -> polygon.map(projection::screen) }, projection.scale, buildingShell)
-        drawSourceLinework(floorScene, projection::screen, projection.scale,
-            unmappedMask = Path.combine(PathOperation.Difference, buildingShell, shell))
+        if (floor.id != "ground") {
+            drawCourtyardWalls(floor.footprints.map { polygon -> polygon.map(projection::screen) }, projection.scale, shell, insideBoundary = true)
+        }
         signTargets.clear()
         val occupied = mutableListOf<androidx.compose.ui.geometry.Rect>()
         val paintSigns = mutableListOf<() -> Unit>()

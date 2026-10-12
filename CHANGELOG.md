@@ -15,6 +15,11 @@
 - Preserved original schematic references with hashes and a reproducible vector extraction workflow; added source comparisons and actual desktop-render evidence.
 - Clarified that furnishings remain fictional while interior lines follow the supplied plans; schematic accuracy is distinct from surveyed doors or navigation.
 
+## Unreleased — pixel wall finish for partitions
+
+- Added a bounded decorative pixel wall mask derived from immutable source partition linework, with a slate body, lighter cap and upper-left highlights. Expansion is limited to three source pixels; stairs retain their fine source marks and the same source gaps and company anchors remain in place.
+- Kept the raw source-line audit and its one-pixel tolerance independent from the style mask. Styled rendering and furniture clearance are evaluated separately; the finish does not infer doors, routes or interior windows.
+
 ## Unreleased — character-led place guide
 
 - Selecting a map sign/marker or directory entry opens a compact place guide and animates toward the selected source anchor. Repeated markers preserve the exact tapped anchor; search and directory selection use the first anchor, while unplaced entries remain at Fit.

@@ -26,4 +26,5 @@
 - **Game content package (planned)**: versioned, bounded data and licensed asset references with stable room/character/quest IDs, independently validated by Studio and Godot. It contains no arbitrary scripts and is separate from player progress.
 - **Fictional game collision (planned)**: geometry controlling movement in a playable scene; it does not establish real building routes or accessibility.
 
-- **Source linework**: source-coordinate contours of visible schematic partition and stair marks, distinct from fictional decoration. Preserve their gaps and small returns; this drawing evidence does not establish door semantics or a navigable graph.
+- **Source linework**: immutable source-coordinate pixels and vectors for visible schematic partitions and stair marks. A decorative finish may expand partition lines by at most three source pixels, while preserving source positions and gap locations; stairs remain raw fine marks. The style mask is separate from the raw source audit and does not establish door semantics, interior windows or a navigable graph.
+- **Decorative partition mask**: generated pixel-art wall treatment derived from source partitions, with a dark slate body, lighter cap and upper-left highlights. Its bounded cosmetic expansion does not change company anchors or source geometry and cannot create doors or routes.

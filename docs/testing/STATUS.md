@@ -398,3 +398,24 @@ Map regression walkthrough: searched Campfire AI and confirmed Second floor / Pl
 **Physical Android phone `SM_F971B`:** ordinary serial-targeted `adb install -r` succeeded; explicit MainActivity launch succeeded; the app process remained running and its PID-filtered crash buffer was empty immediately afterward. No UI dump, screenshot, instrumentation inspection service or broad device logs were requested on the phone. Visible appearance and phone 3D performance await the user's verification.
 
 This pass did not verify iOS, standalone browser rendering, TalkBack/VoiceOver or enlarged-text layouts. It did not force a native renderer failure/loading screen; existing viewer failure disposal remains covered by its tests and the native return is outside the viewer. The sample is unrelated to BeCentral and real capture remains conditional on building permission and privacy review.
+
+### Bounded pixel wall finish and Mobbin reference pass — 12 October 2026
+
+A separate generated decorative partition mask gives source lines a slate body, shaded face and narrow upper-left edge. Source vectors/anchors are unchanged; stair strokes remain fine. Final facade/courtyard caps cover partition tips at junctions, clearing noisy marks from glass. Per-floor bevel geometry is cached in source space and transformed for interaction. See [wall finish audit](../assets/PARTITION_WALL_FINISH.md) and [Mobbin design notes](../design/MOBBIN_REFERENCES.md).
+
+Commands actually run:
+
+- Installed OpenCV 4.12.0.88 only in `/tmp/btc-wall-python`; bundled Python supplies NumPy/Pillow. `scripts/trace_plan_linework.py --out /tmp/btc-linework` passed.
+- `PYTHONPATH=/tmp/btc-wall-python <bundled-python> -m unittest scripts.tests.test_style_plan_partitions -v`: **6 tests passed**. Generator output reports all five masks preserve foreground-component/hole counts, original pixels and vector round-trip, with no growth in stairs/outside occupancy and a maximum added distance of 3 source pixels. Repeated generation into temporary files plus `cmp` of both Kotlin and JSON audits: identical.
+- During generator development, invalid reuse of filtered shell hierarchy caused an OpenCV contour traversal hang. Diagnostic shell occupancy now uses parity fill; the old process was stopped. Partition/stair contour export retains full valid hierarchy. Intermediate topology/indexing and hole-export defects were corrected before final tests and generation.
+- `BTC_RENDER_AUDIT=1 ./gradlew :composeApp:desktopTest :androidApp:assembleDebug` with local JDK 17/Android SDK: final cached-renderer run **passed, 65 tests, zero failures/errors/skips**, Android build passed. The post-build source changes are comments and an equivalent explicit OpenCV keyword argument only.
+- `scripts/audit_plan_renders.py`: raw source-only comparison passed on all five floors, zero missing/extra candidates outside the original one-source-pixel envelope. Styling is excluded from that measurement.
+- `git diff --check`: passed.
+
+All five actual Compose/Skia colored floor renders plus an enlarged ground crop were reviewed. Astra identified noisy window overlaps and excessive bevel contrast; final caps were reordered above partition ends and the highlight was narrowed/softened. Source-stepped curves and tiny gaps remain conservative. Furniture-clearance behavior is covered against the actual generated skin, including raster-edge clearance.
+
+Android emulator `betherecentral-demo` (`emulator-5554`) received the final APK. Launch/Fit, repeated zoom and pan to inspect the orange ground region were visually checked. The first uncached bevel attempt made dragging slow; caching removed repeated path operations, and the final drag moved the view across the orange/lobby region. [Actual emulator detail](../assets/partition-finish/android-ground-detail.png). This is a functional observation, not a measured frame-rate claim. The complete company-search/unplaced walkthrough was verified earlier in this day's Experimental slice, with unchanged directory data; it was not repeated for wall paint.
+
+Physical Android `SM_F971B`: ordinary serial-targeted install and MainActivity launch succeeded; app process was running and PID-filtered crash output was empty immediately afterward. No phone screenshots, UI dumps or inspection services were used. Visible phone appearance/performance awaits user verification. iOS/browser/assistive-technology checks were not rerun in this wall pass.
+
+Mobbin screen previews were visually examined for pixel characters, avatar editors, inventories and learning interactions; canonical links and observations are saved in design notes. No Mobbin screenshot or third-party character asset was copied into the shipped asset pack.

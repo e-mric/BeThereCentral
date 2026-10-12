@@ -47,4 +47,6 @@ data class FloorScene(
     val walls: List<FloorWallSegment>,
     val props: List<FloorProp>,
     val sourceLinework: PlanLinework? = null,
+    /** Bounded decorative finish; observed source linework remains independent. */
+    val partitionSkin: List<List<PlanPoint>>? = null,
 )

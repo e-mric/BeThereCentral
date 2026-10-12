@@ -49,18 +49,24 @@ class FloorRenderAuditTest {
             renderFloor(floor, atlas, output.resolve("${floor.id}.png"))
             renderLinework(floor.id, scene, output.resolve("${floor.id}-linework.png"))
         }
+        renderFloor(BeCentralPlans.floors.first { it.id == "ground" }, atlas,
+            output.resolve("ground-wall-detail.png"), scale = 6f,
+            left = 620.0, top = 960.0, right = 1100.0, bottom = 1220.0)
         writePropInventory(output.resolve("props.json"))
         assertTrue(BeCentralPlans.floors.size == 5, "Expected all five supplied-plan floors")
     }
 
-    private fun renderFloor(floor: PlanFloor, atlas: androidx.compose.ui.graphics.ImageBitmap, destination: FilePath) {
-        val scale = 2f
-        val width = ((BeCentralPlans.viewportRight - BeCentralPlans.viewportLeft) * scale).toInt()
-        val height = ((BeCentralPlans.viewportBottom - BeCentralPlans.viewportTop) * scale).toInt()
+    private fun renderFloor(floor: PlanFloor, atlas: androidx.compose.ui.graphics.ImageBitmap, destination: FilePath,
+        scale: Float = 2f,
+        left: Double = BeCentralPlans.viewportLeft.toDouble(), top: Double = BeCentralPlans.viewportTop.toDouble(),
+        right: Double = BeCentralPlans.viewportRight.toDouble(), bottom: Double = BeCentralPlans.viewportBottom.toDouble(),
+    ) {
+        val width = ((right - left) * scale).toInt()
+        val height = ((bottom - top) * scale).toInt()
         val project: (PlanPoint) -> Offset = { point ->
             Offset(
-                ((point.x - BeCentralPlans.viewportLeft) * scale).toFloat(),
-                ((point.y - BeCentralPlans.viewportTop) * scale).toFloat(),
+                ((point.x - left) * scale).toFloat(),
+                ((point.y - top) * scale).toFloat(),
             )
         }
         val surface = Surface.makeRasterN32Premul(width, height)
@@ -98,10 +104,14 @@ class FloorRenderAuditTest {
                     scale = scale,
                     assignedShell = assignedShell,
                 )
+                drawSourceLinework(scene, project, scale,
+                    buildingMask = buildingShell,
+                    unmappedMask = Path.combine(PathOperation.Difference, buildingShell, assignedShell))
                 drawPath(buildingShell, Color(0xFF626766), style = Stroke(width = 2f * scale))
                 drawCourtyardWalls(floor.voids.map { polygon -> polygon.map(project) }, scale, buildingShell)
-                drawSourceLinework(scene, project, scale,
-                    unmappedMask = Path.combine(PathOperation.Difference, buildingShell, assignedShell))
+                if (floor.id != "ground") {
+                    drawCourtyardWalls(floor.footprints.map { polygon -> polygon.map(project) }, scale, assignedShell, insideBoundary = true)
+                }
             }
             val png = surface.makeImageSnapshot().encodeToData(EncodedImageFormat.PNG, 100)
                 ?: error("Skia could not encode ${floor.id} render")
@@ -129,6 +139,7 @@ class FloorRenderAuditTest {
                     scale = 1f,
                     partitionColor = Color.Black,
                     stairColor = Color.Black,
+                    stylePartitions = false,
                 )
             }
             val png = surface.makeImageSnapshot().encodeToData(EncodedImageFormat.PNG, 100)

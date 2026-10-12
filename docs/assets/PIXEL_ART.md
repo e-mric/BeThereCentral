@@ -22,6 +22,12 @@ The five original PNG outputs are retained unchanged under `docs/assets/referenc
 
 The [generation prompts](../design/plan-world-generation-prompts.md) identify the floor-specific stencil and approved coworking style references. Stencils are layout guides created from vectors, not edits of the supplied source bitmap. Generation is nondeterministic: the checked-in output and its checksum are the source of truth. Future art revisions must preserve registration or explicitly update it and review every floor and anchor.
 
+## Decorative partition finish — 12 October 2026
+
+The thin schematic traces receive a pixel wall treatment through a generated decorative mask separate from immutable `SourcePlanLinework`. Expansion is bounded to three source pixels. The finish uses a dark slate body, a lighter cap and highlights only along the upper-left edge. A conservative 7×7 closing is used solely as a forbidden-growth guard, and additions retain foreground-8/background-4 topology. The same source positions, gap locations, stair marks and company anchors remain authoritative; visible gaps may become narrower as a cosmetic effect. Stairs stay as raw fine marks. Partition pixels do not imply doors, routes or interior windows.
+
+The original source-line audit remains a raw comparison with `stylePartitions=false` and the existing one-pixel tolerance. Its historical results must not be rewritten to fit the style mask. Evaluate styled masks, actual rendered pixels and furniture clearance independently. This finish does not identify surveyed walls or room inventory.
+
 ## Plan structure and directory
 
 `BeCentralPlans.kt` owns transcribed numbers, known names/occupants, plan badge centers, region fills and source wall hints. All 64 numbered entries, repeated anchors and shared-area names were checked against the source in the [company placement audit](COMPANY_PLACEMENT_AUDIT.md). Ground bike parking is a separate unnumbered source icon in the west-side lobby room; its continuous divider is traced independently. `TracedPlanGeometry.kt` owns coarse exterior and courtyard vectors extracted from the supplied images on a six-source-pixel grid, simplified within eight source pixels. `scripts/trace_plan_geometry.py` reads five local source files and emits Kotlin vectors only; it never edits or embeds a bitmap. Regeneration needs Pillow and NumPy. Ordinary app builds consume the checked-in vectors and need neither. Plan coordinates are source pixels, Y down, with no measured scale or elevations; any corridor display widening remains separate from these positions.
@@ -73,3 +79,5 @@ The [prompt record](../design/generation-prompts.md) contains the approved conce
 Generation is not deterministic. The checked-in images and checksums are the source of truth; regeneration is an art revision, not a reproducible build step. Recheck image registration and routes whenever the floor artwork changes.
 
 The project distributes these generated sample assets under its [MIT license](../../LICENSE) to the extent applicable. Orbit, Moss, Spark and North are fictional company labels. No BeCentral approval or actual room contents are claimed. The separate Gaussian-splat sample retains its own CC BY 4.0 provenance.
+
+The decorative wall finish uses final facade/courtyard caps above partition tips at their junctions; the raw audit remains independent. See the [wall finish audit](PARTITION_WALL_FINISH.md).

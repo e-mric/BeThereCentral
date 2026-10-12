@@ -12,6 +12,7 @@ object CampusFloorScenes {
             walls = emptyList(),
             props = authored.props.filterNot(linework::intersects),
             sourceLinework = linework,
+            partitionSkin = StyledPlanPartitions.forFloor(floor.id),
         )
     }
 

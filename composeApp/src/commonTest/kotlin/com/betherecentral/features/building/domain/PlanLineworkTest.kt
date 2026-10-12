@@ -81,4 +81,15 @@ class PlanLineworkTest {
         )))
         assertTrue(third.props.count { it.regionId == "third-garden" } >= 6)
     }
+
+    @Test
+    fun decorativeWallFinishKeepsFurnitureClear() {
+        BeCentralPlans.floors.forEach { floor ->
+            val scene = CampusFloorScenes.forFloor(floor.id)
+            val skin = PlanLinework(assertNotNull(scene.partitionSkin, floor.id), emptyList())
+            scene.props.forEach { prop ->
+                assertFalse(skin.intersects(prop, clearance = .6), "${floor.id}: wall finish covers ${prop.id}")
+            }
+        }
+    }
 }

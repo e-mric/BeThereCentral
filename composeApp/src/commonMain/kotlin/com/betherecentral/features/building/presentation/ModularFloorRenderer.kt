@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathOperation
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.IntOffset
@@ -120,7 +121,7 @@ internal fun DrawScope.drawModularFloor(
 
 }
 
-/** Draws source-observed contours above decorative art and perimeter trim. */
+/** Draws observed contours and optional wall finish independently of surface regions. */
 internal fun DrawScope.drawSourceLinework(
     scene: FloorScene,
     project: (PlanPoint) -> Offset,
@@ -128,19 +129,87 @@ internal fun DrawScope.drawSourceLinework(
     partitionColor: Color = Color(0xFF454C4E),
     stairColor: Color = Color(0xFF98A7AA),
     unmappedMask: Path? = null,
+    buildingMask: Path? = null,
+    stylePartitions: Boolean = true,
 ) {
     // This layer sits outside the coarse assigned-region mask, preserving source marks
     // that cross those approximate polygons and keeping their authored width.
     scene.sourceLinework?.let { linework ->
         drawSourceContours(linework.partitions, project, scale, partitionColor)
+        val skin = scene.partitionSkin?.takeIf { stylePartitions }
+        if (skin != null) {
+            if (buildingMask != null) clipPath(buildingMask) { drawPartitionFinish(scene.floorId, skin, project, scale) }
+            else drawPartitionFinish(scene.floorId, skin, project, scale)
+        }
         drawSourceContours(linework.stairs, project, scale, stairColor)
         // Source marks on charcoal need the same contrast as the reserved stairs.
         // Recolour the existing geometry; do not expand its edges or close gaps.
         unmappedMask?.let { mask ->
             clipPath(mask) {
-                drawSourceContours(linework.partitions, project, scale, stairColor)
+                if (skin != null) {
+                    if (buildingMask != null) clipPath(buildingMask) { drawPartitionFinish(scene.floorId, skin, project, scale, onCharcoal = true) }
+                    else drawPartitionFinish(scene.floorId, skin, project, scale, onCharcoal = true)
+                } else drawSourceContours(linework.partitions, project, scale, stairColor)
             }
         }
+    }
+}
+
+/** Every shade is contained by the offline gap-protected skin; no outward shadow. */
+private fun DrawScope.drawPartitionFinish(
+    floorId: String,
+    contours: List<List<PlanPoint>>,
+    project: (PlanPoint) -> Offset,
+    scale: Float,
+    onCharcoal: Boolean = false,
+) {
+    val paths = partitionFinishPaths(floorId, contours)
+    val edge = if (onCharcoal) Color(0xFF819299) else Color(0xFF303B41)
+    val face = if (onCharcoal) Color(0xFF5C6D75) else Color(0xFF536167)
+    val highlight = if (onCharcoal) Color(0xFFAFBEC3) else Color(0xFF7A898F)
+    val origin = project(PlanPoint(0.0, 0.0))
+    withTransform({
+        translate(origin.x, origin.y)
+        scale(scale, scale, pivot = Offset.Zero)
+    }) {
+        drawPath(paths.body, edge)
+        drawPath(paths.body, edge, style = Stroke(width = 1f))
+        clipPath(paths.body) {
+            drawPath(paths.face, face)
+            drawPath(paths.face, face, style = Stroke(width = 1f))
+            drawPath(paths.highlight, highlight)
+        }
+    }
+}
+
+private class PartitionFinishPaths(
+    val source: List<List<PlanPoint>>,
+    val body: Path,
+    val face: Path,
+    val highlight: Path,
+)
+
+// Five immutable campus recipes: expensive bevel operations run once per source
+// skin rather than on every pan/zoom frame. DrawScope paints transformed copies.
+private val partitionFinishCache = mutableMapOf<String, PartitionFinishPaths>()
+
+private fun partitionFinishPaths(floorId: String, contours: List<List<PlanPoint>>): PartitionFinishPaths {
+    partitionFinishCache[floorId]?.takeIf { it.source === contours }?.let { return it }
+    val body = sourceContourPath(contours) { Offset(it.x.toFloat(), it.y.toFloat()) }
+    val face = sourceContourPath(contours) { Offset((it.x - 1.0).toFloat(), (it.y - 1.0).toFloat()) }
+    val inset = sourceContourPath(contours) { Offset((it.x + .4).toFloat(), (it.y + .4).toFloat()) }
+    return PartitionFinishPaths(contours, body, face, Path.combine(PathOperation.Difference, body, inset))
+        .also { partitionFinishCache[floorId] = it }
+}
+
+private fun sourceContourPath(contours: List<List<PlanPoint>>, project: (PlanPoint) -> Offset) = Path().apply {
+    fillType = PathFillType.EvenOdd
+    contours.filter { it.size >= 3 }.forEach { contour ->
+        contour.forEachIndexed { index, point ->
+            val screen = project(point)
+            if (index == 0) moveTo(screen.x, screen.y) else lineTo(screen.x, screen.y)
+        }
+        close()
     }
 }
 
