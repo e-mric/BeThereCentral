@@ -505,19 +505,40 @@ func _advance_avatar_animation(traveled_distance: float) -> void:
 		return
 	walking = true
 	animation_distance += traveled_distance
-	while animation_distance >= 8.0:
-		animation_distance -= 8.0
-		walk_phase = (walk_phase + 1) % 4
+	var phase_count := _avatar_walk_pose_count(_player_appearance(), AVATAR_DIRECTIONS[facing])
+	var pixels_per_pose := 32.0 / float(phase_count)
+	walk_phase %= phase_count
+	while animation_distance + 0.00001 >= pixels_per_pose:
+		animation_distance = maxf(0.0, animation_distance - pixels_per_pose)
+		walk_phase = (walk_phase + 1) % phase_count
 
 func _reset_avatar_animation() -> void:
 	walking = false
 	walk_phase = 0
 	animation_distance = 0.0
 
-func _avatar_pose_for_phase(appearance: Dictionary, phase: int) -> String:
+func _avatar_pose_for_phase(appearance: Dictionary, phase: int, direction: String = "front") -> String:
 	if phase < 0:
 		return "idle"
-	return "walk%d" % ((phase % 4) + 1) if appearance.has("presetId") else AVATAR_WALK_POSES[phase % AVATAR_WALK_POSES.size()]
+	if appearance.has("presetId"):
+		return "walk%d" % ((phase % _avatar_walk_pose_count(appearance, direction)) + 1)
+	return AVATAR_WALK_POSES[phase % AVATAR_WALK_POSES.size()]
+
+func _avatar_walk_pose_count(appearance: Dictionary, direction: String = "front") -> int:
+	if not appearance.has("presetId"):
+		return AVATAR_WALK_POSES.size()
+	var presets: Dictionary = catalog.get("avatarPresets", {})
+	var preset: Dictionary = presets.get(str(appearance.presetId), {})
+	var direction_frames: Dictionary = preset.get("frames", {}).get(direction, {})
+	var pose_count := 0
+	for pose in direction_frames:
+		if str(pose).begins_with("walk"):
+			pose_count += 1
+	return pose_count if pose_count > 0 else AVATAR_WALK_POSES.size()
+
+func _player_appearance() -> Dictionary:
+	var player := _player_character()
+	return player.get("appearance", AvatarArt.DEFAULT_APPEARANCE)
 
 func _move_axis(step: Vector2) -> void:
 	var next := avatar_position + step
@@ -912,7 +933,7 @@ func _draw_character(character: Dictionary, feet: Vector2, direction: int, phase
 		return
 	var appearance: Dictionary = character.get("appearance", AvatarArt.DEFAULT_APPEARANCE)
 	var appearance_key := JSON.stringify(_canonical_value(appearance)).sha256_text()
-	var pose := _avatar_pose_for_phase(appearance, phase)
+	var pose := _avatar_pose_for_phase(appearance, phase, AVATAR_DIRECTIONS[direction])
 	var key: String = str(avatar_art_definition.get("version", 1)) + "-" + appearance_key + "-" + AVATAR_DIRECTIONS[direction] + "-" + pose
 	if not avatar_textures.has(key):
 		avatar_textures[key] = AvatarArt.resolve_texture(avatar_art_definition, appearance, AVATAR_DIRECTIONS[direction], pose, Callable(self, "_make_trusted_preset_texture"))

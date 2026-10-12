@@ -451,7 +451,7 @@ Astra reviewed earlier integration fixes. The final new review could not launch 
 
 ## Movement-linked walking — 12 October 2026
 
-The user supplied a motion reference and asked for a stronger walk cycle. The existing four-frame art remains in place while a separate RetroDiffusion reference-animation experiment awaits authenticated access and spending authorization; no generation or credit spend is claimed. Personal account configuration and credentials remain outside the repository.
+The user supplied a motion reference and asked for a stronger walk cycle. At this earlier movement-only checkpoint, four-frame art remained in place and the RetroDiffusion experiment awaited authentication/spending approval. The later approved generation and mixed-frame delivery are recorded below. Personal account configuration and credentials remain outside the repository.
 
 Godot now advances from collision-resolved travel, one pose per8 world pixels and a full cycle per32 pixels. Blocked movement retains input-facing but returns to idle; stop/restart, imports, dialogs and secret-room transitions reset the accumulator.
 
@@ -459,3 +459,24 @@ Godot now advances from collision-resolved travel, one pose per8 world pixels an
 - `--headless --path game --editor --quit`: passed; default sample headless startup passed.
 - Parent reviewed the movement/state diff and restarted the owned development game with the actual Studio export. Native Right/Left/Up/Down inputs changed position/facing and released to idle. [Static smoke screen](../screenshots/community/godot-distance-walk-smoke.png) records the resulting room; it is not a video or proof of final sprite-animation quality.
 - No browser build or mobile platform check was rerun for this game-only behavior change.
+
+## RetroDiffusion walking delivery — 12 October 2026
+
+The user approved a bounded pre-paid-credit animation experiment followed by testing, commit and push. The configured RetroDiffusion MCP endpoint authenticated successfully; the current chat did not expose native RD tool bindings, so a private MCP client read owner-only local credentials in memory. Credentials, account balances, signed URLs and submission logs remain outside tracked files. Only neutral sprites rendered from already-approved art were uploaded; original photographs were not uploaded.
+
+Art gate: the first right GIF had palette/body corruption confirmed in Chrome; its PNG retry had planted feet and was rejected. The first left sheet had corrupt later frames. One left retry failed with a provider502, returned no output, and its refund was verified before an identical technical retry. The successful left retry has visible stride/passing steps and bare wrists. The front action-directed sheet has alternating foot lifts and a restrained shuffle. Both back sheets had corrupt later colours and were rejected. The shipped32-frame atlas uses front8, left8, mirrored-right8, preserved-back4 and unchanged four idles. Sparse green edge pixels remain in the accepted native sources, visible at magnified dark-background inspection. This is an iterative improvement, not a finished all-direction animation upgrade.
+
+Commands actually run on the final source/data:
+
+- `python3 content/community/assets/tools/pack_architect_walk.py`: rebuilt32 frames, verified pinned native source hashes and preserved all four idle hashes. A second rebuild matched the atlas, catalog and conformance file byte-for-byte. A fixed sequence anchor keeps the highest front hair pixels within the64×96 frame; no per-pose fitting/recolouring/background removal is performed.
+- `node game/tools/sync_catalog_assets.mjs` and Studio `npm run sync-assets`: verified/copied24 props, five presets and14 unique images. All three catalog copies match.
+- `node --test content/community/v1/test/package.test.js content/community/v2/test/*.test.js room-studio/test/*.test.js`: **19 passed**.
+- Studio `npm test`: **18 passed**, including60 manual and112 preset RGBA hashes, mixed directional sequences, elapsed-time chunk invariance, preserved640ms cycle duration, cache bounds, content round trips and existing room edits. `npm run check`: **0 errors/warnings**. `npm run build`: static build **passed**.
+- Godot4.7.2 `--headless --path game --script res://tests/run_contract.gd`: **336 assertions passed**, including exact frame hashes, front8/back4/left8/right8 ordered sequences,32-world-pixel cycle wrap, blocked/idle/reset behavior, phase chunk invariance and rejecting negative/fractional/non-finite crops, non-finite pivots and six/nine-pose directions. Editor import and sample boot also passed earlier in this slice.
+- Parent review found/dedented an unreachable coordinate-validation loop, added matching rejection regressions, then reran the full Godot suite. Astra reviewed code, trusted metadata and native art; no remaining blocking defect was found. Ten stale headless task processes were verified by command/cwd and stopped, retaining the live GUI.
+
+Actual browser: Chrome for Testing displayed the new left/right walk and front foot-lift cycle, and the preserved back view through Stand/Walk/direction controls. Initial Vite hot reload temporarily paired new crop metadata with an already-loaded old atlas; full reload after asset sync restored correct pixels. Final source changes were then tested/built. [Right preview](../screenshots/community/studio-rd-right-walk.png), [retained back](../screenshots/community/studio-rd-back-retained.png). These screenshots are stills. The [animated frame preview](../screenshots/community/architect-walk-preview.webp) is a lossless derived asset loop in front/back/left/right order, not a recording of browser or Godot UI.
+
+Actual Godot: the updated source pack rendered The Architect and Morgane from the prior actual browser download. Native Left input changed position and released to the left idle pose. Further held-key checks were interrupted by user-control notifications, so a new complete four-direction native-animation walkthrough is **not claimed**. This observation predates the final one-pixel front-anchor adjustment; final RGBA/sequence tests cover the updated data. Earlier complete quest/secret/progress walkthrough evidence remains above; these unchanged journeys were exercised by the336-assertion runtime suite, not repeated end-to-end through native controls in this art pass. No phone, emulator, iOS, assistive-technology or hosted-CI pass is claimed.
+
+Final delivery hygiene: `git diff --cached --check` passed before commit; staged text was checked for RD credentials/authorization headers/signed-output URLs. `scripts/check_docs.py HEAD^` passed for the walking delivery commit. Unrelated iOS screenshots remain unstaged.

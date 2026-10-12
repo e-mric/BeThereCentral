@@ -60,14 +60,35 @@ static func _safe_avatar_presets(presets: Dictionary) -> bool:
 		var expected_image: String = "v1/" + str(preset_id).trim_suffix("-v1") + "-directions-v1.png"
 		if preset.get("label") != expected_label or preset.get("image") != expected_image or not _is_sha256(preset.get("sha256")) or not _valid_preset_attribution(str(preset.get("attribution", ""))):
 			return false
-		if not _same_numeric_array(preset.get("frameSize"), [64, 96]) or not _same_numeric_array(preset.get("worldSize"), [32, 48]) or not _same_numeric_array(preset.get("footPivot"), [32, 88]) or int(preset.get("frameDurationMs", 0)) != 160 or float(preset.get("sourceScale", 0.0)) != 0.32:
+		if not _same_numeric_array(preset.get("frameSize"), [64, 96]) or not _same_numeric_array(preset.get("worldSize"), [32, 48]) or not _same_numeric_array(preset.get("footPivot"), [32, 88]):
+			return false
+		var frame_duration: Variant = preset.get("frameDurationMs")
+		var source_scale: Variant = preset.get("sourceScale")
+		if not (frame_duration is int or frame_duration is float) or not (source_scale is int or source_scale is float):
+			return false
+		var supports_mixed_architect: bool = preset_id == "architect-v1" and float(frame_duration) == 80.0 and float(source_scale) == 1.0
+		var supports_legacy_four_pose: bool = float(frame_duration) == 160.0 and float(source_scale) == 0.32
+		if not supports_mixed_architect and not supports_legacy_four_pose:
 			return false
 		if not preset.get("frames") is Dictionary or preset.frames.size() != 4:
 			return false
+		var has_eight_pose_direction := false
 		for direction in ["front", "back", "left", "right"]:
-			if not preset.frames.has(direction) or not preset.frames[direction] is Dictionary or preset.frames[direction].size() != 5:
+			if not preset.frames.has(direction) or not preset.frames[direction] is Dictionary:
 				return false
-			for pose in ["idle", "walk1", "walk2", "walk3", "walk4"]:
+			var walk_pose_count: int = preset.frames[direction].size() - 1
+			if supports_mixed_architect:
+				if walk_pose_count not in [4, 8]:
+					return false
+				if walk_pose_count == 8:
+					has_eight_pose_direction = true
+			else:
+				if walk_pose_count != 4:
+					return false
+			var expected_poses := ["idle", "walk1", "walk2", "walk3", "walk4"]
+			if walk_pose_count == 8:
+				expected_poses = ["idle", "walk1", "walk2", "walk3", "walk4", "walk5", "walk6", "walk7", "walk8"]
+			for pose in expected_poses:
 				if not preset.frames[direction].has(pose):
 					return false
 				var frame: Variant = preset.frames[direction][pose]
@@ -79,6 +100,8 @@ static func _safe_avatar_presets(presets: Dictionary) -> bool:
 				for coordinate in frame.sourcePivot:
 					if not (coordinate is int or coordinate is float) or not is_finite(float(coordinate)):
 						return false
+		if supports_mixed_architect and not has_eight_pose_direction:
+			return false
 	return true
 
 static func _same_key_set(value: Dictionary, expected: Array) -> bool:

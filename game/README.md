@@ -27,3 +27,5 @@ godot --headless --path game --editor --quit
 ```
 
 The trusted catalog artwork, original character-parts definition, and five trusted direction atlases are copied reproducibly from the repository community asset collection with `node game/tools/sync_catalog_assets.mjs`; their provenance and license details are recorded in [`ASSET_LICENSE.md`](ASSET_LICENSE.md). Prop crops use the shared atlas coordinates. Both manual characters and trusted presets render to 64 × 96 pixels, display at 32 × 48 world size, and use nearest-neighbor filtering.
+
+The Architect now uses eight front/side walking poses, with right walking mirrored from the accepted left sheet. Back walking retains the existing four poses after the new provider outputs failed colour review. The full gait still follows32 world pixels of movement in any direction; four idle frames remain unchanged. See the [packing recipe and provenance](../content/community/assets/README.md#architect-walking-refinement).

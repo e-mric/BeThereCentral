@@ -66,6 +66,61 @@ func _run() -> void:
 	live_game.animation_distance = 5.0
 	live_game._apply_movement_input(Vector2.RIGHT, 0.5)
 	_check(GameMain.AVATAR_DIRECTIONS[live_game.facing] == "right" and not live_game.walking and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "blocked movement still faces its input but stays idle against an obstacle")
+	var unsupported_presets: Dictionary = catalog_result.catalog.avatarPresets.duplicate(true)
+	for direction in ["front", "back", "left", "right"]:
+		unsupported_presets["architect-v1"].frames[direction]["walk9"] = unsupported_presets["architect-v1"].frames[direction].walk1.duplicate(true)
+	_check(not CatalogLoader._safe_avatar_presets(unsupported_presets), "trusted catalog rejects unsupported avatar pose counts")
+	var negative_crop_catalog: Dictionary = catalog_result.catalog.avatarPresets.duplicate(true)
+	negative_crop_catalog["architect-v1"].frames.front.idle.crop[0] = -1
+	_check(not CatalogLoader._safe_avatar_presets(negative_crop_catalog), "trusted catalog rejects negative avatar crop coordinates")
+	var fractional_crop_catalog: Dictionary = catalog_result.catalog.avatarPresets.duplicate(true)
+	fractional_crop_catalog["architect-v1"].frames.front.idle.crop[0] = 0.5
+	_check(not CatalogLoader._safe_avatar_presets(fractional_crop_catalog), "trusted catalog rejects fractional avatar crop coordinates")
+	var nonfinite_crop_catalog: Dictionary = catalog_result.catalog.avatarPresets.duplicate(true)
+	nonfinite_crop_catalog["architect-v1"].frames.front.idle.crop[0] = NAN
+	_check(not CatalogLoader._safe_avatar_presets(nonfinite_crop_catalog), "trusted catalog rejects non-finite avatar crop coordinates")
+	var nonfinite_pivot_catalog: Dictionary = catalog_result.catalog.avatarPresets.duplicate(true)
+	nonfinite_pivot_catalog["architect-v1"].frames.front.idle.sourcePivot[0] = NAN
+	_check(not CatalogLoader._safe_avatar_presets(nonfinite_pivot_catalog), "trusted catalog rejects non-finite avatar source pivots")
+	_check(live_game._avatar_walk_pose_count({"presetId": "founder-v1"}) == 4, "legacy trusted presets retain four walking phases")
+	_check(live_game._avatar_walk_pose_count({"presetId": "architect-v1"}) == 8, "Architect preset uses eight walking phases")
+	var architect_direction_cases := [[Vector2.DOWN, "front"], [Vector2.UP, "back"], [Vector2.LEFT, "left"], [Vector2.RIGHT, "right"]]
+	for direction_case in architect_direction_cases:
+		live_game._load_package(v2_fixtures.path_join("package-founders-v2.json"))
+		_set_player_appearance(live_game, {"presetId": "architect-v1"})
+		var expected_phase_count: int = {"front": 8, "back": 4, "left": 8, "right": 8}[direction_case[1]]
+		var pixels_per_pose := 32.0 / float(expected_phase_count)
+		var observed_architect_poses: Array[String] = []
+		for _phase in range(expected_phase_count):
+			live_game._apply_movement_input(direction_case[0], pixels_per_pose / 68.0)
+			observed_architect_poses.append(live_game._avatar_pose_for_phase({"presetId": "architect-v1"}, live_game.walk_phase, direction_case[1]))
+		var expected_architect_sequence: Array[String] = []
+		for pose_number in range(2, expected_phase_count + 1):
+			expected_architect_sequence.append("walk%d" % pose_number)
+		expected_architect_sequence.append("walk1")
+		_check(live_game._avatar_walk_pose_count({"presetId": "architect-v1"}, direction_case[1]) == expected_phase_count and GameMain.AVATAR_DIRECTIONS[live_game.facing] == direction_case[1] and observed_architect_poses == expected_architect_sequence, "Architect %s movement advances through its %d walk poses in order per 32 pixels" % [direction_case[1], expected_phase_count])
+		live_game._apply_movement_input(Vector2.ZERO, 0.0)
+		_check(not live_game.walking and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "Architect %s stop resets its walk cycle" % direction_case[1])
+	live_game._load_package(v2_fixtures.path_join("package-founders-v2.json"))
+	_set_player_appearance(live_game, {"presetId": "architect-v1"})
+	for _frame in range(8):
+		live_game._apply_movement_input(Vector2.RIGHT, 4.0 / 68.0)
+	var architect_reference_end: Vector2 = live_game.avatar_position
+	live_game._load_package(v2_fixtures.path_join("package-founders-v2.json"))
+	_set_player_appearance(live_game, {"presetId": "architect-v1"})
+	for _frame in range(16):
+		live_game._apply_movement_input(Vector2.RIGHT, 2.0 / 68.0)
+	_check(live_game.avatar_position.distance_to(architect_reference_end) <= 0.001 and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "Architect eight-pose cycle is invariant to frame chunking over equal distance")
+	var six_pose_catalog: Dictionary = catalog_result.catalog.avatarPresets.duplicate(true)
+	for direction in ["front", "left", "right"]:
+		six_pose_catalog["architect-v1"].frames[direction].erase("walk7")
+		six_pose_catalog["architect-v1"].frames[direction].erase("walk8")
+	_check(not CatalogLoader._safe_avatar_presets(six_pose_catalog), "trusted catalog rejects an unsupported six-pose direction")
+	live_game._load_package(v2_fixtures.path_join("package-founders-v2.json"))
+	_set_player_appearance(live_game, {"presetId": "architect-v1"})
+	live_game.avatar_position = Vector2(46, 86)
+	live_game._apply_movement_input(Vector2.RIGHT, 0.5)
+	_check(not live_game.walking and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "blocked Architect input does not animate")
 	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
 	live_game._apply_movement_input(Vector2.RIGHT, 8.0 / 68.0)
 	live_game._apply_movement_input(Vector2.ZERO, 0.0)
@@ -336,3 +391,10 @@ func _reverse_keys(value: Dictionary) -> Dictionary:
 	for key in keys:
 		result[key] = value[key]
 	return result
+
+func _set_player_appearance(game: Node, appearance: Dictionary) -> void:
+	var player_id: String = game.current_package.gameplay.playerCharacterId
+	for index in range(game.current_package.characters.size()):
+		if game.current_package.characters[index].id == player_id:
+			game.current_package.characters[index]["appearance"] = appearance.duplicate(true)
+			return

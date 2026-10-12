@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { STARTER, addProp, avatarPresetCatalog, clonePackage, hitTestObject, makePlayPackage, paintElements, parsePackage, serializePackage, updatePackage, validatePackage } from './content.ts';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { avatarNameplateAnchor, avatarRasterCacheSize, avatarWorldRect, clearAvatarRasterCache, renderAvatarPresetRgba, renderAvatarRgba } from './avatar-art.ts';
+import { advanceAvatarWalkClock, avatarNameplateAnchor, avatarRasterCacheSize, avatarWalkFrameDuration, avatarWalkSequence, avatarWorldRect, clearAvatarRasterCache, renderAvatarPresetRgba, renderAvatarRgba } from './avatar-art.ts';
 import { decodePngRgba } from './png-rgba.ts';
 
 test('creates valid v2 room and playable packages from the bundled starter', async () => {
@@ -31,7 +31,7 @@ test('creates valid v2 room and playable packages from the bundled starter', asy
   assert.deepEqual(parsePackage(serializePackage(playable)), playable);
 });
 
-test('rasterizes every trusted atlas preset against its 20 canonical frame hashes', async () => {
+test('rasterizes every trusted atlas preset against all canonical frame hashes', async () => {
   clearAvatarRasterCache();
   const presets = avatarPresetCatalog();
   for (const [presetId, preset] of Object.entries(presets)) {
@@ -42,12 +42,52 @@ test('rasterizes every trusted atlas preset against its 20 canonical frame hashe
     assert.equal(conformance.presetId, presetId);
     for (const [direction, poses] of Object.entries(conformance.hashes)) {
       for (const [pose, expected] of Object.entries(poses)) {
-        const studioPose = ({ walk1:'walk-a', walk2:'walk-b', walk3:'walk-c', walk4:'walk-d' })[pose] ?? pose;
+        const studioPose = ({ walk1:'walk-a', walk2:'walk-b', walk3:'walk-c', walk4:'walk-d', walk5:'walk-e', walk6:'walk-f', walk7:'walk-g', walk8:'walk-h' })[pose] ?? pose;
         const bytes = renderAvatarPresetRgba(presetId, preset, atlas.rgba, atlas.width, atlas.height, direction, studioPose);
         assert.equal(createHash('sha256').update(bytes).digest('hex'), expected, `${presetId} ${direction} ${pose}`);
       }
     }
   }
+});
+
+test('matches the preview walk sequence to each preset and wraps at its available frame count', () => {
+  const presets = avatarPresetCatalog();
+  assert.equal(avatarWalkSequence().length, 4, 'manual characters keep the four shared run-definition poses');
+  for (const [presetId, preset] of Object.entries(presets)) {
+    const available = Object.keys(preset.frames.front).filter(pose => pose.startsWith('walk')).length;
+    const sequence = avatarWalkSequence(preset);
+    assert.equal(sequence.length, available, `${presetId} exposes only available atlas frames`);
+    const wrapped = advanceAvatarWalkClock(sequence.length - 1, preset.frameDurationMs, preset.frameDurationMs, sequence.length);
+    assert.equal(wrapped.index, 0, `${presetId} loops back to its first walk frame`);
+    assert.equal(wrapped.elapsedMs, 0);
+  }
+});
+
+test('walk timing keeps fractional frame time across timer polling chunks', () => {
+  const oneChunk = advanceAvatarWalkClock(0, 205, 80, 8);
+  let manyChunks = { index:0, elapsedMs:0 };
+  for (const delta of [40, 40, 40, 40, 40, 5]) manyChunks = advanceAvatarWalkClock(manyChunks.index, manyChunks.elapsedMs + delta, 80, 8);
+  assert.deepEqual(oneChunk, { index:2, elapsedMs:45 });
+  assert.deepEqual(manyChunks, oneChunk);
+});
+
+test('scales a short directional gait to preserve the full cycle duration', () => {
+  const source = avatarPresetCatalog()['architect-v1'] ?? avatarPresetCatalog()['founder-v1'];
+  const frame = source.frames.front.idle;
+  const frames = Object.fromEntries(['front','back','left','right'].map(direction => {
+    const count = direction === 'back' ? 4 : 8;
+    return [direction, Object.fromEntries([['idle',frame], ...Array.from({ length:count }, (_, index) => [`walk${index + 1}`,frame])])];
+  }));
+  const mixedGait = { ...source, frameDurationMs:80, frames };
+  assert.equal(avatarWalkSequence(mixedGait, 'front').length, 8);
+  assert.equal(avatarWalkSequence(mixedGait, 'back').length, 4);
+  assert.equal(avatarWalkFrameDuration(mixedGait, 'front'), 80);
+  assert.equal(avatarWalkFrameDuration(mixedGait, 'left'), 80);
+  assert.equal(avatarWalkFrameDuration(mixedGait, 'right'), 80);
+  assert.equal(avatarWalkFrameDuration(mixedGait, 'back'), 160);
+  const legacyFrames = Object.fromEntries(['front','back','left','right'].map(direction => [direction, Object.fromEntries([['idle',frame], ...Array.from({ length:4 }, (_, index) => [`walk${index + 1}`,frame])])]));
+  const legacy = { ...source, frameDurationMs:160, frames:legacyFrames };
+  assert.equal(avatarWalkFrameDuration(legacy, 'back'), 160, 'legacy four-frame presets keep their original frame duration');
 });
 
 test('places manual and preset frames at the same world-size foot anchor', () => {

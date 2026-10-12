@@ -1,0 +1,307 @@
+{
+  "version": 1,
+  "legacy": {
+    "label": "The Architect",
+    "image": "v1/architect-walk-sources-v1/legacy-directions-native.png",
+    "sha256": "db1059c1f3ab284ae0ba99a411ae9692f4b51b733f8bb061cc53e1cc4fe282c7",
+    "frameSize": [
+      64,
+      96
+    ],
+    "worldSize": [
+      32,
+      48
+    ],
+    "footPivot": [
+      32,
+      88
+    ],
+    "frameDurationMs": 160,
+    "sourceScale": 0.32,
+    "frames": {
+      "front": {
+        "idle": {
+          "crop": [
+            63,
+            3,
+            156,
+            281
+          ],
+          "sourcePivot": [
+            78.0,
+            280
+          ]
+        },
+        "walk1": {
+          "crop": [
+            344,
+            3,
+            156,
+            281
+          ],
+          "sourcePivot": [
+            78.0,
+            281
+          ]
+        },
+        "walk2": {
+          "crop": [
+            618,
+            2,
+            153,
+            282
+          ],
+          "sourcePivot": [
+            76.5,
+            280
+          ]
+        },
+        "walk3": {
+          "crop": [
+            909,
+            2,
+            155,
+            282
+          ],
+          "sourcePivot": [
+            77.5,
+            282
+          ]
+        },
+        "walk4": {
+          "crop": [
+            1183,
+            2,
+            154,
+            282
+          ],
+          "sourcePivot": [
+            77.0,
+            280
+          ]
+        }
+      },
+      "back": {
+        "idle": {
+          "crop": [
+            68,
+            284,
+            158,
+            276
+          ],
+          "sourcePivot": [
+            79.0,
+            274
+          ]
+        },
+        "walk1": {
+          "crop": [
+            353,
+            285,
+            156,
+            277
+          ],
+          "sourcePivot": [
+            78.0,
+            276
+          ]
+        },
+        "walk2": {
+          "crop": [
+            626,
+            284,
+            156,
+            278
+          ],
+          "sourcePivot": [
+            78.0,
+            277
+          ]
+        },
+        "walk3": {
+          "crop": [
+            910,
+            285,
+            159,
+            277
+          ],
+          "sourcePivot": [
+            79.5,
+            277
+          ]
+        },
+        "walk4": {
+          "crop": [
+            1190,
+            284,
+            156,
+            278
+          ],
+          "sourcePivot": [
+            78.0,
+            278
+          ]
+        }
+      },
+      "left": {
+        "idle": {
+          "crop": [
+            58,
+            562,
+            160,
+            273
+          ],
+          "sourcePivot": [
+            80.0,
+            273
+          ]
+        },
+        "walk1": {
+          "crop": [
+            339,
+            562,
+            161,
+            273
+          ],
+          "sourcePivot": [
+            80.5,
+            273
+          ]
+        },
+        "walk2": {
+          "crop": [
+            613,
+            562,
+            160,
+            273
+          ],
+          "sourcePivot": [
+            80.0,
+            273
+          ]
+        },
+        "walk3": {
+          "crop": [
+            904,
+            562,
+            165,
+            273
+          ],
+          "sourcePivot": [
+            82.5,
+            273
+          ]
+        },
+        "walk4": {
+          "crop": [
+            1183,
+            562,
+            162,
+            273
+          ],
+          "sourcePivot": [
+            81.0,
+            273
+          ]
+        }
+      },
+      "right": {
+        "idle": {
+          "crop": [
+            71,
+            835,
+            162,
+            271
+          ],
+          "sourcePivot": [
+            81.0,
+            269
+          ]
+        },
+        "walk1": {
+          "crop": [
+            351,
+            835,
+            164,
+            271
+          ],
+          "sourcePivot": [
+            82.0,
+            269
+          ]
+        },
+        "walk2": {
+          "crop": [
+            625,
+            835,
+            164,
+            271
+          ],
+          "sourcePivot": [
+            82.0,
+            269
+          ]
+        },
+        "walk3": {
+          "crop": [
+            912,
+            835,
+            168,
+            271
+          ],
+          "sourcePivot": [
+            84.0,
+            269
+          ]
+        },
+        "walk4": {
+          "crop": [
+            1191,
+            835,
+            165,
+            271
+          ],
+          "sourcePivot": [
+            82.5,
+            269
+          ]
+        }
+      }
+    },
+    "attribution": "Original The Architect pixel portrayal; user requested their own character on 12 October 2026, then bare wrists and clearer directional walking. Generated project art; reference photographs not distributed. See docs/design/community-character-prompts.json.",
+    "realPerson": true
+  },
+  "idleHashes": {
+    "front": "1f312be17fba48248a250a0564e69999b508b02ff6234999f9227d8df5d8fb1a",
+    "back": "e4955d26ce6b569a1c22187902120db2aa807bec72bcfdcb00a9231a11c14231",
+    "left": "2188f37c6ab5fe1ff298effc2f58226aa7dbda90cff57c8e0f765b86f9bab413",
+    "right": "98ceef9ebf024725a6fc1dac9fcaaed800175e2387b6bccc3b46d15d0624a11e"
+  },
+  "walking": {
+    "front": {
+      "image": "v1/architect-walk-sources-v1/front-native.png",
+      "sha256": "858988f50aa135228afca3ae820301ac6264a09fadb50c998f9611dd1ee88bdb",
+      "sourcePivot": [
+        64,
+        107
+      ]
+    },
+    "left": {
+      "image": "v1/architect-walk-sources-v1/left-native.png",
+      "sha256": "cd9c42cd60a9b7ebd3a2aa17cb5479801251a5bd395252b40bde1c461f69f3c2",
+      "sourcePivot": [
+        64,
+        108
+      ]
+    },
+    "right": {
+      "image": "v1/architect-walk-sources-v1/left-native.png",
+      "sha256": "cd9c42cd60a9b7ebd3a2aa17cb5479801251a5bd395252b40bde1c461f69f3c2",
+      "mirror": true,
+      "sourcePivot": [
+        64,
+        108
+      ]
+    }
+  }
+}

@@ -52,5 +52,51 @@
     "reference": "Original gait-edited Architect atlas",
     "prompt": "Precise pixel-art sprite atlas edit. Keep this 20-sprite transparent sheet EXACTLY as it is, except TWO sprites: row TWO, column FOUR and column FIVE (the back-facing walk3 and walk4). In those two back-facing sprites, change ONLY the legs and feet so the LEFT leg/knee and LEFT sneaker are raised and bent, and the RIGHT leg is the straight supporting leg with RIGHT sneaker at the lowest foot baseline. Current back walking frames all raise the same right leg; these two frames must raise the opposite LEFT leg. Thus back row column2/3 right foot raised, column4/5 LEFT foot raised. Preserve arms, white shirt, hair, size, body/head position, all other eighteen sprites, fourrow/fivecolumn layout, no watches/bracelets, true transparent background. Do not mirror the whole person; only change these two leg poses. Clear visual left-versus-right foot alternation when those four back-facing frames play sequentially. No captions or extra sprites.",
     "result": "Final distributed atlas has opposing raised feet in back walking phases; all wrists bare."
+  },
+  {
+    "id": "architect-walk-front-rd-v1",
+    "mode": "RetroDiffusion MCP reference animation",
+    "date": "2026-10-12",
+    "reference": "128x128 neutral reference rendered from approved bare-wrist Architect art; original photographs were not uploaded",
+    "prompt_style": "rd_advanced_animation__custom_action",
+    "prompt": "The same bespectacled man with swept dark brown locs, trimmed beard, white linen shirt, cream trousers, and light sneakers, front view facing toward the viewer, walking briskly in place. A complete alternating left-right leg walk cycle with visibly lifted feet, bent passing knees, opposite arm swing and small body bob. Keep the facing direction fixed, head and outfit consistent, full body inside the frame. Bare wrists without watches or bracelets. Plain white background. Seamless eight-frame loop.",
+    "parameters": {
+      "width": 128,
+      "height": 128,
+      "frames_duration": 8,
+      "seed": 4175,
+      "return_spritesheet": true,
+      "remove_bg": true,
+      "bypass_prompt_expansion": true
+    },
+    "nativeOutput": "content/community/assets/v1/architect-walk-sources-v1/front-native.png",
+    "sha256": "858988f50aa135228afca3ae820301ac6264a09fadb50c998f9611dd1ee88bdb",
+    "result": "Eight walking frames accepted after pose and colour review; sparse green edge pixels retained, not locally repainted."
+  },
+  {
+    "id": "architect-walk-left-rd-v1",
+    "mode": "RetroDiffusion MCP reference animation",
+    "date": "2026-10-12",
+    "reference": "128x128 neutral reference rendered from approved bare-wrist Architect art; original photographs were not uploaded",
+    "prompt_style": "rd_advanced_animation__walking",
+    "prompt": "The same bespectacled man with swept dark brown locs, trimmed beard, white linen shirt, cream trousers, and light sneakers, facing left throughout, walking briskly in place. Legs must visibly move through a full walk cycle: a wide heel-contact stride, the rear foot lifting off the ground, a bent knee passing under the hips, then the opposite wide stride. Feet separate substantially, alternate supporting weight and clearly lift off the ground. Arms swing gently opposite the legs. Stable head, glasses, outfit, and body scale. Bare wrists without watches or bracelets. Full body on a plain white background. Seamless eight-frame loop.",
+    "parameters": {
+      "width": 128,
+      "height": 128,
+      "frames_duration": 8,
+      "seed": 4175,
+      "return_spritesheet": true,
+      "remove_bg": false,
+      "bypass_prompt_expansion": true
+    },
+    "nativeOutput": "content/community/assets/v1/architect-walk-sources-v1/left-native.png",
+    "sha256": "cd9c42cd60a9b7ebd3a2aa17cb5479801251a5bd395252b40bde1c461f69f3c2",
+    "result": "Eight walking frames accepted after pose and colour review; sparse green edge pixels retained, not locally repainted."
+  },
+  {
+    "id": "architect-walk-runtime-v1",
+    "mode": "deterministic RGBA extraction and atlas packing",
+    "reference": "content/community/assets/architect-walk-recipe-v1.json",
+    "result": "Front and left use eight RetroDiffusion frames; right mirrors accepted left pixels around the fixed root anchor. Existing four back walking frames and four idle frames retain exact RGBA hashes. Rejected right/back generations are not used."
   }
 ]

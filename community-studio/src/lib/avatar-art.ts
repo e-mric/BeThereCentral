@@ -1,5 +1,6 @@
 export type AvatarDirection = 'front' | 'back' | 'left' | 'right';
-export type AvatarPose = 'idle' | 'walk-a' | 'walk-b' | 'walk-c' | 'walk-d';
+export type AvatarPose = 'idle' | 'walk-a' | 'walk-b' | 'walk-c' | 'walk-d' | 'walk-e' | 'walk-f' | 'walk-g' | 'walk-h';
+export type AvatarAtlasWalkPose = 'walk1' | 'walk2' | 'walk3' | 'walk4' | 'walk5' | 'walk6' | 'walk7' | 'walk8';
 type Rgba = [number, number, number, number];
 type Run = [number, number, number, string];
 type AvatarFrame = { direction: AvatarDirection; pose: AvatarPose; offset: [number, number]; runs: Run[] };
@@ -17,7 +18,7 @@ export type AvatarPreset = {
   label: string; image: string; sha256: string; frameSize: [number, number]; worldSize: [number, number];
   footPivot: [number, number]; frameDurationMs: number; sourceScale: number;
   realPerson?: boolean;
-  frames: Record<AvatarDirection, Record<'idle' | 'walk1' | 'walk2' | 'walk3' | 'walk4', { crop: [number, number, number, number]; sourcePivot: [number, number] }>>;
+  frames: Record<AvatarDirection, { idle: { crop: [number, number, number, number]; sourcePivot: [number, number] } } & Partial<Record<AvatarAtlasWalkPose, { crop: [number, number, number, number]; sourcePivot: [number, number] }>>>;
   attribution: string;
 };
 export type AvatarWorldRect = { x: number; y: number; width: number; height: number };
@@ -31,6 +32,39 @@ export function avatarWorldRect(feetX: number, feetY: number, frameSize: [number
 /** Centers a compact nameplate above the visible sprite box, leaving its face unobstructed. */
 export function avatarNameplateAnchor(rect: AvatarWorldRect, gap = 4): { x: number; y: number } {
   return { x: rect.x + rect.width / 2, y: rect.y - gap };
+}
+
+const MANUAL_WALK_POSES: AvatarPose[] = ['walk-a', 'walk-b', 'walk-c', 'walk-d'];
+const ATLAS_WALK_POSES: AvatarAtlasWalkPose[] = ['walk1', 'walk2', 'walk3', 'walk4', 'walk5', 'walk6', 'walk7', 'walk8'];
+
+/** Returns only walk frames present in the selected direction; manual art retains its four shared poses. */
+export function avatarWalkSequence(preset?: AvatarPreset | null, direction: AvatarDirection = 'front'): AvatarPose[] {
+  if (!preset) return [...MANUAL_WALK_POSES];
+  const frames = preset.frames[direction];
+  const poseMap: AvatarPose[] = ['walk-a', 'walk-b', 'walk-c', 'walk-d', 'walk-e', 'walk-f', 'walk-g', 'walk-h'];
+  const sequence = ATLAS_WALK_POSES.flatMap((pose, index) => frames[pose] ? [poseMap[index]] : []);
+  return sequence.length ? sequence : [...MANUAL_WALK_POSES];
+}
+
+/** Preserves the front-view cycle duration when a direction has fewer authored frames. */
+export function avatarWalkFrameDuration(preset?: AvatarPreset | null, direction: AvatarDirection = 'front', manualDurationMs = 160): number {
+  if (!preset) return manualDurationMs;
+  const referenceCount = avatarWalkSequence(preset, 'front').length;
+  const directionCount = avatarWalkSequence(preset, direction).length;
+  return Math.max(1, preset.frameDurationMs * referenceCount / directionCount);
+}
+
+export function advanceAvatarWalkFrame(index: number, sequence: readonly AvatarPose[]): number {
+  return sequence.length ? ((index + 1) % sequence.length) : 0;
+}
+
+/** Advances on elapsed time without losing a partial frame to timer-poll jitter. */
+export function advanceAvatarWalkClock(index: number, elapsedMs: number, frameDurationMs: number, frameCount: number): { index: number; elapsedMs: number } {
+  if (frameCount < 1) return { index: 0, elapsedMs: 0 };
+  if (!Number.isFinite(frameDurationMs) || frameDurationMs <= 0) return { index: index % frameCount, elapsedMs: 0 };
+  const elapsed = Math.max(0, Number.isFinite(elapsedMs) ? elapsedMs : 0);
+  const steps = Math.floor(elapsed / frameDurationMs);
+  return { index: ((index + steps) % frameCount + frameCount) % frameCount, elapsedMs: elapsed - steps * frameDurationMs };
 }
 
 const CACHE_LIMIT = 128;
@@ -99,8 +133,9 @@ export function renderAvatarRgba(
   return rgba;
 }
 
-const presetPose: Record<AvatarPose, 'idle' | 'walk1' | 'walk2' | 'walk3' | 'walk4'> = {
-  idle: 'idle', 'walk-a': 'walk1', 'walk-b': 'walk2', 'walk-c': 'walk3', 'walk-d': 'walk4'
+const presetPose: Record<AvatarPose, 'idle' | AvatarAtlasWalkPose> = {
+  idle: 'idle', 'walk-a': 'walk1', 'walk-b': 'walk2', 'walk-c': 'walk3', 'walk-d': 'walk4',
+  'walk-e': 'walk5', 'walk-f': 'walk6', 'walk-g': 'walk7', 'walk-h': 'walk8'
 };
 
 /** Samples one curated crop from the trusted atlas into the same native RGBA grid as manual art. */
@@ -114,6 +149,7 @@ export function renderAvatarPresetRgba(
   const [width, height] = preset.frameSize;
   if (atlas.length !== atlasWidth * atlasHeight * 4) throw new Error('Trusted avatar atlas pixels have an unexpected size.');
   const frame = preset.frames[direction][presetPose[pose]];
+  if (!frame) throw new Error(`Avatar preset ${presetId} does not include ${presetPose[pose]} for ${direction}.`);
   const [cropX, cropY, cropWidth, cropHeight] = frame.crop;
   const [pivotX, pivotY] = frame.sourcePivot;
   const output = new Uint8Array(width * height * 4);
