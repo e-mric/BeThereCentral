@@ -41,6 +41,7 @@ kotlin {
             implementation(kotlin("test"))
         }
         getByName("androidMain").dependencies {
+            implementation("androidx.activity:activity-compose:1.10.1")
             implementation("androidx.webkit:webkit:1.14.0")
         }
         getByName("desktopMain").dependencies {

@@ -4,7 +4,7 @@ This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeTh
 
 ## Godot and Studio implementation hold
 
-The user is gathering resident input before implementing the selected Godot gameplay and SvelteKit browser Studio direction; the [plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record scope, alternatives and acceptance checks. The user separately resumed the existing Compose map and directory iteration on 9 October. That map work is active; game migration, quests and character/Studio implementation below remain deferred until feedback is recorded, the PRD/plan are revised and the user explicitly resumes that work. The standalone Room Studio remains a separate local prototype.
+The user is gathering resident input before implementing the selected Godot gameplay and SvelteKit browser Studio direction; the [community game plan](plans/COMMUNITY_GAME.md), [technical plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record scope, alternatives and acceptance checks. The user separately resumed the existing Compose map and directory iteration on 9 October. That map work is active; game migration, quests and character/Studio implementation below remain deferred until feedback is recorded, the PRD/plans are revised and the user explicitly resumes that work. The standalone Room Studio remains a separate local prototype. The 12 October authorization to expose the unrelated 3D sample under Experimental and install Android is a separate existing-app slice, not game/Studio resumption.
 
 ## Current iteration: five-floor map and reusable assets
 
@@ -18,12 +18,15 @@ The user is gathering resident input before implementing the selected Godot game
 
 ## Next playable experiment: community game and character Studio
 
-- Prototype one playable room with one avatar, one classmate NPC, a conversation, a short discovery quest and a reward. Keep the current map available during evaluation.
-- After explicit resumption, test the selected Godot runtime with a SvelteKit Studio content export; reuse the existing PixiJS canvas where useful. Verify Android/iOS controls, collision, sprite layering, save/load and performance before deciding on replacement or integration with Compose.
-- Choose one learning outcome with residents, then pair the playable quest with a documented contributor exercise. Keep both player learning and learning to build the project in scope.
-- Extend Studio with a modular character creator: appearance, display name, portrait, directional idle/walk animation preview, introduction and optional quest role. Validate one approved classmate before scaling to the roster.
-- Define versioned room/character/quest content, frame dimensions, foot pivots, asset provenance and licences. Keep real-person source photos private; publish only agreed character assets. Photo-assisted generation remains optional future work.
-- Use Sea of Stars and HYKE as art-direction references for atmosphere, depth and animation; build an original coherent palette/asset library. Do not equate a large generated floor image with a fully editable game level.
+The [12 October written plan](plans/COMMUNITY_GAME.md) defines dependencies and exit evidence. All implementation items below remain deferred behind Stage 0; no stage is marked shipped.
+
+- **Stage 0 — feedback and resumption:** record resident needs, choose one approved project/learning outcome and challenge template, agree success targets, revise the PRD/plans and obtain explicit user resumption.
+- **Stage 1 — room handoff:** one fictional room edited in SvelteKit exports to standalone Godot with independent validation and visible placement parity. Keep Compose/PixiJS runnable; deliver a beginner decorate/export lesson. Define bounded versioned content and licence/provenance records.
+- **Stage 2 — play and learn:** one avatar meets one approved NPC, discovers one project, completes one challenge with hints/retry/explanation and earns one nonduplicated reward. Verify local save/reset, collision, layering and mobile controls; record Android/iOS evidence separately. Deliver a clue-writing lesson.
+- **Stage 3 — manual character and quest authoring:** create appearance, display name, portrait, coherent directional idle/walk sprites and an approved introduction; author a supported challenge template and preview it in the game. Provide keyboard/text alternatives and design/pixel-art lessons. Photo-assisted generation remains optional later work with explicit consent.
+- **Stage 4 — reviewed community pack:** add a small approved set of rooms, characters, project introductions and challenges after participant evidence. Validate cross-references, updates, progress compatibility, rollback and content withdrawal from future versions. Keep source geometry separate from fictional collision and verify any real room association before claiming it.
+- Build coding, design, pixel-art, storytelling and optional AI-assisted lessons alongside the capability they teach. Each has a small visible result, fixture, check and review path; contributors need no AI subscription. Keep private approval records and source photos out of public packages.
+- Defer hosted accounts/publishing, multiplayer, AI dialogue and campus-wide expansion to separate evidence-led scope decisions. Use visual references for atmosphere and animation, not as asset sources or promises of production scope.
 
 ## Room Studio: next experiment steps
 

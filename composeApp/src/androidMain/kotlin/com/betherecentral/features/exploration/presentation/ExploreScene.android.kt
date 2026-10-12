@@ -9,6 +9,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.WebSettings
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
@@ -17,6 +18,11 @@ import java.io.ByteArrayInputStream
 import org.json.JSONTokener
 
 actual val supportsExploreScene: Boolean = true
+
+@Composable
+actual fun ExploreBackHandler(onBack: () -> Unit) {
+    BackHandler(onBack = onBack)
+}
 
 @Composable
 actual fun ExploreScene(modifier: Modifier) {

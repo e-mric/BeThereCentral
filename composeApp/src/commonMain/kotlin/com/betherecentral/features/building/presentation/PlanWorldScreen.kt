@@ -86,6 +86,8 @@ import androidx.compose.ui.unit.sp
 import com.betherecentral.core.presentation.PixelIcon
 import com.betherecentral.core.presentation.PixelIconKind
 import com.betherecentral.features.studio.presentation.RoomStudioPreview
+import com.betherecentral.features.exploration.presentation.ExperimentalExploreScreen
+import com.betherecentral.features.exploration.presentation.supportsExploreScene
 import com.betherecentral.features.building.data.CampusFloorScenes
 import com.betherecentral.features.building.data.BeCentralPlans
 import com.betherecentral.features.building.domain.PlanDirectory
@@ -140,6 +142,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     var moreOpen by remember { mutableStateOf(false) }
     var floorsOpen by remember { mutableStateOf(false) }
     var studioOpen by remember { mutableStateOf(false) }
+    var experimentalExploreOpen by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var selected by remember { mutableStateOf<PlaceSelection?>(null) }
     var highlightedId by remember { mutableStateOf<String?>(null) }
@@ -171,6 +174,11 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
 
     if (studioOpen) {
         RoomStudioPreview(onClose = { studioOpen = false })
+        return
+    }
+
+    if (experimentalExploreOpen) {
+        ExperimentalExploreScreen(onBack = { experimentalExploreOpen = false })
         return
     }
 
@@ -240,6 +248,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
         Text("PLAN-BASED LOCATIONS · FICTIONAL DECOR",
             Modifier.align(Alignment.BottomCenter).padding(bottom = safePadding.calculateBottomPadding() + 12.dp),
             color = Color(0xFFBBC4C9), fontSize = 9.sp, letterSpacing = 1.sp)
+
     }
 
     if (floorsOpen) {
@@ -263,10 +272,17 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     if (moreOpen) {
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         ModalBottomSheet(onDismissRequest = { moreOpen = false }, sheetState = sheetState) {
-            Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("About the map", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Button(onClick = { moreOpen = false; studioOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
                     Text("Room Studio · preview")
+                }
+                if (supportsExploreScene) {
+                    Text("Experimental", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
+                    Button(onClick = { focusJob?.cancel(); focusJob = null; moreOpen = false; experimentalExploreOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
+                        Text("3D exploration · sample")
+                    }
+                    Text("Licensed Tugboat Bat engine-room sample. It is unrelated to BeCentral; a real building capture needs building permission and privacy review.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Text("Building outlines, courtyard openings and interior lines follow the supplied plans. Furniture, windows and characters are fictional decoration. The grey ground-floor area is left empty. Company names and numbered anchors come from the supplied legend; some entries have no shown position.", fontSize = 14.sp)
                 Text("The plans do not establish scale, verified room use, accessible routes, live location or a matching 3D scene.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)

@@ -46,3 +46,7 @@ The user clarified that fictional decoration does not permit omitting or inventi
 Trace the supplied schematic pixels, preserving small returns, curves, holes and visible gaps. Separate stair marks using reviewed stair regions, not tenant-zone colour. Exclude legend badges and information icons from geometry. Render the source layer independently of coarse decorative region masks and after trim. Remove arbitrary decorative dividers and omit furniture that crosses observed lines. Keep source width for dense detail so adjacent gaps remain open. Outer and courtyard window bands remain fictional styling on the existing approximate footprint masks. The schematic layer still does not establish surveyed doors, routes or accessibility.
 
 Retain original schematics, extraction source, generated vectors and audit evidence together. Company anchors, toilets pending user input, empty courtyards, and the Godot/Studio hold are unchanged.
+
+## Experimental sample amendment — 12 October 2026
+
+The user authorized keeping the previously bundled, unrelated 3D engine-room sample accessible through a clearly labelled Experimental section of the mobile More menu. Plan World remains the opening experience. A persistent native action returns to its retained map state, and the sample preserves its attribution and offline restrictions. This supersedes earlier wording that made the viewer accessible only as a separate browser experiment. It does not resume real building capture or Godot/Studio work; building permission and privacy review precede any BeCentral capture.

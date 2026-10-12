@@ -9,3 +9,7 @@ expect val supportsExploreScene: Boolean
 /** Hosts the offline, separately identified sample scene on supported mobile targets. */
 @Composable
 expect fun ExploreScene(modifier: Modifier = Modifier)
+
+/** Routes the platform back action to the visible sample's return callback when available. */
+@Composable
+expect fun ExploreBackHandler(onBack: () -> Unit)

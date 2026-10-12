@@ -43,7 +43,7 @@ The user's phone must not receive instrumentation inspection services. Use ordin
 
 ## Historical sample journey
 
-The former fictional four-floor prototype opened a repeated coworking footprint with a reception **3D SAMPLE** doorway to a separately licensed engine-room capture. It offered sample routes, a pixel guide, simulated QR checkpoints, local sharing and a same-device hunt. That interaction remains in legacy fixtures/tests and historical screenshots; it is not the Plan World demonstration. The engine-room viewer remains separately runnable in a browser and is unrelated to BeCentral. See [ADR 0005](adr/0005-reception-sample-doorway.md) for its historical design and [ADR 0006](adr/0006-plan-derived-pixel-world.md) for the active change.
+The former fictional four-floor prototype opened a repeated coworking footprint with a reception **3D SAMPLE** doorway to a separately licensed engine-room capture. It offered sample routes, a pixel guide, simulated QR checkpoints, local sharing and a same-device hunt. That interaction remains in legacy fixtures/tests and historical screenshots; it is not the Plan World demonstration. The engine-room viewer remains separately runnable in a browser and is also exposed through the mobile Experimental menu as of 12 October; it is unrelated to BeCentral. See [ADR 0005](adr/0005-reception-sample-doorway.md) for its historical design and [ADR 0006](adr/0006-plan-derived-pixel-world.md) for the active change.
 
 Future surveyed navigation and room-linked captures require building permission, verified geometry and accessibility review. No schematic map should be used for emergency guidance, live position or step-free directions.
 
@@ -58,3 +58,9 @@ With 5–8 consenting participants, ask for Campfire AI, 42 Belgium and The Sky 
 ## Map-first product iteration — 9 October 2026
 
 All 64 numbered entries were checked against the supplied plan badges; the [placement audit](assets/COMPANY_PLACEMENT_AUDIT.md) records the source centers, repeated positions and shared-area occupants. Company names, floors and relative placements follow the supplied plans; decorative assets adapt around them. Corridor widths may be exaggerated for readability, with source coordinates retained separately from display geometry. Do not move a company to fit the artwork or infer toilet positions; the user will supply those later. Keep The Sky / 66 visible in search and the legend without a marker.
+
+## Experimental sample journey — 12 October 2026
+
+From More, open **Experimental → 3D exploration · sample** on mobile. The menu explains that the licensed Tugboat Bat engine room is unrelated to BeCentral. In the viewer, keep the Experimental/sample distinction and native Back to map visible with clear contrast and safe-area placement. Existing camera controls and attribution remain available. Test loading, gestures, Top/zoom, attribution and return to the same floor/view, including short landscape screens. Android system Back returns from the sample. The desktop map offers no unsupported sample button; the standalone browser viewer remains available for laptop demonstrations.
+
+Real campus capture remains conditional on building permission and privacy review. Phone installation/launch evidence is separate from emulator visual checks; the user verifies visible phone behavior.

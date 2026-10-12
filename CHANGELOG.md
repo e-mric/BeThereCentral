@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — experimental 3D sample and community roadmap
+
+- Added More → Experimental → 3D exploration · sample on mobile, reusing the licensed offline engine-room viewer with explicit unrelated-scene labels and a persistent return to the retained map view. The More menu scrolls in landscape.
+- Documented the community game plan covering exploration, resident characters, room Studio, learning quests and contributor exercises, with Godot/SvelteKit work pending feedback and explicit resumption.
+
 ## Unreleased — floor selector on short screens
 
 - Made the floor choices scroll vertically so all five floors remain reachable when the selector sheet is taller than the available landscape height.

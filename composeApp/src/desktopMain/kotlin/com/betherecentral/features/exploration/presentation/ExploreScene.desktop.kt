@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.sp
 actual val supportsExploreScene: Boolean = false
 
 @Composable
+actual fun ExploreBackHandler(onBack: () -> Unit) = Unit
+
+@Composable
 actual fun ExploreScene(modifier: Modifier) {
     Box(modifier.fillMaxSize().background(Color(0xFF0C1114)), contentAlignment = Alignment.Center) {
         Text("Explore is available in the Android and iOS apps.", color = Color(0xFFD3CEE9), fontSize = 15.sp, fontWeight = FontWeight.Medium)

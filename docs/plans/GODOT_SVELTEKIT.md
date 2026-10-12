@@ -2,6 +2,8 @@
 
 8 October 2026 · Direction agreed; implementation on hold pending resident input.
 
+Updated 12 October 2026: the [community game implementation plan](COMMUNITY_GAME.md) develops the public idea into a play–learn–contribute journey, dependent stages, content ownership and contribution lessons. This document retains the selected architecture and technical acceptance checks. Both plans share the same feedback/resumption gate; neither authorizes implementation. The separate request to expose the existing unrelated 3D sample under Experimental and install the Android app is outside the game/Studio migration.
+
 ## Problem and experiment
 
 Residents should be able to recognize their community, play short learning quests and contribute original rooms and characters. The next proposed experiment is one fictional room, one controllable avatar, one approved resident/classmate NPC, one conversation, one short learning/discovery quest and one visible reward. This tests whether playing and authoring are enjoyable before expanding to the campus.
@@ -22,6 +24,8 @@ Residents should be able to recognize their community, play short learning quest
 | Android and iOS remain intended game targets | Web-game delivery, renderer and performance budgets |
 
 The open-source learning platform has two intended audiences: players learn through playable quests; contributors learn through readable code, sample content, exercises and documentation. Neither a course catalogue nor a whole-campus RPG is required for the first experiment.
+
+The proposed public experience includes discovering approved company/project introductions, making a character, editing a simple fictional space and completing quests, puzzles or learning challenges. Start with one supported challenge template and manual creation. The [community plan](COMMUNITY_GAME.md#learning-to-contribute-at-different-levels) makes coding, design, pixel art, storytelling and optional AI-assisted contribution paths explicit for beginners and experienced contributors.
 
 ## Gate 0 — resident input before any implementation
 
@@ -91,6 +95,8 @@ Acceptance: the approved export produces the same character and quest in Godot; 
 Problem: a successful room may not generalize to a campus. Experiment: add a small approved set of rooms/characters and explicit fictional transitions before considering all five floors.
 
 Acceptance: IDs and saves survive supported content updates; transitions and quest references validate; directory uncertainty remains visible; performance and controls meet the agreed budgets on named targets. Demonstrate the complete journey, including the map/search/legend role chosen in the revised PRD. Confirm rights and exact room assignments before presenting any real tenant as an editor of their actual room.
+
+Begin this expansion with a small reviewed community content pack, as [Stage 4 of the community plan](COMMUNITY_GAME.md#stage-4--review-a-small-community-content-pack) describes. Prove content correction, withdrawal from future releases and pack rollback through local export/repository review before separately scoping hosted publishing or accounts.
 
 Each slice includes matching feature tests, updated docs/changelog and commands/results in `docs/testing/STATUS.md`. Rendered browser, emulator/simulator and physical-device observations are distinct. Builds alone are not visual evidence. On the user's phone, use only ordinary ADB installation/launch and narrowly scoped crash diagnostics; visible verification remains with the user unless another method is authorized.
 

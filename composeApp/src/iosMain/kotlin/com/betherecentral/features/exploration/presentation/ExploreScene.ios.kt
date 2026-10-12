@@ -18,6 +18,9 @@ import platform.WebKit.WKNavigationDelegateProtocol
 actual val supportsExploreScene: Boolean = true
 
 @Composable
+actual fun ExploreBackHandler(onBack: () -> Unit) = Unit
+
+@Composable
 @OptIn(ExperimentalForeignApi::class)
 actual fun ExploreScene(modifier: Modifier) {
     val sceneDirectory = NSBundle.mainBundle.URLForResource("index", withExtension = "html", subdirectory = "exploration")

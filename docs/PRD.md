@@ -1,6 +1,6 @@
 # BeThereCentral — Product Requirements
 
-Version 0.12 · 9 October 2026 · Status: place-guide iteration active; game/Studio migration on hold
+Version 0.13 · 12 October 2026 · Status: place-guide iteration active; game/Studio migration on hold
 
 Godot for gameplay and SvelteKit for browser Studio are the selected technical direction. Product scope remains provisional while residents respond to the shared idea. Incorporate their feedback into this PRD and the [implementation plan](plans/GODOT_SVELTEKIT.md), then wait for the user to explicitly resume implementation. The user separately authorized existing-map work on 9 October: convert all five floors to reusable authored asset recipes. This map work and the subsequently requested place-guide interaction may proceed while engine migration, quests and the character creator/Studio implementation stay on hold.
 
@@ -42,7 +42,7 @@ Company marker centers follow badge centers in the supplied image where a badge 
 
 The broader goal remains: **make an unfamiliar building feel familiar—and enjoyable to explore.** The codebase retains a fictional four-floor sample with graph routes, optional guide animation, simulated QR observations, local consent and same-device discovery. These are internal legacy fixtures and tests while the active home uses the five supplied plans. They do not work against those plans. The disconnected loopback sharing server tests grant expiry and revocation but is not connected to the app; opaque payload storage is not end-to-end encryption.
 
-The bundled licensed Gaussian-splat engine-room viewer and `exploration/dist/` browser demo remain a standalone experiment. The captured room is unrelated to BeCentral and has no verified map transform or room hotspots. Immersive exploration remains a long-term direction; the earlier reception doorway and bottom Map/3D journey are historical prototype behavior, not the current five-plan walkthrough. See [ADR 0006](adr/0006-plan-derived-pixel-world.md).
+The bundled licensed Gaussian-splat engine-room viewer is now accessible through the mobile Experimental menu; `exploration/dist/` remains separately runnable for browser demonstrations. The captured room is unrelated to BeCentral and has no verified map transform or room hotspots. Immersive exploration remains a long-term direction; the earlier reception doorway and bottom Map/3D journey are historical prototype behavior, not the current five-plan walkthrough. See [ADR 0006](adr/0006-plan-derived-pixel-world.md).
 
 ## Active slice: Room Studio prototype
 
@@ -80,3 +80,9 @@ No location history is kept by default. Analytics and external location upload r
 ## Architecture and verification
 
 Kotlin Multiplatform shares pure building/search behavior and Compose Multiplatform presentation across Android, iOS and desktop. Keep plan data and search independent of Compose and transport; put behavior tests in matching feature packages. Preserve thin platform launchers and the checked-in offline sample viewer. Update affected docs, changelog and [verification status](testing/STATUS.md) together. Distinguish browser, emulator and physical device evidence.
+
+## Experimental 3D sample — 12 October 2026
+
+The user authorized exposing the existing licensed engine-room viewer in the current mobile app through **More → Experimental → 3D exploration · sample**. Its visible labels distinguish the unrelated Tugboat Bat sample from BeCentral. Keep a native Back to map action available during loading, rendering and errors; returning retains the selected floor and map view. The menu scrolls on short screens. Preserve the offline bundle and its attribution; dispose viewer resources after leaving. Android system Back returns to the map while the viewer is open. Unsupported desktop hosts do not offer an inactive sample action.
+
+This is a demonstration of a possible future capability. Actual building capture/development requires building permission, agreed permitted areas and a privacy review. It remains separate from pixel gameplay and surveyed navigation. The request authorizes this sample menu integration and phone installation; the Godot/SvelteKit implementation hold remains until feedback is incorporated and the user resumes that work. The [community roadmap](plans/COMMUNITY_GAME.md) expands the shared idea into planned delivery stages.
