@@ -32,22 +32,45 @@ func _run() -> void:
 	live_game.progress.save_directory = TEST_PROGRESS_DIR.path_join("scene-smoke")
 	get_root().add_child(live_game)
 	await process_frame
+	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
 	var direction_cases := [[Vector2.DOWN, "front"], [Vector2.UP, "back"], [Vector2.LEFT, "left"], [Vector2.RIGHT, "right"]]
 	var manual_appearance: Dictionary = AvatarArt.DEFAULT_APPEARANCE
+	var expected_poses := ["walk-a", "walk-b", "walk-c", "walk-d"]
 	for direction_case in direction_cases:
-		live_game.animation_elapsed = 0.0
-		live_game.walk_phase = 0
+		live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
 		var observed_poses: Array[String] = []
 		for _frame in range(4):
-			live_game._advance_avatar_animation(direction_case[0], 0.16)
+			live_game._apply_movement_input(direction_case[0], 8.0 / 68.0)
 			observed_poses.append(live_game._avatar_pose_for_phase(manual_appearance, live_game.walk_phase))
-		var expected_poses := ["walk-a", "walk-b", "walk-c", "walk-d"]
 		var all_poses_seen := observed_poses.size() == expected_poses.size()
 		for expected_pose in expected_poses:
 			all_poses_seen = all_poses_seen and observed_poses.has(expected_pose)
-		_check(GameMain.AVATAR_DIRECTIONS[live_game.facing] == direction_case[1] and all_poses_seen, "%s movement selects facing and advances through all four walk poses" % direction_case[1])
-		live_game._advance_avatar_animation(Vector2.ZERO, 0.16)
-		_check(not live_game.walking and live_game._avatar_pose_for_phase(manual_appearance, -1) == "idle" and live_game.walk_phase == 0, "%s movement stops on the idle pose" % direction_case[1])
+		_check(GameMain.AVATAR_DIRECTIONS[live_game.facing] == direction_case[1] and all_poses_seen, "%s movement selects facing and advances through all four walk poses per 32 pixels" % direction_case[1])
+		live_game._apply_movement_input(Vector2.ZERO, 0.16)
+		_check(not live_game.walking and live_game._avatar_pose_for_phase(manual_appearance, -1) == "idle" and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "%s movement stops on the idle pose" % direction_case[1])
+	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
+	for _frame in range(4):
+		live_game._apply_movement_input(Vector2.RIGHT, 8.0 / 68.0)
+	var reference_chunked_end: Vector2 = live_game.avatar_position
+	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
+	for _frame in range(16):
+		live_game._apply_movement_input(Vector2.RIGHT, 2.0 / 68.0)
+	_check(live_game.avatar_position.distance_to(reference_chunked_end) <= 0.001 and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "equal travel across smaller frame chunks yields the same walk phase and position")
+	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
+	live_game._apply_movement_input(Vector2(1, -1), 0.5)
+	var diagonal_distance := Vector2(64, 160).distance_to(live_game.avatar_position)
+	_check(is_equal_approx(diagonal_distance, 34.0) and live_game.walk_phase == 0 and is_equal_approx(live_game.animation_distance, 2.0), "diagonal walking is normalized and animation follows Euclidean travel distance")
+	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
+	live_game.avatar_position = Vector2(46, 86)
+	live_game.walk_phase = 2
+	live_game.animation_distance = 5.0
+	live_game._apply_movement_input(Vector2.RIGHT, 0.5)
+	_check(GameMain.AVATAR_DIRECTIONS[live_game.facing] == "right" and not live_game.walking and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "blocked movement still faces its input but stays idle against an obstacle")
+	live_game._load_package(v2_fixtures.path_join("package-play-learn-v2.json"))
+	live_game._apply_movement_input(Vector2.RIGHT, 8.0 / 68.0)
+	live_game._apply_movement_input(Vector2.ZERO, 0.0)
+	live_game._apply_movement_input(Vector2.RIGHT, 8.0 / 68.0)
+	_check(live_game.walk_phase == 1 and is_zero_approx(live_game.animation_distance), "stopping then restarting begins a fresh walk cycle")
 	var resolved_founder: Texture2D = AvatarArt.resolve_texture(live_game.avatar_art_definition, {"presetId": "founder-v1"}, "front", "idle", Callable(live_game, "_make_trusted_preset_texture"))
 	_check(resolved_founder != null and AvatarArt.raw_sha256(resolved_founder.get_image()) == JSON.parse_string(FileAccess.get_file_as_string(root.path_join("content/community/assets/founder-conformance-v1.json"))).hashes.front.idle, "runtime avatar provider resolves a trusted preset to its golden frame")
 	for preset_spec in [["ninon", "Ninon", "ninon-v1"], ["morgane", "Morgane", "morgane-v1"], ["architect", "The Architect", "architect-v1"]]:
@@ -102,14 +125,16 @@ func _run() -> void:
 	var saved_room_position: Vector2 = live_game.avatar_position
 	live_game._enter_construct()
 	var construct_start: Vector2 = live_game.construct_position
-	live_game._move_construct_axis(Vector2(8, 0))
+	live_game._apply_movement_input(Vector2.RIGHT, 8.0 / 68.0)
 	_check(live_game.construct_position.x > construct_start.x, "White Construct allows movement in its own space")
+	_check(live_game.walking and live_game.walk_phase == 1, "White Construct walking animation follows actual movement distance")
 	live_game._return_from_construct()
-	_check(live_game.avatar_position == saved_room_position and not live_game.in_construct, "return restores the exact source-room position")
+	_check(live_game.avatar_position == saved_room_position and not live_game.in_construct and not live_game.walking and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "return restores room position and resets walking animation")
+	live_game._apply_movement_input(Vector2.RIGHT, 8.0 / 68.0)
 	var position_before_static_import := live_game.avatar_position
 	live_game._load_package(fixtures.path_join("package-v1.json"))
 	_check(live_game.current_version == 1 and not live_game._has_playable_activity() and not GameMain._should_draw_room_actors(live_game.current_version, live_game.current_package), "v1 import opens as a static preview with no actors")
-	_check(live_game.avatar_position == position_before_static_import and live_game.help_label.text.contains("preview"), "v1 preview preserves position and shows static-preview guidance")
+	_check(live_game.avatar_position == position_before_static_import and live_game.help_label.text.contains("preview") and not live_game.walking and live_game.walk_phase == 0 and is_zero_approx(live_game.animation_distance), "v1 preview preserves position and resets animation")
 	live_game.walking = true
 	live_game._process(1.0)
 	_check(live_game.avatar_position == position_before_static_import and not live_game.walking, "v1 static preview cannot move a hidden avatar")

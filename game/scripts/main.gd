@@ -34,7 +34,7 @@ var construct_position := Vector2(160, 196)
 var facing := 0
 var walking := false
 var walk_phase := 0
-var animation_elapsed := 0.0
+var animation_distance := 0.0
 var in_construct := false
 var interaction_message := ""
 var progress = Progress.new()
@@ -434,8 +434,7 @@ func _load_package(path: String) -> void:
 	current_version = version
 	avatar_textures.clear()
 	interaction_message = ""
-	walking = false
-	walk_phase = 0
+	_reset_avatar_animation()
 	answer_panel.hide()
 	journal_panel.hide()
 	in_construct = false
@@ -461,10 +460,10 @@ func _set_message(message: String, error: bool) -> void:
 
 func _process(delta: float) -> void:
 	if file_dialog.visible:
-		walking = false
+		_reset_avatar_animation()
 		return
 	if current_package.is_empty() or gallery_panel.visible or answer_panel.visible or journal_panel.visible or not _has_playable_activity():
-		walking = false
+		_reset_avatar_animation()
 		if not current_package.is_empty() and not gallery_panel.visible and not answer_panel.visible and not journal_panel.visible:
 			_update_interaction_prompt()
 		return
@@ -477,33 +476,43 @@ func _process(delta: float) -> void:
 		movement.y -= 1
 	if Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN):
 		movement.y += 1
-	_advance_avatar_animation(movement, delta)
-	if walking:
-		movement = movement.normalized()
-		var step := movement * 68.0 * delta
+	_apply_movement_input(movement, delta)
+	_update_interaction_prompt()
+	queue_redraw()
+
+func _apply_movement_input(movement: Vector2, delta: float) -> void:
+	if movement.length_squared() > 0.0:
+		if absf(movement.x) > absf(movement.y):
+			facing = 3 if movement.x > 0.0 else 2
+		else:
+			facing = 0 if movement.y > 0.0 else 1
+		var starting_position := construct_position if in_construct else avatar_position
+		var step := movement.normalized() * 68.0 * maxf(delta, 0.0)
 		if in_construct:
 			_move_construct_axis(Vector2(step.x, 0))
 			_move_construct_axis(Vector2(0, step.y))
 		else:
 			_move_axis(Vector2(step.x, 0))
 			_move_axis(Vector2(0, step.y))
-	_update_interaction_prompt()
-	queue_redraw()
-
-func _advance_avatar_animation(movement: Vector2, delta: float) -> void:
-	walking = movement.length_squared() > 0.0
-	if not walking:
-		walk_phase = 0
-		animation_elapsed = 0.0
-		return
-	if absf(movement.x) > absf(movement.y):
-		facing = 3 if movement.x > 0.0 else 2
+		var ending_position := construct_position if in_construct else avatar_position
+		_advance_avatar_animation(starting_position.distance_to(ending_position))
 	else:
-		facing = 0 if movement.y > 0.0 else 1
-	animation_elapsed += delta
-	while animation_elapsed >= 0.16:
-		animation_elapsed -= 0.16
+		_reset_avatar_animation()
+
+func _advance_avatar_animation(traveled_distance: float) -> void:
+	if traveled_distance <= 0.0001:
+		_reset_avatar_animation()
+		return
+	walking = true
+	animation_distance += traveled_distance
+	while animation_distance >= 8.0:
+		animation_distance -= 8.0
 		walk_phase = (walk_phase + 1) % 4
+
+func _reset_avatar_animation() -> void:
+	walking = false
+	walk_phase = 0
+	animation_distance = 0.0
 
 func _avatar_pose_for_phase(appearance: Dictionary, phase: int) -> String:
 	if phase < 0:
@@ -755,6 +764,7 @@ func _reset_progress() -> void:
 
 func _enter_construct() -> void:
 	return_position = avatar_position
+	_reset_avatar_animation()
 	in_construct = true
 	answer_panel.hide()
 	return_button.show()
@@ -766,6 +776,7 @@ func _enter_construct() -> void:
 func _return_from_construct() -> void:
 	if not in_construct:
 		return
+	_reset_avatar_animation()
 	in_construct = false
 	avatar_position = return_position
 	return_button.hide()

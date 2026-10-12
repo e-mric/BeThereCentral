@@ -448,3 +448,14 @@ Founder/Patch rendered at authored positions; arrow-key movement/facing, both cl
 Evidence: [original room](../screenshots/community/godot-founders-room.png), [retry](../screenshots/community/godot-quest-retry.png), [completion](../screenshots/community/godot-quest-complete.png), [journal](../screenshots/community/godot-clue-journal.png), [white Construct](../screenshots/community/godot-white-construct.png), [prop gallery](../screenshots/community/godot-new-props.png), [guide greeting](../screenshots/community/godot-guide-greeting.png), [invalid import](../screenshots/community/godot-invalid-import.png).
 
 Astra reviewed earlier integration fixes. The final new review could not launch because the agent-thread limit was reached, so the parent reviewed the last asset/state changes. No mobile Godot export, iOS build, physical-device installation, screen-reader test, hosted CI result or resident study is claimed for this community slice. Existing Compose phone evidence remains separate; no phone inspection service was used.
+
+## Movement-linked walking — 12 October 2026
+
+The user supplied a motion reference and asked for a stronger walk cycle. The existing four-frame art remains in place while a separate RetroDiffusion reference-animation experiment awaits authenticated access and spending authorization; no generation or credit spend is claimed. Personal account configuration and credentials remain outside the repository.
+
+Godot now advances from collision-resolved travel, one pose per8 world pixels and a full cycle per32 pixels. Blocked movement retains input-facing but returns to idle; stop/restart, imports, dialogs and secret-room transitions reset the accumulator.
+
+- Godot4.7.2 `--headless --path game --script res://tests/run_contract.gd`: **306 assertions passed**, including cardinal facing/four poses, equal-distance results across frame chunks, normalized diagonal distance, obstacle stopping, idle/restart, Construct movement/return and import reset.
+- `--headless --path game --editor --quit`: passed; default sample headless startup passed.
+- Parent reviewed the movement/state diff and restarted the owned development game with the actual Studio export. Native Right/Left/Up/Down inputs changed position/facing and released to idle. [Static smoke screen](../screenshots/community/godot-distance-walk-smoke.png) records the resulting room; it is not a video or proof of final sprite-animation quality.
+- No browser build or mobile platform check was rerun for this game-only behavior change.

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Drive the Godot walking cycle from actual collision-resolved travel, with a full cycle every32 world pixels. Blocked movement turns toward the requested direction and returns to idle; imports and secret-room transitions reset animation state.
+
 - Add approved pixel presets for programme guides Ninon and Morgane and the user as The Architect, with four directions and idle/walking frames, matching Studio and Godot rendering, and separate sample packages. Selecting a personal preset uses its approved name and clears earlier fictional introduction text. Original photographs remain outside the repository. — local community Studio and learning room
 
 - Added a separate SvelteKit Studio for fictional rooms, 24 original props, manual characters or trusted Founder/Patch presets, and a supported two-clue/three-answer activity. Local save/load, undo/redo, numeric/keyboard edits and bounded v1/v2 import/export are implemented; browser interaction verification remains pending.

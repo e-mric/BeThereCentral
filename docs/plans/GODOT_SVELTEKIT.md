@@ -110,6 +110,14 @@ The code's MIT licence does not automatically cover supplied plans, portraits, s
 
 Accounts, cloud publishing, multiplayer, AI dialogue, external generation, analytics and real-world positioning are outside the first proposal. Keep local progress minimal and resettable; no location history by default, no external location upload without explicit consent, and no E2EE claim without implementation and review.
 
+## Walking refinement — 12 October 2026
+
+Problem: the four-frame loop currently advances every160ms while the avatar travels at68 world pixels/second, and it continues when input is blocked. The user wants a gait with recognizable alternating contact/passing poses, using their supplied animation example as motion reference.
+
+First runnable change: advance animation from actual collision-resolved displacement, with a32-world-pixel stride cycle, and reset to idle when no movement occurs. Keep input-based facing and existing room/Construct collision behavior. Verify cardinal directions, diagonal normalization, equal-distance results at different frame rates, obstacle stopping and scene/import resets; inspect the actual desktop animation.
+
+Art experiment: check RetroDiffusion's reference-frame Walking workflow and the exact cost before spending. External generation uses only pre-paid credits after the user confirms the spending limit. The newly installed RetroDiffusion MCP has not yet appeared in this chat’s tool catalog; no generation or credit spend is claimed. Start with one neutral Architect sprite and one direction, review the native animated output for stable identity, bare wrists and planted-feet timing, then decide whether to generate remaining directions. Do not upload original photographs, buy additional credits or claim an animation succeeded from a static sheet. Preserve the current trusted frame contract until a reviewed animation establishes the required frame count.
+
 ## References and decision
 
 Technical direction is recorded in [ADR 0008](../adr/0008-godot-game-sveltekit-studio.md). Official references describe capabilities, not repository integration: [Godot 2D](https://docs.godotengine.org/en/stable/tutorials/2d/index.html), [Android export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html), [iOS export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_ios.html), and [SvelteKit introduction](https://svelte.dev/docs/kit/introduction). Godot mobile export remains unverified.
