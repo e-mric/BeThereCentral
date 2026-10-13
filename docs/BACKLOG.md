@@ -61,7 +61,7 @@ Enable and review a hosted CI run before claiming it passed. Choose platform acc
 - [x] Ship original coworking and Easter egg catalog with provenance and shared crop/scale/collision rules.
 - [x] Add v2 independently validated manual characters and two-clue learning quest, preserving v1 room imports.
 - [x] Verify desktop movement, retry/reward/local progress, hidden bookshelf → white Construct → safe return.
-- [ ] Verify responsive three-pane Studio, categorized thumbnails and numeric/keyboard authoring alternatives.
+- [x] Verify the canvas-first Studio workshop, categorized thumbnails and numeric/text authoring alternatives on browser and Android emulator; keep physical phone confirmation separate.
 - [ ] Review fictional content before expansion; collect optional resident feedback and separate portrayal/content approvals.
 
 Beginner path: [first community contribution](learning/FIRST_CONTRIBUTION.md). Accounts, publishing, real room editing and mobile Godot delivery remain separately scoped.

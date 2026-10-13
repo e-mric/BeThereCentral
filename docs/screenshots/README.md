@@ -17,3 +17,9 @@ The later all-floor asset conversion is recorded by `android-assets-ground.png`,
 The community walking pass adds `community/studio-rd-right-walk.png` and `community/studio-rd-back-retained.png`: actual Chrome for Testing stills. `community/architect-walk-preview.webp` is a lossless frame preview from the packed atlas, in front/back/left/right order; it is not a UI recording. Back retains its four original walking frames, held for two ticks in this comparison, while front/sides use eight. See the final [verification record](../testing/STATUS.md#retrodiffusion-walking-delivery--12-october-2026) for native-animation limitations.
 
 The13 October Android offline Studio captures in `community/android-studio-*.png` show the actual `emulator-5554` WebView/Compose host: room, decoded character preview, unfolded layout, retained folded edit, completed native export and offline Load. They are not captures from the physical Samsung phone, which received only ordinary installation/launch verification. See [the scoped checks](../testing/STATUS.md#android-offline-community-studio--13-october-2026).
+
+## Studio workshop — 13 October 2026
+
+The generated [design concept](../design/STUDIO_WORKSHOP_CONCEPT.png) is a proposal. Actual production browser evidence from the Codex in-app browser: [unfolded room](community/studio-workshop-unfolded.jpg), [People](community/studio-workshop-people.jpg), [folded](community/studio-workshop-folded.jpg), [short landscape](community/studio-workshop-landscape.jpg).
+
+Android emulator evidence is separate: [unfolded room](community/android-workshop-unfolded.png), [drag retained after folding](community/android-workshop-fold-retained.png), [activity text committed](community/android-workshop-activity-edit.png), [native export cancelled](community/android-workshop-export-cancelled.png). These are not physical-phone screenshots or animation recordings. See [testing status](../testing/STATUS.md).

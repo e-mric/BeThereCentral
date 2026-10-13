@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Redesign Community Studio as the approved pixel workshop: compact cream header, charcoal canvas, orange selection controls and a categorized furniture shelf. Keep precise/text-based editing, explicit local Save/Load and checked file handling; add undoable bounded duplication. People and Activity have dedicated working surfaces.
+
 - Bundle Community Studio inside Android for a phone-only offline demo, with native Back, explicit local Save/Load and user-selected JSON import/export. Preserve the open editor across fold/size/density changes, stack narrow-screen inspector panels, and verify production assets in the APK (including SvelteKit’s `_app` directory). Godot gameplay remains separate.
 
 - Improve The Architect’s front and side walks with eight reviewed RetroDiffusion frames; mirror accepted left walking for right and retain the original back/idle artwork after failed colour-generation checks. Add direction-specific four/eight-frame playback, consistent Studio preview cadence, reproducible RGBA packing and shared frame hashes.
