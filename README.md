@@ -39,7 +39,7 @@ git clone https://github.com/e-mric/BeThereCentral.git
 cd BeThereCentral
 ```
 
-Prerequisites: JDK 17 and Git; Android SDK platform 36 for Android; macOS, Xcode and an iOS simulator for iOS. Set `JAVA_HOME` if Java is not found, and `ANDROID_HOME` or an untracked `local.properties` `sdk.dir` for Android. A physical iOS build needs an Apple development team. Python 3.9+ is only needed for the optional browser viewer and disconnected reference server. Use the checked-in Gradle wrapper; Windows users can use `gradlew.bat`.
+Prerequisites: JDK 17 and Git; Android SDK platform 36 and Node.js22.17+ for Android (the bundled Community Studio is built from source); macOS, Xcode and an iOS simulator for iOS. Set `JAVA_HOME` if Java is not found, and `ANDROID_HOME` or an untracked `local.properties` `sdk.dir` for Android. A physical iOS build needs an Apple development team. Python 3.9+ is only needed for the optional browser viewer and disconnected reference server. Use the checked-in Gradle wrapper; Windows users can use `gradlew.bat`.
 
 ### Desktop
 
@@ -57,7 +57,7 @@ Open `http://127.0.0.1:4173/`. It uses local bundled scene files and does not es
 
 ### Android
 
-Open the project in Android Studio and run `androidApp` on an emulator or device, or build the debug APK:
+Install Community Studio’s browser dependencies once with `npm --prefix community-studio ci`, then open the project in Android Studio and run `androidApp` on an emulator or device, or build the debug APK:
 
 ```sh
 ./gradlew :androidApp:assembleDebug
@@ -147,3 +147,9 @@ The [five-floor source-line audit](docs/assets/SOURCE_LINEWORK_AUDIT.md) records
 The separate local Studio edits fictional rooms, manual character parts or original Founder/Patch, Ninon, Morgane and The Architect presets, and one two-clue/three-answer learning activity. Its three-pane workspace exposes 24 original coworking/Easter egg props, undo/redo, numeric positions, local save/load and bounded JSON import/export. The Godot desktop game independently validates that content, supports keyboard movement, clue reading/retries, one local reward and reset. A secret bookshelf opens a fictional white Construct with original chairs/CRT and an always-available return. The existing founder identity anchors the polished preset art; supplied Sea of Stars screenshots are style references only.
 
 The browser room edit, undo/redo, local save/reload, character selection, activity edit and real download→Godot handoff have been exercised in Chrome for Testing. Godot desktop gameplay evidence is recorded separately in [verification status](docs/testing/STATUS.md). Browser file-import interaction still needs a separate check. No mobile Godot delivery or resident study is claimed. The user reported public portrayal permission for Ninon and Morgane, and requested their own character as The Architect. Their source photographs stay outside the repository; no personal introductions have been supplied. [Beginner contribution lesson](docs/learning/FIRST_CONTRIBUTION.md) · [Asset provenance](content/community/assets/README.md) · [V2 package contract](content/community/v2/README.md).
+
+## Studio on an Android phone
+
+Open **More → Community Studio · offline** to author fictional rooms, preview Founder/Patch/Ninon/Morgane/The Architect, and edit the learning activity on the phone itself. Android bundles the SvelteKit production files; it needs no laptop, cable, account or internet connection at runtime. Fold/resize changes preserve the open editor. Use **Save on this device** before leaving; after reopening choose **Load saved work**. Export/import uses Android’s file picker. These v2 packages go to the separate Godot desktop game; the older Compose Room Studio preview uses a different format. Godot gameplay is not bundled in this APK.
+
+Android builds invoke the Studio build and synchronize it into ignored generated assets. Node/browser dependencies are therefore build prerequisites; ordinary browser build output remains untracked. `python3 scripts/check_studio_apk.py androidApp/build/outputs/apk/debug/androidApp-debug.apk` checks that every production file reached the APK. [Phone demo steps](docs/DEMO.md#phone-only-studio-demo).

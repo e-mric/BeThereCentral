@@ -30,3 +30,19 @@ The old fictional four-floor sample with routes, guide, QR, sharing, hunt and re
 ## Before presenting
 
 Cold-open and inspect all five actual rendered floors, key search results, zoom/Fit, legend and unplaced state on the presentation device. Record the device and outcome in [verification status](testing/STATUS.md). A build or renderer-ready log is insufficient. Use the [pilot permissions guide](PILOT_REQUEST.md) to discuss plan rights, tenant information, any future capture boundaries and private review.
+
+## Phone presentation preparation — 13 October 2026
+
+Problem: demonstrate the installed Android map and separate Community Studio from one phone at BeCentral on14 October. Plan: rebuild/install/launch the existing Android app via ordinary serial-targeted ADB; keep phone UI verification with the user. The user clarified a phone-only foldable demonstration: fix the narrow-browser inspector stack, build the static SvelteKit Studio into dedicated generated Android assets, and open it through an isolated offline WebView from More. Add user-selected JSON import/export and retain the editor through fold/orientation changes. No public hosting or laptop/server dependency is needed. Check an actual narrow browser viewport before recommending the demo. Document cable/laptop requirements and the separate v2/Godot export boundary. The newer Godot character game is not part of this Android APK.
+
+## Phone-only Studio demo
+
+For the14 October presentation, open the installed Android app and unfold the phone. No laptop, USB cable or internet is needed.
+
+1. Show the five-floor map and search Campfire AI / 42 Belgium; explain fictional furnishings and approximate plan anchors.
+2. Open **⋯ → Community Studio · offline**. Use Room to move a desk or add a hacker workstation, arcade, yoga mat or conference screen. Demonstrate Undo and the position controls.
+3. Open People, select **The Architect**, **Ninon** or **Morgane**, and use Front/Back/Left/Right and Walk. This is character preview/authoring; the playable Godot game remains on desktop.
+4. Show Learning activity’s clues, answers and hint. Explain how residents could contribute learning challenges.
+5. Choose **Save on this device**. If you leave/reopen Studio, use **Load saved work**. Export file opens Android’s save picker for a portable v2 package; it cannot be pasted into the older Room Studio preview.
+
+Scroll from the margins or surrounding panels; dragging inside the room moves furniture. These are fictional sample spaces, not edits to a mapped company room.

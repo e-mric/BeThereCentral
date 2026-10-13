@@ -86,6 +86,8 @@ import androidx.compose.ui.unit.sp
 import com.betherecentral.core.presentation.PixelIcon
 import com.betherecentral.core.presentation.PixelIconKind
 import com.betherecentral.features.studio.presentation.RoomStudioPreview
+import com.betherecentral.features.communitystudio.presentation.CommunityStudioScreen
+import com.betherecentral.features.communitystudio.presentation.supportsCommunityStudio
 import com.betherecentral.features.exploration.presentation.ExperimentalExploreScreen
 import com.betherecentral.features.exploration.presentation.supportsExploreScene
 import com.betherecentral.features.building.data.CampusFloorScenes
@@ -142,6 +144,7 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
     var moreOpen by remember { mutableStateOf(false) }
     var floorsOpen by remember { mutableStateOf(false) }
     var studioOpen by remember { mutableStateOf(false) }
+    var communityStudioOpen by remember { mutableStateOf(false) }
     var experimentalExploreOpen by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var selected by remember { mutableStateOf<PlaceSelection?>(null) }
@@ -170,6 +173,11 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
                 pan = startPan + (Offset(target.pan.x.toFloat(), target.pan.y.toFloat()) - startPan) * fraction
             }
         }
+    }
+
+    if (communityStudioOpen) {
+        CommunityStudioScreen(onBack = { communityStudioOpen = false })
+        return
     }
 
     if (studioOpen) {
@@ -274,6 +282,12 @@ private fun PlanWorldContent(lightPanels: Boolean, onPanelModeChange: (Boolean) 
         ModalBottomSheet(onDismissRequest = { moreOpen = false }, sheetState = sheetState) {
             Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("About the map", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                if (supportsCommunityStudio) {
+                    Button(onClick = { focusJob?.cancel(); focusJob = null; moreOpen = false; communityStudioOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
+                        Text("Community Studio · offline")
+                    }
+                    Text("Create fictional rooms, characters and learning activities. Save your work on this phone.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
                 Button(onClick = { moreOpen = false; studioOpen = true }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF171978), contentColor = Ink), modifier = Modifier.fillMaxWidth()) {
                     Text("Room Studio · preview")
                 }

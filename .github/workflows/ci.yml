@@ -51,7 +51,17 @@ jobs:
           packages: platform-tools
       - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: community-studio/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: community-studio
+      - run: npm test && npm run check
+        working-directory: community-studio
       - run: ./gradlew :composeApp:desktopTest :androidApp:assembleDebug
+      - run: python3 scripts/check_studio_apk.py androidApp/build/outputs/apk/debug/androidApp-debug.apk
       - run: python3 scripts/check_android_compose.py
       - run: python3 -m unittest discover -s server/tests -t . -v
       - name: Documentation accompanies source changes

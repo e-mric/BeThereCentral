@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Bundle Community Studio inside Android for a phone-only offline demo, with native Back, explicit local Save/Load and user-selected JSON import/export. Preserve the open editor across fold/size/density changes, stack narrow-screen inspector panels, and verify production assets in the APK (including SvelteKit’s `_app` directory). Godot gameplay remains separate.
+
 - Improve The Architect’s front and side walks with eight reviewed RetroDiffusion frames; mirror accepted left walking for right and retain the original back/idle artwork after failed colour-generation checks. Add direction-specific four/eight-frame playback, consistent Studio preview cadence, reproducible RGBA packing and shared frame hashes.
 
 - Drive the Godot walking cycle from actual collision-resolved travel, with a full cycle every32 world pixels. Blocked movement turns toward the requested direction and returns to idle; imports and secret-room transitions reset animation state.
