@@ -1,24 +1,24 @@
 # ADR 0008: Godot game and SvelteKit browser Studio
 
-Status: accepted technical direction · 8 October 2026 · Stage 1 implementation resumed 12 October 2026
+Status: accepted technical direction · 8 October 2026 · Fictional v1/v2 implementation delivered · 16 October 2026
 
 ## Context
 
-The user selected Godot for an open-source community game and SvelteKit for its browser Studio. The intended learning platform includes playable learning quests and documentation, sample exercises and contribution paths for people learning to build it. Compose Plan World and the original Vite/PixiJS one-room editor with Compose preview remain separate existing experiences. Stage 1 now adds a contract-first Community Studio and standalone Godot desktop preview using fictional content.
+The user selected Godot for an open-source community game and SvelteKit for Studio authoring. The frozen v1 room handoff remains supported; the separate v2 adds fictional rooms, manual and trusted-preset characters and one activity. Godot is a standalone desktop game. Android hosts the SvelteKit Studio for offline authoring, not Godot gameplay. Compose Plan World and the original Vite/PixiJS one-room editor with Compose preview remain separate experiences. No resident or learner study has been conducted.
 
 Resident/classmate input may change later product scope. On 12 October 2026, after the written plan, the user explicitly resumed implementation with a bounded Stage 1 contract-first fictional room handoff. No resident feedback has been collected. The original feedback gate is superseded for this fictional slice; consent and source review remain required before using real people, projects or tenant facts.
 
 ## Decision
 
-Use Godot for the playable runtime and SvelteKit for browser authoring of rooms, characters and quests. Begin with a contract-first standalone Godot preview consuming the portable v1 room package and a SvelteKit room editor that produces it. Pin the current experiment to Godot 4.7.2 and SvelteKit 3.0.1. Keep the current Compose/PixiJS prototypes runnable. No Compose embedding, completed replacement or web-game delivery is promised. Android and iOS remain later targets requiring their own export, interaction and performance evidence.
+Use Godot for the playable runtime and SvelteKit for authoring rooms, characters and supported activities. The frozen portable v1 room contract remains supported; separate v2 consumers add the later fictional content. Pin the documented experiment to Godot 4.7.2 and SvelteKit 3.0.1. Keep the current Compose/PixiJS prototypes runnable. No Compose embedding, completed replacement or web-game delivery is promised. Android offline Studio authoring is implemented; Godot gameplay remains a desktop target. Mobile Godot requires its own export, interaction and performance evidence.
 
-SvelteKit owns the editor application, not the game renderer. The current editor uses its own canvas preview. Stage 1 pins SvelteKit 3.0.1 and Godot 4.7.2; mobile export toolchains are not included in this desktop experiment.
+SvelteKit owns the editor application, not the game renderer. The editor uses its own canvas preview. Android packages the SvelteKit production files as an offline authoring host; the APK does not include Godot gameplay. The mobile Godot export toolchain is not included in this desktop game experiment.
 
 Use stable room, character, quest and asset IDs with a documented data contract and explicit limits. The Stage 1 `rooms-v1` contract is implemented in `content/community/v1/`; validate independently in Studio and Godot. Imports are bounded declarative content, never arbitrary scripts or caller-selected resources. Keep source-floor geometry and approximate directory anchors separate from fictional game collision and interactions; playable spaces are not surveyed navigation.
 
 Start with manual modular character creation, consistent portrait and directional idle/walk assets, and a person's review of their portrayal. Photo-assisted AI generation remains optional later work with explicit consent and defined data handling. Keep private source photos out of the repository, and track asset rights separately from the code's MIT licence.
 
-The sequence is the active contract-first one-room handoff, then a fictional open-source contribution challenge by default, then character/quest authoring and evidence-led expansion. Resident feedback can refine later scope. See the [phased plan](../plans/GODOT_SVELTEKIT.md).
+The original planned sequence was contract-first handoff, then a fictional open-source contribution challenge, then character/activity authoring and evidence-led expansion. The first three capabilities now have a bounded implementation in frozen v1 and separate v2. Remaining acceptance evidence and future expansion are recorded in the [phased plan](../plans/GODOT_SVELTEKIT.md) and the current-status amendment below.
 
 ## Alternative considered: Compose for browser Studio
 
@@ -42,4 +42,10 @@ At that time, the user separately resumed work on the existing map, explicitly s
 
 ## Stage 1 resumption amendment — 12 October 2026
 
-The user explicitly resumed the community implementation plan after the separate map asset work. Implement the shared `content/community/v1` room contract first, then its SvelteKit Studio author and standalone Godot desktop consumer. Keep the fictional sample bounded and preserve Compose Plan World and the existing Experimental 3D experience. The next default learning experiment, absent further preference, is an open-source contribution task using fictional sample content; no resident feedback has been collected. This amendment does not claim a mobile Godot build, resident study, or production publishing flow.
+The user explicitly resumed the community implementation plan after the separate map asset work. The shared `content/community/v1` room contract and both consumers remain supported. Keep fictional sample work bounded and preserve Compose Plan World and the existing Experimental 3D experience. At the time, the default next learning experiment was an open-source contribution task using fictional sample content; later v2 delivery added one such bounded activity. No resident feedback has been collected. This amendment does not claim mobile Godot gameplay, a resident/learner study, or production publishing.
+
+## Current implementation status — 16 October 2026
+
+The frozen v1 room contract remains supported. The separate v2 implementation includes room editing, manual and trusted-preset characters, one two-clue/three-answer activity, local progress, and the fictional white Construct. SvelteKit Studio is available in the browser and as an Android offline authoring host; Godot gameplay is standalone desktop only. The canvas-first workshop was delivered on 13 October; see its [plan and delivery evidence](../plans/STUDIO_WORKSHOP.md). Browser checked/rejected file-import interaction is evidenced in the [13 October status record](../testing/STATUS.md#community-studio-workshop-redesign--13-october-2026).
+
+Native Android invalid-file import and accessibility evidence, the final full four-direction Godot animation walkthrough, and any resident/learner study remain open. Do not mark a whole learning stage complete from implementation alone. The current next audit task is A2, cross-consumer package/Godot CI coverage, as tracked in [project knowledge](../plans/PROJECT_KNOWLEDGE.md#a1--a2-execution--16-october-2026).

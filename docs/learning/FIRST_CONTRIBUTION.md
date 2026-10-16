@@ -16,9 +16,9 @@ Do not relabel the room as a real mapped company space. Do not add a classmate's
 
 ## Make a learning challenge
 
-When the playable package is available, start with the fictional Contribution Club activity. Read both clues before answering. A wrong answer offers an explanation/hint and a retry; a correct answer before inspecting the clues is insufficient. The reward is awarded once. Reset explicitly starts fresh.
+The fictional Contribution Club activity is available in the v2 package and standalone Godot desktop game. It is also editable in Community Studio, including the Android offline authoring host. Read both clues before answering. A wrong answer offers an explanation/hint and a retry; a correct answer before inspecting the clues is insufficient. The reward is awarded once. Reset explicitly starts fresh. These implemented mechanics have not been evaluated with a learner; no learning outcome is claimed.
 
-In Studio, keep the supported structure: two clues, three answers, one correct answer, a hint, an explanation and one reward. Edit a clue to teach a small skill you understand. Check references and reachable interaction positions before export. Have someone try it voluntarily; record confusing wording without collecting movement logs or personal profiles.
+In Studio, keep the supported structure: two clues, three answers, one correct answer, a hint, an explanation and one reward. Edit a clue to teach a small skill you understand. Check references and reachable interaction positions before export. For a future voluntary learner walkthrough, ask whether the player can explain the contribution step and complete one supported edit/check/export task. Record confusion without collecting movement logs or personal profiles. No such study has been conducted.
 
 The answer is visible in the local editable package. This is practice, not a secure examination or certificate.
 

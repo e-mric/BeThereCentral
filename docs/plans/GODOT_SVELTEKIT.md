@@ -1,27 +1,26 @@
 # Godot game and SvelteKit Studio plan
 
-8 October 2026 · Direction agreed · Stage 1 resumed 12 October 2026
+8 October 2026 · Direction agreed · Implementation status reconciled 16 October 2026
 
-Updated 12 October 2026: the [community game implementation plan](COMMUNITY_GAME.md) develops the public idea into a play–learn–contribute journey, dependent stages, content ownership and contribution lessons. The user explicitly resumed implementation with Stage 1, beginning with the shared `rooms-v1` contract. No resident feedback has been collected; it may shape later stages but is not required for this fictional handoff. The separate Experimental 3D sample and existing Android app remain independent.
+The [community game implementation plan](COMMUNITY_GAME.md) develops the public idea into a play–learn–contribute journey, dependent stages, content ownership and contribution lessons. **Implemented:** frozen `rooms-v1` remains supported; the separate v2 adds room, manual/trusted-preset character and one-activity authoring, with Godot desktop gameplay. Core v2 delivery is commit [`228baff`](https://github.com/e-mric/BeThereCentral/commit/228baff); its browser and desktop evidence is in the [12 October status record](../testing/STATUS.md#community-studio-and-godot-slice--12-october-2026). Android provides an offline Studio authoring host only. **Evidence missing:** native Android invalid-file import, accessibility review, final complete four-direction Godot animation walkthrough, and resident/learner study. The separate Experimental 3D sample and Compose Plan World remain independent.
 
 ## Problem and experiment
 
-Contributors should be able to author a bounded fictional room and open it in the standalone game. Stage 1 implements the portable handoff before gameplay: one room, one company sign, a small furniture set and a shared validator contract consumed independently by SvelteKit and Godot. A fictional open-source contribution challenge is the default next learning experiment if the user gives no other preference.
+The original experiment was a bounded fictional room authored in Studio and opened in the standalone game. The frozen v1 handoff and its consumers remain supported. The delivered separate v2 adds room, character and one activity authoring plus desktop gameplay. Contribution Club implements the original fictional open-source learning-task direction; learner outcomes remain unobserved.
 
 **9 October scope amendment:** the user separately authorized work on the existing map, starting with reusable ground-floor assets. That map work remains in Compose.
 
 **12 October resumption:** the user explicitly authorized Stage 1 community implementation after the planning work. Resident feedback remains an optional input for later scope; none has been collected.
 
-## Agreed direction and open choices
+## Selected direction and remaining scope
 
-| Agreed | Later decisions and stages |
+| Selected or implemented | Still future or unverified |
 | --- | --- |
-| Godot for the open-source game | Exact first quest, learning objective and reward |
-| SvelteKit for browser Studio | Editor layout, roster and content workflow |
-| Studio direction covers rooms, characters and quests | Exact schema, asset dimensions and numerical limits |
-| Start with manual modular character creation | Photo-assisted generation, hosting and accounts |
-| Preserve the current Compose/PixiJS prototypes during evaluation | Eventual replacement or integration with Compose |
-| Android and iOS remain intended game targets | Web-game delivery, renderer and performance budgets |
+| Godot 4.7.2 desktop game and SvelteKit 3.0.1 Studio | Mobile Godot export, gameplay and performance |
+| v1 frozen handoff; separate v2 rooms, manual/trusted-preset characters and one activity | Additional character/activity formats and reviewed factual introductions |
+| Canvas-first browser workshop and Android offline Studio host | Native Android invalid-file import and accessibility evidence |
+| Compose/PixiJS prototypes preserved | Eventual replacement/integration with Compose and web-game delivery |
+| Desktop game behavior and local progress | Final complete four-direction animation walkthrough and learner outcome study |
 
 The open-source learning platform has two intended audiences: players learn through playable quests; contributors learn through readable code, sample content, exercises and documentation. Neither a course catalogue nor a whole-campus RPG is required for the first experiment.
 
@@ -32,7 +31,7 @@ The proposed public experience includes discovering approved company/project int
 1. Collect resident/classmate feedback on the useful learning moments, proposed quest, desired self-representation, editing needs and mobile use. Use voluntary, minimal notes; do not collect movement histories or require photos.
 2. Record the input, unresolved disagreements and proposed scope changes. Separate a person's approval of their portrayal from permission to publish their assets or personal introduction.
 3. Revise `docs/PRD.md`, this plan and the backlog together. Define the first learning outcome, success criteria, content owner, representation permissions and deferred features.
-4. If findings materially change scope, agree with the user on the next slice before expanding beyond the already authorized Stage 1. Do not add personal or tenant content without its separate approvals.
+4. If findings materially change scope, agree with the user on the next slice before further expansion beyond the delivered fictional v1/v2 scope. Do not add personal or tenant content without its separate approvals.
 
 This stage is optional for the fictional Stage 1 handoff. No resident feedback has been collected as of 12 October 2026. Use later findings to revise challenge choice, usability targets and product scope; do not treat feedback as authorization or as a prerequisite for the already resumed Stage 1.
 
@@ -44,7 +43,7 @@ SvelteKit owns the browser authoring application: forms, navigation, validation 
 
 Keep modules organized around room authoring, character authoring, quests, content validation and game behavior. Pure validation and quest rules stay independent of UI, platform APIs and transport. Reuse fixtures and contract tests across consumers where practical; do not introduce shared layers without a concrete purpose.
 
-The current Compose Plan World, Compose Studio preview, Vite/PixiJS editor and separate licensed splat viewer remain separate runnable projects. Preserve their behavior and provenance; the Godot selection does not describe a completed migration. Stage 1 uses Godot 4.7.2 and SvelteKit 3.0.1. Mobile export templates and toolchains are not yet part of the claimed target.
+The current Compose Plan World, Compose Studio preview, Vite/PixiJS editor and separate licensed splat viewer remain separate runnable projects. Preserve their behavior and provenance; Godot is a separate desktop game, not a completed migration of Plan World. Stage 1 uses Godot 4.7.2 and SvelteKit 3.0.1. Android offline Studio hosting is implemented and does not use a Godot mobile export. Godot mobile export templates and toolchains are not part of the claimed target.
 
 ## Browser framework alternative: Compose Multiplatform
 
@@ -72,23 +71,23 @@ Source-plan pixels, approximate anchors and fictional collision remain separate 
 
 ## Runnable slices
 
-### Slice 1 — contract-first room handoff (active)
+### Slice 1 — contract-first room handoff (v1 frozen; consumers retained)
 
 Problem: an author needs confidence that a saved room renders consistently in the game. Experiment: use the frozen `content/community/v1/rooms-v1` contract to move bounded furniture, edit a sign, export a package and load that same fictional room in the standalone Godot desktop scene.
 
-Acceptance: the valid fixture preserves IDs and visible placement through export/import; invalid content reports useful errors without replacing the last valid room. Both validators enforce the same contract against common valid/invalid fixtures. Inspect actual browser and Godot desktop screens. Keep the existing prototypes runnable. Record evidence for each target separately; do not claim mobile support based on the desktop preview.
+Delivered: the frozen v1 room package and its browser/Godot consumers remain in the repository; separate v2 capability is documented in the community plan. Verification is recorded in dated status entries. A2 still owns fresh clean-checkout cross-consumer CI coverage; native Android invalid-import and accessibility checks are separate open evidence. Do not label the whole later game/learning work complete or derive mobile support from the desktop preview.
 
-### Slice 2 — fictional open-source contribution challenge
+### Slice 2 — fictional learning activity (implemented; learning outcome unvalidated)
 
 Default if the user gives no other preference: teach one small open-source contribution using fictional sample content. Problem: contributors need a visible first result and a clear way to understand review. Experiment: one avatar completes a bounded room/package editing task with a hint, retry, explanation and one reward.
 
-Acceptance: animation, foot placement, layering, collision and keyboard controls read correctly on rendered desktop screens; touch and mobile targets are separately assessed before claims. The task cannot complete before its condition or grant duplicate rewards. Local save/reload and reset behave predictably. A player can explain the contribution step. Use no real tenant or resident content without approval.
+Implemented: one fictional two-clue/three-answer activity with hint, retry, explanation and a single local reward, plus desktop movement and progress behavior. A contribution result or a working game does not prove a learner can explain the intended step. No learner study has been conducted; animation's final complete four-direction visual walkthrough remains pending. Mobile gameplay is not claimed.
 
-### Slice 3 — manual character creator and reviewed quest authoring
+### Slice 3 — character and activity authoring (implemented; human acceptance future)
 
 Problem: residents need understandable control over their portrayal and learning contribution. Experiment: one person chooses modular appearance, edits their name/introduction, previews a portrait and every idle/walk direction, then reviews a bounded quest using supported templates.
 
-Acceptance: the approved export produces the same character and quest in Godot; animation frames, proportions, palette and foot pivots remain consistent; bad asset/quest references are rejected. The person can correct or remove their portrayal before distribution. Keyboard-accessible forms and a usable alternative to canvas-only editing are demonstrated. A portrait alone does not satisfy animated-character acceptance.
+Implemented: Studio exports manual modular appearances and trusted presets with the single supported activity; Godot independently consumes bounded package content. Human evidence missing: learner usability, accessibility review and represented-person correction/withdrawal walkthrough have not been conducted. The final complete four-direction animation observation is also open. A portrait alone does not satisfy animated-character acceptance.
 
 ### Slice 4 — expand only after evidence
 
@@ -112,11 +111,11 @@ Accounts, cloud publishing, multiplayer, AI dialogue, external generation, analy
 
 ## Walking refinement — 12 October 2026
 
-Problem: the four-frame loop currently advances every160ms while the avatar travels at68 world pixels/second, and it continues when input is blocked. The user wants a gait with recognizable alternating contact/passing poses, using their supplied animation example as motion reference.
+Historical problem: the original four-frame loop advanced every 160ms while the avatar travelled at 68 world pixels/second, and continued when input was blocked. The user wants a gait with recognizable alternating contact/passing poses, using their supplied animation example as motion reference.
 
-First runnable change: advance animation from actual collision-resolved displacement, with a32-world-pixel stride cycle, and reset to idle when no movement occurs. Keep input-based facing and existing room/Construct collision behavior. Verify cardinal directions, diagonal normalization, equal-distance results at different frame rates, obstacle stopping and scene/import resets; inspect the actual desktop animation.
+Implemented first change: advance animation from actual collision-resolved displacement, with a32-world-pixel stride cycle, and reset to idle when no movement occurs. Keep input-based facing and existing room/Construct collision behavior. Verify cardinal directions, diagonal normalization, equal-distance results at different frame rates, obstacle stopping and scene/import resets; inspect the actual desktop animation.
 
-Art experiment: check RetroDiffusion's reference-frame Walking workflow and the exact cost before spending. The user approved a bounded pre-paid-credit experiment, followed by tests, commit and push. RetroDiffusion MCP is authenticated through its configured endpoint; its native tools are not loaded in this chat. The first native GIF failed visual review because later frames lost their palette/body pixels, confirmed in Chrome. A PNG-sheet retry uses the same direction/reference within the agreed retry limit. Start with one neutral Architect sprite and one direction, review the native animated output for stable identity, bare wrists and planted-feet timing, then decide whether to generate remaining directions. Do not upload original photographs, buy additional credits or claim an animation succeeded from a static sheet. The completed art gate accepted eight front and left frames; right mirrors the accepted left, while both new back cycles failed colour review. Preserve the four current idle RGBA frames and four back-walk frames, and deterministically pack this mixed set into one normalized atlas. Archive accepted native sheets unchanged, record hashes/prompts, and distinguish those originals from the derived runtime PNG. Keep one fixed ground anchor and uniform scale per sequence. Permit only the Architect mixed four/eight-pose normalized variant in the trusted catalog; existing presets/manual art keep four. Preserve the 32-world-pixel gait cycle in Godot and a 640ms Studio preview cycle. Verify both consumers against common frame hashes, collision/stop/import resets and actual rendered loops before commit/push.
+The original gait issue was resolved: delivered changes tie pose advancement to collision-resolved movement, with a 32-world-pixel cycle; four-pose directions advance every 8 pixels ([`6d9e56a`](https://github.com/e-mric/BeThereCentral/commit/6d9e56a)); reviewed mixed directional art and frame checks followed ([`6bff0fe`](https://github.com/e-mric/BeThereCentral/commit/6bff0fe)). The current Architect front/left/right directions have eight walking poses, advancing every 4 world pixels; back retains four poses, every 8 pixels. All complete a 32-pixel cycle. The accepted front/left frames, mirrored right, current idle and back-walk art are packed into the trusted catalog. The final complete four-direction native-animation walkthrough was not completed; see the [12 October walking delivery record](../testing/STATUS.md#retrodiffusion-walking-delivery--12-october-2026). Preserve the 32-world-pixel Godot gait and 640ms Studio preview. Do not infer visual acceptance from static sheets or hashes.
 
 ## References and decision
 

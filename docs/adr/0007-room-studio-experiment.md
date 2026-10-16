@@ -20,4 +20,4 @@ The prototype can test the basic authoring and interchange flow without changing
 
 ## Future direction amendment — 8 October 2026
 
-[ADR 0008](0008-godot-game-sveltekit-studio.md) selects Godot gameplay and SvelteKit browser authoring as the next direction, with implementation on hold pending resident feedback, revised requirements and user resumption. This ADR still describes the implemented Vite/PixiJS and Compose experiment; no migration has taken place.
+[ADR 0008](0008-godot-game-sveltekit-studio.md) selects Godot gameplay and SvelteKit authoring as the next direction. The original hold for resident feedback and resumption was superseded when the user resumed a bounded fictional implementation on 12 October; resident feedback remains optional for that work and no study has been conducted. This ADR still describes the separate Vite/PixiJS and Compose experiment; it has not been migrated into SvelteKit or Godot.

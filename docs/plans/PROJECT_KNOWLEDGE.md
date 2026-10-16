@@ -78,7 +78,7 @@ Priorities express impact on reliable development: **P1** before relying on the 
 
 **Action and ownership:** parent owns the canonical docs/roadmap reconciliation and handoffs. Preserve historical rationale, mark superseded holds with a forward link, and distinguish implemented capability, remaining acceptance evidence and future expansion. Link completed plans to their delivery commit and dated checks. Keep a single backlog, not another copy of its tasks.
 
-- [ ] **Done when:** a fresh reader reaches the same current v1/v2, desktop gameplay and Android Studio scope through README, PRD, backlog, plans and ADRs. Completed browser import is evidenced; native invalid-file import and accessibility remain open. No whole stage is declared complete solely because code exists.
+- [x] **Done when:** a fresh reader reaches the same current v1/v2, desktop gameplay and Android Studio scope through README, PRD, backlog, plans and ADRs. Completed browser import is evidenced; native invalid-file import and accessibility remain open. No whole stage is declared complete solely because code exists.
 
 #### A2 · P1 · Cover both content consumers in CI
 
@@ -144,6 +144,19 @@ Reviewed factual community introductions, content owners and withdrawal/rollback
 
 ### Next task and handoff
 
-**Recommended first slice:** A1, the canonical-doc reconciliation, followed by A2, the missing CI consumer checks. A3/A4 then address source-observed behavior risks; A5–A8 are independently bounded follow-ups. Optional settings, extra connectors, new skills and schedules have no required task in this audit.
+**Current execution:** A1 is reconciled and checked; A2, the missing CI consumer checks, follows after the A1 commit. A3/A4 then address source-observed behavior risks; A5–A8 are independently bounded follow-ups. Optional settings, extra connectors, new skills and schedules have no required task in this audit.
 
 The audited product baseline is `68476e5`; the audit delivery is a documentation-only commit after it. Seven pre-existing untracked iOS screenshots are unrelated and remain untouched. Find actual audit commands/outcomes in [STATUS](../testing/STATUS.md). No production defect above is fixed by writing this plan, and no missing platform/learner evidence is marked complete.
+
+## A1 → A2 execution — 16 October 2026
+
+The user authorized A1 first, then A2, with testing, commit and push. Scope is canonical documentation reconciliation followed by reproducible package/Godot CI coverage. A3–A8 remain separate work.
+
+1. **A1 documentation executor:** own README, PRD, backlog, community/technical/workshop/source-linework plans, learning lesson and ADR 0006/0007/0008 current/historical status. Reconcile implementation versus remaining evidence from dated STATUS; preserve historical rationale and source/privacy boundaries. Parent owns this plan, knowledge records, CHANGELOG and STATUS. Astra reviews the reading journey; run knowledge/local-link and whitespace checks, then record/commit A1 before implementing A2.
+2. **A2 executor:** after A1 acceptance, own the CI content job and narrow cross-consumer check/fixture code. Run the standalone v1/v2 Node tests, pinned Godot project import and headless contract suite, and compare common fixture acceptance/normalized values. Use trusted asset synchronization and clean checkout inputs. Parent integrates component instructions, records actual checks and reviews the patch with Astra.
+3. Demonstrate the gate rejects an intentionally incompatible consumer using an isolated synthetic fixture or checkout; never mutate production content to manufacture a passing run. Verify clean-checkout execution locally, then push and observe the hosted content job for the exact delivery commit. Record hosted failure honestly and fix within scope if needed.
+4. Finish with A1/A2 disposition, exact evidence and next remaining audit task. No new UI, learner, phone or mobile-game result is claimed.
+
+- [x] A1 reading journey reconciled and checked; delivery commit precedes A2 implementation.
+- [ ] A2 package/Godot checks and negative gate exercised.
+- [ ] Clean-checkout and hosted delivery evidence recorded; commit/push complete.

@@ -562,3 +562,11 @@ The audit reread the official best-practices HTML guide; the plain URL initially
 Documentation verification after the audit updates: `python3 scripts/check_knowledge.py` passed; `git diff --check` passed; a one-off local-link scan of the audit plan and backlog found no missing file targets. Heading anchors and external page availability are not covered by that scanner.
 
 Final review found no substantive blocker; baseline line-reference wording was made explicit. Added staged lines passed the privacy scan, `git diff --cached --check` passed, and `python3 scripts/check_docs.py HEAD^` passed for the audit delivery.
+
+## A1 canonical documentation reconciliation — 16 October 2026
+
+Reconciled the README, PRD, glossary, backlog, community/technical/workshop/source-linework plans and relevant ADRs against the existing delivery commits and dated evidence. The frozen v1 and separate v2 content contracts remain distinct; saved progress is separate from authored content. Android offline authoring remains distinct from desktop Godot gameplay. Browser import is evidenced; native rejected import, accessibility, the final complete four-direction animation walkthrough and learner outcomes remain open. No app behavior changed or new runtime/platform check was claimed.
+
+Actual checks: `python3 scripts/check_knowledge.py` passed; `git diff --check` passed; a one-off scan of changed Markdown file targets and 20 heading links passed. Astra's final reading review passed after correcting v2/progress wording and the historical/current mixed-pose gait description. Delivery commits referenced in the documents were verified against local Git history. The executor's earlier `check_docs.py HEAD` examined only the committed comparison, so it was not used as proof for the working-tree edits; the parent runs the final documentation gate against `HEAD^` after committing A1.
+
+A1 precedes A2 implementation. A2's content/Godot CI gate is still pending at this boundary. No browser, emulator, phone, iOS or Godot runtime was launched for A1. Unrelated screenshots remain unstaged.

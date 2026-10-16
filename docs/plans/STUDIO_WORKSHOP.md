@@ -1,10 +1,10 @@
 # Community Studio workshop layout
 
-13 October 2026 · user-approved visual direction
+13 October 2026 · delivered workshop redesign
 
 ## Problem and bounded change
 
-The phone editor renders, and the user confirmed that its unfolded layout displays correctly. Its large introduction, status badges and stacked panels make the experience feel generic and push the room below the first screen. The user approved the [generated workshop concept](../design/STUDIO_WORKSHOP_CONCEPT.png) and authorized implementation.
+The phone editor rendered, and the user confirmed that its unfolded layout displayed correctly. Its large introduction, status badges and stacked panels made the experience feel generic and pushed the room below the first screen. The user approved the [generated workshop concept](../design/STUDIO_WORKSHOP_CONCEPT.png) and authorized implementation.
 
 Build a canvas-first creative workspace using the existing trusted pixel art. Keep the current fictional room shape, content contracts, character assets, local storage and Android file-picker host. The concept is a visual reference, not a source of replacement game sprites or new real-building geometry.
 
@@ -32,3 +32,9 @@ Record commands and actual observations in [testing status](../testing/STATUS.md
 The inspected Mobbin references were [IKEA's room canvas](https://mobbin.com/screens/bbf73f73-8cd8-44ec-a5ee-b398be2ed1f1), [Replika's furniture tray](https://mobbin.com/screens/31058bb0-c060-435d-b030-caaae13e3c78) and [Craft's drawing palette](https://mobbin.com/screens/d4404d9e-bff6-4fd9-83ef-2b84b127c7cb). Their interaction patterns inform original UI; screenshots and proprietary assets are not bundled.
 
 The concept was generated with the built-in imagegen tool. Prompt direction: an unfolded, canvas-first BeThereCentral editor with a compact cream topbar, charcoal work surface, Room/People/Activity rail, orange selected-piece controls and cream category shelf; retain fictional/offline semantics and use coherent original pixel furniture. A refinement removed decorative slogan boards and text from the room. The generated layout is not a measured or tested UI specification; implementation uses the existing artwork and fixed room contract.
+
+## Delivered outcome and remaining evidence
+
+The Android offline authoring host was delivered in [`f6a24f4`](https://github.com/e-mric/BeThereCentral/commit/f6a24f4); the canvas-first workshop redesign was delivered in [`a2bb50b`](https://github.com/e-mric/BeThereCentral/commit/a2bb50b). The dated [13 October workshop record](../testing/STATUS.md#community-studio-workshop-redesign--13-october-2026) documents browser checks at wide, narrow, unfolded, and short-landscape sizes, including valid and rejected file imports, plus Android emulator checks. The physical Samsung installation/launch and the user's visual confirmation are recorded separately.
+
+This does not close every acceptance item. Native Android rejected-file import and assistive-technology behavior remain unverified; the physical phone was not inspected with automation or instrumentation. Emulator window resizing is not a hinge observation. Android Studio authoring is separate from Godot gameplay, which remains desktop-only.

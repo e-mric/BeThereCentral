@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Reconcile current requirements, glossary and roadmap with the delivered v2 Studio/Godot and Android offline workshop. Mark superseded feedback holds, link delivery commits and dated evidence, and keep native invalid-import, accessibility, final animation and learner acceptance open.
+
 - Audit the project against the best-practices workflow and extend the existing plan with eight evidence-backed follow-ups: canonical status reconciliation, missing package/Godot CI coverage, ID-based character roles, reliable progress-write feedback, recoverable draft loading, targeted interaction/accessibility evidence, reproducible setup and learner evaluation. Record the verified hosted run separately from local and visual evidence; no product behavior changed in this audit.
 
 - Add a concise task-plan/workflow guide and a source-linked project knowledge index with a local maintenance skill. Validate provenance, index coverage and local links offline with fixture tests and a dedicated CI job; private source attachments remain outside Git. Correct superseded architecture statements using existing delivery evidence.

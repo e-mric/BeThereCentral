@@ -21,3 +21,9 @@ Append entries below; preserve previous records. Dates identify actual maintenan
 - Found scope/status contradictions and obsolete holds beyond the structural checker's remit. Kept those corrections as explicit A1 work, without marking learning or platform evidence complete.
 - Confirmed the hosted Verify run for `68476e5` passed all five configured jobs; package/Godot coverage remains missing. Confirmed a valid reversed-character package exposes index-based Studio labels. Source review identified non-recoverable saved-draft loading and unchecked progress-write failures.
 - Detailed actual commands, review limits and unresolved evidence are in [STATUS](../testing/STATUS.md). No product fixes, device checks, outreach or schedules were performed for this audit.
+
+## 2026-10-16 · A1 canonical reconciliation
+
+- Reconciled requirements, glossary, backlog and community/technical/workshop plans against existing delivery commits and dated evidence. Marked older game/Studio holds superseded by ADR 0008's resumption.
+- Kept v1 frozen, v2 content distinct from local progress, Android authoring distinct from desktop Godot, and browser/emulator/phone evidence separate. Corrected mixed walking-pose wording during review.
+- A2 CI coverage is next; native invalid-import, accessibility, final animation and learner outcomes remain open. No app/device result is newly claimed.

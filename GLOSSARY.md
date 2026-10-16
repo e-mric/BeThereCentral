@@ -22,9 +22,9 @@
 - **Grant / team simulation / discovery stop**: legacy sample sharing consent, same-device player contributions and ordered fictional hunt content. No networked team session or real recipient delivery is implemented.
 - **Guide preview / room host**: character animating an old fictional sample route, and pixel character introducing a selected place. The active Plan World host states source-supported facts only, never an invented tenant mission.
 
-- **Community Studio**: separate SvelteKit browser authoring project. The current separate browser source authors fictional v2 rooms, characters and one supported learning activity; browser interaction evidence is recorded separately in `docs/testing/STATUS.md`. The original Vite/PixiJS Room Studio is a different prototype.
+- **Community Studio**: separate SvelteKit authoring project available in the browser and, as an offline authoring host, inside the Android app. It authors fictional v2 rooms, manual or trusted-preset characters and one supported learning activity. Android does not contain Godot gameplay. The original Vite/PixiJS Room Studio is a different prototype; see `docs/testing/STATUS.md` for target-specific evidence.
 - **Community content package v1**: bounded JSON envelope containing one fictional room scene, declared feature, trusted local asset catalog and attribution. Studio and Godot validate independently; packages contain no arbitrary scripts, URLs or caller-selected resources.
-- **Fictional open-source contribution challenge**: default next learning experiment if no other preference is supplied; teaches an edit/review/export task using sample content, without requiring resident or tenant material.
+- **Contribution Club**: the implemented fictional v2 activity uses two clues, three answers, a hint, an explanation and one local reward. It is practice, not a secure assessment or certificate; learner outcomes have not been studied.
 - **Game content package v2**: bounded data for rooms, manual or trusted preset characters and one supported quest, independently validated by Studio and Godot. It remains separate from player progress and contains no arbitrary scripts.
 - **Fictional game collision**: geometry controlling movement in a playable scene; it does not establish real building routes or accessibility.
 
@@ -33,6 +33,5 @@
 
 - **Community catalog v2**: trusted original prop crops, dimensions, collision footprints and manual character enums shared by Studio and Godot. Imported content references its fixed revision rather than choosing files or scripts.
 - **White Construct**: fictional built-in Easter egg realm reached through a secret bookshelf. It contains original burgundy chairs and a CRT, retains quest state, and always offers a return. It is not a building room or actual doorway.
-- **Contribution Club**: fictional first learning activity using two clues and three answers; completion and a single local reward are practice, not a secure assessment or certificate.
 
 - **Founder/Patch preset**: original bundled directional character artwork. A package selects a whole trusted preset ID; custom palette/part choices use the separate manual appearance. Source atlas sampling scale and normalized world frame scale are separate.

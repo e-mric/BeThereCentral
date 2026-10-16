@@ -2,7 +2,7 @@
 
 Reviewed 16 October 2026. This is a retrieval aid, not a replacement for the [PRD](../PRD.md) or [backlog](../BACKLOG.md). The [README](../../README.md) provides run instructions; [workflow](../agents/WORKFLOW.md) routes contributors to checks. Platform evidence is dated in [STATUS](../testing/STATUS.md).
 
-The [16 October project audit](../plans/PROJECT_KNOWLEDGE.md#project-wide-best-practices-audit--16-october-2026) found stale scope and verification wording in linked canonical plans. A1 tracks their reconciliation against dated implementation evidence; the observations below describe the delivered boundary, not completion of every stage acceptance criterion.
+A1 of the [16 October audit plan](../plans/PROJECT_KNOWLEDGE.md#a1--p1--reconcile-current-scope-and-close-old-handoffs) reconciles current scope, historical holds and dated evidence across the canonical documents. The boundaries below describe delivered capability, not completion of every stage acceptance criterion. A2, the package/Godot CI gate, is the next authorized task.
 
 | Area | Current boundary | Evidence to read |
 | --- | --- | --- |

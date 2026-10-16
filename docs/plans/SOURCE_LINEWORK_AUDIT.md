@@ -11,8 +11,10 @@
 5. Inspect actual rendered maps on all floors, including close views of the third-floor Garden, ground bike room, detached FARI, dense bottom office rows and stairs. Exercise search/guide/Fit in the Android emulator when available. Keep renderer captures distinct from emulator evidence.
 6. Record per-floor findings, limitations and tests in the audit and verification status, update product rules, commit and push.
 
-Source fidelity is assessed against the supplied drawings. It does not certify surveyed walls, doors, routes or present-day occupancy. Toilet locations remain pending. Game/Studio migration stays on hold.
+Source fidelity is assessed against the supplied drawings. It does not certify surveyed walls, doors, routes or present-day occupancy. Toilet locations remain pending. On 9 October, Godot/Studio work was still on hold; that historical hold was superseded by the [12 October resumption in ADR 0008](../adr/0008-godot-game-sveltekit-studio.md#stage-1-resumption-amendment--12-october-2026).
 
 ## Delivered
 
 All five source drawings are preserved with hashes. Source contours replace the fictional partition screens, retain openings and stair marks, and take priority over furniture and decorative trim. Full-floor Compose renders and source overlays are saved in the [audit report](../assets/SOURCE_LINEWORK_AUDIT.md). Company coordinates are unchanged; no toilet positions were invented. The source-only render comparison passes on every floor within one source pixel.
+
+Delivered in [`6135194`](https://github.com/e-mric/BeThereCentral/commit/6135194). Commands and separate renderer/emulator evidence are in the [9 October source-line audit status](../testing/STATUS.md#five-floor-source-line-audit--9-october-2026). This plan is complete; its historical Godot/Studio hold does not describe current project status.
