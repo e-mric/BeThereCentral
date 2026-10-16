@@ -18,7 +18,7 @@ These are entry points, not a claim that the commands ran for the current task. 
 | --- | --- |
 | Knowledge records or checker | `python3 scripts/check_knowledge.py` and `python3 -m unittest discover -s scripts/tests -p 'test_check_knowledge.py' -v` |
 | Community Studio | [Studio scripts and workflow](../../community-studio/README.md); tests, Svelte checking and production build |
-| Content handoff or gameplay | [Godot contract checks and walkthrough](../../game/README.md), plus the corresponding Studio checks |
+| Content handoff or gameplay | `python3 scripts/check_community_content.py --godot godot` for both package suites, Godot import/runtime and consumer parity; [game walkthrough](../../game/README.md) and corresponding Studio checks for interface changes |
 | Shared app or Android packaging | [README commands](../../README.md), relevant shared tests and APK checks in [CI](../../.github/workflows/ci.yml) |
 | iOS adapter | Simulator framework/host build and actual screen journey; keep physical-device claims separate |
 | Independent 3D sample | [Viewer build, tests and bundle checks](../../exploration/README.md) |

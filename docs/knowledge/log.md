@@ -27,3 +27,8 @@ Append entries below; preserve previous records. Dates identify actual maintenan
 - Reconciled requirements, glossary, backlog and community/technical/workshop plans against existing delivery commits and dated evidence. Marked older game/Studio holds superseded by ADR 0008's resumption.
 - Kept v1 frozen, v2 content distinct from local progress, Android authoring distinct from desktop Godot, and browser/emulator/phone evidence separate. Corrected mixed walking-pose wording during review.
 - A2 CI coverage is next; native invalid-import, accessibility, final animation and learner outcomes remain open. No app/device result is newly claimed.
+
+## 2026-10-16 · A2 content gate
+
+- After A1 commit `c68c42e`, added the independent v1/v2 package and Godot content gate with full shared-corpus reports, normalized-value comparison and isolated test storage. CI pins the official engine/archive digest.
+- Source review and seven negative/semantic regression checks pass; fresh-checkout and hosted evidence will be recorded in STATUS before A2 is marked complete. A3–A8 remain separate tasks.

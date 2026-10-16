@@ -122,6 +122,14 @@ Run shared JVM tests and build Android with:
 ./gradlew :composeApp:desktopTest :androidApp:assembleDebug
 ```
 
+Run the independent v1/v2 content and Godot gate with official Godot 4.7.2, Node 24 and Python 3:
+
+```sh
+python3 scripts/check_community_content.py --godot godot
+```
+
+It checks both package suites, trusted assets, Godot import/runtime and cross-consumer acceptance/normalized-value parity. The [game guide](game/README.md) explains isolated test storage and alternate executable paths. CI runs the same gate; visible browser/gameplay checks remain separate.
+
 Run disconnected server tests with:
 
 ```sh

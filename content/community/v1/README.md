@@ -9,3 +9,5 @@ IDs and labels use the legacy validator's ASCII safe-ID rule and JavaScript stri
 The trusted `campus-props-atlas` entry points to the original project atlas and records its provenance in `docs/assets/PIXEL_ART.md` and `docs/design/generation-prompts.md`. It is catalog metadata; consumers still resolve assets from their trusted bundle. The sample room and sign are fictional and do not represent a mapped tenant room. Its supplied furniture coordinates remain independent of any campus map positions.
 
 `package-v1.json` is the valid default fixture. `fixtures/invalid/` contains representative rejected package files. Run the contract tests from the repository root with `node --test content/community/v1/test/*.test.js`.
+
+`acceptance.json` lists all valid examples and invalid fixtures for independent consumer comparison. The [combined content gate](../../../game/README.md) runs the Node suite and Godot contracts, requires complete reports and compares normalized values with v2 kept separate. Run `python3 scripts/check_community_content.py --godot godot` from the repository root; CI uses the same gate.

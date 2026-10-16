@@ -157,6 +157,6 @@ The user authorized A1 first, then A2, with testing, commit and push. Scope is c
 3. Demonstrate the gate rejects an intentionally incompatible consumer using an isolated synthetic fixture or checkout; never mutate production content to manufacture a passing run. Verify clean-checkout execution locally, then push and observe the hosted content job for the exact delivery commit. Record hosted failure honestly and fix within scope if needed.
 4. Finish with A1/A2 disposition, exact evidence and next remaining audit task. No new UI, learner, phone or mobile-game result is claimed.
 
-- [x] A1 reading journey reconciled and checked; delivery commit precedes A2 implementation.
-- [ ] A2 package/Godot checks and negative gate exercised.
+- [x] A1 reconciled, reviewed and committed as `c68c42e`; documentation gate passed before A2 implementation.
+- [x] A2 package/Godot checks and negative gate exercised in a temporary clean clone; complete parity passed, intentionally altered Godot normalization failed. See dated STATUS.
 - [ ] Clean-checkout and hosted delivery evidence recorded; commit/push complete.

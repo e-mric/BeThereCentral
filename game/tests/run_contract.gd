@@ -7,26 +7,49 @@ const Physics = preload("res://scripts/room_physics.gd")
 const ProgressState = preload("res://scripts/local_progress.gd")
 const AvatarArt = preload("res://scripts/avatar_art.gd")
 const GameMain = preload("res://scripts/main.gd")
-const TEST_PROGRESS_DIR := "user://contract_test_progress"
+var TEST_PROGRESS_DIR := ""
 
 func _initialize() -> void:
 	call_deferred("_run")
 
 func _run() -> void:
 	var root := ProjectSettings.globalize_path("res://..")
+	TEST_PROGRESS_DIR = OS.get_environment("BTC_CONTRACT_TEST_DIR")
+	if TEST_PROGRESS_DIR.is_empty() or not TEST_PROGRESS_DIR.is_absolute_path():
+		printerr("BTC_CONTRACT_TEST_DIR must be an absolute isolated directory.")
+		quit(1)
+		return
+	DirAccess.make_dir_recursive_absolute(TEST_PROGRESS_DIR)
 	var catalog_result := CatalogLoader.load_catalog()
 	if not catalog_result.ok:
 		printerr("Trusted catalog error: ", catalog_result.error)
 	_check(catalog_result.ok and catalog_result.props.size() == 24, "trusted catalog resolves 24 bundled props")
 	var fixtures := root.path_join("content/community/v1")
 	var v2_fixtures := root.path_join("content/community/v2")
+	var v1_acceptance: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(fixtures.path_join("acceptance.json")))
+	var v1_report := {"valid": [], "invalid": []}
+	for filename in v1_acceptance.valid:
+		var v1_valid := Validator.parse_file(fixtures.path_join(filename))
+		_check(v1_valid.ok, "v1 accepts " + filename + (" (" + v1_valid.error + ")" if not v1_valid.ok else ""))
+		if v1_valid.ok:
+			v1_report.valid.append({"name": filename, "package": v1_valid.value})
+	for filename in v1_acceptance.invalid:
+		var v1_invalid := Validator.parse_file(fixtures.path_join("fixtures/invalid").path_join(filename))
+		_check(not v1_invalid.ok, "v1 rejects " + filename)
+		if not v1_invalid.ok:
+			v1_report.invalid.append(filename)
 	var acceptance: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(v2_fixtures.path_join("acceptance.json")))
+	var v2_report := {"valid": [], "invalid": []}
 	for filename in acceptance.valid:
 		var v2_valid := V2Validator.parse_file(v2_fixtures.path_join(filename), catalog_result.catalog)
 		_check(v2_valid.ok, "v2 accepts " + filename + (" (" + v2_valid.error + ")" if not v2_valid.ok else ""))
+		if v2_valid.ok:
+			v2_report.valid.append({"name": filename, "package": v2_valid.value})
 	for filename in acceptance.invalid:
 		var v2_invalid := V2Validator.parse_file(v2_fixtures.path_join("fixtures/invalid").path_join(filename), catalog_result.catalog)
 		_check(not v2_invalid.ok, "v2 rejects " + filename)
+		if not v2_invalid.ok:
+			v2_report.invalid.append(filename)
 	var v2_good := V2Validator.parse_file(v2_fixtures.path_join("package-play-learn-v2.json"), catalog_result.catalog)
 	var live_game := GameMain.new()
 	live_game.progress.save_directory = TEST_PROGRESS_DIR.path_join("scene-smoke")
@@ -217,7 +240,7 @@ func _run() -> void:
 	_check(live_game.avatar_position == position_before_dialog and not live_game.walking, "file dialog suppresses movement and game input")
 	live_game.file_dialog.hide()
 	var preserved_package: Dictionary = live_game.current_package.duplicate(true)
-	var malformed_path := "user://malformed-version-room.json"
+	var malformed_path := TEST_PROGRESS_DIR.path_join("malformed-version-room.json")
 	for bad_version in ["[]", "{}"]:
 		var malformed_file := FileAccess.open(malformed_path, FileAccess.WRITE)
 		malformed_file.store_string("{\"packageVersion\":%s}" % bad_version)
@@ -360,7 +383,7 @@ func _run() -> void:
 	value.room.companyName = "😀".repeat(30)
 	_check(Validator.validate(value).ok, "60 UTF-16 code units are accepted")
 	var oversized := " ".repeat(65_537)
-	var temp_path := "user://oversized-package-test.json"
+	var temp_path := TEST_PROGRESS_DIR.path_join("oversized-package-test.json")
 	var file := FileAccess.open(temp_path, FileAccess.WRITE)
 	file.store_string(oversized)
 	file.close()
@@ -368,6 +391,7 @@ func _run() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(temp_path))
 	if failures == 0:
 		print("Godot contract checks passed (%d assertions)." % assertions)
+		print("BTC_CONTRACT_REPORT:" + JSON.stringify({"valid": v1_report.valid, "invalid": v1_report.invalid, "v2": v2_report}, "", false, true))
 	else:
 		printerr("Godot contract checks failed: ", failures)
 	quit(0 if failures == 0 else 1)

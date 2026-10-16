@@ -570,3 +570,20 @@ Reconciled the README, PRD, glossary, backlog, community/technical/workshop/sour
 Actual checks: `python3 scripts/check_knowledge.py` passed; `git diff --check` passed; a one-off scan of changed Markdown file targets and 20 heading links passed. Astra's final reading review passed after correcting v2/progress wording and the historical/current mixed-pose gait description. Delivery commits referenced in the documents were verified against local Git history. The executor's earlier `check_docs.py HEAD` examined only the committed comparison, so it was not used as proof for the working-tree edits; the parent runs the final documentation gate against `HEAD^` after committing A1.
 
 A1 precedes A2 implementation. A2's content/Godot CI gate is still pending at this boundary. No browser, emulator, phone, iOS or Godot runtime was launched for A1. Unrelated screenshots remain unstaged.
+
+## A2 independent content CI gate — 16 October 2026
+
+After A1 commit `c68c42e`, added one shared command for standalone v1/v2 Node suites, trusted asset synchronization, official Godot 4.7.2 project import and headless contracts. Reports independently identify every accepted/rejected fixture and each normalized accepted package; the gate compares complete membership and JSON values. Test progress and generated test files use a temporary directory, separate from ordinary player progress. The new hosted job verifies the official Linux archive's pinned SHA-256 before running the same gate.
+
+Actual local checks so far:
+
+- `python3 -m unittest discover -s scripts/tests -p 'test_check_community_content.py' -v`: **7 passed**, independently repeated by the parent. Cases cover fixture omissions/duplicates, changed normalized content, JSON comparison semantics, incomplete reports/completion markers and real zero-exit subprocesses emitting script/parse/engine errors.
+- `python3 scripts/check_community_content.py --godot <official-Godot-executable>`: **passed** in the working checkout (bounded executor), with v1 **1 valid / 6 invalid** and v2 **9 valid / 18 invalid**. Local engine reports `4.7.2.stable.official.ed1daf0bf`; Node is 24.20.0. No paid API or application dependency installation was required.
+- CI YAML parsed and its installer passed `bash -n`. The Linux archive URL and SHA-256 were checked against the official Godot GitHub release metadata. This is installer source validation, not a local Linux run.
+- Astra's targeted source review and checker regressions found no blocking defect. Fresh-checkout, real incompatible-consumer and hosted exact-commit checks remain pending at this commit boundary.
+
+This is contract/runtime evidence only. No rendered browser, game, emulator, phone, iOS or learner check is newly claimed. A3–A8 stay out of scope. Seven pre-existing untracked iOS screenshots remain untouched.
+
+Parent delivery checks: knowledge structure/local links passed; all 181 file targets in the changed Markdown resolved; added staged lines passed the privacy scan; staged whitespace and `python3 scripts/check_docs.py HEAD^` passed.
+
+Fresh-checkout proof: the parent created a temporary local clone of candidate `8f4e341ef4df0be8f83f6816cf9532d20628499f`, with no copied ignored project cache or untracked assets, and ran the documented content gate using the official local Godot executable. It exited **0**, reporting v1 **1 valid / 6 invalid**, v2 **9 valid / 18 invalid**. In that isolated clone only, the parent changed one normalized v1 company name in Godot's report adapter and reran the full gate. It exited **1** with `v1 normalized package differs between Node and Godot: package-v1.json`. This proves actual cross-process mismatch rejection, alongside the focused malformed/missing-report regressions. The temporary clone was removed automatically; production fixtures were untouched. Subsequent local amendment adds only this documentation/plan evidence. Hosted execution remains pending until the pushed delivery is observed below.

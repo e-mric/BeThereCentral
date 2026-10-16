@@ -19,12 +19,16 @@ godot --path game -- --package=../content/community/v2/package-architect-v2.json
 
 The optional package argument loads a room at startup. The catalog argument opens the actual trusted prop gallery. The Ninon, Morgane and The Architect packages use approved names, no invented biographies, and trusted pixel presets. To choose a room while the game is open, use **Open room…**.
 
-Run the independent contract fixtures and Godot project parse/import check with:
+Run the complete independent-content gate from the repository root (Node 24, Python 3 and official Godot 4.7.2):
 
 ```sh
-godot --headless --path game --script res://tests/run_contract.gd
-godot --headless --path game --editor --quit
+python3 scripts/check_community_content.py --godot godot
+python3 -m unittest discover -s scripts/tests -p 'test_check_community_content.py' -v
 ```
+
+Use `--godot /path/to/Godot` or set `GODOT_BIN` when the executable is not on PATH. The gate runs both standalone Node package suites, verifies the trusted asset sync, imports the Godot project, runs its headless contract suite and compares accepted/rejected fixture membership plus normalized accepted packages in both formats. `content/community/v1/acceptance.json` and its v2 counterpart define the complete example corpus; arrays retain order and numeric JSON representations are compared semantically.
+
+The gate creates temporary test progress and logs, leaving ordinary player progress untouched. The underlying `run_contract.gd` script requires an absolute `BTC_CONTRACT_TEST_DIR` supplied by this wrapper; do not run it against ordinary player storage. Engine script/parse errors, incomplete output, fixture omissions and consumer disagreement fail the gate even if a child process exits zero. The hosted `community-content` job runs this same command on a clean checkout using a checksum-pinned official Linux build. These checks establish contract/runtime conformance, not visible gameplay or mobile support.
 
 The trusted catalog artwork, original character-parts definition, and five trusted direction atlases are copied reproducibly from the repository community asset collection with `node game/tools/sync_catalog_assets.mjs`; their provenance and license details are recorded in [`ASSET_LICENSE.md`](ASSET_LICENSE.md). Prop crops use the shared atlas coordinates. Both manual characters and trusted presets render to 64 × 96 pixels, display at 32 × 48 world size, and use nearest-neighbor filtering.
 

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a checksum-pinned Godot 4.7.2 CI job for both community package suites, trusted asset synchronization, project import and headless contracts. Compare complete independent v1/v2 acceptance and normalized-value reports; reject incomplete runs and zero-exit engine errors. Isolate contract progress/logs from player storage and add focused negative-gate regressions.
+
 - Reconcile current requirements, glossary and roadmap with the delivered v2 Studio/Godot and Android offline workshop. Mark superseded feedback holds, link delivery commits and dated evidence, and keep native invalid-import, accessibility, final animation and learner acceptance open.
 
 - Audit the project against the best-practices workflow and extend the existing plan with eight evidence-backed follow-ups: canonical status reconciliation, missing package/Godot CI coverage, ID-based character roles, reliable progress-write feedback, recoverable draft loading, targeted interaction/accessibility evidence, reproducible setup and learner evaluation. Record the verified hosted run separately from local and visual evidence; no product behavior changed in this audit.

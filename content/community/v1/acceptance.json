@@ -1,0 +1,13 @@
+{
+  "valid": [
+    "package-v1.json"
+  ],
+  "invalid": [
+    "duplicate-id.json",
+    "extra-field.json",
+    "too-many-objects.json",
+    "unknown-feature.json",
+    "unsafe-asset-path.json",
+    "unsupported-room-version.json"
+  ]
+}
