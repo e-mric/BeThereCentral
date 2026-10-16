@@ -4,6 +4,8 @@ Start with the [README](README.md), [PRD](docs/PRD.md) and [backlog](docs/BACKLO
 
 ## Workflow
 
+For multi-step tasks, use the [plan template](PLANS.md) and [agent workflow](docs/agents/WORKFLOW.md). For prior evidence or reference ingestion, start at the [knowledge index](docs/knowledge/index.md); keep requirements in their canonical documents. Knowledge changes run `python3 scripts/check_knowledge.py` and its fixture suite described in [maintenance](docs/knowledge/README.md).
+
 1. Describe the user problem and expected behavior in an issue or local backlog entry. For experiments, name the assumption and evidence that would change our decision.
 2. Make a small change on a branch. Keep domain behavior free of Compose and transport details; place code under its feature.
 3. Add/update behavior tests in the matching feature package under `commonTest`, or `server/tests/sharing` for the reference server. Check invalid input, empty states and privacy boundaries. Avoid implementation snapshots and mock-heavy tests.
@@ -19,4 +21,4 @@ Use stable IDs across maps, graph routes, QR checkpoints and future 3D. Favor sm
 
 ## Public collaboration
 
-Be respectful, specific and constructive. Report security issues without posting live credentials or real people's positions. Before enabling GitHub publishing, configure an actual remote and maintainer contact. Contributions are under the repository's MIT license; vendored skills keep their upstream notices.
+Be respectful, specific and constructive. Report security issues without posting live credentials or real people's positions. The configured source repository is linked in the README; external issue/comment publishing needs the user’s authorization. Contributions are under the repository's MIT license; vendored skills keep their upstream notices.

@@ -134,6 +134,8 @@ Every behavior change updates its feature tests, affected docs and [changelog](C
 
 ## Contribute
 
+For task context and handoffs, use the [workflow](docs/agents/WORKFLOW.md) and [plan template](PLANS.md). The [knowledge index](docs/knowledge/index.md) links current delivery, source provenance and canonical evidence; its offline checker needs no account or private source files.
+
 Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the [backlog](docs/BACKLOG.md). The source repository is [e-mric/BeThereCentral](https://github.com/e-mric/BeThereCentral). GitHub Issues are the intended public tracker; the local backlog remains the working roadmap. This is not an app-store release.
 
 The repository uses Astra for planning/review, Sol for integration and Luna for bounded implementation, as [AGENTS.md](AGENTS.md) describes. These are development roles, not app features. Human contributors can build and modify the app without an AI subscription. Selected vendored Matt Pocock skills have [provenance](docs/agents/SKILLS.md).

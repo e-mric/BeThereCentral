@@ -526,3 +526,22 @@ Actual Android emulator (`emulator-5554`) installed and cold-launched the final 
 Physical Samsung SM_F971B: serial-targeted `adb install -r` returned **Success**; MainActivity launch returned **Status: ok / COLD**. The app process remained running; PID-filtered AndroidRuntime logs had no crash output. The user opened Studio unfolded and replied **“Yes, it looks right.”** This is human visual confirmation, separate from emulator/browser screenshots. No physical-phone screenshots, UI dumps, gesture automation or inspection services were used. Existing saved phone work was not cleared. No Godot mobile release, full five-floor map/Experimental journey rerun, iOS, screen-reader or hosted-CI pass is claimed.
 
 Workshop delivery hygiene: the initial staged whitespace check found an extra trailing blank line in the generation notes; it was removed. The final staged whitespace check and `scripts/check_docs.py HEAD^` passed. Generated runtime/APK output and unrelated iOS simulator screenshots remain unstaged.
+
+## Project knowledge and agent workflow — 16 October 2026
+
+Documentation/tooling slice only: added the task-plan template, conditional workflow guidance, indexed knowledge/provenance records and a project-authored maintenance skill. Applied the official guide and user-supplied LLM Wiki as references, preserving the PRD/backlog/glossary/ADRs as canonical. Corrected superseded architecture statements about community implementation, source partitions and the Experimental mobile viewer from existing evidence. No application behavior or account configuration changed.
+
+Commands actually run from the repository root (the local bundled Python 3.12 executable was used for the Python checks):
+
+- `python3 -m unittest discover -s scripts/tests -p 'test_check_knowledge.py' -v`: **18 passed**. Fixtures cover clean checkout metadata without a private attachment, broken and escaping links, missing/duplicate index entries, metadata/dates/IDs, malformed/credentialed URLs, absolute paths, symlink containment, optional attachment digest mismatch, CLI exit status and non-mutation.
+- `python3 scripts/check_knowledge.py`: **passed**, using only committed-intended notes/metadata, without private raw input or network requests.
+- `python3 scripts/check_knowledge.py --raw-source llm-wiki-pattern=.scratch/knowledge/raw/llm-wiki.md`: **passed**. The copied attachment matched its recorded SHA-256; `git check-ignore .scratch/knowledge/raw/llm-wiki.md` confirmed it is ignored. Its full text and personal Downloads path are not committed.
+- Skill Creator's `quick_validate.py .agents/skills/project-knowledge`: **passed**. The initial attempt failed because the local runtime lacked PyYAML; installed pinned PyYAML 6.0.2 only under ignored `.scratch/knowledge/validation-deps`, then reran the validator with that local `PYTHONPATH`. No application/checker dependency was added.
+- A one-off local check resolved inline links in the new plan/workflow/skill pointers and changed architecture/contributor guidance; parsed the CI YAML and checked the knowledge job's fixture and repository commands: **passed**.
+- `git diff --check`: **passed**.
+
+Astra's reader exercise passed: AGENTS → index → delivery snapshot leads to phone Studio capabilities, canonical requirements, dated browser/emulator/physical-phone evidence and relevant Studio/Android checks. Review found an escaping registry symlink could be read; containment is now checked before reading, with synthetic regression fixtures. Parent review also removed a caller-controlled metadata-validation bypass. Neither review used private source material. Structural validity does not establish factual freshness, source rights, external link availability or platform behavior.
+
+A dedicated knowledge CI job was added; hosted execution is not claimed. Existing app jobs still run under their existing triggers. No app, browser, emulator, iOS or physical-phone checks were rerun for this documentation/tooling slice; prior dated results remain separate.
+
+Delivery checks: `git diff --cached --check` passed. An initial full-file privacy scan matched historical text in STATUS; scanning the added staged lines found no credential patterns or personal filesystem paths. `python3 scripts/check_docs.py HEAD^` passed for this delivery commit. Astra confirmed the containment and metadata fixes; no remaining blocker in the targeted review.

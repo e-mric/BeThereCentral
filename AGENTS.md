@@ -22,6 +22,8 @@ For interface work, also read `docs/EXPERIENCE.md`. Review the complete demonstr
 
 Use Astra (`gpt-6-astra`) for planning and review, Sol (`gpt-6-sol`) for orchestration, and Luna (`gpt-6-luna`) for bounded execution tasks. Delegate with explicit file ownership and acceptance tests. Parent reviews and integrates. If these models are unavailable, disclose the fallback. Keep model names out of application behavior.
 
+For multi-step work or handoffs, use `PLANS.md` and `docs/agents/WORKFLOW.md` to record outcome, constraints, checks and next steps. When ingesting references, answering delivery-status questions or checking accumulated notes, start at `docs/knowledge/index.md` and read `.agents/skills/project-knowledge/SKILL.md`. Canonical product documents remain authoritative.
+
 ## Agent skills
 
 Selected Matt Pocock skills are vendored under `.agents/skills/`; provenance is in `docs/agents/SKILLS.md`. Read a skill before using it. The repository's explicit requirements and user instructions take precedence over skill defaults. Existing authorization to implement features with tests and maintain docs covers routine interfaces, test locations and document edits; avoid redundant approval gates.

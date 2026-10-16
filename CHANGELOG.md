@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a concise task-plan/workflow guide and a source-linked project knowledge index with a local maintenance skill. Validate provenance, index coverage and local links offline with fixture tests and a dedicated CI job; private source attachments remain outside Git. Correct superseded architecture statements using existing delivery evidence.
+
 - Redesign Community Studio as the approved pixel workshop: compact cream header, charcoal canvas, orange selection controls and a categorized furniture shelf. Keep precise/text-based editing, explicit local Save/Load and checked file handling; add undoable bounded duplication. People and Activity have dedicated working surfaces.
 
 - Bundle Community Studio inside Android for a phone-only offline demo, with native Back, explicit local Save/Load and user-selected JSON import/export. Preserve the open editor across fold/size/density changes, stack narrow-screen inspector panels, and verify production assets in the APK (including SvelteKit’s `_app` directory). Godot gameplay remains separate.

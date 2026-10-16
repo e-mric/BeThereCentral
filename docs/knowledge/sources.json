@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "openai-codex-best-practices",
+      "title": "Codex best practices",
+      "kind": "web",
+      "url": "https://learn.chatgpt.com/guides/best-practices",
+      "recorded": "2026-10-16",
+      "reviewed": "2026-10-16",
+      "note": "sources/openai-best-practices.md",
+      "scope": "Repository task context, workflow and reusable agent guidance",
+      "limitations": "General guidance, not evidence of implemented product behavior"
+    },
+    {
+      "id": "llm-wiki-pattern",
+      "title": "LLM Wiki",
+      "kind": "attachment",
+      "file_name": "llm-wiki.md",
+      "sha256": "dc3efe98ae62f23dd08acad13aba2e95287beb20b6bec2f4af0423557fe37401",
+      "recorded": "2026-10-16",
+      "reviewed": "2026-10-16",
+      "note": "sources/llm-wiki.md",
+      "scope": "Source-linked knowledge maintenance pattern",
+      "limitations": "User-supplied idea; author, original publication and license unknown; full text stays private"
+    }
+  ]
+}

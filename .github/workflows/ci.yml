@@ -8,6 +8,15 @@ permissions:
   contents: read
 
 jobs:
+  knowledge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_check_knowledge.py' -v
+      - run: python3 scripts/check_knowledge.py
   room-studio:
     runs-on: ubuntu-latest
     steps:
