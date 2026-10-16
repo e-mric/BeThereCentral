@@ -2,6 +2,8 @@
 
 Reviewed 16 October 2026. This is a retrieval aid, not a replacement for the [PRD](../PRD.md) or [backlog](../BACKLOG.md). The [README](../../README.md) provides run instructions; [workflow](../agents/WORKFLOW.md) routes contributors to checks. Platform evidence is dated in [STATUS](../testing/STATUS.md).
 
+The [16 October project audit](../plans/PROJECT_KNOWLEDGE.md#project-wide-best-practices-audit--16-october-2026) found stale scope and verification wording in linked canonical plans. A1 tracks their reconciliation against dated implementation evidence; the observations below describe the delivered boundary, not completion of every stage acceptance criterion.
+
 | Area | Current boundary | Evidence to read |
 | --- | --- | --- |
 | Plan World | Compose app with five modular floors, source-derived outlines, partition traces and company anchors. Decorative furniture is fictional; pixels are not surveyed entrances or routes. | [ADR 0006](../adr/0006-plan-derived-pixel-world.md), [source-line audit](../assets/SOURCE_LINEWORK_AUDIT.md) |

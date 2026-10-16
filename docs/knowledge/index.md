@@ -15,4 +15,4 @@ Use this index for orientation and evidence retrieval. Source notes are referenc
 - [PRD](../PRD.md), [backlog](../BACKLOG.md) and [glossary](../../GLOSSARY.md) — requirements, scope and terms.
 - [Architecture](../ARCHITECTURE.md), [Plan World decision](../adr/0006-plan-derived-pixel-world.md) and [game/Studio decision](../adr/0008-godot-game-sveltekit-studio.md).
 - [Verification status](../testing/STATUS.md), [experience standards](../EXPERIENCE.md) and [demo journey](../DEMO.md).
-- [Agent workflow](../agents/WORKFLOW.md), [task-plan template](../../PLANS.md) and [this implementation plan](../plans/PROJECT_KNOWLEDGE.md).
+- [Agent workflow](../agents/WORKFLOW.md), [task-plan template](../../PLANS.md) and [workflow delivery and project audit plan](../plans/PROJECT_KNOWLEDGE.md).

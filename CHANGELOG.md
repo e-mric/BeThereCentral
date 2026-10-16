@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Audit the project against the best-practices workflow and extend the existing plan with eight evidence-backed follow-ups: canonical status reconciliation, missing package/Godot CI coverage, ID-based character roles, reliable progress-write feedback, recoverable draft loading, targeted interaction/accessibility evidence, reproducible setup and learner evaluation. Record the verified hosted run separately from local and visual evidence; no product behavior changed in this audit.
+
 - Add a concise task-plan/workflow guide and a source-linked project knowledge index with a local maintenance skill. Validate provenance, index coverage and local links offline with fixture tests and a dedicated CI job; private source attachments remain outside Git. Correct superseded architecture statements using existing delivery evidence.
 
 - Redesign Community Studio as the approved pixel workshop: compact cream header, charcoal canvas, orange selection controls and a categorized furniture shelf. Keep precise/text-based editing, explicit local Save/Load and checked file handling; add undoable bounded duplication. People and Activity have dedicated working surfaces.

@@ -2,6 +2,12 @@
 
 This local roadmap tracks [e-mric/BeThereCentral](https://github.com/e-mric/BeThereCentral). GitHub Issues are the intended public tracker; publishing requires user authorization.
 
+## Best-practices audit follow-up — 16 October 2026
+
+The [project-wide audit and prioritized plan](plans/PROJECT_KNOWLEDGE.md#project-wide-best-practices-audit--16-october-2026) records evidence, ownership and completion criteria for A1–A8. Start with canonical scope/status reconciliation and missing package/Godot CI coverage, then ID-based Studio roles and durable progress-write feedback. Later slices cover recoverable draft loading, specific interaction/accessibility checks, clean-checkout setup and learner outcomes. These are open tasks, not implemented fixes. Some older status entries below need the A1 reconciliation; do not treat already evidenced browser import as unfinished.
+
+The inspected [Verify run](https://github.com/e-mric/BeThereCentral/actions/runs/38886767636) passed all five configured jobs for `68476e5`. It omits Godot and standalone package checks; it does not prove visible UI behavior.
+
 ## Community game and Studio implementation
 
 The user explicitly resumed Stage 1 on 12 October, beginning with the fictional `rooms-v1` contract and SvelteKit/Godot consumers. No resident feedback has been collected; it may shape later scope but is not a gate for this bounded work. The [community game plan](plans/COMMUNITY_GAME.md), [technical plan](plans/GODOT_SVELTEKIT.md) and [ADR 0008](adr/0008-godot-game-sveltekit-studio.md) record the active slice and acceptance checks. The existing Compose map, experimental 3D sample and Vite/PixiJS Room Studio remain separate. Do not imply Godot mobile support, real tenant content or a production publishing service.

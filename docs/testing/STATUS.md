@@ -545,3 +545,20 @@ Astra's reader exercise passed: AGENTS → index → delivery snapshot leads to 
 A dedicated knowledge CI job was added; hosted execution is not claimed. Existing app jobs still run under their existing triggers. No app, browser, emulator, iOS or physical-phone checks were rerun for this documentation/tooling slice; prior dated results remain separate.
 
 Delivery checks: `git diff --cached --check` passed. An initial full-file privacy scan matched historical text in STATUS; scanning the added staged lines found no credential patterns or personal filesystem paths. `python3 scripts/check_docs.py HEAD^` passed for this delivery commit. Astra confirmed the containment and metadata fixes; no remaining blocker in the targeted review.
+
+## Project-wide best-practices audit — 16 October 2026
+
+Audited product baseline: `68476e5a9eae214af4e9a4f8c336f604775f51d5`. Astra independently reviewed canonical documentation and representative code boundaries; Luna inventoried CI/component checks. The parent verified and integrated findings into A1–A8 in [the existing plan](../plans/PROJECT_KNOWLEDGE.md). This is source/evidence review, not an exhaustive security audit or a fresh app walkthrough. Existing seven untracked iOS screenshots were untouched.
+
+Actual audit checks:
+
+- `python3 -m unittest discover -s scripts/tests -p 'test_check_knowledge.py' -v`: **18 passed**, run by the check-inventory executor. `python3 scripts/check_knowledge.py` also passed at the audited baseline. Semantic review nevertheless found stale canonical scope/verification statements; structural validity cannot establish factual consistency.
+- `gh run list --limit 6` with JSON fields, then `gh run view 38886767636 --json jobs` (executor) and `gh run view 38886767636 --json url,headSha,conclusion,updatedAt,jobs` (parent): the [exact-baseline Verify run](https://github.com/e-mric/BeThereCentral/actions/runs/38886767636) completed **success**, updated `2026-10-16T10:27:52Z`. All five configured jobs passed: room-studio, knowledge, ios-framework, exploration, shared-and-android. This newly observed result supersedes earlier “not observed” wording only for this commit/run. It does not cover Godot, standalone package suites or visual behavior.
+- Read-only Node `--input-type=module` probe imported `validatePackage` from `content/community/v2/index.js`, loaded `package-founders-v2.json` in memory and reversed `characters`. Validation **accepted** it; first character `guide`, player ID `player`, guide ID `guide`. Inspection of Studio `+page.svelte:359` confirmed the displayed roles still use array position. No fixture file was written.
+- Source inspection found saved-draft Load clears current histories (`+page.svelte:116`), and Godot `_save()` ignores storage results while Reset always claims device persistence (`local_progress.gd:151`, `main.gd:784`). No actual disk failure or user data-loss incident was reproduced. A4/A5 specify focused failure/recovery tests for future implementation.
+
+The audit reread the official best-practices HTML guide; the plain URL initially yielded navigation-heavy content, the translation-fallback URL exposed the guide, and its advertised Markdown variant returned 404. No account settings or private sources were inspected. No product code, CI configuration, browser, emulator, phone, Godot runtime or reference server was changed/run by this audit. Remaining interaction, accessibility and learner outcomes stay explicitly unverified.
+
+Documentation verification after the audit updates: `python3 scripts/check_knowledge.py` passed; `git diff --check` passed; a one-off local-link scan of the audit plan and backlog found no missing file targets. Heading anchors and external page availability are not covered by that scanner.
+
+Final review found no substantive blocker; baseline line-reference wording was made explicit. Added staged lines passed the privacy scan, `git diff --cached --check` passed, and `python3 scripts/check_docs.py HEAD^` passed for the audit delivery.
