@@ -32,3 +32,8 @@ Append entries below; preserve previous records. Dates identify actual maintenan
 
 - After A1 commit `c68c42e`, added the independent v1/v2 package and Godot content gate with full shared-corpus reports, normalized-value comparison and isolated test storage. CI pins the official engine/archive digest.
 - Source review and seven negative/semantic regression checks pass; fresh-checkout and hosted evidence will be recorded in STATUS before A2 is marked complete. A3–A8 remain separate tasks.
+
+## 2026-10-16 · A2 verification and handoff
+
+- Parent clean-clone execution passed the full content gate; changing only one Godot normalized value in that clone made the gate fail as expected. Production fixtures and player progress were untouched.
+- Pushed A1 `c68c42e` and A2 `bb80231`; the [exact-commit hosted content job](https://github.com/e-mric/BeThereCentral/actions/runs/38902652586/job/116978412553) passed. Updated the plan, backlog and delivery snapshot to close A2 and leave A3–A8 open. This supplies contract/runtime evidence, with no new visual or mobile gameplay claim.

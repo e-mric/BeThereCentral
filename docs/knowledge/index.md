@@ -4,7 +4,7 @@ Use this index for orientation and evidence retrieval. Source notes are referenc
 
 ## Maintained pages
 
-- [Current delivery and open boundaries](current-delivery.md) — dated map, Studio and game overview with links to verification.
+- [Current delivery and open boundaries](current-delivery.md) — dated map, Studio and game overview with links to platform verification and A1/A2 delivery evidence.
 - [Knowledge schema and maintenance](README.md) — source records, ingest/query/lint and offline checks.
 - [Maintenance log](log.md) — actual changes and unresolved findings.
 - [OpenAI best-practices reference](sources/openai-best-practices.md) — development workflow guidance checked 16 October 2026.

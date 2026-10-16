@@ -2,7 +2,7 @@
 
 Reviewed 16 October 2026. This is a retrieval aid, not a replacement for the [PRD](../PRD.md) or [backlog](../BACKLOG.md). The [README](../../README.md) provides run instructions; [workflow](../agents/WORKFLOW.md) routes contributors to checks. Platform evidence is dated in [STATUS](../testing/STATUS.md).
 
-A1 of the [16 October audit plan](../plans/PROJECT_KNOWLEDGE.md#a1--p1--reconcile-current-scope-and-close-old-handoffs) reconciles current scope, historical holds and dated evidence across the canonical documents. The boundaries below describe delivered capability, not completion of every stage acceptance criterion. A2, the package/Godot CI gate, is the next authorized task.
+A1 of the [16 October audit plan](../plans/PROJECT_KNOWLEDGE.md#a1--p1--reconcile-current-scope-and-close-old-handoffs) reconciles current scope, historical holds and dated evidence across the canonical documents. The boundaries below describe delivered capability, not completion of every stage acceptance criterion. A2 is also delivered: the package/Godot CI gate passed for `bb80231` on a fresh hosted checkout, with a separate isolated mismatch rejection. See [A2 evidence](../testing/STATUS.md#a2-independent-content-ci-gate--16-october-2026). A3–A8 remain open.
 
 | Area | Current boundary | Evidence to read |
 | --- | --- | --- |

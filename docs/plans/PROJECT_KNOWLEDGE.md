@@ -86,7 +86,9 @@ Priorities express impact on reliable development: **P1** before relying on the 
 
 **Action and ownership:** bounded executor owns CI/test orchestration and any necessary asset-sync checks; parent reviews. Use the project's pinned Godot version and trusted asset sync, run v1/v2 Node suites plus Godot headless contracts/import, and compare shared accepted/rejected cases and normalized data across consumers. Do not replace validation with two unrelated green builds.
 
-- [ ] **Done when:** a fresh hosted checkout runs those checks; a deliberately incompatible consumer fails the gate; a clean run links to the exact commit. Document any parity limit explicitly. No new mobile/runtime claim follows from CI.
+- [x] **Done when:** a fresh hosted checkout runs those checks; a deliberately incompatible consumer fails the gate; a clean run links to the exact commit. Document any parity limit explicitly. No new mobile/runtime claim follows from CI.
+
+**Resolution — 16 October:** delivered as `bb80231`. The temporary clean clone passed both formats; a deliberately altered Godot normalized value failed the full gate. The [exact-commit hosted content job](https://github.com/e-mric/BeThereCentral/actions/runs/38902652586/job/116978412553) passed on a fresh Ubuntu checkout. Parity covers the complete pinned fixture corpus, not every possible package or visual behavior; [STATUS](../testing/STATUS.md#a2-independent-content-ci-gate--16-october-2026) records commands and review.
 
 #### A3 · P1 · Derive Studio character roles from IDs
 
@@ -144,7 +146,7 @@ Reviewed factual community introductions, content owners and withdrawal/rollback
 
 ### Next task and handoff
 
-**Current execution:** A1 is reconciled and checked; A2, the missing CI consumer checks, follows after the A1 commit. A3/A4 then address source-observed behavior risks; A5–A8 are independently bounded follow-ups. Optional settings, extra connectors, new skills and schedules have no required task in this audit.
+**Current execution:** A1 and A2 are delivered, checked and pushed; A2 has exact-commit hosted content evidence. A3 (ID-based Studio roles) is the next open task; A4 addresses progress-write feedback; A5–A8 are independently bounded follow-ups. Optional settings, extra connectors, new skills and schedules have no required task in this audit.
 
 The audited product baseline is `68476e5`; the audit delivery is a documentation-only commit after it. Seven pre-existing untracked iOS screenshots are unrelated and remain untouched. Find actual audit commands/outcomes in [STATUS](../testing/STATUS.md). No production defect above is fixed by writing this plan, and no missing platform/learner evidence is marked complete.
 
@@ -159,4 +161,4 @@ The user authorized A1 first, then A2, with testing, commit and push. Scope is c
 
 - [x] A1 reconciled, reviewed and committed as `c68c42e`; documentation gate passed before A2 implementation.
 - [x] A2 package/Godot checks and negative gate exercised in a temporary clean clone; complete parity passed, intentionally altered Godot normalization failed. See dated STATUS.
-- [ ] Clean-checkout and hosted delivery evidence recorded; commit/push complete.
+- [x] Clean-checkout and hosted content delivery evidence recorded; A1 `c68c42e` and A2 `bb80231` committed and pushed. [Hosted A2 content job](https://github.com/e-mric/BeThereCentral/actions/runs/38902652586/job/116978412553) passed; other platform results are recorded separately in STATUS.
