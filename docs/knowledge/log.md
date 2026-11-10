@@ -37,3 +37,9 @@ Append entries below; preserve previous records. Dates identify actual maintenan
 
 - Parent clean-clone execution passed the full content gate; changing only one Godot normalized value in that clone made the gate fail as expected. Production fixtures and player progress were untouched.
 - Pushed A1 `c68c42e` and A2 `bb80231`; the [exact-commit hosted content job](https://github.com/e-mric/BeThereCentral/actions/runs/38902652586/job/116978412553) passed. Updated the plan, backlog and delivery snapshot to close A2 and leave A3–A8 open. This supplies contract/runtime evidence, with no new visual or mobile gameplay claim.
+
+## 2026-10-17 · Workflow entry points and focused chats
+
+- Added the broad documentation index and moved the current delivery/handoff synthesis to project-state; retained the old delivery note as a compatibility pointer. Canonical PRD/backlog/ADRs and existing engineering guidance remain authoritative.
+- Updated startup/completion and concurrency guidance, supplied five category starter prompts and recorded plugin/local skill routing. Read-only inventory confirmed the requested marketplace and enabled plugin 1.3.1 already exist; no personal configuration, installation, upgrade or removal was needed.
+- Rechecked the official guide, added upstream Matt Pocock source provenance and corrected ADR 0008's stale next-A2 sentence to link current state. Re-observed exact-commit six-job CI success for 7b41140; documentation checks for this slice are recorded separately in STATUS. A3–A8 remain open, with no new product behavior, outreach or schedule.

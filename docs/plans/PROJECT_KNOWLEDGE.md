@@ -162,3 +162,24 @@ The user authorized A1 first, then A2, with testing, commit and push. Scope is c
 - [x] A1 reconciled, reviewed and committed as `c68c42e`; documentation gate passed before A2 implementation.
 - [x] A2 package/Godot checks and negative gate exercised in a temporary clean clone; complete parity passed, intentionally altered Godot normalization failed. See dated STATUS.
 - [x] Clean-checkout and hosted content delivery evidence recorded; A1 `c68c42e` and A2 `bb80231` committed and pushed. [Hosted A2 content job](https://github.com/e-mric/BeThereCentral/actions/runs/38902652586/job/116978412553) passed; other platform results are recorded separately in STATUS.
+
+## Workflow entry points and focused chats — 17 October 2026
+
+**Problem:** the existing workflow, source notes and A1/A2 checks are delivered, but a new chat has no single task index/current handoff or reusable category prompts. The user requested this setup explicitly. Preserve the existing product decisions and seven unrelated untracked screenshots.
+
+**Experiment and acceptance:** a fresh reader starts at AGENTS → docs/index → docs/project-state, finds the current product boundary, next open audit item, its acceptance criteria and relevant check command without loading every note. Each of the five starter prompts produces one scoped outcome and an actionable handoff. Source facts, accepted decisions and proposals remain distinguishable; no app behavior or new automation is introduced.
+
+1. Parent: inspect current files and hosted evidence; verify marketplace/plugin status before any installation. Re-read the official guide and upstream skills README; preserve private configuration and original sources.
+2. Parent: add the topic/task index and a single dated project-state synthesis. Retain the old delivery page as a pointer; reuse ARCHITECTURE and WORKFLOW rather than creating another engineering authority. Update concise AGENTS, contributor entry links and skill routing.
+3. Luna owns only `docs/agents/CHAT_STARTERS.md`: five complete prompts for scope, research, design, implementation and external testing; optional chat categories stay short. Astra plans/reviews; parent integrates. No new chats, messages to other chats, worktrees or schedules are created by this setup.
+4. Parent: record source provenance, current checks, remaining product gaps and handoff. Run documentation/knowledge checks and a reader review. Review the final diff for unrelated work/private data. No application test rerun is required for documentation-only changes.
+
+**Ownership and exclusions:** roadmap stays in BACKLOG; requirements stay in PRD; architecture in ARCHITECTURE/ADRs; methods in skills; source notes in knowledge; executed checks in STATUS. A3–A8 implementation, account configuration, plugin upgrades/removal, external publishing and product expansion are outside this slice. Install missing requested plugin components only if inventory shows they are absent.
+
+- [x] Inspect baseline, references and installed plugin; planning review.
+- [x] Implement entry pages, guidance, routing and five prompts.
+- [x] Check links/knowledge, review the fresh-reader journey and record handoff.
+
+The refresh was based on `main` at `7b41140`. The complete six-job hosted run for that commit succeeded; its result applies to that revision. Final commands, files and remaining steps are recorded in [STATUS](../testing/STATUS.md) and [project state](../project-state.md).
+
+**Outcome:** entry pages and five starters are implemented; 18 knowledge fixtures, structural/source checks, changed Markdown links/anchors, whitespace/privacy checks and the fresh-reader review passed. A clean committed-source export with this documentation overlay also passed the offline checker. A3 remains open. No app check was inferred from these results. See the project-state handoff for the next task.

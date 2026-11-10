@@ -4,7 +4,7 @@ Start with the [README](README.md), [PRD](docs/PRD.md) and [backlog](docs/BACKLO
 
 ## Workflow
 
-For multi-step tasks, use the [plan template](PLANS.md) and [agent workflow](docs/agents/WORKFLOW.md). For prior evidence or reference ingestion, start at the [knowledge index](docs/knowledge/index.md); keep requirements in their canonical documents. Knowledge changes run `python3 scripts/check_knowledge.py` and its fixture suite described in [maintenance](docs/knowledge/README.md).
+Start each task with [AGENTS](AGENTS.md), the [documentation index](docs/index.md) and [project state](docs/project-state.md). For multi-step tasks, use the [plan template](PLANS.md), [agent workflow](docs/agents/WORKFLOW.md) and [starter prompts](docs/agents/CHAT_STARTERS.md). For prior evidence or reference ingestion, start at the [knowledge index](docs/knowledge/index.md); keep requirements in their canonical documents. Knowledge changes run `python3 scripts/check_knowledge.py` and its fixture suite described in [maintenance](docs/knowledge/README.md).
 
 1. Describe the user problem and expected behavior in an issue or local backlog entry. For experiments, name the assumption and evidence that would change our decision.
 2. Make a small change on a branch. Keep domain behavior free of Compose and transport details; place code under its feature.

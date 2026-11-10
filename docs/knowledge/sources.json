@@ -7,7 +7,7 @@
       "kind": "web",
       "url": "https://learn.chatgpt.com/guides/best-practices",
       "recorded": "2026-10-16",
-      "reviewed": "2026-10-16",
+      "reviewed": "2026-10-17",
       "note": "sources/openai-best-practices.md",
       "scope": "Repository task context, workflow and reusable agent guidance",
       "limitations": "General guidance, not evidence of implemented product behavior"
@@ -23,6 +23,17 @@
       "note": "sources/llm-wiki.md",
       "scope": "Source-linked knowledge maintenance pattern",
       "limitations": "User-supplied idea; author, original publication and license unknown; full text stays private"
+    },
+    {
+      "id": "matt-pocock-skills",
+      "title": "Matt Pocock skills repository and installation guidance",
+      "kind": "web",
+      "url": "https://github.com/mattpocock/skills",
+      "recorded": "2026-10-17",
+      "reviewed": "2026-10-17",
+      "note": "sources/matt-pocock-skills.md",
+      "scope": "Selective engineering methods, installation inventory and plugin/project-local routing",
+      "limitations": "Moving upstream guidance; local plugin 1.3.1 and vendored snapshot are separate observed distributions; availability is session-specific"
     }
   ]
 }

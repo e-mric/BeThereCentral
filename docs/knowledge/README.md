@@ -1,6 +1,6 @@
 # Knowledge maintenance
 
-This small knowledge base helps contributors find evidence without rereading the full chat. Start at [the index](index.md). Requirements stay in [PRD](../PRD.md), working scope in [BACKLOG](../BACKLOG.md), terms in [GLOSSARY](../../GLOSSARY.md), decisions in [ADRs](../adr/0008-godot-game-sveltekit-studio.md), and executed checks in [STATUS](../testing/STATUS.md). A synthesis links those records; it must not become a competing specification.
+This small knowledge base helps contributors find evidence without rereading the full chat. Start tasks at the [documentation index](../index.md) and [project state](../project-state.md); use [the knowledge index](index.md) for reference retrieval. Requirements stay in [PRD](../PRD.md), working scope in [BACKLOG](../BACKLOG.md), terms in [GLOSSARY](../../GLOSSARY.md), decisions in [ADRs](../adr/0008-godot-game-sveltekit-studio.md), and executed checks in [STATUS](../testing/STATUS.md). A synthesis links those records; it must not become a competing specification. The current handoff lives only in project state; keep the legacy delivery note as a pointer. Reread shared pages before editing to preserve concurrent changes, and use Git for ordinary edit history.
 
 ## Source records
 
